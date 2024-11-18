@@ -1,4 +1,4 @@
-package app.financialmanagement;
+package csc335.app;
 
 import org.junit.jupiter.api.Test;
 
