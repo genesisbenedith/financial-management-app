@@ -1,0 +1,40 @@
+AS OF MONDAY, NOV 18TH
+
+.
+├── documentation
+│   └── file-structure.txt
+├── media
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── css
+│   │   │   └── login-register
+│   │   │       ├── login.css
+│   │   │       └── sidebar.css
+│   │   ├── fxml
+│   │   ├── images
+│   │   ├── java
+│   │   │   └── csc335
+│   │   │       └── app
+│   │   │           ├── App.java
+│   │   │           ├── controllers
+│   │   │           ├── models
+│   │   │           └── operations
+│   │   └── resources
+│   └── test
+│       └── java
+│           └── csc335
+│               └── app
+│                   └── AppTest.java
+└── target
+    ├── classes
+    │   └── csc335
+    │       └── app
+    │           ├── App.class
+    │           ├── controllers
+    │           ├── models
+    │           └── operations
+    └── test-classes
+        └── csc335
+            └── app
+                └── AppTest.class
