@@ -7,3 +7,4 @@ csc335-final-project,csc335.app.models,User,183,0,10,0,49,0,23,0,18,0
 csc335-final-project,csc335.app,App,35,0,0,0,11,0,3,0,3,0
 csc335-final-project,csc335.app,UserAuth,9,47,1,5,4,9,2,3,1,1
 csc335-final-project,csc335.app.controllers,AuthController,329,0,28,0,81,0,26,0,12,0
+csc335-final-project,csc335.app.controllers,ExpenseController,3,0,0,0,1,0,1,0,1,0

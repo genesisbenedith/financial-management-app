@@ -1,6 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import io.github.palexdev.mfxcomponents.controls.buttons.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/expense.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.ExpenseController" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../css/expense.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="720.0" prefWidth="200.0" styleClass="sidebar" stylesheets="@../css/expense.css" />
+      <StackPane layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0" styleClass="bckgrnd" stylesheets="@../css/expense.css">
+         <children>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="880.0" styleClass="hbox" stylesheets="@../css/expense.css" StackPane.alignment="TOP_RIGHT" />
+            <StackPane layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="880.0" styleClass="stackpane" stylesheets="@../css/expense.css" StackPane.alignment="BOTTOM_RIGHT">
+               <children>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="880.0" styleClass="background" stylesheets="@../css/expense.css" StackPane.alignment="TOP_LEFT">
+                     <children>
+                        <Pane layoutX="30.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="820.0" styleClass="headerpane" stylesheets="@../css/expense.css">
+                           <children>
+                              <Pane layoutX="113.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" styleClass="totalBudget" stylesheets="@../css/expense.css" />
+                              <Pane layoutX="476.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" styleClass="totalspent" stylesheets="@../css/expense.css" />
+                              <ProgressBar layoutX="25.0" layoutY="140.0" prefHeight="30.0" prefWidth="660.0" progress="0.0" />
+                              <MFXButton fx:id="clearButton" layoutX="710.0" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="85.0" text="Clear" textAlignment="JUSTIFY" textOverrun="CLIP" />
+                              <MFXDatePicker fx:id="dateFrom" layoutX="30.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" />
+                              <Pane fx:id="importFile" layoutX="400.0" layoutY="181.5" prefHeight="75.0" prefWidth="75.0" styleClass="totalspent" stylesheets="@../css/expense.css" />
+                              <Pane fx:id="addNewExpense" layoutX="505.0" layoutY="181.5" prefHeight="75.0" prefWidth="75.0" styleClass="totalspent" stylesheets="@../css/expense.css" />
+                              <Pane fx:id="editExpense" layoutX="610.0" layoutY="181.5" prefHeight="75.0" prefWidth="75.0" styleClass="totalspent" stylesheets="@../css/expense.css" />
+                              <Pane fx:id="removeExpense" layoutX="715.0" layoutY="181.5" prefHeight="75.0" prefWidth="75.0" styleClass="totalspent" stylesheets="@../css/expense.css" />
+                              <MFXDatePicker fx:id="dateTo" layoutX="230.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" />
+                              <Pane layoutX="185.0" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="30.0" styleClass="totalspent" stylesheets="@../css/expense.css" />
+                              <Label layoutX="192.0" layoutY="207.0" text="TO" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="10.0" layoutY="300.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="880.0" styleClass="background" stylesheets="@../css/expense.css" StackPane.alignment="BOTTOM_LEFT">
+                     <children>
+                        <MFXScrollPane hbarPolicy="NEVER" layoutX="30.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="820.0" styleClass="scrollpane" stylesheets="@../css/expense.css">
+                           <content>
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="820.0">
+                                 <children>
+                                    <HBox layoutX="25.0" layoutY="20.0" prefHeight="50.0" prefWidth="760.0" styleClass="totalspent" stylesheets="@../css/expense.css">
+                                       <children>
+                                          <Pane prefHeight="50.0" prefWidth="760.0" styleClass="totalspent" stylesheets="@../css/expense.css">
+                                             <children>
+                                                <Label layoutX="30.0" layoutY="7.0" text="date">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="200.0" layoutY="7.0" text="summary">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="425.0" layoutY="7.0" text="category">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="625.0" layoutY="7.0" text="\$ amount">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </HBox>
+                                    <Pane fx:id="expenseNode" layoutX="25.0" layoutY="90.0" prefHeight="50.0" prefWidth="760.0" styleClass="totalspent" stylesheets="@../css/expense.css">
+                                       <children>
+                                          <Label layoutX="30.0" layoutY="10.0" text="11-20-2024">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="200.0" layoutY="10.0" text="car insurance">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="450.0" layoutY="10.0" text="utilities">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="650.0" layoutY="10.0" text="\$ 50.00">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Pane>
+                           </content></MFXScrollPane>
+                     </children>
+                  </Pane>
+               </children>
+            </StackPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
