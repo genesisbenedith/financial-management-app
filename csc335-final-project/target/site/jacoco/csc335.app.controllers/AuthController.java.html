@@ -119,62 +119,63 @@ import csc335.app.UserAuth;
 <span class="nc" id="L119">        boolean isAuthenticated = UserAuth.authenticateUser(username, password);</span>
 <span class="nc bnc" id="L120" title="All 2 branches missed.">        if (isAuthenticated) {</span>
 <span class="nc" id="L121">            System.out.println(&quot;User authenticated successfully.&quot;);</span>
+<span class="nc" id="L122">            DashboardController.loadUserInformation(username);</span>
             // Load the dashboard view
-<span class="nc" id="L123">            loadContent(&quot;/views/Dashboard.fxml&quot;);</span>
+<span class="nc" id="L124">            loadContent(&quot;/views/DashboardView.fxml&quot;);</span>
         } else {
-<span class="nc" id="L125">            showErrorDialog(&quot;Authentication Failed&quot;, &quot;Invalid username or password.&quot;);</span>
+<span class="nc" id="L126">            showErrorDialog(&quot;Authentication Failed&quot;, &quot;Invalid username or password.&quot;);</span>
         }
-<span class="nc" id="L127">    }</span>
+<span class="nc" id="L128">    }</span>
 
     private void showErrorDialog(String title, String message) {
-<span class="nc" id="L130">        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);</span>
-<span class="nc" id="L131">        alert.setTitle(title);</span>
-<span class="nc" id="L132">        alert.setHeaderText(null);</span>
-<span class="nc" id="L133">        alert.setContentText(message);</span>
-<span class="nc" id="L134">        alert.showAndWait();</span>
-<span class="nc" id="L135">    }</span>
+<span class="nc" id="L131">        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);</span>
+<span class="nc" id="L132">        alert.setTitle(title);</span>
+<span class="nc" id="L133">        alert.setHeaderText(null);</span>
+<span class="nc" id="L134">        alert.setContentText(message);</span>
+<span class="nc" id="L135">        alert.showAndWait();</span>
+<span class="nc" id="L136">    }</span>
 
     /**
      * 
      * @return
      */
     private boolean validateFields() {
-<span class="nc" id="L142">        String email = emailField.getText().trim();</span>
-<span class="nc" id="L143">        String username = usernameField.getText().trim();</span>
-<span class="nc" id="L144">        String password = passwordField.getText().trim();</span>
-<span class="nc" id="L145">        String confirmPassword = confirmPasswordField.getText().trim();</span>
+<span class="nc" id="L143">        String email = emailField.getText().trim();</span>
+<span class="nc" id="L144">        String username = usernameField.getText().trim();</span>
+<span class="nc" id="L145">        String password = passwordField.getText().trim();</span>
+<span class="nc" id="L146">        String confirmPassword = confirmPasswordField.getText().trim();</span>
 
         // Check if any field is empty
-<span class="nc bnc" id="L148" title="All 8 branches missed.">        if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {</span>
-<span class="nc" id="L149">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;All fields are required.&quot;);</span>
-<span class="nc" id="L150">            return false;</span>
+<span class="nc bnc" id="L149" title="All 8 branches missed.">        if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {</span>
+<span class="nc" id="L150">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;All fields are required.&quot;);</span>
+<span class="nc" id="L151">            return false;</span>
         }
 
         // Validate email format
-<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (!isValidEmail(email)) {</span>
-<span class="nc" id="L155">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Please enter a valid email address.&quot;);</span>
-<span class="nc" id="L156">            return false;</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        if (!isValidEmail(email)) {</span>
+<span class="nc" id="L156">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Please enter a valid email address.&quot;);</span>
+<span class="nc" id="L157">            return false;</span>
         }
 
         // Check if email is already in use
-<span class="nc bnc" id="L160" title="All 2 branches missed.">        if (registeredEmails.contains(email)) {</span>
-<span class="nc" id="L161">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Email is already in use.&quot;);</span>
-<span class="nc" id="L162">            return false;</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (registeredEmails.contains(email)) {</span>
+<span class="nc" id="L162">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Email is already in use.&quot;);</span>
+<span class="nc" id="L163">            return false;</span>
         }
 
         // Check if username is already taken
-<span class="nc bnc" id="L166" title="All 2 branches missed.">        if (registeredUsernames.contains(username)) {</span>
-<span class="nc" id="L167">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Username is already taken.&quot;);</span>
-<span class="nc" id="L168">            return false;</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        if (registeredUsernames.contains(username)) {</span>
+<span class="nc" id="L168">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Username is already taken.&quot;);</span>
+<span class="nc" id="L169">            return false;</span>
         }
 
         // Check if passwords match
-<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (!password.equals(confirmPassword)) {</span>
-<span class="nc" id="L173">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Passwords do not match.&quot;);</span>
-<span class="nc" id="L174">            return false;</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (!password.equals(confirmPassword)) {</span>
+<span class="nc" id="L174">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Passwords do not match.&quot;);</span>
+<span class="nc" id="L175">            return false;</span>
         }
 
-<span class="nc" id="L177">        return true;</span>
+<span class="nc" id="L178">        return true;</span>
     }
 
     /**
@@ -183,9 +184,9 @@ import csc335.app.UserAuth;
      * @return
      */
     private boolean isValidEmail(String email) {
-<span class="nc" id="L186">        String emailRegex = &quot;^[A-Za-z0-9+_.-]+@(.+)$&quot;;</span>
-<span class="nc" id="L187">        Pattern pattern = Pattern.compile(emailRegex);</span>
-<span class="nc" id="L188">        return pattern.matcher(email).matches();</span>
+<span class="nc" id="L187">        String emailRegex = &quot;^[A-Za-z0-9+_.-]+@(.+)$&quot;;</span>
+<span class="nc" id="L188">        Pattern pattern = Pattern.compile(emailRegex);</span>
+<span class="nc" id="L189">        return pattern.matcher(email).matches();</span>
     }
 
     /**
@@ -195,11 +196,11 @@ import csc335.app.UserAuth;
      * @param message
      */
     private void showAlert(AlertType alertType, String title, String message) {
-<span class="nc" id="L198">        Alert alert = new Alert(alertType);</span>
-<span class="nc" id="L199">        alert.setTitle(title);</span>
-<span class="nc" id="L200">        alert.setContentText(message);</span>
-<span class="nc" id="L201">        alert.showAndWait();</span>
-<span class="nc" id="L202">    }</span>
+<span class="nc" id="L199">        Alert alert = new Alert(alertType);</span>
+<span class="nc" id="L200">        alert.setTitle(title);</span>
+<span class="nc" id="L201">        alert.setContentText(message);</span>
+<span class="nc" id="L202">        alert.showAndWait();</span>
+<span class="nc" id="L203">    }</span>
 
     /**
      * 
@@ -209,15 +210,21 @@ import csc335.app.UserAuth;
      * @return
      */
     private boolean saveUserDataToFile(String username, String email, String password) {
-<span class="nc" id="L212">        File userFile = new File(USER_DATA_DIRECTORY, username + &quot;.txt&quot;);</span>
-<span class="nc" id="L213">        try (FileWriter writer = new FileWriter(userFile)) {</span>
-<span class="nc" id="L214">            writer.write(&quot;Username: &quot; + username + &quot;\n&quot;);</span>
-<span class="nc" id="L215">            writer.write(&quot;Email: &quot; + email + &quot;\n&quot;);</span>
-<span class="nc" id="L216">            writer.write(&quot;Password: &quot; + password + &quot;\n&quot;);</span>
-<span class="nc" id="L217">            return true;</span>
-<span class="nc" id="L218">        } catch (IOException e) {</span>
-<span class="nc" id="L219">            e.printStackTrace();</span>
-<span class="nc" id="L220">            return false;</span>
+<span class="nc" id="L213">        File userFile = new File(USER_DATA_DIRECTORY, username + &quot;.txt&quot;);</span>
+<span class="nc" id="L214">        try (FileWriter writer = new FileWriter(userFile)) {</span>
+<span class="nc" id="L215">            writer.write(&quot;# User Info\n&quot;);</span>
+<span class="nc" id="L216">            writer.write(&quot;Username: &quot; + username + &quot;\n&quot;);</span>
+<span class="nc" id="L217">            writer.write(&quot;Email: &quot; + email + &quot;\n&quot;);</span>
+<span class="nc" id="L218">            writer.write(&quot;Password: &quot; + password + &quot;\n&quot;);</span>
+<span class="nc" id="L219">            writer.write(&quot;\n&quot;);</span>
+<span class="nc" id="L220">            writer.write(&quot;# Budgets\n&quot;);</span>
+<span class="nc" id="L221">            writer.write(&quot;\n&quot;);</span>
+<span class="nc" id="L222">            writer.write(&quot;# Expenses\n&quot;);</span>
+<span class="nc" id="L223">            writer.write(&quot;Date,Category,Amount,Description\n&quot;);</span>
+<span class="nc" id="L224">            return true;</span>
+<span class="nc" id="L225">        } catch (IOException e) {</span>
+<span class="nc" id="L226">            e.printStackTrace();</span>
+<span class="nc" id="L227">            return false;</span>
         }
     }
 }

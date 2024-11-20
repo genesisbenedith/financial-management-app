@@ -119,8 +119,9 @@ public class AuthController {
         boolean isAuthenticated = UserAuth.authenticateUser(username, password);
         if (isAuthenticated) {
             System.out.println("User authenticated successfully.");
+            DashboardController.loadUserInformation(username);
             // Load the dashboard view
-            loadContent("/views/Dashboard.fxml");
+            loadContent("/views/DashboardView.fxml");
         } else {
             showErrorDialog("Authentication Failed", "Invalid username or password.");
         }
@@ -211,9 +212,15 @@ public class AuthController {
     private boolean saveUserDataToFile(String username, String email, String password) {
         File userFile = new File(USER_DATA_DIRECTORY, username + ".txt");
         try (FileWriter writer = new FileWriter(userFile)) {
+            writer.write("# User Info\n");
             writer.write("Username: " + username + "\n");
             writer.write("Email: " + email + "\n");
             writer.write("Password: " + password + "\n");
+            writer.write("\n");
+            writer.write("# Budgets\n");
+            writer.write("\n");
+            writer.write("# Expenses\n");
+            writer.write("Date,Category,Amount,Description\n");
             return true;
         } catch (IOException e) {
             e.printStackTrace();
