@@ -4,7 +4,7 @@ import csc335.app.models.User;
 
 public class DashboardController {
 
-    private static User user;
+    protected static User user;
 
     public static void loadUserInformation(String username) {
         user = new User(null, null, null);

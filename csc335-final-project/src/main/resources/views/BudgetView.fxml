@@ -2,123 +2,140 @@
 
 <?import com.gluonhq.charm.glisten.control.Avatar?>
 <?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@/../css/budget.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.BudgetController">
+<AnchorPane fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@/../css/budget.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.BudgetController">
    <children>
-      <Pane fx:id="food" layoutX="230.0" layoutY="110.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
-         <children>
-            <Avatar layoutX="31.0" layoutY="30.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
-               <image>
-                  <Image url="@../images/food_icon.png" />
-               </image>
-            </Avatar>
-            <Spinner fx:id="fSpinner" editable="true" layoutX="55.0" layoutY="220.0" onMouseClicked="#save" stylesheets="@../css/budget.css" />
-            <Label layoutX="71.0" layoutY="175.0" text="Food">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <MFXNotificationCenter layoutX="135.0" layoutY="165.0" scaleX="0.5" scaleY="0.5" />
-         </children>
-      </Pane>
-      <Pane fx:id="transportation" layoutX="515.0" layoutY="110.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
-         <children>
-            <Avatar layoutX="41.0" layoutY="29.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
-               <image>
-                  <Image url="@../images/transport_icon.png" />
-               </image>
-            </Avatar>
-            <Spinner fx:id="tSpinner" editable="true" layoutX="55.0" layoutY="220.0" stylesheets="@../css/budget.css" />
-            <Label layoutX="18.0" layoutY="175.0" text="Transportation">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <MFXNotificationCenter layoutX="190.0" layoutY="165.0" scaleX="0.5" scaleY="0.5" />
-         </children>
-      </Pane>
-      <Pane fx:id="utilities" layoutX="800.0" layoutY="110.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
-         <children>
-            <Avatar layoutX="30.0" layoutY="32.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
-               <image>
-                  <Image url="@../images/utilities_icon.png" />
-               </image>
-            </Avatar>
-            <Spinner fx:id="uSpinner" editable="true" layoutX="55.0" layoutY="220.0" stylesheets="@../css/budget.css" />
-            <Label layoutX="66.0" layoutY="175.0" text="Utilities">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <MFXNotificationCenter layoutX="155.0" layoutY="165.0" scaleX="0.5" scaleY="0.5" />
-         </children>
-      </Pane>
-      <Pane fx:id="health" layoutX="230.0" layoutY="435.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
-         <children>
-            <Avatar layoutX="31.0" layoutY="31.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
-               <image>
-                  <Image url="@../images/healtchcare_icon.png" />
-               </image>
-            </Avatar>
-            <Spinner fx:id="hSpinner" editable="true" layoutX="55.0" layoutY="220.0" stylesheets="@../css/budget.css" />
-            <Label layoutX="65.0" layoutY="175.0" text="Health">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <MFXNotificationCenter layoutX="142.0" layoutY="165.0" scaleX="0.5" scaleY="0.5" />
-         </children>
-      </Pane>
-      <Pane fx:id="other" layoutX="800.0" layoutY="435.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
-         <children>
-            <Avatar layoutX="32.0" layoutY="34.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
-               <image>
-                  <Image url="@../images/others_icon.png" />
-               </image>
-            </Avatar>
-            <Spinner fx:id="oSpinner" editable="true" layoutX="55.0" layoutY="220.0" stylesheets="@../css/budget.css" />
-            <Label layoutX="75.0" layoutY="177.0" text="Other">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <MFXNotificationCenter layoutX="140.0" layoutY="165.0" scaleX="0.5" scaleY="0.5" />
-         </children>
-      </Pane>
-      <Pane fx:id="entertainment" layoutX="515.0" layoutY="435.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
-         <children>
-            <Avatar layoutX="36.0" layoutY="31.0" scaleX="2.0" scaleY="2.0">
-               <image>
-                  <Image url="@../images/entertainm_icon.png" />
-               </image>
-            </Avatar>
-            <Spinner fx:id="eSpinner" editable="true" layoutX="55.0" layoutY="220.0" />
-            <Label layoutX="25.0" layoutY="175.0" text="Entertainment">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <MFXNotificationCenter layoutX="185.0" layoutY="165.0" scaleX="0.5" scaleY="0.5" />
-         </children>
-      </Pane>
-      <Pane layoutX="-22.0" layoutY="-68.0" prefHeight="50.0" prefWidth="50.0" style="-fx-border-style: solid; -fx-border-color: 000000; -fx-background-color: 000000;" />
       <VBox fx:id="vbox" prefHeight="720.0" prefWidth="200.0" styleClass="nav-bar" stylesheets="@../css/budget.css" />
-      <StackPane layoutX="200.0" layoutY="-18.0" prefHeight="75.0" prefWidth="880.0" styleClass="header" stylesheets="@../css/budget.css">
+      <StackPane alignment="TOP_LEFT" layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0">
          <children>
-            <Label alignment="TOP_LEFT" graphicTextGap="0.0" stylesheets="@../css/budget.css" text="Budget">
-               <font>
-                  <Font name="Apple LiSung Light" size="46.0" />
-               </font>
-            </Label>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="880.0" style="-fx-background-color: #fff;" StackPane.alignment="TOP_LEFT">
+               <children>
+                  <Label alignment="TOP_LEFT" graphicTextGap="0.0" layoutY="5.0" stylesheets="@../css/budget.css" text="Budget">
+                     <font>
+                        <Font name="Apple LiSung Light" size="45.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" right="25.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <MFXNotificationCenter>
+                     <HBox.margin>
+                        <Insets right="25.0" top="20.0" />
+                     </HBox.margin>
+                  </MFXNotificationCenter>
+                  <Avatar>
+                     <HBox.margin>
+                        <Insets top="25.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../images/user-icon.png" />
+                     </image>
+                  </Avatar>
+               </children>
+            </HBox>
+            <Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="880.0" style="-fx-background-color: #ececec; -fx-background-radius: 25px 0px 0px 0px;" StackPane.alignment="BOTTOM_RIGHT">
+               <children>
+                  <Pane fx:id="transportation" layoutX="25.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Avatar layoutX="41.0" layoutY="29.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
+                           <image>
+                              <Image url="@../images/transport_icon.png" />
+                           </image>
+                        </Avatar>
+                        <Spinner fx:id="tSpinner" min="0.0" max="1e21" value="0.0" editable="true" layoutX="55.0" layoutY="220.0" styleClass="setNum" stylesheets="@../css/budget.css" />
+                        <Label layoutX="35.0" layoutY="175.0" text="Transportation">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="food" layoutX="25.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Avatar layoutX="31.0" layoutY="30.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
+                           <image>
+                              <Image url="@../images/food_icon.png" />
+                           </image>
+                        </Avatar>
+                        <Spinner fx:id="fSpinner" min="0.0" max="1e21" value="0.0" editable="true" layoutX="55.0" layoutY="220.0" onMouseClicked="#save" styleClass="setNum" stylesheets="@../css/budget.css" />
+                        <Label layoutX="100.0" layoutY="175.0" text="Food">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="utilities" layoutX="610.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Avatar layoutX="30.0" layoutY="32.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
+                           <image>
+                              <Image url="@../images/utilities_icon.png" />
+                           </image>
+                        </Avatar>
+                        <Spinner fx:id="uSpinner" min="0.0" max="1e21" value="0.0" editable="true" layoutX="55.0" layoutY="220.0" styleClass="setNum" stylesheets="@../css/budget.css" />
+                        <Label layoutX="80.0" layoutY="175.0" text="Utilities">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="health" layoutX="610.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Avatar layoutX="31.0" layoutY="31.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
+                           <image>
+                              <Image url="@../images/healtchcare_icon.png" />
+                           </image>
+                        </Avatar>
+                        <Spinner fx:id="hSpinner" min="0.0" max="1e21" value="0.0" editable="true" layoutX="55.0" layoutY="220.0" styleClass="setNum" stylesheets="@../css/budget.css" />
+                        <Label layoutX="85.0" layoutY="175.0" text="Health">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="entertainment" layoutX="315.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Avatar layoutX="36.0" layoutY="31.0" scaleX="2.0" scaleY="2.0">
+                           <image>
+                              <Image url="@../images/entertainm_icon.png" />
+                           </image>
+                        </Avatar>
+                        <Spinner fx:id="eSpinner" min="0.0" max="1e21" value="0.0" editable="true" layoutX="55.0" layoutY="220.0" styleClass="setNum" />
+                        <Label layoutX="40.0" layoutY="175.0" text="Entertainment">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="other" layoutX="315.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Avatar layoutX="32.0" layoutY="34.0" scaleX="2.0" scaleY="2.0" stylesheets="@../css/budget.css">
+                           <image>
+                              <Image url="@../images/others_icon.png" />
+                           </image>
+                        </Avatar>
+                        <Spinner fx:id="oSpinner" min="0.0" max="1e21" value="0.0" editable="true" layoutX="55.0" layoutY="220.0" styleClass="setNum" stylesheets="@../css/budget.css" />
+                        <Label layoutX="90.0" layoutY="177.0" text="Other">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children></Pane>
          </children>
       </StackPane>
    </children>
