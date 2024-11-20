@@ -129,9 +129,9 @@ public class BudgetController {
 
     @FXML
     private void saveBudgettoFile(){
-        File userFile = File(this.User.getUsername());
+        File userFile = File(DashboardController user.getUsername());
         try(FileWriter writer = new FileWriter(this.User.getUsername())){
-            
+
         } catch (){
 
         }
