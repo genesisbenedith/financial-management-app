@@ -1,0 +1,12 @@
+.nav-bar {
+    -fx-background-color:  #FFFACD;
+}
+.category {
+    -fx-background-radius: 50px;
+    -fx-background-color:  #E6E6FA;
+}
+
+.header{
+    -fx-background-color: #FFF0F5;
+    -fx-alignment: left;
+}
