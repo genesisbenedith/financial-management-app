@@ -1,0 +1,10 @@
+# User Info
+Username: genny
+Email: genny@arizona.edu
+Password: cat333
+
+# Budgets
+Category,Limit,Spent
+
+# Expenses
+Date,Category,Amount,Description

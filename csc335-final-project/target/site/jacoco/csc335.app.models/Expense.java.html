@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Expense.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">csc335-final-project</a> &gt; <a href="index.source.html" class="el_package">csc335.app.models</a> &gt; <span class="el_source">Expense.java</span></div><h1>Expense.java</h1><pre class="source lang-java linenums">package csc335.app.models;
+
+/**
+ * Author(s): Genesis Benedith
+ * File: Expense.java
+ * Description: Model class that represents an expense for the user
+ */
+
+public class Expense {
+    private String date;        // Date in format &quot;YYYY-MM-DD&quot;
+    private Category category;    // Expense category (e.g., Groceries, Entertainment)
+    private double amount;      // Transaction amount
+    private String description; // Brief description of the transaction
+
+    /* ------------------------------ Constructor ------------------------------ */
+
+
+<span class="nc" id="L18">    public Expense(String date, Category category, double amount, String description) {</span>
+<span class="nc" id="L19">        this.date = date;</span>
+<span class="nc" id="L20">        this.category = category;</span>
+<span class="nc" id="L21">        this.amount = amount;</span>
+<span class="nc" id="L22">        this.description = description;</span>
+<span class="nc" id="L23">    }</span>
+
+    /* ------------------------------ Getters and Setters ------------------------------ */
+
+    /**
+     * 
+     * @return
+     */
+    public String getDate() {
+<span class="nc" id="L32">        return date;</span>
+    }
+
+    /**
+     * 
+     * @param date
+     */
+    public void setDate(String date) {
+<span class="nc" id="L40">        this.date = date;</span>
+<span class="nc" id="L41">    }</span>
+
+    /**
+     * 
+     * @return
+     */
+    public Category getCategory() {
+<span class="nc" id="L48">        return category;</span>
+    }
+
+    /**
+     * 
+     * @param category
+     */
+    public void setCategory(Category category) {
+<span class="nc" id="L56">        this.category = category;</span>
+<span class="nc" id="L57">    }</span>
+
+    /**
+     * 
+     * @return
+     */
+    public double getAmount() {
+<span class="nc" id="L64">        return amount;</span>
+    }
+
+    /**
+     * 
+     * @param amount
+     */
+    public void setAmount(double amount) {
+<span class="nc" id="L72">        this.amount = amount;</span>
+<span class="nc" id="L73">    }</span>
+
+    /**
+     * 
+     * @return
+     */
+    public String getDescription() {
+<span class="nc" id="L80">        return description;</span>
+    }
+
+    /**
+     * 
+     * @param description
+     */
+    public void setDescription(String description) {
+<span class="nc" id="L88">        this.description = description;</span>
+<span class="nc" id="L89">    }</span>
+
+    /**
+     * @ return
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L96">        return date + &quot;,&quot; + category + &quot;,&quot; + amount + &quot;,&quot; + description;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
