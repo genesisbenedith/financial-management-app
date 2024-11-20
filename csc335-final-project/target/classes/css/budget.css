@@ -6,3 +6,22 @@
     -fx-background-color:  #E6E6FA;
 }
 
+.prog-chart {
+      /* Light background for the progress bar */
+    -fx-accent: #32CD32;            /* Green color (adjust as needed) */
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-pref-width: 200px;           /* Set the width of the progress bar */
+    -fx-pref-height: 20px;           /* Set the height of the progress bar */
+}
+
+/* Customizing the progress section */
+.prog-chart > .track {
+    
+    -fx-background-radius: 10px;
+}
+
+.prog-chart > .bar {
+    -fx-background-color: #32CD32;  /* Green color for progress */
+    -fx-background-radius: 10px;
+}

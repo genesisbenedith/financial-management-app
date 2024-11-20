@@ -1,62 +1,69 @@
 package csc335.app.controllers;
+
 import csc335.app.models.Budget;
 import csc335.app.models.Category;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 
 public class BudgetController {
-    double max = 1e21;
-    @FXML
-    private Pane root;
+    private final double max = 1e21;
 
     @FXML
     private AnchorPane contentArea;
 
-    @FXML
-    private Pane food;
-    
+    //Spinners for each category
     @FXML
     private Spinner<Double> fSpinner;
     @FXML
-    private Pane transport;
-
-    @FXML
     private Spinner<Double> tSpinner;
-
-    @FXML
-    private Pane utilities;
-
     @FXML
     private Spinner<Double> uSpinner;
-
-    @FXML
-    private Pane health;
-
     @FXML
     private Spinner<Double> hSpinner;
-
-    @FXML
-    private Pane entertain;
-
     @FXML
     private Spinner<Double> eSpinner;
-
-    @FXML
-    private Pane other;
-
     @FXML
     private Spinner<Double> oSpinner;
+
+    // Panes for each category
+    @FXML
+    private Pane transportation;
+    @FXML
+    private Pane utilities;
+    @FXML
+    private Pane health;
+    @FXML
+    private Pane other;
+    @FXML
+    private Pane entertainment;
+    @FXML
+    private Pane food;
+    @FXML
+    private Pane root;
+
+    // ProgressBars for each category
+    @FXML
+    private ProgressBar foodProgress;
+    @FXML
+    private ProgressBar transportationProgress;
+    @FXML
+    private ProgressBar utilitiesProgress;
+    @FXML
+    private ProgressBar healthProgress;
+    @FXML
+    private ProgressBar entertainmentProgress;
+    @FXML
+    private ProgressBar otherProgress;
 
     @FXML
     public void loadContent(String fxmlPath) {
@@ -65,16 +72,9 @@ public class BudgetController {
                 contentArea.getChildren().clear();
                 Pane view = FXMLLoader.load(getClass().getResource(fxmlPath));
                 contentArea.getChildren().add(view);
-                root = (Pane) view.lookup("#root");
-                food = (Pane) view.lookup("#food");
-                transport = (Pane) view.lookup("#transport");
-                utilities = (Pane) view.lookup("#utilities");
-                health = (Pane) view.lookup("#health");
-                entertain = (Pane) view.lookup("#entertain");
-                other = (Pane) view.lookup("#other");
 
                 // Add the panes to contentArea
-                contentArea.getChildren().addAll(root, food, transport, utilities, health, entertain, other);
+                contentArea.getChildren().addAll(root, food, transportation, utilities, health, entertainment, other);
             } else {
                 System.err.println("contentArea is null. Check FXML and Controller binding.");
             }
@@ -89,106 +89,204 @@ public class BudgetController {
     }
 
     @FXML
-    private void handleCreateBudget(){
-        if(fSpinner.getValue() != null){
-            double f = fSpinner.getValue();
-            DashboardController.user.setBudget(Category.FOOD, f);
-        }
+    public void initialize() {
+        // Set up the spinners with value factories
+        setupSpinner(fSpinner, Category.FOOD);
+        setupSpinner(tSpinner, Category.TRANSPORTATION);
+        setupSpinner(uSpinner, Category.UTILITIES);
+        setupSpinner(hSpinner, Category.HEALTHCARE);
+        setupSpinner(eSpinner, Category.ENTERTAINMENT);
+        setupSpinner(oSpinner, Category.OTHER);
+    }
 
-        if(eSpinner.getValue() != null){
-            double e = eSpinner.getValue();
-            DashboardController.user.setBudget(Category.ENTERTAINMENT, e);
-        }
+    private void setupSpinner(Spinner<Double> spinner, Category category) {
+        spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, max, 0.0, 0.1));
 
-        if(hSpinner.getValue() != null){
-            double h = hSpinner.getValue();
-            DashboardController.user.setBudget(Category.HEALTHCARE, h);
-        }
+        // Listen for typed-in value changes
+        spinner.getEditor().setOnKeyTyped(event -> {
+            try {
+                double typedValue = Double.parseDouble(spinner.getEditor().getText());
+                handleTypedValue(category, typedValue);
+            } catch (NumberFormatException ex) {
+                System.err.println("Invalid typed input: " + spinner.getEditor().getText());
+            }
+        });
 
-        if(oSpinner.getValue() != null){
-            double o = oSpinner.getValue();
-            DashboardController.user.setBudget(Category.OTHER, o);
-        }
+        // Listen for mouse presses (plus/minus buttons)
+        spinner.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            double oldValue = spinner.getValue();
+            spinner.increment(0); // Forces a refresh of the value
+            double newValue = spinner.getValue();
+            if (newValue > oldValue) {
+                handlePlusButtonPressed(category, newValue);
+            } else if (newValue < oldValue) {
+                handleMinusButtonPressed(category, newValue);
+            }
+        });
+    }
 
-        if(tSpinner.getValue() != null){
-            double t = tSpinner.getValue();
-            DashboardController.user.setBudget(Category.TRANSPORTATION, t);
-        }
+    private void handleTypedValue(Category category, double value) {
+        System.out.println("Typed value for " + category + ": " + value);
+        DashboardController.user.setBudget(category, value);
+        updateProgressBar(category);
+        handleWarning(category, value);
+    }
 
-        if(uSpinner.getValue() != null){
-            double u = uSpinner.getValue();
-            DashboardController.user.setBudget(Category.UTILITIES, u);
-        }
+    private void handlePlusButtonPressed(Category category, double newValue) {
+        System.out.println("Plus button pressed for " + category + ": New value is " + newValue);
+        DashboardController.user.setBudget(category, newValue);
+        updateProgressBar(category);
+        handleWarning(category, newValue);
+    }
 
+    private void handleMinusButtonPressed(Category category, double newValue) {
+        System.out.println("Minus button pressed for " + category + ": New value is " + newValue);
+        DashboardController.user.setBudget(category, newValue);
+        updateProgressBar(category);
+        handleWarning(category, newValue);
+    }
+
+    private void updateProgressBar(Category category) {
+        double limit = DashboardController.user.getBudgets().get(category).getLimit();
+        double spent = DashboardController.user.getBudgets().get(category).getSpent();
+        double progress = (limit == 0) ? 0 : spent / limit;
+
+        switch (category) {
+            case FOOD:
+                foodProgress.setProgress(progress);
+                break;
+            case TRANSPORTATION:
+                transportationProgress.setProgress(progress);
+                break;
+            case UTILITIES:
+                utilitiesProgress.setProgress(progress);
+                break;
+            case HEALTHCARE:
+                healthProgress.setProgress(progress);
+                break;
+            case ENTERTAINMENT:
+                entertainmentProgress.setProgress(progress);
+                break;
+            case OTHER:
+                otherProgress.setProgress(progress);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void handleWarning(Category cat, double lim){
+        double spent = DashboardController.user.getBudgets().get(cat).getSpent();
+        if(spent != 0.0 && lim/spent >= 0.8){
+            if(cat == Category.ENTERTAINMENT){
+                ImageView img = (ImageView) entertainment.lookup("#eAlert");
+                img.setVisible(true);
+            }
+            if(cat == Category.FOOD){
+                ImageView img = (ImageView) food.lookup("#fAlert");
+                img.setVisible(true);
+            }
+            if(cat == Category.HEALTHCARE){
+                ImageView img = (ImageView) health.lookup("#hAlert");
+                img.setVisible(true);
+            }
+            if(cat == Category.OTHER){
+                ImageView img = (ImageView) other.lookup("#oAlert");
+                img.setVisible(true);
+            }
+            if(cat == Category.UTILITIES){
+                ImageView img = (ImageView) utilities.lookup("#uAlert");
+                img.setVisible(true);
+            }
+            if(cat == Category.TRANSPORTATION){
+                ImageView img = (ImageView) transportation.lookup("#tAlert");
+                img.setVisible(true);
+            }
+        } else{
+            if(cat == Category.ENTERTAINMENT){
+                ImageView img = (ImageView) entertainment.lookup("#eAlert");
+                img.setVisible(false);
+            }
+            if(cat == Category.FOOD){
+                ImageView img = (ImageView) food.lookup("#fAlert");
+                img.setVisible(false);
+            }
+            if(cat == Category.HEALTHCARE){
+                ImageView img = (ImageView) health.lookup("#hAlert");
+                img.setVisible(false);
+            }
+            if(cat == Category.OTHER){
+                ImageView img = (ImageView) other.lookup("#oAlert");
+                img.setVisible(false);
+            }
+            if(cat == Category.UTILITIES){
+                ImageView img = (ImageView) utilities.lookup("#uAlert");
+                img.setVisible(false);
+            }
+            if(cat == Category.TRANSPORTATION){
+                ImageView img = (ImageView) transportation.lookup("#tAlert");
+                img.setVisible(false);
+            }
+        }
     }
 
     @FXML
-    private boolean saveBudgettoFile() {
+    private void saveBudgetToFile() {
         String username = DashboardController.user.getUsername();
         File userFile = new File(username + ".txt");
-        
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(userFile));
-            StringBuilder fileContent = new StringBuilder(); //building the budget string
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(userFile));
+             StringWriter fileContent = new StringWriter()) {
+
             String line;
             Map<Category, Budget> budgets = DashboardController.user.getBudgets();
-    
+
             while ((line = reader.readLine()) != null) {
                 boolean categoryUpdated = false;
-    
+
                 for (Map.Entry<Category, Budget> entry : budgets.entrySet()) {
                     Category category = entry.getKey();
                     Budget budget = entry.getValue();
-    
-                    // Check if the current line is for the category
-                    if (line.startsWith("Budget: " + category.toString())) {
+
+                    if (line.startsWith("Budget: " + category)) {
                         fileContent.append("Budget: ")
-                                   .append(category.toString())
-                                   .append(" ,")
-                                   .append(budget.getLimit())
-                                   .append(", ")
-                                   .append(budget.getSpent())
-                                   .append("\n");
+                                .append(category.toString())
+                                .append(", ")
+                                .append(budget.getLimit() + "")
+                                .append(", ")
+                                .append(budget.getSpent() + "")
+                                .append("\n");
                         categoryUpdated = true;
                         break;
                     }
                 }
-    
+
                 if (!categoryUpdated) {
-                    // If the category is not updated, keep the original line
                     fileContent.append(line).append("\n");
                 }
             }
-    
-            reader.close();
-    
-            // Add any new categories that were not found in the file
+
             for (Map.Entry<Category, Budget> entry : budgets.entrySet()) {
                 Category category = entry.getKey();
                 Budget budget = entry.getValue();
-                if (!fileContent.toString().contains("Budget: " + category.toString())) {
+
+                if (!fileContent.toString().contains("Budget: " + category)) {
                     fileContent.append("Budget: ")
-                               .append(category.toString())
-                               .append(" ,")
-                               .append(budget.getLimit())
-                               .append(", ")
-                               .append(budget.getSpent())
-                               .append("\n");
+                            .append(category.toString())
+                            .append(", ")
+                            .append(budget.getLimit() + "")
+                            .append(", ")
+                            .append(budget.getSpent() + "")
+                            .append("\n");
                 }
             }
-    
-            // Write the updated content back to the file
-            FileWriter writer = new FileWriter(userFile);
-            writer.write(fileContent.toString());
-            writer.close();
-    
-            return true;
+
+            try (FileWriter writer = new FileWriter(userFile)) {
+                writer.write(fileContent.toString());
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
-
-
-
 }
