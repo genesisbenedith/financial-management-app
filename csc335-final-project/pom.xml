@@ -33,8 +33,6 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-<<<<<<< Updated upstream
-=======
     <dependency>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-controls</artifactId>
@@ -56,13 +54,20 @@
       <version>8.9</version>
     </dependency>
     <dependency>
-        <groupId>io.github.palexdev</groupId>
-        <artifactId>materialfx</artifactId>
-        <version>11.17.0</version>
+      <groupId>io.github.palexdev</groupId>
+      <artifactId>materialfx</artifactId>
+      <version>11.17.0</version>
     </dependency>
->>>>>>> Stashed changes
   </dependencies>
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+            <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -85,6 +90,14 @@
         </executions>
       </plugin>
       <plugin>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-maven-plugin</artifactId>
+          <version>0.0.8</version>
+          <configuration>
+              <mainClass>csc335.app.App</mainClass>
+          </configuration>
+      </plugin>
+      <!-- <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle-plugin.version}</version>
@@ -102,6 +115,7 @@
         </dependencies>
         <configuration>
           <configLocation>com/github/ngeor/checkstyle.xml</configLocation>
+          <configLocation>target/classes/heckstyle-checker.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <skip>${skipTests}</skip>
         </configuration>
@@ -114,7 +128,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin> -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>

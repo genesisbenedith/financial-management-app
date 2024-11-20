@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Budget.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">csc335-final-project</a> &gt; <a href="index.source.html" class="el_package">csc335.app.models</a> &gt; <span class="el_source">Budget.java</span></div><h1>Budget.java</h1><pre class="source lang-java linenums">package csc335.app.models;
+
+/**
+ * Author(s): Genesis Benedith
+ * File: Budget.java
+ * Description: 
+ */
+
+public class Budget {
+    private Category category; // Budget category (e.g., Groceries, Transportation)
+    private double limit;    // Budget limit for the category
+    private double spent;    // Amount spent so far in the category
+
+    /* ------------------------------ Constructor ------------------------------ */
+
+    /**
+     * 
+     * @param category
+     * @param limit
+     */
+<span class="nc" id="L21">    public Budget(Category category, double limit) {</span>
+<span class="nc" id="L22">        this.category = category;</span>
+<span class="nc" id="L23">        this.limit = limit;</span>
+<span class="nc" id="L24">        this.spent = 0.0;</span>
+<span class="nc" id="L25">    }</span>
+
+    /**
+     * 
+     * @param amount
+     */
+    public void addExpense(double amount) {
+<span class="nc" id="L32">        this.spent += amount;</span>
+<span class="nc" id="L33">    }</span>
+
+    /**
+     * 
+     * @return
+     */
+    public boolean isExceeded() {
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        return spent &gt; limit;</span>
+    }
+
+    /* ------------------------------ Getters and Setters ------------------------------ */
+
+    /**
+     * 
+     * @return
+     */
+    public Category getCategory() {
+<span class="nc" id="L50">        return category;</span>
+    }
+
+    /**
+     * 
+     * @param category
+     */
+    public void setCategory(Category category) {
+<span class="nc" id="L58">        this.category = category;</span>
+<span class="nc" id="L59">    }</span>
+
+    /**
+     * 
+     * @return
+     */
+    public double getLimit() {
+<span class="nc" id="L66">        return limit;</span>
+    }
+
+    /**
+     * 
+     * @param limit
+     */
+    public void setLimit(double limit) {
+<span class="nc" id="L74">        this.limit = limit;</span>
+<span class="nc" id="L75">    }</span>
+
+    /**
+     * 
+     * @return
+     */
+    public double getSpent() {
+<span class="nc" id="L82">        return spent;</span>
+    }
+
+    /**
+     * 
+     * @return
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L91">        return category + &quot;: &quot; + spent + &quot;/&quot; + limit;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

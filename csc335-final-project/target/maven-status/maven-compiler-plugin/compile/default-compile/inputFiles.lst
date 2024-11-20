@@ -1,8 +1,9 @@
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/App.java
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/UserAuth.java
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/AuthController.java
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Budget.java
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Category.java
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Expense.java
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Report.java
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/User.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/App.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/UserAuth.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/controllers/AuthController.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/controllers/DashboardController.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/Budget.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/Category.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/Expense.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/Report.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/User.java
