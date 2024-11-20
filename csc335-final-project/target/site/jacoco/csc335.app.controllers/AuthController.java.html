@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">csc335-final-project</a> &gt; <a href="index.source.html" class="el_package">csc335.app.controllers</a> &gt; <span class="el_source">AuthController.java</span></div><h1>AuthController.java</h1><pre class="source lang-java linenums">package csc335.app.controllers;
+
+/**
+ * Author(s): Genesis Benedith
+ * File: AuthController.java
+ * Description:
+ */
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+import csc335.app.UserAuth;
+
+<span class="nc" id="L27">public class AuthController {</span>
+
+    @FXML
+    private AnchorPane contentArea; // Pane representing the sign-in or sign-up or dashboard view
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private PasswordField confirmPasswordField;
+
+    // Storing usernames and emails for existing accounts
+<span class="nc" id="L45">    private static final Set&lt;String&gt; registeredUsernames = new HashSet&lt;&gt;();</span>
+<span class="nc" id="L46">    private static final Set&lt;String&gt; registeredEmails = new HashSet&lt;&gt;();</span>
+    private static final String USER_DATA_DIRECTORY = &quot;data/users&quot;;
+
+    @FXML
+    public void initialize() {
+<span class="nc" id="L51">        System.out.println(&quot;AuthController initialized.&quot;);</span>
+<span class="nc" id="L52">        System.out.println(&quot;contentArea: &quot; + contentArea);</span>
+<span class="nc" id="L53">    }</span>
+
+    /**
+     * Loads the specified FXML file into the contentArea.
+     *
+     * @param fxmlPath The path to the FXML file to load.
+     */
+    @FXML
+    public void loadContent(String fxmlPath) {
+        try {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            if (contentArea != null) {</span>
+<span class="nc" id="L64">                Pane view = FXMLLoader.load(getClass().getResource(fxmlPath));</span>
+<span class="nc" id="L65">                contentArea.getChildren().clear();</span>
+<span class="nc" id="L66">                contentArea.getChildren().add(view);</span>
+<span class="nc" id="L67">            } else {</span>
+<span class="nc" id="L68">                System.err.println(&quot;contentArea is null. Check FXML and Controller binding.&quot;);</span>
+            }
+<span class="nc" id="L70">        } catch (IOException e) {</span>
+<span class="nc" id="L71">            e.printStackTrace();</span>
+<span class="nc" id="L72">        }</span>
+<span class="nc" id="L73">    }</span>
+
+    /**
+     * Handles switching to the SignUpView when &quot;Sign Up&quot; is clicked.
+     */
+    @FXML
+    private void handleSignUpClick() {
+<span class="nc" id="L80">        loadContent(&quot;/views/SignUpView.fxml&quot;);</span>
+<span class="nc" id="L81">    }</span>
+
+    /**
+     * Handles switching to the SignInView when &quot;Create Account&quot; is clicked.
+     */
+    @FXML
+    private void handleCreateAccountClick() {
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (validateFields()) {</span>
+<span class="nc" id="L89">            String email = emailField.getText().trim();</span>
+<span class="nc" id="L90">            String username = usernameField.getText().trim();</span>
+<span class="nc" id="L91">            String password = passwordField.getText().trim();</span>
+
+            // Save user data to file
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            if (saveUserDataToFile(username, email, password)) {</span>
+                // For testing &amp; debugging purposes
+<span class="nc" id="L96">                showAlert(AlertType.INFORMATION, &quot;Success&quot;, &quot;Account created successfully!&quot;);</span>
+
+                // Switch to the SignInView
+<span class="nc" id="L99">                loadContent(&quot;/views/SignInView.fxml&quot;);</span>
+            } else {
+<span class="nc" id="L101">                showAlert(Alert.AlertType.ERROR, &quot;Error&quot;, &quot;Failed to save user data.&quot;);</span>
+            }
+        }
+<span class="nc" id="L104">    }</span>
+
+    /**
+     * Handles switching to the DashboardView when &quot;Sign In&quot; is clicked.
+     */
+    @FXML
+    private void handleSignInClick() {
+<span class="nc" id="L111">        String username = usernameField.getText().trim();</span>
+<span class="nc" id="L112">        String password = passwordField.getText().trim();</span>
+
+<span class="nc bnc" id="L114" title="All 4 branches missed.">        if (username.isEmpty() || password.isEmpty()) {</span>
+<span class="nc" id="L115">            showErrorDialog(&quot;Error&quot;, &quot;Both username and password are required.&quot;);</span>
+<span class="nc" id="L116">            return;</span>
+        }
+
+<span class="nc" id="L119">        boolean isAuthenticated = UserAuth.authenticateUser(username, password);</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (isAuthenticated) {</span>
+<span class="nc" id="L121">            System.out.println(&quot;User authenticated successfully.&quot;);</span>
+            // Load the dashboard view
+<span class="nc" id="L123">            loadContent(&quot;/views/Dashboard.fxml&quot;);</span>
+        } else {
+<span class="nc" id="L125">            showErrorDialog(&quot;Authentication Failed&quot;, &quot;Invalid username or password.&quot;);</span>
+        }
+<span class="nc" id="L127">    }</span>
+
+    private void showErrorDialog(String title, String message) {
+<span class="nc" id="L130">        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);</span>
+<span class="nc" id="L131">        alert.setTitle(title);</span>
+<span class="nc" id="L132">        alert.setHeaderText(null);</span>
+<span class="nc" id="L133">        alert.setContentText(message);</span>
+<span class="nc" id="L134">        alert.showAndWait();</span>
+<span class="nc" id="L135">    }</span>
+
+    /**
+     * 
+     * @return
+     */
+    private boolean validateFields() {
+<span class="nc" id="L142">        String email = emailField.getText().trim();</span>
+<span class="nc" id="L143">        String username = usernameField.getText().trim();</span>
+<span class="nc" id="L144">        String password = passwordField.getText().trim();</span>
+<span class="nc" id="L145">        String confirmPassword = confirmPasswordField.getText().trim();</span>
+
+        // Check if any field is empty
+<span class="nc bnc" id="L148" title="All 8 branches missed.">        if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {</span>
+<span class="nc" id="L149">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;All fields are required.&quot;);</span>
+<span class="nc" id="L150">            return false;</span>
+        }
+
+        // Validate email format
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (!isValidEmail(email)) {</span>
+<span class="nc" id="L155">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Please enter a valid email address.&quot;);</span>
+<span class="nc" id="L156">            return false;</span>
+        }
+
+        // Check if email is already in use
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        if (registeredEmails.contains(email)) {</span>
+<span class="nc" id="L161">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Email is already in use.&quot;);</span>
+<span class="nc" id="L162">            return false;</span>
+        }
+
+        // Check if username is already taken
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        if (registeredUsernames.contains(username)) {</span>
+<span class="nc" id="L167">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Username is already taken.&quot;);</span>
+<span class="nc" id="L168">            return false;</span>
+        }
+
+        // Check if passwords match
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (!password.equals(confirmPassword)) {</span>
+<span class="nc" id="L173">            showAlert(AlertType.ERROR, &quot;Error&quot;, &quot;Passwords do not match.&quot;);</span>
+<span class="nc" id="L174">            return false;</span>
+        }
+
+<span class="nc" id="L177">        return true;</span>
+    }
+
+    /**
+     * 
+     * @param email
+     * @return
+     */
+    private boolean isValidEmail(String email) {
+<span class="nc" id="L186">        String emailRegex = &quot;^[A-Za-z0-9+_.-]+@(.+)$&quot;;</span>
+<span class="nc" id="L187">        Pattern pattern = Pattern.compile(emailRegex);</span>
+<span class="nc" id="L188">        return pattern.matcher(email).matches();</span>
+    }
+
+    /**
+     * 
+     * @param alertType
+     * @param title
+     * @param message
+     */
+    private void showAlert(AlertType alertType, String title, String message) {
+<span class="nc" id="L198">        Alert alert = new Alert(alertType);</span>
+<span class="nc" id="L199">        alert.setTitle(title);</span>
+<span class="nc" id="L200">        alert.setContentText(message);</span>
+<span class="nc" id="L201">        alert.showAndWait();</span>
+<span class="nc" id="L202">    }</span>
+
+    /**
+     * 
+     * @param username
+     * @param email
+     * @param password
+     * @return
+     */
+    private boolean saveUserDataToFile(String username, String email, String password) {
+<span class="nc" id="L212">        File userFile = new File(USER_DATA_DIRECTORY, username + &quot;.txt&quot;);</span>
+<span class="nc" id="L213">        try (FileWriter writer = new FileWriter(userFile)) {</span>
+<span class="nc" id="L214">            writer.write(&quot;Username: &quot; + username + &quot;\n&quot;);</span>
+<span class="nc" id="L215">            writer.write(&quot;Email: &quot; + email + &quot;\n&quot;);</span>
+<span class="nc" id="L216">            writer.write(&quot;Password: &quot; + password + &quot;\n&quot;);</span>
+<span class="nc" id="L217">            return true;</span>
+<span class="nc" id="L218">        } catch (IOException e) {</span>
+<span class="nc" id="L219">            e.printStackTrace();</span>
+<span class="nc" id="L220">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

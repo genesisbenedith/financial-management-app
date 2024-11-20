@@ -33,6 +33,34 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+<<<<<<< Updated upstream
+=======
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>21</version> 
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>21</version> 
+    </dependency>
+    <dependency>
+      <groupId>com.jfoenix</groupId>
+      <artifactId>jfoenix</artifactId>
+      <version>9.0.10</version> 
+    </dependency>
+    <dependency>
+      <groupId>de.jensd</groupId>
+      <artifactId>fontawesomefx</artifactId>
+      <version>8.9</version>
+    </dependency>
+    <dependency>
+        <groupId>io.github.palexdev</groupId>
+        <artifactId>materialfx</artifactId>
+        <version>11.17.0</version>
+    </dependency>
+>>>>>>> Stashed changes
   </dependencies>
   <build>
     <plugins>
