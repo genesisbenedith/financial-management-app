@@ -15,14 +15,27 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import csc335.app.FileIOManager;
 import csc335.app.UserAuth;
+import csc335.app.UserSessionManager;
+import csc335.app.models.Budget;
+import csc335.app.models.Category;
+import csc335.app.models.Expense;
+import csc335.app.models.User;
 
 public class AuthController {
 
@@ -44,7 +57,6 @@ public class AuthController {
     // Storing usernames and emails for existing accounts
     private static final Set<String> registeredUsernames = new HashSet<>();
     private static final Set<String> registeredEmails = new HashSet<>();
-    private static final String USER_DATA_DIRECTORY = "data/users";
 
     @FXML
     public void initialize() {
@@ -91,7 +103,7 @@ public class AuthController {
             String password = passwordField.getText().trim();
 
             // Save user data to file
-            if (saveUserDataToFile(username, email, password)) {
+            if (FileIOManager.createUserFile(username, email, password)) {
                 // For testing & debugging purposes
                 showAlert(AlertType.INFORMATION, "Success", "Account created successfully!");
 
@@ -105,9 +117,11 @@ public class AuthController {
 
     /**
      * Handles switching to the DashboardView when "Sign In" is clicked.
+     * 
+     * @throws IOException
      */
     @FXML
-    private void handleSignInClick() {
+    private void handleSignInClick() throws IOException {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
@@ -116,10 +130,20 @@ public class AuthController {
             return;
         }
 
-        boolean isAuthenticated = UserAuth.authenticateUser(username, password);
+        boolean isAuthenticated = FileIOManager.authenticateUser(username, password);
         if (isAuthenticated) {
             System.out.println("User authenticated successfully.");
-            DashboardController.loadUserInformation(username);
+            User currentUser = null;
+            try {
+                currentUser = FileIOManager.loadUserData(username, password);
+                UserSessionManager.setCurrentUser(currentUser);
+            } catch (IOException e) {
+                showErrorDialog("Error", "Failed to load user data.");
+                e.printStackTrace();
+            }
+
+            System.out.println(currentUser.toString());
+            
             // Load the dashboard view
             loadContent("/views/DashboardView.fxml");
         } else {
@@ -202,29 +226,4 @@ public class AuthController {
         alert.showAndWait();
     }
 
-    /**
-     * 
-     * @param username
-     * @param email
-     * @param password
-     * @return
-     */
-    private boolean saveUserDataToFile(String username, String email, String password) {
-        File userFile = new File(USER_DATA_DIRECTORY, username + ".txt");
-        try (FileWriter writer = new FileWriter(userFile)) {
-            writer.write("# User Info\n");
-            writer.write("Username: " + username + "\n");
-            writer.write("Email: " + email + "\n");
-            writer.write("Password: " + password + "\n");
-            writer.write("\n");
-            writer.write("# Budgets\n");
-            writer.write("\n");
-            writer.write("# Expenses\n");
-            writer.write("Date,Category,Amount,Description\n");
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 }

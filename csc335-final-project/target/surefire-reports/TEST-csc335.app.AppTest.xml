@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="csc335.app.AppTest" time="0.002" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="csc335.app.AppTest" time="0.001" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/23.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/surefire/surefirebooter976674409183985106.jar /Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/surefire 2024-11-19T19-51-17_155-jvmRun1 surefire15533382596902476391tmp surefire_04818915443160408391tmp"/>
+    <property name="sun.java.command" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/surefire/surefirebooter1849952924712772462.jar /Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/surefire 2024-11-25T21-06-23_880-jvmRun1 surefire12781581921447465751tmp surefire_014614544592357309731tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/test-classes:/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/classes:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.6.0/junit-jupiter-api-5.6.0.jar:/Users/genesisbenedith/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/genesisbenedith/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/genesisbenedith/.m2/repository/org/junit/platform/junit-platform-commons/1.6.0/junit-platform-commons-1.6.0.jar:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.6.0/junit-jupiter-engine-5.6.0.jar:/Users/genesisbenedith/.m2/repository/org/junit/platform/junit-platform-engine/1.6.0/junit-platform-engine-1.6.0.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-controls/21/javafx-controls-21.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-controls/21/javafx-controls-21-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-graphics/21/javafx-graphics-21.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-graphics/21/javafx-graphics-21-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-base/21/javafx-base-21.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-base/21/javafx-base-21-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-fxml/21/javafx-fxml-21.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-fxml/21/javafx-fxml-21-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/com/jfoenix/jfoenix/9.0.10/jfoenix-9.0.10.jar:/Users/genesisbenedith/.m2/repository/de/jensd/fontawesomefx/8.9/fontawesomefx-8.9.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/materialfx/11.17.0/materialfx-11.17.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxcore/11.8.0/mfxcore-11.8.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxlocalization/11.1.0/mfxlocalization-11.1.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxresources/11.9.1/mfxresources-11.9.1.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxeffects/11.3.0/mfxeffects-11.3.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/virtualizedfx/11.9.6/virtualizedfx-11.9.6.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/surefire/surefirebooter976674409183985106.jar"/>
+    <property name="surefire.real.class.path" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/surefire/surefirebooter1849952924712772462.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="23.0.1"/>
@@ -58,5 +58,5 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-  <testcase name="testApp" classname="csc335.app.AppTest" time="0.002"/>
+  <testcase name="testApp" classname="csc335.app.AppTest" time="0.001"/>
 </testsuite>

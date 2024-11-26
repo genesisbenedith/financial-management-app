@@ -1,10 +1,7 @@
-# User Info
 Username: genny
 Email: genny@arizona.edu
 Password: cat333
-
-# Budgets
-Category,Limit,Spent
-
-# Expenses
-Date,Category,Amount,Description
+Budgets:
+Groceries, 700.0
+Expenses:
+2023-04-23, Groceries, 560.0, Fry's

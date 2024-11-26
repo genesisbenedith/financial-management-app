@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentArea" prefHeight="720.0" prefWidth="1080.0" styleClass="sidebar" stylesheets="@../css/launch.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.AuthController">
+<AnchorPane fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="sidebar" stylesheets="@../css/launch.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.AuthController">
    <children>
-      <VBox alignment="CENTER" prefHeight="720.0" prefWidth="400.0" style="-fx-background-color: #4294ff;" styleClass="sidebar" stylesheets="@../css/launch.css">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #4294ff;" styleClass="sidebar" stylesheets="@../css/launch.css">
          <children>
             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" smooth="false">
                <image>
@@ -36,29 +36,28 @@
             </Label>
          </children>
       </VBox>
-      <Pane layoutX="400.0" prefHeight="720.0" prefWidth="680.0" />
-      <Pane layoutX="400.0" prefHeight="720.0" prefWidth="680.0" style="-fx-background-color: FFFFFF;" styleClass="sign-up-pane" stylesheets="@../css/launch.css">
+      <Pane layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: FFFFFF;" styleClass="sign-up-pane" stylesheets="@../css/launch.css">
          <children>
-            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="264.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="149.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/user-icon.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" layoutX="226.0" layoutY="182.0" style="-fx-text-fill: #4294ff;" text="Create an Account" textFill="#4294ff">
+            <Label alignment="CENTER" layoutX="111.0" layoutY="184.0" style="-fx-text-fill: #4294ff;" text="Create an Account" textFill="#4294ff">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="238.0" layoutY="210.0" style="-fx-text-fill: #808080;" text="Fill the form to continue" textFill="#4294ff">
+            <Label alignment="CENTER" layoutX="123.0" layoutY="212.0" style="-fx-text-fill: #808080;" text="Fill the form to continue" textFill="#4294ff">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="emailField" layoutX="191.0" layoutY="257.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Email" styleClass="email-field" />
-            <PasswordField fx:id="passwordField" layoutX="191.0" layoutY="367.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Password" styleClass="password-field" />
-            <TextField fx:id="usernameField" layoutX="191.0" layoutY="313.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username" styleClass="username-field" />
-            <PasswordField fx:id="confirmPasswordField" layoutX="191.0" layoutY="419.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Confirm Password" styleClass="password-field" />
-            <Button layoutX="189.0" layoutY="479.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleCreateAccountClick" prefHeight="50.0" prefWidth="250.0" styleClass="create-account-button" text="Create Account" />
+            <TextField fx:id="emailField" layoutX="76.0" layoutY="259.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Email" styleClass="email-field" />
+            <PasswordField fx:id="passwordField" layoutX="76.0" layoutY="369.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Password" styleClass="password-field" />
+            <TextField fx:id="usernameField" layoutX="76.0" layoutY="315.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username" styleClass="username-field" />
+            <PasswordField fx:id="confirmPasswordField" layoutX="76.0" layoutY="421.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Confirm Password" styleClass="password-field" />
+            <Button layoutX="74.0" layoutY="481.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleCreateAccountClick" prefHeight="50.0" prefWidth="250.0" styleClass="create-account-button" text="Create Account" />
          </children>
       </Pane>
    </children>
