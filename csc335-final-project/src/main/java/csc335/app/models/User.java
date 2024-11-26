@@ -11,7 +11,7 @@ import java.util.*;
 public class User {
     private String username;
     private String email;
-    private String password; // TODO: Do password hashing?
+    private String password;
     private List<Expense> expenses;
     private Map<Category, Budget> budgets; // Maps category names to budget limits
     private List<Report> financialReports;
@@ -27,8 +27,11 @@ public class User {
         this.financialReports = new ArrayList<>();
     }
 
-    /* ------------------------------ Getters and Setters ------------------------------ */ 
-    
+    /*
+     * ------------------------------ Getters and Setters
+     * ------------------------------
+     */
+
     /**
      * 
      * @return
@@ -118,7 +121,7 @@ public class User {
         if (limit < 0) {
             throw new IllegalArgumentException("Budget amount cannot be negative.");
         }
-    
+
         if (budgets.containsKey(category)) {
             // Update the budget for the category if it already exists
             budgets.get(category).setLimit(limit);
@@ -183,12 +186,50 @@ public class User {
         Map<Category, Double> categoryExpenses = new HashMap<>();
         for (Expense expense : this.expenses) {
             categoryExpenses.put(
-                expense.getCategory(),
-                categoryExpenses.getOrDefault(expense.getCategory(), 0.0) + expense.getAmount()
-            );
+                    expense.getCategory(),
+                    categoryExpenses.getOrDefault(expense.getCategory(), 0.0) + expense.getAmount());
         }
         return categoryExpenses;
     }
-    
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("User Information:\n");
+        sb.append("Username: ").append(username).append("\n");
+        sb.append("Email: ").append(email).append("\n");
+        sb.append("Total Expenses: $").append(String.format("%.2f", getTotalExpenses())).append("\n");
+
+        sb.append("\nBudgets:\n");
+        if (budgets.isEmpty()) {
+            sb.append("No budgets set.\n");
+        } else {
+            for (Map.Entry<Category, Budget> entry : budgets.entrySet()) {
+                sb.append("  ").append(entry.getKey()).append(": ")
+                        .append(entry.getValue().getSpent()).append("/")
+                        .append(entry.getValue().getLimit()).append("\n");
+            }
+        }
+
+        sb.append("\nExpenses:\n");
+        if (expenses.isEmpty()) {
+            sb.append("No expenses recorded.\n");
+        } else {
+            for (Expense expense : expenses) {
+                sb.append("  ").append(expense).append("\n");
+            }
+        }
+
+        sb.append("\nFinancial Reports:\n");
+        if (financialReports.isEmpty()) {
+            sb.append("No reports generated.\n");
+        } else {
+            for (Report report : financialReports) {
+                sb.append("  ").append(report).append("\n");
+            }
+        }
+
+        return sb.toString();
+    }
 
 }

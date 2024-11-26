@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileIOManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">csc335-final-project</a> &gt; <a href="index.source.html" class="el_package">csc335.app</a> &gt; <span class="el_source">FileIOManager.java</span></div><h1>FileIOManager.java</h1><pre class="source lang-java linenums">package csc335.app;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import csc335.app.models.Budget;
+import csc335.app.models.Category;
+import csc335.app.models.Expense;
+import csc335.app.models.User;
+
+<span class="nc" id="L19">public class FileIOManager {</span>
+
+    private static User currentUser;
+    private static final String USER_DATA_DIRECTORY = &quot;data/users&quot;;
+
+    public static boolean authenticateUser(String username, String password) {
+<span class="nc" id="L25">        File userFile = new File(USER_DATA_DIRECTORY, username + &quot;.txt&quot;);</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if (!userFile.exists()) {</span>
+<span class="nc" id="L27">            return false; // Return false if user's file not found</span>
+        }
+
+<span class="nc" id="L30">        try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {</span>
+            String line;
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            while ((line = reader.readLine()) != null) {</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">                if (line.startsWith(&quot;Password: &quot;)) {</span>
+<span class="nc" id="L34">                    String storedPassword = line.substring(10); // Retrieve password stored in user file</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">                    if (storedPassword.equals(password)) { // Compare passwords and return true if pasword is correct</span>
+<span class="nc" id="L36">                        return true;</span>
+                    }
+<span class="nc" id="L38">                }</span>
+            }
+<span class="nc" id="L40">        } catch (IOException e) {</span>
+<span class="nc" id="L41">            e.printStackTrace();</span>
+<span class="nc" id="L42">        }</span>
+<span class="nc" id="L43">        return false;</span>
+    }
+
+    /**
+     * 
+     * @param username
+     * @param email
+     * @param password
+     * @return
+     */
+    public static boolean createUserFile(String username, String email, String password) {
+<span class="nc" id="L54">        File userFile = new File(USER_DATA_DIRECTORY, username + &quot;.txt&quot;);</span>
+<span class="nc" id="L55">        try (FileWriter writer = new FileWriter(userFile)) {</span>
+<span class="nc" id="L56">            writer.write(&quot;# User Info\n&quot;);</span>
+<span class="nc" id="L57">            writer.write(&quot;Username: &quot; + username + &quot;\n&quot;);</span>
+<span class="nc" id="L58">            writer.write(&quot;Email: &quot; + email + &quot;\n&quot;);</span>
+<span class="nc" id="L59">            writer.write(&quot;Password: &quot; + password + &quot;\n&quot;);</span>
+<span class="nc" id="L60">            return true;</span>
+<span class="nc" id="L61">        } catch (IOException e) {</span>
+<span class="nc" id="L62">            e.printStackTrace();</span>
+<span class="nc" id="L63">            return false;</span>
+        }
+    }
+
+    public static User loadUserData(String username, String password) throws IOException {
+
+<span class="nc" id="L69">        File userFile = new File(USER_DATA_DIRECTORY, username + &quot;.txt&quot;);</span>
+<span class="nc" id="L70">        BufferedReader reader = new BufferedReader(new FileReader(userFile));</span>
+        String line;
+<span class="nc" id="L72">        User user = null;</span>
+
+<span class="nc" id="L74">        String email = null;</span>
+        
+<span class="nc" id="L76">        Map&lt;Category, Budget&gt; budgets = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L77">        List&lt;Expense&gt; expenses = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        while ((line = reader.readLine()) != null) {</span>
+<span class="nc" id="L80">            String[] parts = line.split(&quot;:&quot;);</span>
+<span class="nc" id="L81">            String key = parts[0].trim();</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">            String value = parts.length &gt; 1 ? parts[1].trim() : &quot;&quot;;</span>
+    
+<span class="nc bnc" id="L84" title="All 4 branches missed.">            switch (key) {</span>
+                case &quot;Email&quot;:
+<span class="nc" id="L86">                    email = value;</span>
+<span class="nc" id="L87">                    break;</span>
+                case &quot;Budget&quot;:
+                    // Expected format -&gt; Budget: Groceries, 500.00
+<span class="nc" id="L90">                    String[] budgetParts = value.split(&quot;,&quot;);</span>
+<span class="nc" id="L91">                    Category category = Category.valueOf(budgetParts[0].trim());</span>
+<span class="nc" id="L92">                    double limit = Double.parseDouble(budgetParts[1].trim());</span>
+<span class="nc" id="L93">                    budgets.put(category, new Budget(category, limit));</span>
+<span class="nc" id="L94">                    break;</span>
+                case &quot;Transaction&quot;:
+                    // Expected format -&gt; Expense: 2024-01-01, Groceries, 50.00, Supermarket
+<span class="nc" id="L97">                    String[] expenseParts = value.split(&quot;,&quot;);</span>
+<span class="nc" id="L98">                    String date = expenseParts[0].trim();</span>
+<span class="nc" id="L99">                    Category Category = csc335.app.models.Category.valueOf(expenseParts[1].trim());</span>
+<span class="nc" id="L100">                    double amount = Double.parseDouble(expenseParts[2].trim());</span>
+<span class="nc" id="L101">                    String description = expenseParts[3].trim();</span>
+<span class="nc" id="L102">                    expenses.add(new Expense(date, Category, amount, description));</span>
+                    break;
+            }
+<span class="nc" id="L105">        }</span>
+    
+<span class="nc" id="L107">        reader.close();</span>
+    
+        // Ensure all required fields are present
+<span class="nc bnc" id="L110" title="All 6 branches missed.">        if (username != null &amp;&amp; email != null &amp;&amp; password != null) {</span>
+<span class="nc" id="L111">            user = new User(username, email, password);</span>
+
+            // Add each budget found in the file to the user's budget map
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            for (Category category : budgets.keySet()) { // Loop through each key in map</span>
+<span class="nc" id="L115">                Budget budget = budgets.get(category); // Get the value for the key</span>
+<span class="nc" id="L116">                user.setBudget(category, budget.getLimit()); // Set budget</span>
+<span class="nc" id="L117">            }</span>
+            
+            // Add each expense found in the file to the user's expense list
+<span class="nc bnc" id="L120" title="All 2 branches missed.">            for (Expense expense : expenses){</span>
+<span class="nc" id="L121">                user.addExpense(expense);</span>
+<span class="nc" id="L122">            }</span>
+
+            
+        } else {
+<span class="nc" id="L126">            throw new IOException(&quot;Invalid user file format.&quot;);</span>
+        }
+    
+<span class="nc" id="L129">        return user;</span>
+    }
+
+    public static void updateUserFile() {
+<span class="nc" id="L133">        File userFile = new File(USER_DATA_DIRECTORY, currentUser.getUsername() + &quot;.txt&quot;);</span>
+<span class="nc" id="L134">        try (BufferedWriter writer = new BufferedWriter(new FileWriter(userFile))) {</span>
+<span class="nc" id="L135">            writer.write(&quot;# User Info\n&quot;);</span>
+<span class="nc" id="L136">            writer.write(&quot;Username: &quot; + currentUser.getUsername());</span>
+<span class="nc" id="L137">            writer.newLine();</span>
+<span class="nc" id="L138">            writer.write(&quot;Email: &quot; + currentUser.getEmail());</span>
+<span class="nc" id="L139">            writer.newLine();</span>
+<span class="nc" id="L140">            writer.write(&quot;Password: &quot; + currentUser.getPassword());</span>
+<span class="nc" id="L141">            writer.newLine();</span>
+
+<span class="nc" id="L143">            writer.write(&quot;# Budgets&quot;);</span>
+<span class="nc" id="L144">            writer.newLine();</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">            for (Map.Entry&lt;Category, Budget&gt; entry : currentUser.getBudgets().entrySet()) {</span>
+<span class="nc" id="L146">                writer.write(entry.getKey() + &quot;, &quot; + entry.getValue().getLimit());</span>
+<span class="nc" id="L147">                writer.newLine();</span>
+<span class="nc" id="L148">            }</span>
+
+<span class="nc" id="L150">            writer.write(&quot;# Expenses&quot;);</span>
+<span class="nc" id="L151">            writer.newLine();</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">            for (Expense expense : currentUser.getExpenses()) {</span>
+<span class="nc" id="L153">                writer.write(expense.getDate() + &quot;, &quot; + expense.getCategory() + &quot;, &quot; + expense.getAmount() + &quot;, &quot;</span>
+<span class="nc" id="L154">                        + expense.getDescription());</span>
+<span class="nc" id="L155">                writer.newLine();</span>
+<span class="nc" id="L156">            }</span>
+
+<span class="nc" id="L158">        } catch (IOException e) {</span>
+<span class="nc" id="L159">            e.printStackTrace();</span>
+<span class="nc" id="L160">            System.out.println(&quot;Error: Unable to update the user file.&quot;);</span>
+<span class="nc" id="L161">        }</span>
+<span class="nc" id="L162">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

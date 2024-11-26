@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DashboardController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">csc335-final-project</a> &gt; <a href="index.source.html" class="el_package">csc335.app.controllers</a> &gt; <span class="el_source">DashboardController.java</span></div><h1>DashboardController.java</h1><pre class="source lang-java linenums">package csc335.app.controllers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import csc335.app.UserSessionManager;
+import csc335.app.models.Budget;
+import csc335.app.models.Category;
+import csc335.app.models.Expense;
 import csc335.app.models.User;
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 
-<span class="nc" id="L5">public class DashboardController {</span>
+<span class="nc" id="L20">public class DashboardController {</span>
 
-    private static User user;
+    private static User currentUser;
 
-    public static void loadUserInformation(String username) {
-<span class="nc" id="L10">        user = new User(null, null, null);</span>
-<span class="nc" id="L11">    }</span>
+    @FXML
+    private AnchorPane contentArea; // Pane representing the dashboard view
+
+    @FXML
+    public void initialize() throws IOException {
+<span class="nc" id="L29">        currentUser = UserSessionManager.getCurrentUser();</span>
+<span class="nc" id="L30">        System.out.println(&quot;Welcome, &quot; + currentUser.getUsername());</span>
+        
+<span class="nc" id="L32">    }</span>
+
+    
+
+    
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,5 +1,10 @@
 /Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/App.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/FileIOManager.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/TextUI.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/TextUIController.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/TextUIModel.java
 /Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/UserAuth.java
+/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/UserSessionManager.java
 /Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/controllers/AuthController.java
 /Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/controllers/DashboardController.java
 /Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/Budget.java
