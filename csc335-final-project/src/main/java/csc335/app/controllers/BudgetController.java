@@ -75,9 +75,9 @@ public class BudgetController {
                 contentArea.getChildren().clear();
                 Pane view = FXMLLoader.load(getClass().getResource(fxmlPath));
                 contentArea.getChildren().add(view);
-
+                Pane sideBar = navigation.load(fxmlPath); //nagivation side bar
                 // Add the panes to contentArea
-                contentArea.getChildren().addAll(root, food, transportation, utilities, health, entertainment, other);
+                contentArea.getChildren().addAll(sideBar, root, food, transportation, utilities, health, entertainment, other);
             } else {
                 System.err.println("contentArea is null. Check FXML and Controller binding.");
             }
@@ -87,8 +87,9 @@ public class BudgetController {
     }
 
     @FXML
-    private void handleStart() {
+    protected void handleStart() {
         loadContent("/views/BudgetView.fxml");
+        initialize();
     }
 
     @FXML
