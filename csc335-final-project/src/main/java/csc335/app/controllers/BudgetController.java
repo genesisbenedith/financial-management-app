@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import csc335.app.controllers.NavController;
 
 import java.io.*;
 import java.util.Map;
@@ -64,6 +65,8 @@ public class BudgetController {
     private ProgressBar entertainmentProgress;
     @FXML
     private ProgressBar otherProgress;
+    @FXML
+    private NavController navigation;
 
     @FXML
     public void loadContent(String fxmlPath) {
@@ -288,5 +291,10 @@ public class BudgetController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void navClick(){
+        //navigation.
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.gluonhq.charm.glisten.control.Avatar?>
+<?import com.gluonhq.charm.glisten.control.Icon?>
 <?import com.gluonhq.charm.glisten.control.ProgressIndicator?>
 <?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?>
 <?import io.github.palexdev.materialfx.controls.MFXSpinner?>
@@ -17,7 +18,61 @@
 
 <AnchorPane fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@/../css/budget.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.BudgetController">
    <children>
-      <VBox fx:id="vbox" prefHeight="720.0" prefWidth="200.0" style="-fx-background-radius: 100px;" styleClass="nav-bar" stylesheets="@../css/budget.css" />
+      <VBox fx:id="vbox" prefHeight="720.0" prefWidth="200.0" style="-fx-background-radius: 100px;" styleClass="nav-bar" stylesheets="@../css/budget.css">
+         <children>
+            <Pane layoutY="150.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #fff;">
+               <padding>
+                  <Insets bottom="25.0" />
+               </padding>
+            </Pane>
+            <Pane fx:id="anchor" layoutY="150.0" prefHeight="670.0" prefWidth="200.0" styleClass="barBackground" stylesheets="@../css/sidebar.css">
+               <padding>
+                  <Insets bottom="25.0" top="20.0" />
+               </padding>
+               <children>
+                  <Pane layoutX="10.0" layoutY="10.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label alignment="CENTER" layoutX="55.0" layoutY="20.0" prefHeight="23.0" prefWidth="90.0" text="Dashboard">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Icon content="HELP_OUTLINE" layoutX="14.0" layoutY="22.0" />
+                     </children></Pane>
+                  <Pane layoutX="10.0" layoutY="90.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label layoutX="55.0" layoutY="20.0" text="Expenses">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Icon content="HELP_OUTLINE" layoutX="14.0" layoutY="23.0" />
+                     </children></Pane>
+                  <Pane layoutX="10.0" layoutY="170.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label layoutX="55.0" layoutY="20.0" text="Budget">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Icon content="HELP_OUTLINE" layoutX="14.0" layoutY="22.0" />
+                     </children></Pane>
+                  <Pane layoutX="10.0" layoutY="250.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label layoutX="55.0" layoutY="20.0" text="Reports">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Icon content="HELP_OUTLINE" layoutX="14.0" layoutY="18.0" />
+                     </children></Pane>
+                  <Pane layoutX="10.0" layoutY="579.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label layoutX="55.0" layoutY="20.0" text="Log-out">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Icon content="HELP_OUTLINE" layoutX="14.0" layoutY="18.0" />
+                     </children></Pane>
+               </children>
+            </Pane>
+         </children></VBox>
       <StackPane alignment="TOP_LEFT" layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0">
          <children>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="880.0" style="-fx-background-color: #fff;" StackPane.alignment="TOP_LEFT">
@@ -32,7 +87,7 @@
                   </Label>
                   <MFXNotificationCenter>
                      <HBox.margin>
-                        <Insets right="25.0" top="20.0" />
+                        <Insets right="25.0" top="10.0" />
                      </HBox.margin>
                   </MFXNotificationCenter>
                   <Avatar>
@@ -80,7 +135,7 @@
                               <Font size="29.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
