@@ -2,6 +2,7 @@
 
 <?import com.gluonhq.charm.glisten.control.ProgressIndicator?>
 <?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?>
+<?import io.github.palexdev.materialfx.controls.MFXProgressSpinner?>
 <?import io.github.palexdev.materialfx.controls.MFXSpinner?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -132,7 +133,7 @@
                               <Image url="@../images/transport_icon.png" />
                            </image>
                         </ImageView>
-                        <ProgressIndicator fx:id="transportationProgress" layoutX="42.0" layoutY="35.0" progress="0.63" rotate="27.0" scaleX="3.25" scaleY="3.25" styleClass="prog-chart" stylesheets="@../css/budget.css" />
+                        <MFXProgressSpinner layoutX="106.0" layoutY="26.0" prefWidth="104.0" progress="0.48" radius="-30.0" scaleX="1.5" scaleY="1.5" startingAngle="290.0" />
                      </children>
                   </Pane>
                   <Pane fx:id="food" layoutX="25.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
