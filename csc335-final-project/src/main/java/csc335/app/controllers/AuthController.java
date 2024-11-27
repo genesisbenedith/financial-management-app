@@ -15,55 +15,60 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import csc335.app.UserAuth;
+import csc335.app.FileIOManager;
+import csc335.app.UserSessionManager;
+import csc335.app.models.User;
 
 public class AuthController {
+    @FXML
+    private NavController navigation;
 
     @FXML
-    private AnchorPane contentArea; // Pane representing the sign-in or sign-up or dashboard view
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private TextField usernameField;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private PasswordField confirmPasswordField;
-
-    // Storing usernames and emails for existing accounts
-    private static final Set<String> registeredUsernames = new HashSet<>();
-    private static final Set<String> registeredEmails = new HashSet<>();
-    private static final String USER_DATA_DIRECTORY = "data/users";
-
-    @FXML
-    public void initialize() {
-        System.out.println("AuthController initialized.");
-        System.out.println("contentArea: " + contentArea);
-    }
-
-    /**
-     * Loads the specified FXML file into the contentArea.
-     *
-     * @param fxmlPath The path to the FXML file to load.
-     */
-    @FXML
-    public void loadContent(String fxmlPath) {
-        try {
-            if (contentArea != null) {
+    private static AnchorPane contentArea; // Pane representing the sign-in or sign-up or dashboard view
+    
+        @FXML
+        private TextField emailField;
+    
+        @FXML
+        private TextField usernameField;
+    
+        @FXML
+        private PasswordField passwordField;
+    
+        @FXML
+        private PasswordField confirmPasswordField;
+    
+        // Storing usernames and emails for existing accounts
+        private static final Set<String> registeredUsernames = new HashSet<>();
+        private static final Set<String> registeredEmails = new HashSet<>();
+    
+        @FXML
+        public void initialize() {
+            System.out.println("AuthController initialized.");
+            System.out.println("contentArea: " + contentArea);
+        }
+    
+        /**
+         * Loads the specified FXML file into the contentArea.
+         *
+         * @param fxmlPath The path to the FXML file to load.
+         */
+        @FXML
+        public static void loadContent(String fxmlPath) {
+            try {
+                if (contentArea != null) {
                 Pane view = FXMLLoader.load(getClass().getResource(fxmlPath));
+                // Pane sideBar = navigation.load(fxmlPath);
                 contentArea.getChildren().clear();
                 contentArea.getChildren().add(view);
+                // if (sideBar != null) {
+                //     contentArea.getChildren().add(sideBar);
+                // }
             } else {
                 System.err.println("contentArea is null. Check FXML and Controller binding.");
             }
@@ -91,7 +96,7 @@ public class AuthController {
             String password = passwordField.getText().trim();
 
             // Save user data to file
-            if (saveUserDataToFile(username, email, password)) {
+            if (FileIOManager.createUserFile(username, email, password)) {
                 // For testing & debugging purposes
                 showAlert(AlertType.INFORMATION, "Success", "Account created successfully!");
 
@@ -105,9 +110,11 @@ public class AuthController {
 
     /**
      * Handles switching to the DashboardView when "Sign In" is clicked.
+     * 
+     * @throws IOException
      */
     @FXML
-    private void handleSignInClick() {
+    private void handleSignInClick() throws IOException {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
@@ -116,10 +123,21 @@ public class AuthController {
             return;
         }
 
-        boolean isAuthenticated = UserAuth.authenticateUser(username, password);
+        boolean isAuthenticated = FileIOManager.authenticateUser(username, password);
         if (isAuthenticated) {
             System.out.println("User authenticated successfully.");
-            DashboardController.loadUserInformation(username);
+            User currentUser = null;
+
+            try {
+                currentUser = FileIOManager.loadUserData(username);
+                UserSessionManager.setCurrentUser(currentUser);
+            } catch (IOException e) {
+                showErrorDialog("Error", "Failed to load user data.");
+                e.printStackTrace();
+            }
+            
+            System.out.println(currentUser.toString());
+            
             // Load the dashboard view
             loadContent("/views/DashboardView.fxml");
         } else {
@@ -202,29 +220,4 @@ public class AuthController {
         alert.showAndWait();
     }
 
-    /**
-     * 
-     * @param username
-     * @param email
-     * @param password
-     * @return
-     */
-    private boolean saveUserDataToFile(String username, String email, String password) {
-        File userFile = new File(USER_DATA_DIRECTORY, username + ".txt");
-        try (FileWriter writer = new FileWriter(userFile)) {
-            writer.write("# User Info\n");
-            writer.write("Username: " + username + "\n");
-            writer.write("Email: " + email + "\n");
-            writer.write("Password: " + password + "\n");
-            writer.write("\n");
-            writer.write("# Budgets\n");
-            writer.write("\n");
-            writer.write("# Expenses\n");
-            writer.write("Date,Category,Amount,Description\n");
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 }

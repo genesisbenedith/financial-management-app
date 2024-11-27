@@ -34,67 +34,90 @@ public class NavController {
     @FXML
     private Pane reports;
 
-    @FXML
-    public Pane load(String fxml) {
-        try {
-            if (anchor != null) {
-                // Clear current content
-                anchor.getChildren().clear();
+    private Pane[] panes = {reports, dashboard, logout, expense, budget};
+    // @FXML
+    // public Pane load(String fxml) {
+    //     try {
+    //         if (anchor != null) {
+    //             // Clear current content
+    //             anchor.getChildren().clear();
 
-                // Load new view
-                Pane view = FXMLLoader.load(NavController.class.getResource(fxml));
-                anchor.getChildren().add(view);
-                anchor.getChildren().addAll(dashboard, expense, budget, logout);
-                initialize();
-            } else {
-                System.err.println("Anchor isn't available.");
+    //             // Load new view
+    //             Pane view = FXMLLoader.load(NavController.class.getResource(fxml));
+    //             anchor.getChildren().add(view);
+    //             anchor.getChildren().addAll(dashboard, expense, budget, logout);
+    //             initialize();
+    //         } else {
+    //             System.err.println("Anchor isn't available.");
+    //         }
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    //             return anchor;
+    // }
+
+    // @FXML
+    // public void initialize() {
+    //     // Make the panes clickable
+    //     dashboard.setOnMouseClicked(event -> {
+    //         handleClicked(dashboard);
+    //     });
+
+    //     expense.setOnMouseClicked(event -> {
+    //         handleClicked(expense);
+    //     });
+
+    //     budget.setOnMouseClicked(event -> {
+    //         handleClicked(budget);
+    //     });
+
+    //     reports.setOnMouseClicked(event -> {
+    //         handleClicked(reports);
+    //     });
+
+    //     logout.setOnMouseClicked(event -> {
+    //         handleClicked(logout);
+    //     });
+    // }
+
+    // @FXML
+    // private void handleClicked(Pane target){
+    //     if(target == dashboard){
+    //         DashboardFace.handleStart();
+    //     }
+    //     if(target == expense){
+
+    //     }
+    //     if(target == budget){
+    //         BudgetFace.handleStart();
+    //     }
+    //     if(target == reports){
+
+    //     }
+    //     if(target == logout){
+
+    //     }
+    // }
+
+    @FXML
+    private void goToDashboard(){
+        AuthController.loadContent("/views/DashboardView.fxml");
+        resetSelected(dashboard);
+                dashboard.setStyle("-fx-background-color: #698abf");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-                return anchor;
-    }
-
+        
     @FXML
-    public void initialize() {
-        // Make the panes clickable
-        dashboard.setOnMouseClicked(event -> {
-            handleClicked(dashboard);
-        });
-
-        expense.setOnMouseClicked(event -> {
-            handleClicked(expense);
-        });
-
-        budget.setOnMouseClicked(event -> {
-            handleClicked(budget);
-        });
-
-        reports.setOnMouseClicked(event -> {
-            handleClicked(reports);
-        });
-
-        logout.setOnMouseClicked(event -> {
-            handleClicked(logout);
-        });
-    }
-
-    @FXML
-    private void handleClicked(Pane target){
-        if(target == dashboard){
-            DashboardFace.handleStart();
-        }
-        if(target == expense){
-
-        }
-        if(target == budget){
-            BudgetFace.handleStart();
-        }
-        if(target == reports){
-
-        }
-        if(target == logout){
-
+    private void resetSelected(Pane target) {
+        for(Pane p: panes){
+            if(target == p){
+                target.setStyle("-fx-background-color: #698abf");
+            }
         }
     }
+        
+            @FXML
+    private void goToBudget(){
+        AuthController.loadContent("");
+    }
+
 }

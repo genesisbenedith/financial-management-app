@@ -131,28 +131,28 @@ public class BudgetController {
 
     private void handleTypedValue(Category category, double value) {
         System.out.println("Typed value for " + category + ": " + value);
-        DashboardController.user.setBudget(category, value);
+        DashboardController.currentUser.setBudget(category, value);
         updateProgressBar(category);
         handleWarning(category, value);
     }
 
     private void handlePlusButtonPressed(Category category, double newValue) {
         System.out.println("Plus button pressed for " + category + ": New value is " + newValue);
-        DashboardController.user.setBudget(category, newValue);
+        DashboardController.currentUser.setBudget(category, newValue);
         updateProgressBar(category);
         handleWarning(category, newValue);
     }
 
     private void handleMinusButtonPressed(Category category, double newValue) {
         System.out.println("Minus button pressed for " + category + ": New value is " + newValue);
-        DashboardController.user.setBudget(category, newValue);
+        DashboardController.currentUser.setBudget(category, newValue);
         updateProgressBar(category);
         handleWarning(category, newValue);
     }
 
     private void updateProgressBar(Category category) {
-        double limit = DashboardController.user.getBudgets().get(category).getLimit();
-        double spent = DashboardController.user.getBudgets().get(category).getSpent();
+        double limit = DashboardController.currentUser.getCategorizedBudgets().get(category).getLimit();
+        double spent = DashboardController.currentUser.getCategorizedBudgets().get(category).getTotalSpent();
         double progress = (limit == 0) ? 0 : spent / limit;
 
         switch (category) {
@@ -180,7 +180,7 @@ public class BudgetController {
     }
 
     private void handleWarning(Category cat, double lim){
-        double spent = DashboardController.user.getBudgets().get(cat).getSpent();
+        double spent = DashboardController.currentUser.getCategorizedBudgets().get(cat).getTotalSpent();
         if(spent != 0.0 && lim/spent >= 0.8){
             if(cat == Category.ENTERTAINMENT){
                 ImageView img = (ImageView) entertainment.lookup("#eAlert");
@@ -236,14 +236,14 @@ public class BudgetController {
 
     @FXML
     private void saveBudgetToFile() {
-        String username = DashboardController.user.getUsername();
+        String username = DashboardController.currentUser.getUsername();
         File userFile = new File(username + ".txt");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(userFile));
              StringWriter fileContent = new StringWriter()) {
 
             String line;
-            Map<Category, Budget> budgets = DashboardController.user.getBudgets();
+            Map<Category, Budget> budgets = DashboardController.currentUser.getCategorizedBudgets();
 
             while ((line = reader.readLine()) != null) {
                 boolean categoryUpdated = false;
@@ -258,7 +258,7 @@ public class BudgetController {
                                 .append(", ")
                                 .append(budget.getLimit() + "")
                                 .append(", ")
-                                .append(budget.getSpent() + "")
+                                .append(budget.getTotalSpent() + "")
                                 .append("\n");
                         categoryUpdated = true;
                         break;
@@ -280,7 +280,7 @@ public class BudgetController {
                             .append(", ")
                             .append(budget.getLimit() + "")
                             .append(", ")
-                            .append(budget.getSpent() + "")
+                            .append(budget.getTotalSpent() + "")
                             .append("\n");
                 }
             }

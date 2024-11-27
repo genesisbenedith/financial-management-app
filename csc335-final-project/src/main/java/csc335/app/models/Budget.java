@@ -1,5 +1,7 @@
 package csc335.app.models;
 
+import java.util.*;
+
 /**
  * Author(s): Genesis Benedith
  * File: Budget.java
@@ -7,87 +9,63 @@ package csc335.app.models;
  */
 
 public class Budget {
-    private Category category; // Budget category (e.g., Groceries, Transportation)
+    private Category category; // Budget category (e.g., Groceries, Transportation, etc.)
     private double limit;    // Budget limit for the category
-    private double spent;    // Amount spent so far in the category
+    private List<Expense> budgetedExpenses; // List of expenses associated with budget
 
     /* ------------------------------ Constructor ------------------------------ */
 
-    /**
-     * 
-     * @param category
-     * @param limit
-     */
     public Budget(Category category, double limit) {
         this.category = category;
         this.limit = limit;
-        this.spent = 0.0;
+        this.budgetedExpenses = new ArrayList<>();
     }
 
-    /**
-     * 
-     * @param amount
-     */
-    public void addExpense(double amount) {
-        this.spent += amount;
+    public void addExpense(Expense newExpense) {
+        budgetedExpenses.add(newExpense);
     }
 
-    /**
-     * 
-     * @return
-     */
+    public void addExpenses(List<Expense> expenses) {
+        budgetedExpenses.clear();
+        budgetedExpenses.addAll(expenses);
+    }
+
+    public void removeExpense(Expense expense) {
+        budgetedExpenses.remove(expense);
+    }
+    
     public boolean isExceeded() {
-        return spent > limit;
+        return getTotalSpent() > limit;
     }
 
     /* ------------------------------ Getters and Setters ------------------------------ */
 
-    /**
-     * 
-     * @return
-     */
     public Category getCategory() {
         return category;
     }
 
-    /**
-     * 
-     * @param category
-     */
     public void setCategory(Category category) {
         this.category = category;
     }
 
-    /**
-     * 
-     * @return
-     */
     public double getLimit() {
         return limit;
     }
 
-    /**
-     * 
-     * @param limit
-     */
     public void setLimit(double limit) {
         this.limit = limit;
     }
 
-    /**
-     * 
-     * @return
-     */
-    public double getSpent() {
-        return spent;
+    public double getTotalSpent() {
+        double totalSpent = 0.0;
+        for (Expense expense : budgetedExpenses) {
+            totalSpent += expense.getAmount();
+        }
+        return totalSpent;
     }
 
-    /**
-     * 
-     * @return
-     */
     @Override
     public String toString() {
-        return category + ": " + spent + "/" + limit;
+        return category + ": " + getTotalSpent() + "/" + limit;
     }
 }

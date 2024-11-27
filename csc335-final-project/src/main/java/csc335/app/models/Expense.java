@@ -1,5 +1,8 @@
 package csc335.app.models;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Author(s): Genesis Benedith
  * File: Expense.java
@@ -7,7 +10,7 @@ package csc335.app.models;
  */
 
 public class Expense {
-    private String date;        // Date in format "YYYY-MM-DD"
+    private LocalDate date;        // Date in format "YYYY-MM-DD"
     private Category category;    // Expense category (e.g., Groceries, Entertainment)
     private double amount;      // Transaction amount
     private String description; // Brief description of the transaction
@@ -15,7 +18,7 @@ public class Expense {
     /* ------------------------------ Constructor ------------------------------ */
 
 
-    public Expense(String date, Category category, double amount, String description) {
+    public Expense(LocalDate date, Category category, double amount, String description) {
         this.date = date;
         this.category = category;
         this.amount = amount;
@@ -28,15 +31,19 @@ public class Expense {
      * 
      * @return
      */
-    public String getDate() {
+    public LocalDate getLocalDate() {
         return date;
+    }
+
+    public String getStringDate() {
+        return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
     /**
      * 
      * @param date
      */
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -93,7 +100,6 @@ public class Expense {
      */
     @Override
     public String toString() {
-        return date + "," + category + "," + amount + "," + description;
+        return getStringDate() + "," + category + "," + amount + "," + description;
     }
 }
-
