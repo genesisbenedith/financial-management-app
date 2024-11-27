@@ -9,10 +9,9 @@
 // public class TextUI {
 
 //     static Scanner scanner = new Scanner(System.in);
-//     private static TextUIController controller;
 //     private static final String DATA_DIRECTORY = "data/users";
 
-//     public static void main(String[] args) throws IOException {
+//     public static void main(String[] args){
 
 //         System.out.println("Welcome to Finantra!");
 //         System.out.println("--------------------------------------------");
@@ -26,24 +25,25 @@
 //             signUp();
 //         } else {
 //             System.out.println("Invalid option. Exiting...");
+//             main(null);
 //         }
 
 //         scanner.close();
 //     }
 
-//     private static void signIn() throws IOException {
+//     private static void signIn() {
 //         System.out.println("Enter Username:");
 //         String username = scanner.nextLine();
 
 //         System.out.println("Enter Password:");
 //         String password = scanner.nextLine();
 
-//         boolean isAuthenticated = UserAuth.authenticateUser(username, password);
+//         boolean isAuthenticated = FileIOManager.authenticateUser(username, password);
 
 //         if (isAuthenticated) {
 //             System.out.println("User authenticated successfully.");
-//             controller = new TextUIController(username);
-//             controller.dashboardMenu(username, scanner);
+//             TextUIController controller = new TextUIController(scanner);
+//             controller.dashboardMenu();
 //         } else {
 //             System.out.println("Invalid username or password. Please try again.");
 //             System.out.println("--------------------------------------------");
@@ -51,7 +51,7 @@
 //         }
 //     }
 
-//     private static void signUp() throws IOException {
+//     private static void signUp(){
 //         System.out.println("Enter a new Username:");
 //         String username = scanner.nextLine();
 

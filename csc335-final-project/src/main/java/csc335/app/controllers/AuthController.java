@@ -15,26 +15,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 import csc335.app.FileIOManager;
-import csc335.app.UserAuth;
 import csc335.app.UserSessionManager;
-import csc335.app.models.Budget;
-import csc335.app.models.Category;
-import csc335.app.models.Expense;
 import csc335.app.models.User;
 
 public class AuthController {
@@ -134,14 +121,15 @@ public class AuthController {
         if (isAuthenticated) {
             System.out.println("User authenticated successfully.");
             User currentUser = null;
+
             try {
-                currentUser = FileIOManager.loadUserData(username, password);
+                currentUser = FileIOManager.loadUserData(username);
                 UserSessionManager.setCurrentUser(currentUser);
             } catch (IOException e) {
                 showErrorDialog("Error", "Failed to load user data.");
                 e.printStackTrace();
             }
-
+            
             System.out.println(currentUser.toString());
             
             // Load the dashboard view

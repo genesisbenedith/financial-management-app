@@ -1,6 +1,5 @@
 package csc335.app;
 
-
 import csc335.app.models.User;
 
 public class UserSessionManager {
@@ -20,6 +19,10 @@ public class UserSessionManager {
      */
     public static void setCurrentUser(User user) {
         currentUser = user;
+    }
+
+    public static void resetCurrentUser() {
+        currentUser = null;
     }
 }
 
