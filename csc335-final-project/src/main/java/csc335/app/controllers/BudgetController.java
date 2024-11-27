@@ -3,7 +3,6 @@ package csc335.app.controllers;
 import csc335.app.models.Budget;
 import csc335.app.models.Category;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -11,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import csc335.app.controllers.NavController;
 
 import java.io.*;
 import java.util.Map;
@@ -69,31 +67,7 @@ public class BudgetController {
     private NavController navigation;
 
     @FXML
-    public void loadContent(String fxmlPath) {
-        try {
-            if (contentArea != null) {
-                contentArea.getChildren().clear();
-                Pane view = FXMLLoader.load(getClass().getResource(fxmlPath));
-                contentArea.getChildren().add(view);
-                Pane sideBar = navigation.load(fxmlPath); //nagivation side bar
-                // Add the panes to contentArea
-                contentArea.getChildren().addAll(sideBar, root, food, transportation, utilities, health, entertainment, other);
-            } else {
-                System.err.println("contentArea is null. Check FXML and Controller binding.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    protected void handleStart() {
-        loadContent("/views/BudgetView.fxml");
-        initialize();
-    }
-
-    @FXML
-    public void initialize() {
+    public void initializeSpinners() {
         // Set up the spinners with value factories
         setupSpinner(fSpinner, Category.FOOD);
         setupSpinner(tSpinner, Category.TRANSPORTATION);
@@ -103,6 +77,7 @@ public class BudgetController {
         setupSpinner(oSpinner, Category.OTHER);
     }
 
+    @FXML
     private void setupSpinner(Spinner<Double> spinner, Category category) {
         spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, max, 0.0, 0.1));
 
@@ -294,8 +269,4 @@ public class BudgetController {
         }
     }
 
-    @FXML
-    private void navClick(){
-        //navigation.
-    }
 }

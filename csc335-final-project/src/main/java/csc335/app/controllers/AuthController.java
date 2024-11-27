@@ -8,12 +8,14 @@ package csc335.app.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -25,6 +27,7 @@ import csc335.app.UserSessionManager;
 import csc335.app.models.User;
 
 public class AuthController {
+    private Stage controllerStage;
     @FXML
     private NavController navigation;
 
@@ -58,22 +61,18 @@ public class AuthController {
          *
          * @param fxmlPath The path to the FXML file to load.
          */
-        @FXML
-        public static void loadContent(String fxmlPath) {
-            try {
-                if (contentArea != null) {
-                Pane view = FXMLLoader.load(getClass().getResource(fxmlPath));
-                // Pane sideBar = navigation.load(fxmlPath);
-                contentArea.getChildren().clear();
-                contentArea.getChildren().add(view);
-                // if (sideBar != null) {
-                //     contentArea.getChildren().add(sideBar);
-                // }
-            } else {
-                System.err.println("contentArea is null. Check FXML and Controller binding.");
-            }
+        public void loadContent(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            contentArea = loader.load();
+
+            // Replace the current scene in the stage
+            Scene scene = new Scene(contentArea);
+            controllerStage.setScene(scene);
+            controllerStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            showErrorDialog("Error", "Failed to load the view: " + fxmlPath);
         }
     }
 
@@ -218,6 +217,10 @@ public class AuthController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void setStage(Stage stage) {
+        controllerStage = stage;
     }
 
 }

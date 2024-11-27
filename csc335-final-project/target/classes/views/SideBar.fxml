@@ -1,0 +1,77 @@
+
+<children>
+            <Pane layoutY="150.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #fff;">
+               <padding>
+                  <Insets bottom="25.0" />
+               </padding>
+            </Pane>
+            <Pane fx:id="anchor" layoutY="150.0" prefHeight="670.0" prefWidth="200.0" styleClass="barBackground" stylesheets="@../css/sidebar.css" fx:controller="csc335.app.controllers.NavController">
+               <padding>
+                  <Insets bottom="25.0" top="20.0" />
+               </padding>
+               <children>
+                  <Pane fx:id="dashboard" layoutX="10.0" layoutY="10.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label alignment="CENTER" layoutX="53.0" layoutY="20.0" prefHeight="23.0" prefWidth="90.0" text="Dashboard">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <ImageView layoutX="14.0" layoutY="12.0">
+                           <image>
+                              <Image url="@../images/home_icon.png" />
+                           </image>
+                        </ImageView>
+                     </children></Pane>
+                  <Pane fx:id="expense" layoutX="10.0" layoutY="90.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label layoutX="55.0" layoutY="20.0" text="Expenses">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView layoutX="14.0" layoutY="12.0">
+                           <image>
+                              <Image url="@../images/expenses_icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="budget" layoutX="10.0" layoutY="170.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label layoutX="55.0" layoutY="20.0" text="Budget">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <ImageView layoutX="14.0" layoutY="12.0">
+                           <image>
+                              <Image url="@../images/budget_icon.png" />
+                           </image>
+                        </ImageView>
+                     </children></Pane>
+                  <Pane fx:id="reports" layoutX="10.0" layoutY="250.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label layoutX="55.0" layoutY="20.0" text="Reports">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <ImageView layoutX="14.0" layoutY="12.0">
+                           <image>
+                              <Image url="@../images/reports_icon.png" />
+                           </image>
+                        </ImageView>
+                     </children></Pane>
+                  <Pane fx:id="logout" layoutX="10.0" layoutY="579.0" onMouseClicked="#isClicked" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                     <children>
+                        <Label layoutX="55.0" layoutY="20.0" text="Log-out">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <ImageView layoutX="14.0" layoutY="12.0">
+                           <image>
+                              <Image url="@../images/logout_icon.png" />
+                           </image>
+                        </ImageView>
+                     </children></Pane>
+               </children>
+            </Pane>
+</children>
