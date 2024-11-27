@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NavController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">csc335-final-project</a> &gt; <a href="index.source.html" class="el_package">csc335.app.controllers</a> &gt; <span class="el_source">NavController.java</span></div><h1>NavController.java</h1><pre class="source lang-java linenums">package csc335.app.controllers;
+
+//import java.io.IOException;
+
+import javafx.fxml.FXML;
+//import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
+//import csc335.app.controllers.*;
+
+<span class="nc" id="L10">public class NavController {</span>
+    @FXML
+    private BudgetController BudgetFace;
+
+    @FXML
+    private DashboardController DashboardFace;
+
+    //Need the Reports, Expenses, Logout
+
+    @FXML
+    private Pane anchor;
+
+    @FXML
+    private Pane dashboard;
+
+    @FXML
+    private Pane expense;
+
+    @FXML
+    private Pane budget;
+
+    @FXML
+    private Pane logout;
+
+    @FXML
+    private Pane reports;
+
+<span class="nc" id="L37">    private Pane[] panes = {reports, dashboard, logout, expense, budget};</span>
+    
+    @FXML
+    protected void resetSelected(Pane target) {
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        for(Pane p: panes){</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            if(target == p){</span>
+<span class="nc" id="L43">                target.setStyle(&quot;-fx-background-color: #698abf&quot;);</span>
+            }
+        }
+<span class="nc" id="L46">    }</span>
+
+    @FXML
+    protected void goToDashboard(){
+<span class="nc" id="L50">        AuthController.getInstance().loadContent(&quot;/views/DashboardView.fxml&quot;);</span>
+<span class="nc" id="L51">        resetSelected(dashboard);</span>
+<span class="nc" id="L52">    }</span>
+        
+    @FXML
+    protected void goToBudget(){
+<span class="nc" id="L56">        AuthController.getInstance().loadContent(&quot;/views/BudgetView.fxml&quot;);</span>
+<span class="nc" id="L57">        resetSelected(budget);</span>
+<span class="nc" id="L58">    }</span>
+
+    @FXML
+    protected void goToReports(){
+
+<span class="nc" id="L63">    }</span>
+
+    @FXML
+    protected void goToExpense(){
+
+<span class="nc" id="L68">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

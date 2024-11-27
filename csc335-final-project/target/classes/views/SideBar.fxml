@@ -1,11 +1,12 @@
 
+<VBox prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: #fff;" styleClass="nav-bar" fx:controller="csc335.app.controllers.NavController">
 <children>
             <Pane layoutY="150.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #fff;">
                <padding>
                   <Insets bottom="25.0" />
                </padding>
             </Pane>
-            <Pane fx:id="anchor" layoutY="150.0" prefHeight="670.0" prefWidth="200.0" styleClass="barBackground" stylesheets="@../css/sidebar.css" fx:controller="csc335.app.controllers.NavController">
+            <Pane fx:id="anchor" layoutY="150.0" prefHeight="670.0" prefWidth="200.0" styleClass="barBackground" stylesheets="@../css/sidebar.css">
                <padding>
                   <Insets bottom="25.0" top="20.0" />
                </padding>
@@ -16,7 +17,7 @@
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ImageView layoutX="14.0" layoutY="12.0">
+                        <ImageView fitHeight="38.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
                            <image>
                               <Image url="@../images/home_icon.png" />
                            </image>
@@ -29,7 +30,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ImageView layoutX="14.0" layoutY="12.0">
+                        <ImageView fitHeight="38.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
                            <image>
                               <Image url="@../images/expenses_icon.png" />
                            </image>
@@ -42,7 +43,7 @@
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ImageView layoutX="14.0" layoutY="12.0">
+                        <ImageView fitHeight="34.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
                            <image>
                               <Image url="@../images/budget_icon.png" />
                            </image>
@@ -54,7 +55,7 @@
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ImageView layoutX="14.0" layoutY="12.0">
+                        <ImageView fitHeight="34.0" fitWidth="40.0" layoutX="14.0" layoutY="12.0">
                            <image>
                               <Image url="@../images/reports_icon.png" />
                            </image>
@@ -66,7 +67,7 @@
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ImageView layoutX="14.0" layoutY="12.0">
+                        <ImageView fitHeight="40.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
                            <image>
                               <Image url="@../images/logout_icon.png" />
                            </image>
@@ -74,4 +75,4 @@
                      </children></Pane>
                </children>
             </Pane>
-</children>
+</children> </VBox>

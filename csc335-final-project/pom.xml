@@ -97,6 +97,14 @@
               <mainClass>csc335.app.App</mainClass>
           </configuration>
       </plugin>
+      <plugin>
+    <groupId>com.gluonhq</groupId>
+    <artifactId>gluonfx-maven-plugin</artifactId>
+    <version>1.0.24</version>
+    <configuration>
+        <mainClass>csc335.app.App</mainClass>
+    </configuration>
+      </plugin>
       <!-- <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>

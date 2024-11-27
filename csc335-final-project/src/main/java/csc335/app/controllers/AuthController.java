@@ -14,7 +14,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+//import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,6 +28,7 @@ import csc335.app.models.User;
 
 public class AuthController {
     private Stage controllerStage;
+    private static AuthController instance;
     @FXML
     private NavController navigation;
 
@@ -54,8 +55,12 @@ public class AuthController {
         public void initialize() {
             System.out.println("AuthController initialized.");
             System.out.println("contentArea: " + contentArea);
+            instance = this;
         }
     
+        public static AuthController getInstance() {
+            return instance;
+        }
         /**
          * Loads the specified FXML file into the contentArea.
          *

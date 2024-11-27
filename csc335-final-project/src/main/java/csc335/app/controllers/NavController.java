@@ -1,11 +1,11 @@
 package csc335.app.controllers;
 
-import java.io.IOException;
+//import java.io.IOException;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+//import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
-import csc335.app.controllers.*;
+//import csc335.app.controllers.*;
 
 public class NavController {
     @FXML
@@ -37,7 +37,7 @@ public class NavController {
     private Pane[] panes = {reports, dashboard, logout, expense, budget};
     
     @FXML
-    private void resetSelected(Pane target) {
+    protected void resetSelected(Pane target) {
         for(Pane p: panes){
             if(target == p){
                 target.setStyle("-fx-background-color: #698abf");
@@ -46,24 +46,24 @@ public class NavController {
     }
 
     @FXML
-    private void goToDashboard(){
-        AuthController.loadContent("/views/DashboardView.fxml");
+    protected void goToDashboard(){
+        AuthController.getInstance().loadContent("/views/DashboardView.fxml");
         resetSelected(dashboard);
     }
         
     @FXML
-    private void goToBudget(){
-        AuthController.loadContent("/views/BudgetView.fxml");
+    protected void goToBudget(){
+        AuthController.getInstance().loadContent("/views/BudgetView.fxml");
         resetSelected(budget);
     }
 
     @FXML
-    private void goToReports(){
+    protected void goToReports(){
 
     }
 
     @FXML
-    private void goToExpense(){
+    protected void goToExpense(){
 
     }
 

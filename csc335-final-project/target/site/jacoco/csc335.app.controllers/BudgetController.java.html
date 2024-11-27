@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BudgetController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">csc335-final-project</a> &gt; <a href="index.source.html" class="el_package">csc335.app.controllers</a> &gt; <span class="el_source">BudgetController.java</span></div><h1>BudgetController.java</h1><pre class="source lang-java linenums">package csc335.app.controllers;
+
+import csc335.app.models.Budget;
+import csc335.app.models.Category;
+import javafx.fxml.FXML;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
+import java.io.*;
+import java.util.Map;
+
+<span class="nc" id="L17">public class BudgetController {</span>
+<span class="nc" id="L18">    private final double max = 1e21;</span>
+
+    @FXML
+    private AnchorPane contentArea;
+
+    //Spinners for each category
+    @FXML
+    private Spinner&lt;Double&gt; fSpinner;
+    @FXML
+    private Spinner&lt;Double&gt; tSpinner;
+    @FXML
+    private Spinner&lt;Double&gt; uSpinner;
+    @FXML
+    private Spinner&lt;Double&gt; hSpinner;
+    @FXML
+    private Spinner&lt;Double&gt; eSpinner;
+    @FXML
+    private Spinner&lt;Double&gt; oSpinner;
+
+    // Panes for each category
+    @FXML
+    private Pane transportation;
+    @FXML
+    private Pane utilities;
+    @FXML
+    private Pane health;
+    @FXML
+    private Pane other;
+    @FXML
+    private Pane entertainment;
+    @FXML
+    private Pane food;
+    @FXML
+    private Pane root;
+
+    // ProgressBars for each category
+    @FXML
+    private ProgressBar foodProgress;
+    @FXML
+    private ProgressBar transportationProgress;
+    @FXML
+    private ProgressBar utilitiesProgress;
+    @FXML
+    private ProgressBar healthProgress;
+    @FXML
+    private ProgressBar entertainmentProgress;
+    @FXML
+    private ProgressBar otherProgress;
+    @FXML
+    private NavController navigation;
+
+    @FXML
+    public void initializeSpinners() {
+        // Set up the spinners with value factories
+<span class="nc" id="L72">        setupSpinner(fSpinner, Category.FOOD);</span>
+<span class="nc" id="L73">        setupSpinner(tSpinner, Category.TRANSPORTATION);</span>
+<span class="nc" id="L74">        setupSpinner(uSpinner, Category.UTILITIES);</span>
+<span class="nc" id="L75">        setupSpinner(hSpinner, Category.HEALTHCARE);</span>
+<span class="nc" id="L76">        setupSpinner(eSpinner, Category.ENTERTAINMENT);</span>
+<span class="nc" id="L77">        setupSpinner(oSpinner, Category.OTHER);</span>
+<span class="nc" id="L78">    }</span>
+
+    @FXML
+    private void setupSpinner(Spinner&lt;Double&gt; spinner, Category category) {
+<span class="nc" id="L82">        spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, max, 0.0, 0.1));</span>
+
+        // Listen for typed-in value changes
+<span class="nc" id="L85">        spinner.getEditor().setOnKeyTyped(event -&gt; {</span>
+            try {
+<span class="nc" id="L87">                double typedValue = Double.parseDouble(spinner.getEditor().getText());</span>
+<span class="nc" id="L88">                handleTypedValue(category, typedValue);</span>
+<span class="nc" id="L89">            } catch (NumberFormatException ex) {</span>
+<span class="nc" id="L90">                System.err.println(&quot;Invalid typed input: &quot; + spinner.getEditor().getText());</span>
+<span class="nc" id="L91">            }</span>
+<span class="nc" id="L92">        });</span>
+
+        // Listen for mouse presses (plus/minus buttons)
+<span class="nc" id="L95">        spinner.addEventFilter(MouseEvent.MOUSE_PRESSED, event -&gt; {</span>
+<span class="nc" id="L96">            double oldValue = spinner.getValue();</span>
+<span class="nc" id="L97">            spinner.increment(0); // Forces a refresh of the value</span>
+<span class="nc" id="L98">            double newValue = spinner.getValue();</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            if (newValue &gt; oldValue) {</span>
+<span class="nc" id="L100">                handlePlusButtonPressed(category, newValue);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">            } else if (newValue &lt; oldValue) {</span>
+<span class="nc" id="L102">                handleMinusButtonPressed(category, newValue);</span>
+            }
+<span class="nc" id="L104">        });</span>
+<span class="nc" id="L105">    }</span>
+
+    @FXML
+    private void handleGoToDashboardClick() {
+<span class="nc" id="L109">        AuthController.getInstance().loadContent(&quot;/views/DashboardView.fxml&quot;);</span>
+<span class="nc" id="L110">    }</span>
+
+    @FXML
+    private void handleGoToBudgetClick() {
+<span class="nc" id="L114">        navigation.goToBudget();</span>
+<span class="nc" id="L115">    }</span>
+    //The rest of the clicks
+
+    private void handleTypedValue(Category category, double value) {
+<span class="nc" id="L119">        System.out.println(&quot;Typed value for &quot; + category + &quot;: &quot; + value);</span>
+<span class="nc" id="L120">        DashboardController.currentUser.setBudget(category, value);</span>
+<span class="nc" id="L121">        updateProgressBar(category);</span>
+<span class="nc" id="L122">        handleWarning(category, value);</span>
+<span class="nc" id="L123">    }</span>
+
+    private void handlePlusButtonPressed(Category category, double newValue) {
+<span class="nc" id="L126">        System.out.println(&quot;Plus button pressed for &quot; + category + &quot;: New value is &quot; + newValue);</span>
+<span class="nc" id="L127">        DashboardController.currentUser.setBudget(category, newValue);</span>
+<span class="nc" id="L128">        updateProgressBar(category);</span>
+<span class="nc" id="L129">        handleWarning(category, newValue);</span>
+<span class="nc" id="L130">    }</span>
+
+    private void handleMinusButtonPressed(Category category, double newValue) {
+<span class="nc" id="L133">        System.out.println(&quot;Minus button pressed for &quot; + category + &quot;: New value is &quot; + newValue);</span>
+<span class="nc" id="L134">        DashboardController.currentUser.setBudget(category, newValue);</span>
+<span class="nc" id="L135">        updateProgressBar(category);</span>
+<span class="nc" id="L136">        handleWarning(category, newValue);</span>
+<span class="nc" id="L137">    }</span>
+
+    private void updateProgressBar(Category category) {
+<span class="nc" id="L140">        double limit = DashboardController.currentUser.getCategorizedBudgets().get(category).getLimit();</span>
+<span class="nc" id="L141">        double spent = DashboardController.currentUser.getCategorizedBudgets().get(category).getTotalSpent();</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        double progress = (limit == 0) ? 0 : spent / limit;</span>
+
+<span class="nc bnc" id="L144" title="All 7 branches missed.">        switch (category) {</span>
+            case FOOD:
+<span class="nc" id="L146">                foodProgress.setProgress(progress);</span>
+<span class="nc" id="L147">                break;</span>
+            case TRANSPORTATION:
+<span class="nc" id="L149">                transportationProgress.setProgress(progress);</span>
+<span class="nc" id="L150">                break;</span>
+            case UTILITIES:
+<span class="nc" id="L152">                utilitiesProgress.setProgress(progress);</span>
+<span class="nc" id="L153">                break;</span>
+            case HEALTHCARE:
+<span class="nc" id="L155">                healthProgress.setProgress(progress);</span>
+<span class="nc" id="L156">                break;</span>
+            case ENTERTAINMENT:
+<span class="nc" id="L158">                entertainmentProgress.setProgress(progress);</span>
+<span class="nc" id="L159">                break;</span>
+            case OTHER:
+<span class="nc" id="L161">                otherProgress.setProgress(progress);</span>
+<span class="nc" id="L162">                break;</span>
+            default:
+                break;
+        }
+<span class="nc" id="L166">    }</span>
+
+    private void handleWarning(Category cat, double lim){
+<span class="nc" id="L169">        double spent = DashboardController.currentUser.getCategorizedBudgets().get(cat).getTotalSpent();</span>
+<span class="nc bnc" id="L170" title="All 4 branches missed.">        if(spent != 0.0 &amp;&amp; lim/spent &gt;= 0.8){</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">            if(cat == Category.ENTERTAINMENT){</span>
+<span class="nc" id="L172">                ImageView img = (ImageView) entertainment.lookup(&quot;#eAlert&quot;);</span>
+<span class="nc" id="L173">                img.setVisible(true);</span>
+            }
+<span class="nc bnc" id="L175" title="All 2 branches missed.">            if(cat == Category.FOOD){</span>
+<span class="nc" id="L176">                ImageView img = (ImageView) food.lookup(&quot;#fAlert&quot;);</span>
+<span class="nc" id="L177">                img.setVisible(true);</span>
+            }
+<span class="nc bnc" id="L179" title="All 2 branches missed.">            if(cat == Category.HEALTHCARE){</span>
+<span class="nc" id="L180">                ImageView img = (ImageView) health.lookup(&quot;#hAlert&quot;);</span>
+<span class="nc" id="L181">                img.setVisible(true);</span>
+            }
+<span class="nc bnc" id="L183" title="All 2 branches missed.">            if(cat == Category.OTHER){</span>
+<span class="nc" id="L184">                ImageView img = (ImageView) other.lookup(&quot;#oAlert&quot;);</span>
+<span class="nc" id="L185">                img.setVisible(true);</span>
+            }
+<span class="nc bnc" id="L187" title="All 2 branches missed.">            if(cat == Category.UTILITIES){</span>
+<span class="nc" id="L188">                ImageView img = (ImageView) utilities.lookup(&quot;#uAlert&quot;);</span>
+<span class="nc" id="L189">                img.setVisible(true);</span>
+            }
+<span class="nc bnc" id="L191" title="All 2 branches missed.">            if(cat == Category.TRANSPORTATION){</span>
+<span class="nc" id="L192">                ImageView img = (ImageView) transportation.lookup(&quot;#tAlert&quot;);</span>
+<span class="nc" id="L193">                img.setVisible(true);</span>
+<span class="nc" id="L194">            }</span>
+        } else{
+<span class="nc bnc" id="L196" title="All 2 branches missed.">            if(cat == Category.ENTERTAINMENT){</span>
+<span class="nc" id="L197">                ImageView img = (ImageView) entertainment.lookup(&quot;#eAlert&quot;);</span>
+<span class="nc" id="L198">                img.setVisible(false);</span>
+            }
+<span class="nc bnc" id="L200" title="All 2 branches missed.">            if(cat == Category.FOOD){</span>
+<span class="nc" id="L201">                ImageView img = (ImageView) food.lookup(&quot;#fAlert&quot;);</span>
+<span class="nc" id="L202">                img.setVisible(false);</span>
+            }
+<span class="nc bnc" id="L204" title="All 2 branches missed.">            if(cat == Category.HEALTHCARE){</span>
+<span class="nc" id="L205">                ImageView img = (ImageView) health.lookup(&quot;#hAlert&quot;);</span>
+<span class="nc" id="L206">                img.setVisible(false);</span>
+            }
+<span class="nc bnc" id="L208" title="All 2 branches missed.">            if(cat == Category.OTHER){</span>
+<span class="nc" id="L209">                ImageView img = (ImageView) other.lookup(&quot;#oAlert&quot;);</span>
+<span class="nc" id="L210">                img.setVisible(false);</span>
+            }
+<span class="nc bnc" id="L212" title="All 2 branches missed.">            if(cat == Category.UTILITIES){</span>
+<span class="nc" id="L213">                ImageView img = (ImageView) utilities.lookup(&quot;#uAlert&quot;);</span>
+<span class="nc" id="L214">                img.setVisible(false);</span>
+            }
+<span class="nc bnc" id="L216" title="All 2 branches missed.">            if(cat == Category.TRANSPORTATION){</span>
+<span class="nc" id="L217">                ImageView img = (ImageView) transportation.lookup(&quot;#tAlert&quot;);</span>
+<span class="nc" id="L218">                img.setVisible(false);</span>
+            }
+        }
+<span class="nc" id="L221">    }</span>
+
+    @FXML
+    private void saveBudgetToFile() {
+<span class="nc" id="L225">        String username = DashboardController.currentUser.getUsername();</span>
+<span class="nc" id="L226">        File userFile = new File(username + &quot;.txt&quot;);</span>
+
+<span class="nc" id="L228">        try (BufferedReader reader = new BufferedReader(new FileReader(userFile));</span>
+<span class="nc" id="L229">             StringWriter fileContent = new StringWriter()) {</span>
+
+            String line;
+<span class="nc" id="L232">            Map&lt;Category, Budget&gt; budgets = DashboardController.currentUser.getCategorizedBudgets();</span>
+
+<span class="nc bnc" id="L234" title="All 2 branches missed.">            while ((line = reader.readLine()) != null) {</span>
+<span class="nc" id="L235">                boolean categoryUpdated = false;</span>
+
+<span class="nc bnc" id="L237" title="All 2 branches missed.">                for (Map.Entry&lt;Category, Budget&gt; entry : budgets.entrySet()) {</span>
+<span class="nc" id="L238">                    Category category = entry.getKey();</span>
+<span class="nc" id="L239">                    Budget budget = entry.getValue();</span>
+
+<span class="nc bnc" id="L241" title="All 2 branches missed.">                    if (line.startsWith(&quot;Budget: &quot; + category)) {</span>
+<span class="nc" id="L242">                        fileContent.append(&quot;Budget: &quot;)</span>
+<span class="nc" id="L243">                                .append(category.toString())</span>
+<span class="nc" id="L244">                                .append(&quot;, &quot;)</span>
+<span class="nc" id="L245">                                .append(budget.getLimit() + &quot;&quot;)</span>
+<span class="nc" id="L246">                                .append(&quot;, &quot;)</span>
+<span class="nc" id="L247">                                .append(budget.getTotalSpent() + &quot;&quot;)</span>
+<span class="nc" id="L248">                                .append(&quot;\n&quot;);</span>
+<span class="nc" id="L249">                        categoryUpdated = true;</span>
+<span class="nc" id="L250">                        break;</span>
+                    }
+<span class="nc" id="L252">                }</span>
+
+<span class="nc bnc" id="L254" title="All 2 branches missed.">                if (!categoryUpdated) {</span>
+<span class="nc" id="L255">                    fileContent.append(line).append(&quot;\n&quot;);</span>
+                }
+<span class="nc" id="L257">            }</span>
+
+<span class="nc bnc" id="L259" title="All 2 branches missed.">            for (Map.Entry&lt;Category, Budget&gt; entry : budgets.entrySet()) {</span>
+<span class="nc" id="L260">                Category category = entry.getKey();</span>
+<span class="nc" id="L261">                Budget budget = entry.getValue();</span>
+
+<span class="nc bnc" id="L263" title="All 2 branches missed.">                if (!fileContent.toString().contains(&quot;Budget: &quot; + category)) {</span>
+<span class="nc" id="L264">                    fileContent.append(&quot;Budget: &quot;)</span>
+<span class="nc" id="L265">                            .append(category.toString())</span>
+<span class="nc" id="L266">                            .append(&quot;, &quot;)</span>
+<span class="nc" id="L267">                            .append(budget.getLimit() + &quot;&quot;)</span>
+<span class="nc" id="L268">                            .append(&quot;, &quot;)</span>
+<span class="nc" id="L269">                            .append(budget.getTotalSpent() + &quot;&quot;)</span>
+<span class="nc" id="L270">                            .append(&quot;\n&quot;);</span>
+                }
+<span class="nc" id="L272">            }</span>
+
+<span class="nc" id="L274">            try (FileWriter writer = new FileWriter(userFile)) {</span>
+<span class="nc" id="L275">                writer.write(fileContent.toString());</span>
+            }
+
+<span class="nc" id="L278">        } catch (IOException e) {</span>
+<span class="nc" id="L279">            e.printStackTrace();</span>
+<span class="nc" id="L280">        }</span>
+<span class="nc" id="L281">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

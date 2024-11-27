@@ -3,6 +3,7 @@ package csc335.app.controllers;
 import csc335.app.models.Budget;
 import csc335.app.models.Category;
 import javafx.fxml.FXML;
+import com.gluonhq.charm.glisten.control.ProgressIndicator;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -52,17 +53,17 @@ public class BudgetController {
 
     // ProgressBars for each category
     @FXML
-    private ProgressBar foodProgress;
+    private ProgressIndicator foodProgress;
     @FXML
-    private ProgressBar transportationProgress;
+    private ProgressIndicator transportationProgress;
     @FXML
-    private ProgressBar utilitiesProgress;
+    private ProgressIndicator utilitiesProgress;
     @FXML
-    private ProgressBar healthProgress;
+    private ProgressIndicator healthProgress;
     @FXML
-    private ProgressBar entertainmentProgress;
+    private ProgressIndicator entertainmentProgress;
     @FXML
-    private ProgressBar otherProgress;
+    private ProgressIndicator otherProgress;
     @FXML
     private NavController navigation;
 
@@ -103,6 +104,17 @@ public class BudgetController {
             }
         });
     }
+
+    @FXML
+    private void handleGoToDashboardClick() {
+        AuthController.getInstance().loadContent("/views/DashboardView.fxml");
+    }
+
+    @FXML
+    private void handleGoToBudgetClick() {
+        AuthController.getInstance().loadContent("/views/BudgetView.fxml");
+    }
+    //The rest of the clicks
 
     private void handleTypedValue(Category category, double value) {
         System.out.println("Typed value for " + category + ": " + value);
