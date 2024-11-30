@@ -239,6 +239,11 @@ public class BudgetController {
     private void handleGoToBudgetClick() {
         AuthController.getInstance().loadContent("/views/BudgetView.fxml");
     }
+
+    @FXML
+    private void handleGoToLogoutClick(){
+        AuthController.getInstance().loadContent("/views/LogOutView.fxml");
+    }
     
     @FXML
     private void saveBudgetToFile() {

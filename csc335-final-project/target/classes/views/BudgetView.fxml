@@ -79,7 +79,7 @@
                            </image>
                         </ImageView>
                      </children></Pane>
-                  <Pane fx:id="logout" layoutX="10.0" layoutY="579.0" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                  <Pane fx:id="logout" layoutX="10.0" layoutY="579.0" onMouseClicked="#handleGoToLogoutClick" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
                      <children>
                         <Label layoutX="55.0" layoutY="20.0" text="Log-out">
                            <font>
@@ -127,7 +127,7 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="tSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleTransport" onKeyPressed="#handleTransport" onKeyReleased="#handleTransport" onKeyTyped="#handleTransport" onMousePressed="#handleTransport" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="tSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleTransport" onKeyPressed="#handleTransport" onKeyReleased="#handleTransport" onKeyTyped="#handleTransport" onMouseClicked="#handleTransport" onMousePressed="#handleTransport" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" preserveRatio="true">
                            <image>
                               <Image url="@../images/transport_icon.png" />
@@ -151,7 +151,7 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="fSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleFood" onKeyPressed="#handleFood" onKeyReleased="#handleFood" onKeyTyped="#handleFood" onMousePressed="#handleFood" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="fSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleFood" onKeyPressed="#handleFood" onKeyReleased="#handleFood" onKeyTyped="#handleFood" onMouseClicked="#handleFood" onMousePressed="#handleFood" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/food_icon.png" />
@@ -175,7 +175,7 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="eSpinner1" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleUtilities" onKeyPressed="#handleUtilities" onKeyReleased="#handleUtilities" onKeyTyped="#handleUtilities" onMouseReleased="#handleUtilities" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="eSpinner1" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleUtilities" onKeyPressed="#handleUtilities" onKeyReleased="#handleUtilities" onKeyTyped="#handleUtilities" onMouseClicked="#handleUtilities" onMousePressed="#handleUtilities" onMouseReleased="#handleUtilities" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/utilities_icon.png" />
@@ -199,7 +199,7 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="hSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleHealth" onKeyPressed="#handleHealth" onKeyReleased="#handleHealth" onKeyTyped="#handleHealth" onMousePressed="#handleHealth" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="hSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleHealth" onKeyPressed="#handleHealth" onKeyReleased="#handleHealth" onKeyTyped="#handleHealth" onMouseClicked="#handleHealth" onMousePressed="#handleHealth" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/healtchcare_icon.png" />
@@ -223,7 +223,7 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="eSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleEntertainment" onKeyPressed="#handleEntertainment" onKeyReleased="#handleEntertainment" onKeyTyped="#handleEntertainment" onMousePressed="#handleEntertainment" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="eSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleEntertainment" onKeyPressed="#handleEntertainment" onKeyReleased="#handleEntertainment" onKeyTyped="#handleEntertainment" onMouseClicked="#handleEntertainment" onMousePressed="#handleEntertainment" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/entertainm_icon.png" />
@@ -247,7 +247,7 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="oSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleOther" onKeyPressed="#handleOther" onKeyReleased="#handleOther" onKeyTyped="#handleOther" onMousePressed="#handleOther" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="oSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleOther" onKeyPressed="#handleOther" onKeyReleased="#handleOther" onKeyTyped="#handleOther" onMouseClicked="#handleOther" onMousePressed="#handleOther" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="13.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/others_icon.png" />

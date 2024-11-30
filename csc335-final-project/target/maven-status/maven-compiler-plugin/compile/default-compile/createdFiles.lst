@@ -1,7 +1,6 @@
 csc335/app/controllers/AuthController.class
 csc335/app/models/Category.class
 csc335/app/models/Budget.class
-csc335/app/controllers/BudgetController$1.class
 csc335/app/models/User.class
 csc335/app/models/Report.class
 csc335/app/controllers/DashboardController.class

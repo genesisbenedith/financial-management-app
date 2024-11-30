@@ -34,5 +34,10 @@ public class DashboardController {
         AuthController.getInstance().loadContent("/views/BudgetView.fxml");
     }
 
+    @FXML
+    private void handleGoToLogoutClick(){
+        AuthController.getInstance().loadContent("/views/LogOutView.fxml");
+    }
+
     //TODO: The rest of the Clicks go here
 }

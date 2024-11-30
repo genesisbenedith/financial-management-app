@@ -75,7 +75,7 @@
                            </image>
                         </ImageView>
                      </children></Pane>
-                  <Pane fx:id="logout" layoutX="10.0" layoutY="579.0" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
+                  <Pane fx:id="logout" layoutX="10.0" layoutY="579.0" onMouseClicked="#handleGoToLogoutClick" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
                      <children>
                         <Label layoutX="55.0" layoutY="20.0" text="Log-out">
                            <font>
