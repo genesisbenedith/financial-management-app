@@ -35,7 +35,7 @@ public class Budget {
     }
     
     public boolean isExceeded() {
-        return getTotalSpent() > limit;
+        return getTotalSpent()/limit > 0.8;
     }
 
     /* ------------------------------ Getters and Setters ------------------------------ */

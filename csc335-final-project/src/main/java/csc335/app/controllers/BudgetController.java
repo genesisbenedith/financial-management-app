@@ -2,13 +2,14 @@ package csc335.app.controllers;
 
 import csc335.app.models.Budget;
 import csc335.app.models.Category;
+import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
+// import io.github.palexdev.materialfx.notifications.MFXNotification;
+// import io.github.palexdev.materialfx.notifications.MFXNotificationCenterHandler;
+import io.github.palexdev.materialfx.controls.MFXSpinner;
 import javafx.fxml.FXML;
-import com.gluonhq.charm.glisten.control.ProgressIndicator;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -16,24 +17,25 @@ import java.io.*;
 import java.util.Map;
 
 public class BudgetController {
-    private final double max = 1e21;
+    @FXML
+    private MFXNotificationCenter notificationCenter;
 
     @FXML
     private AnchorPane contentArea;
 
     //Spinners for each category
     @FXML
-    private Spinner<Double> fSpinner;
+    private MFXSpinner<Double> fSpinner;
     @FXML
-    private Spinner<Double> tSpinner;
+    private MFXSpinner<Double> tSpinner;
     @FXML
-    private Spinner<Double> uSpinner;
+    private MFXSpinner<Double> uSpinner;
     @FXML
-    private Spinner<Double> hSpinner;
+    private MFXSpinner<Double> hSpinner;
     @FXML
-    private Spinner<Double> eSpinner;
+    private MFXSpinner<Double> eSpinner;
     @FXML
-    private Spinner<Double> oSpinner;
+    private MFXSpinner<Double> oSpinner;
 
     // Panes for each category
     @FXML
@@ -67,43 +69,166 @@ public class BudgetController {
     @FXML
     private NavController navigation;
 
+    //Alert Images for each category
     @FXML
-    public void initializeSpinners() {
-        // Set up the spinners with value factories
-        setupSpinner(fSpinner, Category.FOOD);
-        setupSpinner(tSpinner, Category.TRANSPORTATION);
-        setupSpinner(uSpinner, Category.UTILITIES);
-        setupSpinner(hSpinner, Category.HEALTHCARE);
-        setupSpinner(eSpinner, Category.ENTERTAINMENT);
-        setupSpinner(oSpinner, Category.OTHER);
+    private ImageView tAlert;
+    @FXML
+    private ImageView eAlert;
+    @FXML
+    private ImageView uAlert;
+    @FXML
+    private ImageView hAlert;
+    @FXML
+    private ImageView fAlert;
+    @FXML
+    private ImageView oAlert;
+
+
+    @FXML
+    private void handleTransport(){
+        tAlert.setVisible(false);
+        DashboardController.currentUser.setBudget(Category.TRANSPORTATION, tSpinner.getValue()); //(double) Integer.parseInt(tSpinner.getPromptText())
+        for(Budget b: DashboardController.currentUser.getAllBudgets()){
+            if(b.getCategory().equals(Category.TRANSPORTATION)){
+                if(b.isExceeded()){
+                    //Make a Notification
+                    tAlert.setVisible(true);
+                    if(b.getTotalSpent()/b.getLimit() >= 1.0){
+                        transportationProgress.setProgress(1.0);
+                    }
+            }
+            else if(b.getLimit() < 0){
+                showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+            }
+        }
+            transportationProgress.setProgress(tSpinner.getValue());
+            saveBudgetToFile();
+        }
     }
 
     @FXML
-    private void setupSpinner(Spinner<Double> spinner, Category category) {
-        spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, max, 0.0, 0.1));
-
-        // Listen for typed-in value changes
-        spinner.getEditor().setOnKeyTyped(event -> {
-            try {
-                double typedValue = Double.parseDouble(spinner.getEditor().getText());
-                handleTypedValue(category, typedValue);
-            } catch (NumberFormatException ex) {
-                System.err.println("Invalid typed input: " + spinner.getEditor().getText());
+    private void handleEntertainment(){
+        eAlert.setVisible(false);
+        DashboardController.currentUser.setBudget(Category.ENTERTAINMENT, eSpinner.getValue());
+        for(Budget b: DashboardController.currentUser.getAllBudgets()){
+            if(b.getCategory().equals(Category.ENTERTAINMENT)){
+                if(b.isExceeded()){
+                    //Make a Notification
+                    eAlert.setVisible(true);
+                    if(b.getTotalSpent()/b.getLimit() >= 1.0){
+                        entertainmentProgress.setProgress(1.0);
+                    }
             }
-        });
-
-        // Listen for mouse presses (plus/minus buttons)
-        spinner.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            double oldValue = spinner.getValue();
-            spinner.increment(0); // Forces a refresh of the value
-            double newValue = spinner.getValue();
-            if (newValue > oldValue) {
-                handlePlusButtonPressed(category, newValue);
-            } else if (newValue < oldValue) {
-                handleMinusButtonPressed(category, newValue);
+            else if(b.getLimit() < 0){
+                showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
             }
-        });
+        }
+            entertainmentProgress.setProgress(eSpinner.getValue());
+            saveBudgetToFile();
+        }
     }
+
+    @FXML
+    private void handleUtilities(){
+        uAlert.setVisible(false);
+        DashboardController.currentUser.setBudget(Category.UTILITIES, uSpinner.getValue());
+        for(Budget b: DashboardController.currentUser.getAllBudgets()){
+            if(b.getCategory().equals(Category.UTILITIES)){
+                if(b.isExceeded()){
+                    //Make a Notification
+                    uAlert.setVisible(true);
+                    if(b.getTotalSpent()/b.getLimit() >= 1.0){
+                        utilitiesProgress.setProgress(1.0);
+                    }
+            }
+            else if(b.getLimit() < 0){
+                showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+            }
+        }
+            utilitiesProgress.setProgress(uSpinner.getValue());
+            saveBudgetToFile();
+        }
+    }
+
+    @FXML
+    private void handleFood(){
+        fAlert.setVisible(false);
+        DashboardController.currentUser.setBudget(Category.FOOD, fSpinner.getValue());
+        for(Budget b: DashboardController.currentUser.getAllBudgets()){
+            if(b.getCategory().equals(Category.FOOD)){
+                if(b.isExceeded()){
+                    //Make a Notification
+                    fAlert.setVisible(true);
+                    if(b.getTotalSpent()/b.getLimit() >= 1.0){
+                        foodProgress.setProgress(1.0);
+                    }
+            }
+            else if(b.getLimit() < 0){
+                showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+            }
+        }
+            foodProgress.setProgress(fSpinner.getValue());
+            saveBudgetToFile();
+        }
+    }
+
+    @FXML
+    private void handleHealth(){
+        hAlert.setVisible(false);
+        DashboardController.currentUser.setBudget(Category.HEALTHCARE, hSpinner.getValue());
+        for(Budget b: DashboardController.currentUser.getAllBudgets()){
+            if(b.getCategory().equals(Category.HEALTHCARE)){
+                if(b.isExceeded()){
+                    //Make a Notification
+                    hAlert.setVisible(true);
+                    if(b.getTotalSpent()/b.getLimit() >= 1.0){
+                        healthProgress.setProgress(1.0);
+                    }
+            }
+            else if(b.getLimit() < 0){
+                showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+            }
+        }
+            healthProgress.setProgress(hSpinner.getValue());
+            saveBudgetToFile();
+        }
+    }
+
+    @FXML
+    private void handleOther(){
+        oAlert.setVisible(false);
+        DashboardController.currentUser.setBudget(Category.OTHER, oSpinner.getValue());
+        for(Budget b: DashboardController.currentUser.getAllBudgets()){
+            if(b.getCategory().equals(Category.OTHER)){
+                if(b.isExceeded()){
+                    //Make a Notification
+                    oAlert.setVisible(true);
+                    if(b.getTotalSpent()/b.getLimit() >= 1.0){
+                        otherProgress.setProgress(1.0);
+                    }
+            }
+            else if(b.getLimit() < 0){
+                showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+            }
+        }
+            otherProgress.setProgress(oSpinner.getValue());
+            saveBudgetToFile();
+        }
+    }
+
+    // private void handlePlusButtonPressed(Category category, double newValue) {
+    //     System.out.println("Plus button pressed for " + category + ": New value is " + newValue);
+    //     DashboardController.currentUser.setBudget(category, newValue);
+    //     updateProgressBar(category);
+    //     handleWarning(category, newValue);
+    // }
+
+    // private void handleMinusButtonPressed(Category category, double newValue) {
+    //     System.out.println("Minus button pressed for " + category + ": New value is " + newValue);
+    //     DashboardController.currentUser.setBudget(category, newValue);
+    //     updateProgressBar(category);
+    //     handleWarning(category, newValue);
+    // }
 
     @FXML
     private void handleGoToDashboardClick() {
@@ -114,113 +239,7 @@ public class BudgetController {
     private void handleGoToBudgetClick() {
         AuthController.getInstance().loadContent("/views/BudgetView.fxml");
     }
-    //The rest of the clicks
-
-    private void handleTypedValue(Category category, double value) {
-        System.out.println("Typed value for " + category + ": " + value);
-        DashboardController.currentUser.setBudget(category, value);
-        updateProgressBar(category);
-        handleWarning(category, value);
-    }
-
-    private void handlePlusButtonPressed(Category category, double newValue) {
-        System.out.println("Plus button pressed for " + category + ": New value is " + newValue);
-        DashboardController.currentUser.setBudget(category, newValue);
-        updateProgressBar(category);
-        handleWarning(category, newValue);
-    }
-
-    private void handleMinusButtonPressed(Category category, double newValue) {
-        System.out.println("Minus button pressed for " + category + ": New value is " + newValue);
-        DashboardController.currentUser.setBudget(category, newValue);
-        updateProgressBar(category);
-        handleWarning(category, newValue);
-    }
-
-    private void updateProgressBar(Category category) {
-        double limit = DashboardController.currentUser.getCategorizedBudgets().get(category).getLimit();
-        double spent = DashboardController.currentUser.getCategorizedBudgets().get(category).getTotalSpent();
-        double progress = (limit == 0) ? 0 : spent / limit;
-
-        switch (category) {
-            case FOOD:
-                foodProgress.setProgress(progress);
-                break;
-            case TRANSPORTATION:
-                transportationProgress.setProgress(progress);
-                break;
-            case UTILITIES:
-                utilitiesProgress.setProgress(progress);
-                break;
-            case HEALTHCARE:
-                healthProgress.setProgress(progress);
-                break;
-            case ENTERTAINMENT:
-                entertainmentProgress.setProgress(progress);
-                break;
-            case OTHER:
-                otherProgress.setProgress(progress);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void handleWarning(Category cat, double lim){
-        double spent = DashboardController.currentUser.getCategorizedBudgets().get(cat).getTotalSpent();
-        if(spent != 0.0 && lim/spent >= 0.8){
-            if(cat == Category.ENTERTAINMENT){
-                ImageView img = (ImageView) entertainment.lookup("#eAlert");
-                img.setVisible(true);
-            }
-            if(cat == Category.FOOD){
-                ImageView img = (ImageView) food.lookup("#fAlert");
-                img.setVisible(true);
-            }
-            if(cat == Category.HEALTHCARE){
-                ImageView img = (ImageView) health.lookup("#hAlert");
-                img.setVisible(true);
-            }
-            if(cat == Category.OTHER){
-                ImageView img = (ImageView) other.lookup("#oAlert");
-                img.setVisible(true);
-            }
-            if(cat == Category.UTILITIES){
-                ImageView img = (ImageView) utilities.lookup("#uAlert");
-                img.setVisible(true);
-            }
-            if(cat == Category.TRANSPORTATION){
-                ImageView img = (ImageView) transportation.lookup("#tAlert");
-                img.setVisible(true);
-            }
-        } else{
-            if(cat == Category.ENTERTAINMENT){
-                ImageView img = (ImageView) entertainment.lookup("#eAlert");
-                img.setVisible(false);
-            }
-            if(cat == Category.FOOD){
-                ImageView img = (ImageView) food.lookup("#fAlert");
-                img.setVisible(false);
-            }
-            if(cat == Category.HEALTHCARE){
-                ImageView img = (ImageView) health.lookup("#hAlert");
-                img.setVisible(false);
-            }
-            if(cat == Category.OTHER){
-                ImageView img = (ImageView) other.lookup("#oAlert");
-                img.setVisible(false);
-            }
-            if(cat == Category.UTILITIES){
-                ImageView img = (ImageView) utilities.lookup("#uAlert");
-                img.setVisible(false);
-            }
-            if(cat == Category.TRANSPORTATION){
-                ImageView img = (ImageView) transportation.lookup("#tAlert");
-                img.setVisible(false);
-            }
-        }
-    }
-
+    
     @FXML
     private void saveBudgetToFile() {
         String username = DashboardController.currentUser.getUsername();
@@ -240,6 +259,7 @@ public class BudgetController {
                     Budget budget = entry.getValue();
 
                     if (line.startsWith("Budget: " + category)) {
+                        System.out.println(category + " has been updated with limit of " + budget.getLimit() + " and total spent of " + budget.getTotalSpent());
                         fileContent.append("Budget: ")
                                 .append(category.toString())
                                 .append(", ")
@@ -262,6 +282,7 @@ public class BudgetController {
                 Budget budget = entry.getValue();
 
                 if (!fileContent.toString().contains("Budget: " + category)) {
+                    System.out.println(category + " has been added with a limit of " + budget.getLimit() + " and total spent of " + budget.getTotalSpent());
                     fileContent.append("Budget: ")
                             .append(category.toString())
                             .append(", ")
@@ -279,6 +300,19 @@ public class BudgetController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 
+     * @param alertType
+     * @param title
+     * @param message
+     */
+    private void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

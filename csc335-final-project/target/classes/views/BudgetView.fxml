@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.ProgressIndicator?>
 <?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?>
 <?import io.github.palexdev.materialfx.controls.MFXProgressSpinner?>
 <?import io.github.palexdev.materialfx.controls.MFXSpinner?>
@@ -13,9 +12,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@/../css/budget.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.BudgetController">
+<AnchorPane fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../css/budget.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.BudgetController">
    <children>
       <VBox prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: #fff;" styleClass="nav-bar">
 <children>
@@ -106,7 +106,7 @@
                         <Insets left="20.0" right="25.0" top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <MFXNotificationCenter>
+                  <MFXNotificationCenter fx:id="notificationCenter">
                      <HBox.margin>
                         <Insets right="25.0" top="10.0" />
                      </HBox.margin>
@@ -127,13 +127,16 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="tSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyTyped="#saveSpinnerValue" promptText="0.00" scaleX="0.75" scaleY="0.75" />
-                        <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 50px;">
+                        <MFXSpinner fx:id="tSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleTransport" onKeyPressed="#handleTransport" onKeyReleased="#handleTransport" onKeyTyped="#handleTransport" onMousePressed="#handleTransport" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" preserveRatio="true">
                            <image>
                               <Image url="@../images/transport_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner layoutX="106.0" layoutY="26.0" prefWidth="104.0" progress="0.48" radius="-30.0" scaleX="1.5" scaleY="1.5" startingAngle="290.0" />
+                        <MFXProgressSpinner fx:id="transportationProgress" layoutX="94.0" layoutY="121.0" progress="0.14" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
                      </children>
                   </Pane>
                   <Pane fx:id="food" layoutX="25.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
@@ -143,18 +146,21 @@
                               <Font size="29.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="fSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyTyped="#saveSpinnerValue" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="fSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleFood" onKeyPressed="#handleFood" onKeyReleased="#handleFood" onKeyTyped="#handleFood" onMousePressed="#handleFood" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/food_icon.png" />
                            </image>
                         </ImageView>
-                        <ProgressIndicator fx:id="foodProgress" layoutX="43.0" layoutY="35.0" progress="0.9" scaleX="3.25" scaleY="3.25" styleClass="prog-chart" stylesheets="@../css/budget.css" />
+                        <MFXProgressSpinner fx:id="foodProgress" layoutX="106.0" layoutY="125.0" progress="0.83" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
                      </children>
                   </Pane>
                   <Pane fx:id="utilities" layoutX="610.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
@@ -164,18 +170,21 @@
                               <Font size="29.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                        <ImageView fx:id="uAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="eSpinner1" editable="true" layoutX="25.0" layoutY="210.0" onKeyTyped="#saveSpinnerValue" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="eSpinner1" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleUtilities" onKeyPressed="#handleUtilities" onKeyReleased="#handleUtilities" onKeyTyped="#handleUtilities" onMouseReleased="#handleUtilities" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/utilities_icon.png" />
                            </image>
                         </ImageView>
-                        <ProgressIndicator fx:id="utilitiesProgress" layoutX="42.0" layoutY="35.0" progress="0.65" scaleX="3.25" scaleY="3.25" styleClass="prog-chart" stylesheets="@../css/budget.css" />
+                        <MFXProgressSpinner fx:id="utilitiesProgress" layoutX="101.0" layoutY="119.0" progress="0.29" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
                      </children>
                   </Pane>
                   <Pane fx:id="health" layoutX="315.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
@@ -185,18 +194,21 @@
                               <Font size="29.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                        <ImageView fx:id="hAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="hSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyTyped="#saveSpinnerValue" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="hSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleHealth" onKeyPressed="#handleHealth" onKeyReleased="#handleHealth" onKeyTyped="#handleHealth" onMousePressed="#handleHealth" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/healtchcare_icon.png" />
                            </image>
                         </ImageView>
-                        <ProgressIndicator fx:id="healthProgress" layoutX="42.0" layoutY="35.0" progress="0.35" scaleX="3.25" scaleY="3.25" styleClass="prog-chart" stylesheets="@../css/budget.css" />
+                        <MFXProgressSpinner fx:id="healthProgress" layoutX="95.0" layoutY="125.0" progress="0.61" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
                      </children>
                   </Pane>
                   <Pane fx:id="entertainment" layoutX="315.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
@@ -206,18 +218,21 @@
                               <Font size="29.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                        <ImageView fx:id="eAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="eSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyTyped="#saveSpinnerValue" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="eSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleEntertainment" onKeyPressed="#handleEntertainment" onKeyReleased="#handleEntertainment" onKeyTyped="#handleEntertainment" onMousePressed="#handleEntertainment" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/entertainm_icon.png" />
                            </image>
                         </ImageView>
-                        <ProgressIndicator fx:id="entertainmentProgress" layoutX="42.0" layoutY="35.0" progress="0.16" rotate="27.0" scaleX="3.25" scaleY="3.25" styleClass="prog-chart" stylesheets="@../css/budget.css" />
+                        <MFXProgressSpinner fx:id="entertainmentProgress" layoutX="95.0" layoutY="120.0" progress="0.47" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
                      </children>
                   </Pane>
                   <Pane fx:id="other" layoutX="610.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
@@ -227,18 +242,21 @@
                               <Font size="29.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                        <ImageView fx:id="oAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXSpinner fx:id="oSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyTyped="#saveSpinnerValue" promptText="0.00" scaleX="0.75" scaleY="0.75" />
+                        <MFXSpinner fx:id="oSpinner" editable="true" layoutX="25.0" layoutY="210.0" onInputMethodTextChanged="#handleOther" onKeyPressed="#handleOther" onKeyReleased="#handleOther" onKeyTyped="#handleOther" onMousePressed="#handleOther" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="13.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/others_icon.png" />
                            </image>
                         </ImageView>
-                        <ProgressIndicator fx:id="otherProgress" layoutX="45.0" layoutY="35.0" progress="0.34" scaleX="3.25" scaleY="3.25" styleClass="prog-chart" stylesheets="@../css/budget.css" />
+                        <MFXProgressSpinner fx:id="otherProgress" layoutX="101.0" layoutY="125.0" progress="0.41" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
                      </children>
                   </Pane>
                </children></Pane>
