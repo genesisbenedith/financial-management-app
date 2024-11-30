@@ -11,6 +11,7 @@ import java.util.List;
 
 public enum Category {
     GROCERIES,
+    FOOD,
     ENTERTAINMENT,
     TRANSPORTATION,
     UTILITIES,

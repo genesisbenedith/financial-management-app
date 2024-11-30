@@ -1,12 +1,13 @@
 package csc335.app.models;
 
-import java.util.*;
-
 /**
  * Author(s): Genesis Benedith
+ * Course: CSC 335 (Fall 2024)
  * File: Budget.java
- * Description: 
+ * Description: Model class that represents a budget for a user's expense category
  */
+
+import java.util.*;
 
 public class Budget {
     private Category category; // Budget category (e.g., Groceries, Transportation, etc.)
@@ -16,10 +17,45 @@ public class Budget {
     /* ------------------------------ Constructor ------------------------------ */
 
     public Budget(Category category, double limit) {
-        this.category = category;
-        this.limit = limit;
+        // TODO: Confirm if appropriate design for constructor
+        setCategory(category);
+        setLimit(limit);
         this.budgetedExpenses = new ArrayList<>();
     }
+
+    /* ------------------------------ Getters ------------------------------ */
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public double getLimit() {
+        return limit;
+    }
+
+    public double getTotalSpent() {
+        double totalSpent = 0.0;
+        for (Expense expense : budgetedExpenses) {
+            totalSpent += expense.getAmount();
+        }
+        return totalSpent;
+    }
+
+    /* ------------------------------ Setters ------------------------------ */
+
+    public void setLimit(double limit) {
+        if (limit < 0) {
+            throw new IllegalArgumentException("Budget amount cannot be negative.");
+        }
+
+        this.limit = limit;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    /* ------------------------------ Other Methods ------------------------------ */
 
     public void addExpense(Expense newExpense) {
         budgetedExpenses.add(newExpense);
@@ -37,33 +73,7 @@ public class Budget {
     public boolean isExceeded() {
         return getTotalSpent() > limit;
     }
-
-    /* ------------------------------ Getters and Setters ------------------------------ */
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public double getLimit() {
-        return limit;
-    }
-
-    public void setLimit(double limit) {
-        this.limit = limit;
-    }
-
-    public double getTotalSpent() {
-        double totalSpent = 0.0;
-        for (Expense expense : budgetedExpenses) {
-            totalSpent += expense.getAmount();
-        }
-        return totalSpent;
-    }
-
+    
     @Override
     public String toString() {
         return category + ": " + getTotalSpent() + "/" + limit;

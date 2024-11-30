@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentArea" prefHeight="720.0" prefWidth="1080.0" styleClass="sidebar" stylesheets="@../css/launch.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.AuthController">
+<AnchorPane fx:id="contentArea" prefHeight="720.0" prefWidth="1080.0" styleClass="sidebar" stylesheets="@../css/launch.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.SignInController">
    <children>
       <VBox alignment="CENTER" prefHeight="720.0" prefWidth="400.0" style="-fx-background-color: #4294ff;" styleClass="sidebar" stylesheets="@../css/launch.css">
          <children>
@@ -68,13 +68,13 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="74.0" layoutY="315.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleSignInClick" prefHeight="50.0" prefWidth="250.0" styleClass="sign-in-button" text="Sign In" />
+                  <Button layoutX="74.0" layoutY="315.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logUserIn" prefHeight="50.0" prefWidth="250.0" styleClass="sign-in-button" text="Sign In" />
                   <Label layoutX="131.0" layoutY="380.0" style="-fx-text-fill: #808080;" text="New User?" textFill="#d6d6d7">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="202.0" layoutY="380.0" onMouseClicked="#handleSignUpClick" styleClass="sign-up-button" text="Sign Up" textFill="#d6d6d7">
+                  <Label layoutX="202.0" layoutY="380.0" onMouseClicked="#goToSignUp" styleClass="sign-up-button" text="Sign Up" textFill="#d6d6d7">
                      <font>
                         <Font size="14.0" />
                      </font>

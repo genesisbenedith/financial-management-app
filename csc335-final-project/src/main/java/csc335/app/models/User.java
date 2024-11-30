@@ -1,15 +1,18 @@
 package csc335.app.models;
 
-import java.io.File;
-import java.time.LocalDate;
-
 /**
  * Author(s): Genesis Benedith
+ * Course: CSC 335 (Fall 2024)
  * File: User.java
  * Description: Model class that represents a user account
  */
 
+import java.io.File;
+import java.time.LocalDate;
+
 import java.util.*;
+
+import csc335.app.FileIOManager;
 
 public class User {
     private String username;
@@ -17,7 +20,6 @@ public class User {
     private String password;
     private Map<Category, List<Expense>> categorizedExpenses; // Maps categories to a list of expenses
     private Map<Category, Budget> categorizedBudgets; // Maps categories to budgets
-    private List<Report> monthlyReports; 
 
     /* ------------------------------ Constructor ------------------------------ */
 
@@ -27,7 +29,6 @@ public class User {
         this.password = password;
         this.categorizedExpenses = new HashMap<>();
         this.categorizedBudgets = new HashMap<>();
-        this.monthlyReports = new ArrayList<>();
     }
 
     /* ------------------------------ Getters ------------------------------ */
@@ -44,6 +45,14 @@ public class User {
         return email;
     }
 
+    public List<Expense> getExpenses() {
+        List<Expense> allExpenses = new ArrayList<>();
+        for (Map.Entry<Category, List<Expense>> expenseCategory : categorizedExpenses.entrySet()) {
+            allExpenses.addAll(expenseCategory.getValue());
+        }
+        return Collections.unmodifiableList(allExpenses);
+    }
+
     public List<Expense> getAllExpenses() {
         List<Expense> allExpenses = new ArrayList<>();
         for (Map.Entry<Category, List<Expense>> expenseCategory : categorizedExpenses.entrySet()) {
@@ -52,23 +61,29 @@ public class User {
         return Collections.unmodifiableList(allExpenses);
     }
 
-    public List<Budget> getAllBudgets() {
-        List<Budget> allBudgets = new ArrayList<>();
-        for (Map.Entry<Category, Budget> budgetCategory : categorizedBudgets.entrySet()) {
-            allBudgets.add(budgetCategory.getValue());
+    public List<Budget> getBudgets() {
+        List<Budget> budgets = new ArrayList<>();
+        for (Category category : this.categorizedBudgets.keySet()) {
+            budgets.add(this.categorizedBudgets.get(category));
         }
-        return Collections.unmodifiableList(allBudgets);
+        return Collections.unmodifiableList(budgets);
     }
 
-    // public File getMonthlyReport(LocalDate reportDate) {
-    //     for (Expense expense : monthlyReports) {
-    //         if (report.getReportDate().equals(reportDate)) {
-    //             report.update;
-    //             return new File(report.getMonthlyReportPath());
-    //         }
-    //     }
-    //     return null;
-    // }
+    public File getMonthlyReport(LocalDate reportDate) {        
+        return FileIOManager.createUserReport(getUsername(), reportDate);
+    }
+
+    public List<Expense> getMonthExpenses(int month, int year) {
+        List<Expense> monthExpenses = new ArrayList<>();
+        for (Expense expense : getAllExpenses()) {
+            // Check the date of the expense
+            if (expense.getCalendarDate().get(Calendar.MONTH) == month
+                    && expense.getCalendarDate().get(Calendar.YEAR) == year) {
+                monthExpenses.add(expense);
+            }
+        }
+        return monthExpenses;
+    }
 
     public double getTotalExpenses() {
         double totalExpenses = 0;
@@ -108,34 +123,28 @@ public class User {
         this.password = password;
     }
 
-    public void setBudget(Category category, double limit) {
-        if (limit < 0) {
-            throw new IllegalArgumentException("Budget amount cannot be negative.");
-        }
+    /* ------------------------------ Other Methods ------------------------------ */
 
-        if (categorizedBudgets.containsKey(category)) {
+    public void addBudget(Budget budget) {
+        if (categorizedBudgets.containsKey(budget.getCategory())) {
             // Update the budget for the category if it already exists in map
-            this.categorizedBudgets.get(category).setLimit(limit);
+            this.categorizedBudgets.get(budget.getCategory()).setLimit(budget.getLimit());
         } else {
-            // Create a new budget for the category if it doesn't exist in map
-            this.categorizedBudgets.put(category, new Budget(category, limit));
+            // Set new budget for the category if it doesn't exist in map
+            this.categorizedBudgets.put(budget.getCategory(), budget);
         }
     }
 
-    /*
-     * ------------------------------ Other Methods ------------------------------
-     */
-
-    public void addExpense(Expense newExpense) {
+    public void addExpense(Expense expense) {
         // Check if expense category is already a key in map
-        if (this.categorizedExpenses.containsKey(newExpense.getCategory())) {
+        if (this.categorizedExpenses.containsKey(expense.getCategory())) {
             // Add expense to the category's list of expenses
-            this.categorizedExpenses.get(newExpense.getCategory()).add(newExpense);
+            this.categorizedExpenses.get(expense.getCategory()).add(expense);
         } else {
             // Create a new list of expenses for category and add to map
             List<Expense> categoryExpenses = new ArrayList<>();
-            categoryExpenses.add(newExpense);
-            this.categorizedExpenses.put(newExpense.getCategory(), categoryExpenses);
+            categoryExpenses.add(expense);
+            this.categorizedExpenses.put(expense.getCategory(), categoryExpenses);
         }
 
         // Update all budgets

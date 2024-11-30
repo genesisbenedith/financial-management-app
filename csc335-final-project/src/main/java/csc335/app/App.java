@@ -14,26 +14,42 @@ import javafx.stage.Stage;
 
 public final class App extends Application {
 
+    private static Stage appWindowStage;
+
     /**
      * 
      */
     @Override
     public void start(Stage stage) throws Exception {
 
-        // Load the initial view (SignInView.fxml)
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/SignInView.fxml"));
-        Parent root = loader.load();
+        setStage(stage);
 
-        // Set up the scene
-        Scene scene = new Scene(root);
+        // Load the Main view
+        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
+        Parent rootContainer = mainViewLoader.load();
 
-        // Configure and show the stage
-        stage.setScene(scene);
-        stage.setTitle("Financial Management App");
-        stage.show();
+        // Set up & configure the scene for the app window
+        Scene scene = new Scene(rootContainer);
+        setScene(scene);
+        appWindowStage.setTitle("Financial Management App");
+        appWindowStage.show();
 
-        System.out.println("Application started...");
+        System.out.println("Application is now running...");
     }
+
+    public static void setStage(Stage stage) {
+        appWindowStage = stage;
+    }
+
+    public static void setScene(Scene scene) {
+        if (appWindowStage != null) {
+            appWindowStage.setScene(scene);
+        } else {
+            throw new IllegalStateException("App occurred an error. The stage is not initialized!");
+        }
+    }
+
+    
 
     /*
      * 
