@@ -7,7 +7,10 @@ package csc335.app.models;
  * Description: Model class that represents a budget for a user's expense category
  */
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import csc335.app.Category;
 
 public class Budget {
     private Category category; // Budget category (e.g., Groceries, Transportation, etc.)
@@ -17,7 +20,7 @@ public class Budget {
     /* ------------------------------ Constructor ------------------------------ */
 
     public Budget(Category category, double limit) {
-        // TODO: Confirm if appropriate design for constructor
+        // [ ]: Confirm if appropriate design for constructor
         setCategory(category);
         setLimit(limit);
         this.budgetedExpenses = new ArrayList<>();

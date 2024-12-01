@@ -8,8 +8,8 @@
  package csc335.app.controllers;
 
 import csc335.app.FileIOManager;
+import csc335.app.enums.Category;
 import csc335.app.models.Budget;
-import csc335.app.models.Category;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
@@ -72,7 +72,7 @@ public class BudgetController {
     @FXML
     private ProgressBar otherProgress;
     @FXML
-    private SidebarController navigation;
+    private Navigator navigation;
 
     @FXML
     public void initializeSpinners() {

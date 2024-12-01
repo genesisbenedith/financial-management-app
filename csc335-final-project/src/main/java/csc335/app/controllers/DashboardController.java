@@ -1,24 +1,37 @@
 package csc335.app.controllers;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import csc335.app.FileIOManager;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
-public class DashboardController {
+// [ ] Needs file comment
+/**
+ * @author Genesis Benedith
+ */
 
+// [ ] Needs class comment
+public class DashboardController implements Observer {
+
+    // [ ] Needs method comment
     @FXML
-    private AnchorPane contentArea; // Pane representing the dashboard view
-
-    @FXML
-private VBox sidebar;
-
-
-    @FXML 
-    public void initialize() throws IOException {
-        System.out.println("Welcome, " + FileIOManager.getAuthenticatedUser());  
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("Welcome, ");
     }
+
+
+    // [ ] Needs method comment
+    @Override
+    public void update() {
+        // [ ]: Update 6-month summary bar chart
+
+        // [ ]: Update expense/budget summary pie chart
+
+        // [ ]: Update recent expenses panel
+
+        // [ ]: Update notification inbox
+    }
+
+    
 
 }

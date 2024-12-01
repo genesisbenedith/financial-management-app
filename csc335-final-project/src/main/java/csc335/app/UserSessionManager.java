@@ -1,23 +1,20 @@
 package csc335.app;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import csc335.app.models.Budget;
-import csc335.app.models.Category;
 import csc335.app.models.Expense;
+import csc335.app.models.Subject;
 import csc335.app.models.User;
 
 public class UserSessionManager extends Subject {
     
-    private static UserSessionManager userSessionManager;
-    private static User currentUser;
+    private static UserSessionManager userSessionManager;  
+    private static User currentUser; 
 
     /* ------------------------------ Constructor ------------------------------ */
     private UserSessionManager () {
-        userSessionManager = null;
-        currentUser = null;
+        userSessionManager = null; 
     }
 
     /* ------------------------------ Getter Methods ------------------------------ */
@@ -27,6 +24,9 @@ public class UserSessionManager extends Subject {
      * @return
      */
     public static User getCurrentUser() {
+        if () {
+
+        }
         return !hasActiveUser() ? null : new User(currentUser.getUsername(),  currentUser.getEmail(), currentUser.getPassword());
     }
 
@@ -69,11 +69,19 @@ public class UserSessionManager extends Subject {
         currentUser = null;
     }
 
+    public void addBudget(Budget budget) {
+        currentUser.addBudget(budget);
+    }
+
     public void addExpense(Expense expense) {
         currentUser.addExpense(expense);
     }
 
     public void removeExpense(Expense expense) {
         currentUser.removeExpense(expense);
+    }
+
+    private String test() {
+        return "test";
     }
 }

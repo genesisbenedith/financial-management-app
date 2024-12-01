@@ -92,9 +92,11 @@ public class SignUpController {
             return;
         }
 
-        if (FileIOManager.createUserFile(username, email, password)) {
+        try {
+            
+            FileIOManager.createUserAccount(username, email, password);
             showAlert(AlertType.INFORMATION, "Success", "Account created successfully!");
-        } else {
+        } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to save user data.");
         }
 

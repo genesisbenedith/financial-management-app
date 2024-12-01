@@ -1,17 +1,17 @@
 package csc335.app.controllers;
 
-// [ ] Finish header comment
-/**
- * @author Genesis Benedith
- * 
- */
-
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+// [ ] Finish header comment
+/**
+ * @author Genesis Benedith
+ * 
+ */
 
 // [ ] Complete class comment
 public final class ViewManager {

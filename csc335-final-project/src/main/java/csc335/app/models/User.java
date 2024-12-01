@@ -9,13 +9,18 @@ package csc335.app.models;
 
 import java.io.File;
 import java.time.LocalDate;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import csc335.app.FileIOManager;
+import csc335.app.enums.Category;
 
 public class User {
-    private String username;
+    private String username; // @param testing blah 
     private String email;
     private String password;
     private Map<Category, List<Expense>> categorizedExpenses; // Maps categories to a list of expenses
@@ -24,6 +29,7 @@ public class User {
     /* ------------------------------ Constructor ------------------------------ */
 
     public User(String username, String email, String password) {
+        validateEmail(email);
         this.username = username;
         this.email = email;
         this.password = password;
@@ -112,14 +118,21 @@ public class User {
     /* ------------------------------ Setters ------------------------------ */
 
     public void setEmail(String email) {
+        
         this.email = email;
     }
 
     public void setUsername(String username) {
+        if (username == null | username.isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty.");
+        }
         this.username = username;
     }
 
     public void setPassword(String password) {
+        if (password == null | password.isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty.");
+        }
         this.password = password;
     }
 
@@ -172,6 +185,30 @@ public class User {
             this.categorizedBudgets.get(budgetCategory).setLimit(0);
         }
     }
+
+    /* ------------------------------ Validation Methods ------------------------------ */
+
+    /**
+     * Determines whether or not a specified email is in an appropriate format for the account 
+     * 
+     * Expected formats for email
+     * -> user@subdomain.domain.tld
+     * -> user@domain.tld
+     * -> user-name@subdomain.domain.tld
+     * -> user_name@domain.tld
+     * 
+     * Valid format examples
+     * -> wilbur@cs.arizona.edu
+     * -> wilma@arizona.edu
+     * -> wild-cats@arizona.edu
+     * -> wild_cats@catworks.arizona.edu
+     * 
+     * @param email the email to be registered to the account
+     * @return true if email is valid or false otherwise
+     */
+
+    
+    
 
     @Override
     public String toString() {

@@ -70,8 +70,11 @@ public class SignInController {
         }
 
         // Authenticate user
-        boolean isAuthenticated = FileIOManager.validateUserLogIn(username, password);
-        if (isAuthenticated) {
+        // boolean isAuthenticated = FileIOManager.validateUserLogIn(username, password);
+        // if (isAuthenticated) {
+        try {
+            
+        }
             System.out.println("User authenticated successfully.");
 
             goToDashboard();

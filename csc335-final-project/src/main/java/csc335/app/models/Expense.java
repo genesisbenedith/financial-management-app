@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import csc335.app.Category;
+
 /**
  * Author(s): Genesis Benedith
  * File: Expense.java
@@ -20,7 +22,7 @@ public class Expense {
 
 
     public Expense(Calendar date, Category category, double amount, String description) {
-        // TODO: Confirm if appropriate design for constructor
+        // [ ]: Confirm if appropriate design for constructor
         setDate(date);
         setCategory(category);
         setAmount(amount);

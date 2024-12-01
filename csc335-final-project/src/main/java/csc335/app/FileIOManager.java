@@ -7,21 +7,27 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.nio.file.Path;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import csc335.app.enums.Category;
 import csc335.app.models.Budget;
-import csc335.app.models.Category;
 import csc335.app.models.Expense;
 import csc335.app.models.User;
 
 public class FileIOManager {
 
-    private static final String DATABASE_DIRECTORY = "data/";
+    private final UserSessionManager sessionManager;
+    private static final String DATABASE_DIRECTORY = "data";
+    private static final String TRANSACTIONS_DIRECTORY = "data";
+    private static final String IMPORTS_DIRECTORY = "data";
+    private static final String EXPORTS_DIRECTORY = "data";
 
+    public FileIOManager() {
+
+    }
     /**
      * TODO: IMPLEMENT HASHING
      * 
@@ -61,14 +67,14 @@ public class FileIOManager {
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            System.err.println("Unable to read file: " + e.getMessage());
+            System.err.println("File cannot be opened or read: " + e.getMessage());
         }
     }
 
     /**
      * Saves user credentials to the file login_data.txt
      * 
-     * @param username
+     * @param #username the username 
      * @param email
      * @param password
      * @throws Exception
@@ -80,7 +86,7 @@ public class FileIOManager {
             String path = DATABASE_DIRECTORY + "login_data.txt";
             File file = new File(path);
 
-            // Write to file
+            // Write user's account credentials in file
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
                 // Expected format -> Username, Email, Password
                 bw.write(username + ", " + email + ", " + password + "\n");
@@ -97,134 +103,157 @@ public class FileIOManager {
     }
 
     /**
+     * Loads the account of a given user
      * 
-     * @param username
-     * @return <User> object representing a user and their account details
+     * @param username the username that is registered to the account
+     * @return the user's account <User> object representing a user and their
+     *         account details
      * @throws Exception
      */
     private static User loadUserAccount(String username) throws Exception {
-        // Declare variables to store user credentials
+        // Defining null <User> object as a placeholder for user's account details
         User user = null;
-        String email = null;
-        String password = null;
 
-        // Get file that contains all registered accounts
+        // Getting the file that contains all registered accounts
         String path = DATABASE_DIRECTORY + "login_data.txt";
         File file = new File(path);
 
-        // Search through accounts in file
+        // Searching through the registered accounts in the file
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            // Read each line until EOF or until account for @param username is found
+            // Reading each line until EOF or until the account for @param username is found
             String line;
             while ((line = br.readLine()) != null) {
-                // Check if line contains characters (not including whitespace)
+                // Checking if the line contains characters (not including whitespace)
                 if (!line.isEmpty()) {
-                    // Look for account in expected format -> Username, Email, Password
+                    // Expecting accounts to be in the following format -> Username, Email, Password
                     String[] account = line.split(",");
                     if (account.length == 3) {
-                        // Check if line contains account credentials for @param username
+                        // Checking if the line contains the account for @param username
                         if (account[0].trim().equals(username)) {
-                            // Extract email & password
-                            email = account[1].trim();
-                            password = account[2].trim();
+                            // Checking if the <User> object hasn't been reassigned to an account yet
+                            if (user == null) {
+                                // Extracting email & password
+                                try {
+                                    // Defining email & pass word for user
+                                    String email = account[1].trim();
+                                    String password = account[2].trim();
 
-                            // Check if any account credentials are blank
-                            if (email.isBlank() || password.isBlank()) {
-                                throw new Exception("User credentials are blank -> " + line);
+                                    // Reassigning <User> object to reference new instance
+                                    user = new User(username, email, password);
+                                } catch (Exception e) {
+                                    // Throwing exception if the account has invalid credentials
+                                    throw new Exception("User " + username + " has invalid account credentials -> "
+                                            + e.getMessage());
+                                }
+                            } else {
+                                // Throwing exception if there is more than one account for @param username
+                                throw new Exception("Multiple accounts with the same username ->" + username);
                             }
-
-                            // Load user account
-                            user = new User(username, email, password);
-                            break;
                         }
-
                     } else {
-                        // Throw exception if any non-whitespace line is not in expected format
+                        // Throwing exception if a non-whitespace line in the file has an incorrect
+                        // format
                         throw new Exception("An account is missing one or more credentials -> " + line);
                     }
                 }
             }
         } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
+            throw new FileNotFoundException("File not found: " + e.getMessage());
         } catch (IOException e) {
-            System.err.println("Unable to read file: " + e.getMessage());
+            throw new IOException("File cannot be opened or read: " + e.getMessage(), e);
         } catch (Exception e) {
-            System.err.println("An error occurred: " + e.getMessage());
+            throw new Exception("File contains invalid data: " + e.getMessage(), e);
         }
 
         return user;
     }
 
-    private static User loadUserTransactions(User user) {
-        // Get file that contains user's transcations
-        String path = DATABASE_DIRECTORY + "users";
-        File file = new File(path, user.getUsername() + ".txt");
+    /**
+     * Expected formats for budgets & expenses
+     * -> Budget: Category, Limit
+     * -> Expense: YYYY-MM-DD, Category, Amount, Description ->
+     * 
+     * Valid format examples
+     * -> Food, 500.00
+     * -> 2022-04-05, Food, 275.00
+     * 
+     * @param user
+     * @return
+     * @throws IOException
+     */
+    private static User loadUserTransactions(User user) throws FileNotFoundException, IOException, Exception {
+        // Getting the file that contains the user's transcations
+        Path path = Path.of(DATABASE_DIRECTORY, "users", user.getUsername() + "_transactions.txt");
+        File file = path.toFile();
+        if (!file.exists()) {
+            // Throwing exception if file cannot be found
+            throw new FileNotFoundException("File does not exist: " + path);
+        }
 
-        // Search through transcations in file
+        // Search through user's transcations in the file
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            // Read each line until end of file
+            // Reading each line until end of file
             String line;
             while ((line = br.readLine()) != null) {
-                // Check if line contains characters (not including whitespace)
+                // Checking if the line contains characters (not including whitespace)
                 if (!line.isEmpty()) {
-                    // Look for budgets or expenses
-                    // TODO: Confirm with TA if budgets will be stored in the user transactions file
-                    String[] formattedLine = line.split(":");
-                    if (formattedLine.length == 0) {
-                        // Throw exception if any non-whitespace line is not in expected format
+                    // Expecting one of the formats specified in method comment
+                    String[] data = line.split(":");
+                    if (data.length == 2) {
+                        // Checking if the line contains a budget or an expense
+                        if (data[0].trim().equals("Budget")) {
+                            // Extracting budget
+                            String[] parts = data[1].split(",");
+                            try {
+                                // Defining category and limit for budget
+                                Category category = Category.valueOf(parts[0].trim().toUpperCase());
+                                double limit = Double.parseDouble(parts[1]);
+
+                                // Defining a <Budget> object to hold user's budget
+                                Budget budget = new Budget(category, limit);
+                                user.addBudget(budget);
+                            } catch (Exception e) {
+                                // Throwing exception if the budget has invalid data
+                                throw new Exception(
+                                        "User " + user.getUsername() + " has an invalid budget -> " + e.getMessage());
+                            }
+                        } else if (data[0].trim().equals("Expense")) {
+                            // Extracting expense
+                            String[] parts = data[1].split(",");
+                            try {
+                                // Defining date, category, amount, and description for expense
+                                String[] date = parts[0].trim().split("-");
+                                Category category = Category.valueOf(parts[1].trim().toUpperCase());
+                                double amount = Double.parseDouble(parts[2].trim());
+                                String description = parts[3].trim();
+
+                                // Defining calendar for expense date
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
+                                calendar.set(Calendar.MONTH, Integer.parseInt(date[1]));
+                                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date[2]));
+
+                                // Defining an <Expense> object to hold user's expense
+                                Expense expense = new Expense(calendar, category, amount, description);
+                                user.addExpense(expense);
+                            } catch (Exception e) {
+                                // Throwing exception if the expense has invalid data
+                                throw new Exception(
+                                        "User " + user.getUsername() + " has an invalid expense -> " + e.getMessage());
+                            }
+                        }
+                    } else {
+                        // Throwing exception if a non-whitespace line is not in the expected format
                         throw new Exception("Line contains invalid format ->" + line);
-                    } else if (formattedLine[0].trim().equals("Budget")) {
-                        // Extract budget
-                        Budget budget = null;
-                        try {
-                            // Look for expected format -> Budget: Category, Limit
-                            String[] parts = formattedLine[1].split(",");
-                            Category category = Category.valueOf(parts[0].trim().toUpperCase());
-                            double limit = Double.parseDouble(formattedLine[1].split(",")[1].trim().toUpperCase());
-
-                            // Set budget
-                            budget = new Budget(category, limit);
-                        } catch (Exception e) {
-                            System.err.println("User budget invalid: " + e.getMessage());
-                            return user;
-                        }
-
-                        // Add budget to param currentUser
-                        user.addBudget(budget);
-                    } else if (formattedLine[0].trim().equals("Expense")) {
-                        // Extract expense
-                        Expense expense = null;
-                        try {
-
-                            // Look for expected format -> Expense: YYYY-MM-DD, Category, Amount,
-                            // Description
-                            String[] parts = formattedLine[1].split(",");
-                            String[] date = parts[0].trim().split("-");
-                            Category category = Category.valueOf(parts[1].trim().toUpperCase());
-                            double amount = Double.parseDouble(parts[2].trim());
-                            String description = parts[3].trim();
-
-                            // Set calendar for expense date
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
-                            calendar.set(Calendar.MONTH, Integer.parseInt(date[1]));
-                            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date[2]));
-
-                            // Load expense
-                            expense = new Expense(calendar, category, amount, description);
-                            user.addExpense(expense);
-                        } catch (Exception e) {
-                            System.out.println("An error occurred: " + e.getMessage());
-                        }
                     }
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            System.err.println("Unable to read file: " + e.getMessage());
+            // Throwing exception if the file reader failed
+            throw new FileNotFoundException("File cannot be opened or read: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            // Throwing exception if any other errors occurred during file reading
+            throw new Exception(e.getMessage());
         }
 
         return user;
@@ -259,17 +288,22 @@ public class FileIOManager {
         } catch (IOException e) {
             System.err.println("Unable to write to file: " + e.getMessage());
         }
-
     }
 
-    public static File createUserReport(String username, LocalDate reportDate) {
-        if (!username.equals(authenticatedUser)) {
-            System.out.println("Error: Invalid user session.");
+    public static File createUserReport(String username, Calendar calendar) {
+        if (!username.equals(UserSessionManager.getUsername())) {
+            throw new IllegalArgumentException("No active session for " + username + ".");
             return null;
         }
 
-        File monthlyReport = new File(DATABASE_DIRECTORY + "exports", currentUser.getUsername() + ".txt");
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(monthlyReport))) {
+        // Extract month & year for report from calendar date
+        String month = Integer.toString(calendar.get(Calendar.MONTH));
+        String year = Integer.toString(calendar.get(Calendar.YEAR));
+        String path = DATABASE_DIRECTORY + "exports" + username + ".txt";
+
+        // Write user's report in file
+        File file = new File(path);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write("# " + reportDate.getMonth() + " " + Integer.toString(reportDate.getYear())
                     + " MONTHLY SUMMARY FOR " + username + "\n");
 
@@ -350,16 +384,16 @@ public class FileIOManager {
                         taken = true;
                     }
                 } else {
-                    // Throw exception if any non-whitespace line is not in expected format
+                    // Throw exception if any non-whitespace line is not in the expected format
                     throw new Exception("An account is missing one or more credentials -> " + line);
                 }
             }
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            System.err.println("Unable to read file: " + e.getMessage());
+            System.err.println("File cannot be opened or read: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("An error occurred: " + e.getMessage());
+            System.err.println("An unexpected error occurred: " + e.getMessage());
         }
 
         return taken;
