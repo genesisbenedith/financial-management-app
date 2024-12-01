@@ -1,60 +1,35 @@
 package csc335.app;
 
+// [ ] Compete method comment
 /**
- * Author(s): Genesis Benedith
- * File: App.java
- * Description: 
+ * @author Genesis Benedith
  */
-
+import csc335.app.controllers.View;
+import csc335.app.controllers.ViewManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+// [ ]: Change App to FinanceAssistant
+
+// [ ] Needs class comment
 public final class App extends Application {
 
-    private static Stage appWindowStage;
-
+    // [ ] Compete method comment
     /**
-     * 
+     * @param 
      */
     @Override
-    public void start(Stage stage) throws Exception {
-
-        setStage(stage);
-
-        // Load the Main view
-        FXMLLoader mainViewLoader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
-        Parent rootContainer = mainViewLoader.load();
-
-        // Set up & configure the scene for the app window
-        Scene scene = new Scene(rootContainer);
-        setScene(scene);
-        appWindowStage.setTitle("Financial Management App");
-        appWindowStage.show();
-
-        System.out.println("Application is now running...");
+    public void start(Stage stage) {
+        System.out.println("Starting application...");
+        ViewManager.getViewManager().loadView(View.SPLASH);
     }
 
-    public static void setStage(Stage stage) {
-        appWindowStage = stage;
-    }
-
-    public static void setScene(Scene scene) {
-        if (appWindowStage != null) {
-            appWindowStage.setScene(scene);
-        } else {
-            throw new IllegalStateException("App occurred an error. The stage is not initialized!");
-        }
-    }
-
-    
-
-    /*
+    // [ ] Compete method comment
+    /**
      * 
+     * @param args
      */
     public static void main(String[] args) {
-        launch(args);
+        App.launch(args);
     }
 }
