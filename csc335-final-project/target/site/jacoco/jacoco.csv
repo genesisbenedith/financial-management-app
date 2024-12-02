@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 csc335-final-project,csc335.app.models,Report,3,0,0,0,1,0,1,0,1,0
-csc335-final-project,csc335.app.models,Budget,98,0,4,0,25,0,13,0,11,0
+csc335-final-project,csc335.app.models,Budget,100,0,4,0,25,0,13,0,11,0
 csc335-final-project,csc335.app.models,Expense,71,0,0,0,20,0,11,0,11,0
 csc335-final-project,csc335.app.models,User,392,0,26,0,81,0,32,0,19,0
 csc335-final-project,csc335.app.models,Category,55,0,0,0,8,0,2,0,2,0
@@ -9,6 +9,7 @@ csc335-final-project,csc335.app,App,42,0,0,0,13,0,3,0,3,0
 csc335-final-project,csc335.app,UserAuth,9,47,1,5,4,9,2,3,1,1
 csc335-final-project,csc335.app,FileIOManager,486,0,35,0,102,0,25,0,6,0
 csc335-final-project,csc335.app.controllers,AuthController,302,0,26,0,85,0,26,0,13,0
-csc335-final-project,csc335.app.controllers,DashboardController,25,0,0,0,8,0,4,0,4,0
+csc335-final-project,csc335.app.controllers,DashboardController,29,0,0,0,10,0,5,0,5,0
 csc335-final-project,csc335.app.controllers,NavController,74,0,4,0,14,0,8,0,6,0
-csc335-final-project,csc335.app.controllers,BudgetController,617,0,53,0,145,0,42,0,13,0
+csc335-final-project,csc335.app.controllers,LogOutController,27,0,0,0,12,0,4,0,4,0
+csc335-final-project,csc335.app.controllers,BudgetController,466,0,38,0,97,0,34,0,15,0

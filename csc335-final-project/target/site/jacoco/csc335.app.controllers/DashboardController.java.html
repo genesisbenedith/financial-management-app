@@ -26,13 +26,18 @@ import javafx.scene.layout.AnchorPane;
 
     @FXML
     private void handleGoToDashboardClick() {
-<span class="nc" id="L29">        navigation.goToDashboard();</span>
+<span class="nc" id="L29">        AuthController.getInstance().loadContent(&quot;/views/DashboardView.fxml&quot;);</span>
 <span class="nc" id="L30">    }</span>
 
     @FXML
     private void handleGoToBudgetClick() {
 <span class="nc" id="L34">        AuthController.getInstance().loadContent(&quot;/views/BudgetView.fxml&quot;);</span>
 <span class="nc" id="L35">    }</span>
+
+    @FXML
+    private void handleGoToLogoutClick(){
+<span class="nc" id="L39">        AuthController.getInstance().loadContent(&quot;/views/LogOutView.fxml&quot;);</span>
+<span class="nc" id="L40">    }</span>
 
     //TODO: The rest of the Clicks go here
 }
