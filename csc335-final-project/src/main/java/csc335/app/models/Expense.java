@@ -22,11 +22,10 @@ public class Expense {
 
 
     public Expense(Calendar date, Category category, double amount, String description) {
-        // [ ]: Confirm if appropriate design for constructor
-        setDate(date);
-        setCategory(category);
-        setAmount(amount);
-        setDescription(description);
+        this.date = date;
+        this.category = category;
+        this.amount = amount;
+        this.description = description;
     }
 
     /* ------------------------------ Getters and Setters ------------------------------ */

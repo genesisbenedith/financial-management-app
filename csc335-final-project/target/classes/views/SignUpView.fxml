@@ -64,18 +64,18 @@
                      </image>
                   </ImageView>
                   <TextField fx:id="emailField" layoutX="75.0" layoutY="190.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Email" styleClass="email-field" />
-                  <PasswordField fx:id="passwordField1" layoutX="75.0" layoutY="290.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Password" styleClass="password-field" />
-                  <TextField fx:id="usernameField1" layoutX="75.0" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username" styleClass="username-field" />
+                  <PasswordField fx:id="passwordField" layoutX="75.0" layoutY="290.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Password" styleClass="password-field" />
+                  <TextField fx:id="usernameField" layoutX="75.0" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username" styleClass="username-field" />
                   <PasswordField fx:id="confirmPasswordField" layoutX="75.0" layoutY="340.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Confirm Password" styleClass="password-field" />
-                  <Button layoutX="75.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#createUserAccount" prefHeight="50.0" prefWidth="250.0" styleClass="create-account-button" text="Create Account" />
+                  <Button layoutX="75.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleCreateAccountClick" prefHeight="50.0" prefWidth="250.0" styleClass="create-account-button" text="Create Account" />
                   <HBox layoutX="95.5" layoutY="465.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="209.0">
                      <children>
-                        <Label onMouseClicked="#goToSignIn" style="-fx-text-fill: #808080;" text="Already Have an Account?" textFill="#d6d6d7">
+                        <Label style="-fx-text-fill: #808080;" text="Already Have an Account?" textFill="#d6d6d7">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label onMouseClicked="#goToSignUp" styleClass="sign-up-button" text="Sign In" textFill="#d6d6d7">
+                        <Label fx:id="signInLabel" onMouseClicked="#handleSignInClick" styleClass="sign-in-label" text="Sign In" textFill="#d6d6d7">
                            <font>
                               <Font size="14.0" />
                            </font>

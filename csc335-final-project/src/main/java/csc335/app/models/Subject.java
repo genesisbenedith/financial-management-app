@@ -1,24 +1,12 @@
 package csc335.app.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import csc335.app.controllers.Observer;
 
-public abstract class Subject {
-    private List<Observer> observers = new ArrayList<>();
+public interface Subject {
 
-    protected void addObserver(Observer observer) {
-        observers.add(observer);
-    }
+    void addObserver(Observer observer);
 
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
+    void removeObserver(Observer observer);
 
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
-    }
+    void notifyObservers();
 }

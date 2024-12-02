@@ -63,18 +63,18 @@
                   </ImageView>
                   <TextField fx:id="usernameField" layoutX="75.0" layoutY="190.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username" styleClass="username-field" />
                   <PasswordField fx:id="passwordField" layoutX="75.0" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Password" styleClass="password-field" />
-                  <Label layoutX="221.0" layoutY="290.0" styleClass="forgot-password-button" text="Forgot Password?" textFill="#d6d6d7">
+                  <Label layoutX="221.0" layoutY="290.0" styleClass="forgot-password-label" text="Forgot Password?" textFill="#d6d6d7">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="74.0" layoutY="315.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logUserIn" prefHeight="50.0" prefWidth="250.0" styleClass="sign-in-button" text="Sign In" />
+                  <Button layoutX="74.0" layoutY="315.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleSignInButtonClick" prefHeight="50.0" prefWidth="250.0" styleClass="sign-in-button" text="Sign In" />
                   <Label layoutX="131.0" layoutY="380.0" style="-fx-text-fill: #808080;" text="New User?" textFill="#d6d6d7">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="202.0" layoutY="380.0" onMouseClicked="#goToSignUp" styleClass="sign-up-button" text="Sign Up" textFill="#d6d6d7">
+                  <Label fx:id="signUpLabel" layoutX="202.0" layoutY="380.0" onMouseClicked="#handleSignUpClick" styleClass="sign-up-label" text="Sign Up" textFill="#d6d6d7">
                      <font>
                         <Font size="14.0" />
                      </font>

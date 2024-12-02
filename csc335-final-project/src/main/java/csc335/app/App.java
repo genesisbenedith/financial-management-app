@@ -1,9 +1,5 @@
 package csc335.app;
 
-// [ ] Compete method comment
-/**
- * @author Genesis Benedith
- */
 import csc335.app.controllers.View;
 import csc335.app.controllers.ViewManager;
 import javafx.application.Application;
@@ -22,6 +18,19 @@ public final class App extends Application {
     public void start(Stage stage) {
         System.out.println("Starting application...");
         ViewManager.getViewManager().loadView(View.SPLASH);
+
+        // String fxmlPath = View.SPLASH.getFXMLPath(View.SPLASH.name());
+        // System.out.println("Path " + fxmlPath);
+        // FXMLLoader fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
+        
+        // String currentDirectory = System.getProperty("user.dir");
+        // System.out.println("Current working directory: " + currentDirectory);
+        // try {
+        //     Parent parent = fxmlView.load();
+        //     ViewManager.getViewManager().showView(parent);
+        // } catch (IOException e) {
+        //     throw new RuntimeException("View cannot be loaded -> " + e.getMessage());
+        // }
     }
 
     // [ ] Compete method comment

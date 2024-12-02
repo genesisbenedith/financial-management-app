@@ -9,15 +9,14 @@ package csc335.app.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import csc335.app.persistence.UserSessionManager;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 // [ ] Needs class comment
-public class SidebarController {
-
-    @FXML
-    private VBox sidebar; // [ ] Either remove this field or use it
+public class SidebarController implements Initializable{
 
     @FXML
     private Pane dashboardPane;
@@ -34,7 +33,15 @@ public class SidebarController {
     @FXML
     private Pane logoutPane;
 
-    @FXML
+    // [ ] Complete method comment
+    /**
+     * @author Chelina Obiang
+     * @author Genesis Benedith
+     * @param location
+     * @param resources
+     */
+    
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         
 
@@ -46,14 +53,39 @@ public class SidebarController {
 
         
         // REVIEW Action listeners
-        dashboardPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.DASHBOARD));
-        expensePane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.EXPENSE));
-        budgetPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.BUDGET));
-        reportPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.REPORT));
-        // [ ] Implement logout feature in @see  
-        logoutPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.LOGOUT));
+        // dashboardPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.DASHBOARD));
+        // expensePane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.EXPENSE));
+        // budgetPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.BUDGET));
+        // reportPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.REPORT));
+        // logoutPane.setOnMouseClicked(click -> handleLogOutPaneClicked());
         System.out.println("Sidebar panel has been activated.");
 
+    }
+
+    @FXML
+    private void handleBudgetPaneClick(MouseEvent event) {
+        ViewManager.getViewManager().loadView(View.BUDGET);
+    }
+
+    @FXML
+    private void handleExpensePaneClick(MouseEvent event) {
+        ViewManager.getViewManager().loadView(View.EXPENSE);
+    }
+
+    @FXML
+    private void handleReportPaneClick(MouseEvent event) {
+        ViewManager.getViewManager().loadView(View.REPORT);
+    }
+
+    @FXML
+    private void handleDashboardPaneClick(MouseEvent event) {
+        ViewManager.getViewManager().loadView(View.DASHBOARD);
+    }
+
+    @FXML
+    private void handleLogOutPaneClick() {
+        UserSessionManager.getUserSessionManager().resetCurrentUser();
+        ViewManager.getViewManager().loadView(View.LOGIN);
     }
 
    

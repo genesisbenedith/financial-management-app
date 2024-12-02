@@ -34,7 +34,7 @@ public final class ViewManager {
     }
 
     // [ ] Needs method comment
-    private void showView(Parent parent) {
+    public void showView(Parent parent) {
         if (primaryStage == null) {
             primaryStage = new Stage();
         }
@@ -54,7 +54,6 @@ public final class ViewManager {
         currentView = view;
         System.out.println("Loading the " + currentView.name() + "...");
         String fxmlPath = currentView.getFXMLPath(currentView.name());
-
         FXMLLoader fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
         try {
             Parent parent = fxmlView.load();
@@ -63,5 +62,45 @@ public final class ViewManager {
             throw new RuntimeException("View cannot be loaded -> " + e.getMessage());
         }
     }
+
+    // private FXMLLoader setController() {
+    //     String fxmlPath = currentView.getFXMLPath(currentView.name());
+    //     System.out.println("Path " + fxmlPath);
+        
+    //     FXMLLoader fxmlView = null;
+    //     if (null != currentView) switch (currentView) {
+    //         case BUDGET -> {
+    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
+    //             fxmlView.setController(BudgetController.getBudgetController());
+    //         }
+    //         case DASHBOARD -> {
+    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
+    //             fxmlView.setController(DashboardController.getDashboardController());
+    //         }
+    //         case REGISTER -> {
+    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
+    //             fxmlView.setController(SignUpController.getSignUpController());
+    //         }
+    //         case REPORT -> {
+    //         }
+    //         case LOGIN -> {
+    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
+    //             fxmlView.setController(SignInController.getSignInController());
+    //         }
+    //         case SPLASH -> {
+    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
+    //             fxmlView.setController(SplashController.getSplashController());
+    //         }
+    //         case EXPENSE -> {
+    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
+    //             fxmlView.setController(ExpensesController.getExpensesController());
+    //         }
+    //         default -> {
+    //         }
+    //     }
+
+    //     return fxmlView;
+
+    // }
 
 }

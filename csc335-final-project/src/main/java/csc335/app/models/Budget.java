@@ -13,16 +13,15 @@ import java.util.List;
 import csc335.app.Category;
 
 public class Budget {
-    private Category category; // Budget category (e.g., Groceries, Transportation, etc.)
+    private final Category category; // Budget category (e.g., Groceries, Transportation, etc.)
     private double limit;    // Budget limit for the category
-    private List<Expense> budgetedExpenses; // List of expenses associated with budget
+    private final List<Expense> budgetedExpenses; // List of expenses associated with budget
 
     /* ------------------------------ Constructor ------------------------------ */
 
     public Budget(Category category, double limit) {
-        // [ ]: Confirm if appropriate design for constructor
-        setCategory(category);
-        setLimit(limit);
+        this.category = category;
+        this.limit = limit;
         this.budgetedExpenses = new ArrayList<>();
     }
 
@@ -54,23 +53,19 @@ public class Budget {
         this.limit = limit;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    /* ------------------------------ Other Methods ------------------------------ */
+    /* ------------------------------ Helper Methods ------------------------------ */
 
     public void addExpense(Expense newExpense) {
-        budgetedExpenses.add(newExpense);
+        this.budgetedExpenses.add(newExpense);
     }
 
     public void addExpenses(List<Expense> expenses) {
-        budgetedExpenses.clear();
-        budgetedExpenses.addAll(expenses);
+        this.budgetedExpenses.clear();
+        this.budgetedExpenses.addAll(expenses);
     }
 
     public void removeExpense(Expense expense) {
-        budgetedExpenses.remove(expense);
+        this.budgetedExpenses.remove(expense);
     }
     
     public boolean isExceeded() {

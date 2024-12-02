@@ -6,22 +6,15 @@
     -fx-background-color:  #E6E6FA;
 }
 
-.prog-chart {
+/* .prog-chart {
       /* Light background for the progress bar */
-    -fx-accent: #32CD32;            /* Green color (adjust as needed) */
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-pref-width: 200px;           /* Set the width of the progress bar */
-    -fx-pref-height: 20px;           /* Set the height of the progress bar */
-}
+      /* -mfx-accent-color: #3526c3;          Set the height of the progress bar */
+/* } */
 
-/* Customizing the progress section */
-.prog-chart > .track {
-    
-    -fx-background-radius: 10px;
-}
-
-.prog-chart > .bar {
-    -fx-background-color: #32CD32;  /* Green color for progress */
-    -fx-background-radius: 10px;
+.icons{
+    -fx-background-radius: 50%; /* Makes it circular */
+    -fx-min-width: 200px; /* Adjust the size */
+    -fx-min-height: 200px;
+    -fx-max-width: 200px;
+    -fx-max-height: 200px;
 }

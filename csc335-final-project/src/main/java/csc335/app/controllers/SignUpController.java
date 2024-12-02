@@ -1,27 +1,24 @@
 package csc335.app.controllers;
 
-/**
- * Author(s): Genesis Benedith
- * Course: CSC 335 (Fall 2024)
- * File: SignUpController.java
- * Description:
- */
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
+import csc335.app.models.Subject;
+import csc335.app.persistence.AccountManager;
+import csc335.app.persistence.AccountRepository;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import java.io.IOException;
-import java.util.regex.Pattern;
+import javafx.scene.input.MouseEvent;
 
-import csc335.app.App;
-import csc335.app.FileIOManager;
-
-public class SignUpController {
+public class SignUpController implements Initializable, Subject{
 
     @FXML
     private TextField emailField;
@@ -35,75 +32,66 @@ public class SignUpController {
     @FXML
     private PasswordField confirmPasswordField;
 
+    @FXML
+    private Label signInLabel;
+
+    private static final List<Observer> observers = new ArrayList<>();
+    
+
+    // [ ] Needs method comment and in-line comments
     /**
      * 
      */
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignUpController initialized.");
+        addObserver(AccountRepository.getAccountRepository());
+        notifyObservers();
     }
 
-    /**
-     * Handles switching to the SignInView when "Sign In" is clicked or when method is invoked.
-     * 
-     * @throws IOException
-     */
     @FXML
-    private void goToSignIn() throws IOException {
-        System.out.println("Navigating to Sign-In page...");
-
-        // Load the Sign-In view
-        FXMLLoader signInViewLoader = new FXMLLoader(getClass().getResource("/views/SignInView.fxml"));
-        Parent rootContainer = signInViewLoader.load();
-
-        // Set app window to show Sign-In scene
-        Scene signInScene = new Scene(rootContainer);
-        App.setScene(signInScene);
+    private void handleSignInClick(MouseEvent event) {
+        ViewManager.getViewManager().loadView(View.LOGIN);
     }
 
+    // [ ] Needs in-line comments
+    // EDIT method comment
     /**
      * Handles input validation for Sign-Up form when "Create Account" is clicked.
      * 
      * @throws IOException
      */
     @FXML
-    private void createUserAccount() throws IOException {
-        String email = null;
-        String username = null;
-        String password = null;
-
-        if (!validateFields()) {
-            return;
-        }
-
-        email = emailField.getText().trim();
-        username = usernameField.getText().trim();
-        password = passwordField.getText().trim();
-
-        // Check if email is already in use
-        if (FileIOManager.isEmailTaken(email)) {
-            showAlert(AlertType.ERROR, "Error", "Email is already in use.");
-            return;
-        }
-
-        // Check if username is already taken
-        if (FileIOManager.isUsernameTaken(username)) {
-            showAlert(AlertType.ERROR, "Error", "Username is already taken.");
+    private void handleCreateAccountClick() {
+        // Check if any field is empty
+        if (emailField == null || usernameField == null || passwordField == null || confirmPasswordField == null) {
+            showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return;
         }
 
         try {
-            
-            FileIOManager.createUserAccount(username, email, password);
-            showAlert(AlertType.INFORMATION, "Success", "Account created successfully!");
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to save user data.");
+            if (!validateFields())
+                return;
+        } catch (IOException e) {
+            return;
         }
 
-        goToSignIn();
+        String email = emailField.getText().trim();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
 
+        String registrationStatus = AccountManager.getAccountManager().registerAccount(username, email, password);
+
+        if (registrationStatus == "Success"){
+            showAlert(AlertType.INFORMATION, registrationStatus, "Account created successfully!");
+            ViewManager.getViewManager().loadView(View.LOGIN);
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Error", registrationStatus);
+        }
     }
 
+    // [ ] Needs method comment
+    // EDIT in-line comments
     /**
      * 
      * @return
@@ -122,31 +110,36 @@ public class SignUpController {
         }
 
         // Validate email format
-        if (!isValidEmail(email)) {
-            showAlert(AlertType.ERROR, "Error", "Please enter a valid email address.");
-            return false;
-        }
+        try {
+            // boolean validEmail = Validator.isValidEmail(email);
+            // boolean validPassword = Validator.isValidPassword(password);
+            
+            // if (!validEmail) {
+            //     showAlert(AlertType.ERROR, "Error", "Please enter a valid email address."); 
+            //     return false;
+            // }
 
-        // Check if passwords match
-        if (!password.equals(confirmPassword)) {
-            showAlert(AlertType.ERROR, "Error", "Passwords do not match.");
+            // if (!validPassword) {
+            //     showAlert(AlertType.ERROR, "Error", "Password must be at least 5 characters long.");
+            //     return false;
+            // }
+
+            // Check if passwords match
+            if (!password.equals(confirmPassword)) {
+                showAlert(AlertType.ERROR, "Error", "Passwords do not match.");
+                return false;
+            }
+            
+        } catch (IllegalArgumentException e) {
+            showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return false;
         }
 
         return true;
     }
 
-    /**
-     * 
-     * @param email
-     * @return
-     */
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        return pattern.matcher(email).matches();
-    }
-
+    
+    // [ ] Needs method comment
     /**
      * 
      * @param alertType
@@ -158,6 +151,23 @@ public class SignUpController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 
 }

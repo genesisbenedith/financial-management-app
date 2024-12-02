@@ -17,18 +17,17 @@ public enum View {
     REPORT("Report", "Monthly Report");
 
     // [ ] Needs field comments
-    private final String VIEW_LABEL;
     private final String VIEW_TITLE;
     private final String VIEW_NAME;
-    private final String FXML_VIEW_DIRECTORY = "views";
+    // private final String FXML_VIEW_DIRECTORY = Path.of("..", "..", "..", "resources", "views").toString();
+    private final String FXML_VIEW_DIRECTORY = Path.of("/views").toString();
     private final String FXML_VIEW_PATH;
 
     // [ ] Needs method comment
-    View(String viewLabel, String viewTitle) {
-        this.VIEW_LABEL = viewLabel;
+    View(String viewName, String viewTitle) {
         this.VIEW_TITLE = viewTitle;
-        this.VIEW_NAME = viewLabel + " View";
-        this.FXML_VIEW_PATH = Path.of(FXML_VIEW_DIRECTORY, VIEW_NAME + ".fxml").toString();
+        this.VIEW_NAME = viewName;
+        this.FXML_VIEW_PATH = Path.of(FXML_VIEW_DIRECTORY, VIEW_NAME + "View.fxml").toString();
     }
 
     // [ ] Needs method comment
@@ -42,7 +41,7 @@ public enum View {
     }
 
     // [ ] Needs method comment
-    public String getLabel() {
-        return this.VIEW_LABEL;
+    public String getName() {
+        return this.VIEW_NAME;
     }
 }

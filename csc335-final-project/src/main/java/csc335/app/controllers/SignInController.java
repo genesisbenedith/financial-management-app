@@ -1,26 +1,24 @@
 package csc335.app.controllers;
 
-/**
- * Author(s): Genesis Benedith
- * Course: CSC 335 (Fall 2024)
- * File: SignInController.java
- * Description:
- */
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
+import csc335.app.models.Subject;
+import csc335.app.persistence.AccountManager;
+import csc335.app.persistence.AccountRepository;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
-import csc335.app.App;
-import csc335.app.FileIOManager;
-
-public class SignInController {
+public class SignInController implements Subject, Initializable {
 
     @FXML
     private TextField usernameField;
@@ -29,38 +27,32 @@ public class SignInController {
     private PasswordField passwordField;
 
     @FXML
-    public void initialize() {
+    private Label signUpLabel;
+
+    private static final List<Observer> observers = new ArrayList<>();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignInController initialized.");
-
+        AccountManager.getAccountManager();
+        addObserver(AccountRepository.getAccountRepository());
+        notifyObservers();
     }
 
-    /* ------------------------------ Action Events ------------------------------ */
-
-    /**
-     * Handles switching to the SignUpView when "Sign Up" is clicked.
-     * 
-     * @throws IOException
-     */
     @FXML
-    private void goToSignUp() throws IOException {
-        System.out.println("Navigating to Sign-Up page...");
-
-        // Load the Sign-Up view
-        FXMLLoader signUpViewLoader = new FXMLLoader(getClass().getResource("/views/SignUpiew.fxml"));
-        Parent rootContainer = signUpViewLoader.load();
-
-        // Set app window to show Sign-Up scene
-        Scene signUpScene = new Scene(rootContainer);
-        App.setScene(signUpScene);
+    private void handleSignUpClick(MouseEvent event) {
+        ViewManager.getViewManager().loadView(View.REGISTER);
     }
+    
 
+    // EDIT method comment and in-line comments
     /**
      * Handles user authentication when "Sign In" is clicked.
      * 
      * @throws IOException
      */
     @FXML
-    private void logUserIn() throws IOException {
+    private void handleSignInButtonClick() throws IOException {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
@@ -69,15 +61,13 @@ public class SignInController {
             return;
         }
 
+        
         // Authenticate user
-        // boolean isAuthenticated = FileIOManager.validateUserLogIn(username, password);
-        // if (isAuthenticated) {
-        try {
-            
-        }
+        boolean isAuthenticated = AccountManager.authenticateUser(username, password);
+        
+        if (isAuthenticated) {
             System.out.println("User authenticated successfully.");
-
-            goToDashboard();
+            ViewManager.getViewManager().loadView(View.DASHBOARD);
 
         } else {
             showAlert(AlertType.ERROR, "Authentication Failed", "Invalid username or password.");
@@ -85,25 +75,7 @@ public class SignInController {
 
     }
 
-    /* ------------------------------ Other Methods ------------------------------ */
-
-    /**
-     * Handles switching to the DashboardView.
-     * 
-     * @throws IOException
-     */
-    private void goToDashboard() throws IOException {
-        System.out.println("Navigating to Dashboard page...");
-
-        // Load the Dashboard view
-        FXMLLoader dashboardViewLoader = new FXMLLoader(getClass().getResource("/views/DashboardView.fxml"));
-        Parent rootContainer = dashboardViewLoader.load();
-
-        // Set app window to show Dashboard scene
-        Scene dashboardScene = new Scene(rootContainer);
-        App.setScene(dashboardScene);
-    }
-
+    // [ ] Finish method comment
     /**
      * 
      * @param alertType
@@ -115,6 +87,23 @@ public class SignInController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 
 }
