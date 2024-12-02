@@ -6,13 +6,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import csc335.app.Category;
 import csc335.app.models.Budget;
+import csc335.app.models.Subject;
+import csc335.app.persistence.AccountRepository;
+import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ProgressIndicator;
@@ -22,26 +30,32 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class BudgetController {
+public class BudgetController implements Subject, Initializable {
     @FXML
     private MFXNotificationCenter notificationCenter;
 
     @FXML
     private AnchorPane contentArea;
 
-    //Spinners for each category
+    // Spinners for each category
     @FXML
-    private Spinner<Double> fSpinner; double currF = 0;
+    private Spinner<Double> fSpinner;
+    double currF = 0;
     @FXML
-    private Spinner<Double> tSpinner; double currT = 0;
+    private Spinner<Double> tSpinner;
+    double currT = 0;
     @FXML
-    private Spinner<Double> uSpinner; double currU = 0;
+    private Spinner<Double> uSpinner;
+    double currU = 0;
     @FXML
-    private Spinner<Double> hSpinner; double currH = 0;
+    private Spinner<Double> hSpinner;
+    double currH = 0;
     @FXML
-    private Spinner<Double> eSpinner; double currE = 0;
+    private Spinner<Double> eSpinner;
+    double currE = 0;
     @FXML
-    private Spinner<Double> oSpinner; double currO = 0;
+    private Spinner<Double> oSpinner;
+    double currO = 0;
 
     // Panes for each category
     @FXML
@@ -75,7 +89,7 @@ public class BudgetController {
     @FXML
     private SidebarController navigation;
 
-    //Alert Images for each category
+    // Alert Images for each category
     @FXML
     private ImageView tAlert;
     @FXML
@@ -89,67 +103,131 @@ public class BudgetController {
     @FXML
     private ImageView oAlert;
 
-    @FXML
-    private double handleBudget(Category category, Spinner<Double> spinner, ProgressIndicator progress, ImageView alert) {
-        alert.setVisible(false);
-    
-                Double value = (Double) spinner.getValue();
-                if (value == null || value == 0) {
-                    SpinnerValueFactory<Double> valueF = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0,100000.0, 0.0, 0.1);
-                    valueF.setValue(0.0);
-                    spinner.setValueFactory(valueF);
-                }
-    
-                UserSessionManager.getCurrentUser().setBudget(new Budget(category, value));
-    
-                for (Budget b : UserSessionManager.getCurrentUser().getBudgetsByCategory().values()) {
-                    if (b.getCategory().equals(category)) {
-                        if (b.isExceeded()) {
-                            alert.setVisible(true);
-                            progress.setProgress(Math.min(1.0, b.getTotalSpent() / b.getLimit()));
-                        }
-                        if (b.getLimit() < 0) {
-                            showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
-                            return 0;
-                        }
+    private static final List<Observer> observers = new ArrayList<>();
+    private static User currentUser;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("Welcome to the Budget Page!");
+
+        UserSessionManager.getUserSessionManager();
+        currentUser = UserSessionManager.getCurrentUser();
+
+        initializeSpinners();
+        addObserver(AccountRepository.getAccountRepository());
+        notifyObservers();
+    }
+
+    public void initializeSpinners() {
+
+        Map<Category, Budget> budgets = currentUser.getBudgetsByCategory();
+        for (Category category : Category.values()) {
+            if (budgets.containsKey(category)) {
+                switch (category) {
+                    case FOOD -> {
+
+                    }
+                    case ENTERTAINMENT -> {
+
+                    }
+                    case TRANSPORTATION -> {
+
+                    }
+                    case UTILITIES -> {
+
+                    }
+                    case HEALTHCARE -> {
+
+                    }
+                    case OTHER -> {
+
                     }
                 }
-    
-                progress.setProgress(Math.min(1.0, value / 100)); // Normalize for example (e.g., value out of 100)
-                // saveBudgetToFile();
-                return spinner.getValue();
             }
+        }
 
-// Individual handlers call the generalized method
-@FXML
-private void handleTransport() {
-    currT = handleBudget(Category.TRANSPORTATION, tSpinner, transportationProgress, tAlert);
-}
+    }
 
-@FXML
-private void handleEntertainment() {
-    currE = handleBudget(Category.ENTERTAINMENT, eSpinner, entertainmentProgress, eAlert);
-}
+    @FXML
+    private double handleBudget(Category category, Spinner<Double> spinner, ProgressIndicator progress,
+            ImageView alert) {
+        alert.setVisible(false);
 
-@FXML
-private void handleUtilities() {
-    currU = handleBudget(Category.UTILITIES, uSpinner, utilitiesProgress, uAlert);
-}
+        Double value = (Double) spinner.getValue();
+        if (value == null || value == 0) {
+            SpinnerValueFactory<Double> valueF = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 100000.0, 0.0,
+                    0.1);
+            valueF.setValue(0.0);
+            spinner.setValueFactory(valueF);
+        }
 
-@FXML
-private void handleFood() {
-    currF = handleBudget(Category.FOOD, fSpinner, foodProgress, fAlert);
-}
+        UserSessionManager.getCurrentUser().setBudget(new Budget(category, value));
 
-@FXML
-private void handleHealth() {
-    currH = handleBudget(Category.HEALTHCARE, hSpinner, healthProgress, hAlert);
-}
+        for (Budget b : UserSessionManager.getCurrentUser().getBudgetsByCategory().values()) {
+            if (b.getCategory().equals(category)) {
+                if (b.isExceeded()) {
+                    alert.setVisible(true);
+                    progress.setProgress(Math.min(1.0, b.getTotalSpent() / b.getLimit()));
+                }
+                if (b.getLimit() < 0) {
+                    showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+                    return 0;
+                }
+            }
+        }
 
-@FXML
-private void handleOther() {
-    currO = handleBudget(Category.OTHER, oSpinner, otherProgress, oAlert);
-}
+        progress.setProgress(Math.min(1.0, value / 100)); // Normalize for example (e.g., value out of 100)
+        // saveBudgetToFile();
+        return spinner.getValue();
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
+
+    // Individual handlers call the generalized method
+    @FXML
+    private void handleTransport() {
+        currT = handleBudget(Category.TRANSPORTATION, tSpinner, transportationProgress, tAlert);
+    }
+
+    @FXML
+    private void handleEntertainment() {
+        currE = handleBudget(Category.ENTERTAINMENT, eSpinner, entertainmentProgress, eAlert);
+    }
+
+    @FXML
+    private void handleUtilities() {
+        currU = handleBudget(Category.UTILITIES, uSpinner, utilitiesProgress, uAlert);
+    }
+
+    @FXML
+    private void handleFood() {
+        currF = handleBudget(Category.FOOD, fSpinner, foodProgress, fAlert);
+    }
+
+    @FXML
+    private void handleHealth() {
+        currH = handleBudget(Category.HEALTHCARE, hSpinner, healthProgress, hAlert);
+    }
+
+    @FXML
+    private void handleOther() {
+        currO = handleBudget(Category.OTHER, oSpinner, otherProgress, oAlert);
+    }
 
     @FXML
     private void handleGoToDashboardClick() {
@@ -162,17 +240,17 @@ private void handleOther() {
     }
 
     @FXML
-    private void handleGoToLogoutClick(){
+    private void handleGoToLogoutClick() {
         ViewManager.getViewManager().loadView(View.LOGIN);
     }
-    
+
     @FXML
     private void saveBudgetToFile() {
         String username = UserSessionManager.getCurrentUser().getUsername();
         File userFile = new File(username + ".txt");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(userFile));
-             StringWriter fileContent = new StringWriter()) {
+                StringWriter fileContent = new StringWriter()) {
 
             String line;
             Map<Category, Budget> budgets = UserSessionManager.getCurrentUser().getBudgetsByCategory();
@@ -185,7 +263,8 @@ private void handleOther() {
                     Budget budget = entry.getValue();
 
                     if (line.startsWith("Budget: " + category)) {
-                        System.out.println(category + " has been updated with limit of " + budget.getLimit() + " and total spent of " + budget.getTotalSpent());
+                        System.out.println(category + " has been updated with limit of " + budget.getLimit()
+                                + " and total spent of " + budget.getTotalSpent());
                         fileContent.append("Budget: ")
                                 .append(category.toString())
                                 .append(", ")
@@ -208,7 +287,8 @@ private void handleOther() {
                 Budget budget = entry.getValue();
 
                 if (!fileContent.toString().contains("Budget: " + category)) {
-                    System.out.println(category + " has been added with a limit of " + budget.getLimit() + " and total spent of " + budget.getTotalSpent());
+                    System.out.println(category + " has been added with a limit of " + budget.getLimit()
+                            + " and total spent of " + budget.getTotalSpent());
                     fileContent.append("Budget: ")
                             .append(category.toString())
                             .append(", ")
