@@ -14,13 +14,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
+// import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+// import javafx.scene.control.Spinner;
+// import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import javafx.util.StringConverter;
+// import javafx.util.StringConverter;
 
 public class BudgetController implements Subject, Initializable{
 
@@ -31,17 +33,17 @@ public class BudgetController implements Subject, Initializable{
 
     //Spinners for each category
     @FXML
-    private Spinner<Double> fSpinner = new Spinner<Double>(); double currF = 0;
+    private TextField fText; double currF = 0;
     @FXML
-    private Spinner<Double> tSpinner = new Spinner<Double>(); double currT = 0;
+    private TextField tText; double currT = 0;
     @FXML
-    private Spinner<Double> uSpinner = new Spinner<Double>(); double currU = 0;
+    private TextField uText; double currU = 0;
     @FXML
-    private Spinner<Double> hSpinner = new Spinner<Double>(); double currH = 0;
+    private TextField hText; double currH = 0;
     @FXML
-    private Spinner<Double> eSpinner = new Spinner<Double>(); double currE = 0;
+    private TextField eText; double currE = 0;
     @FXML
-    private Spinner<Double> oSpinner = new Spinner<Double>(); double currO = 0;
+    private TextField oText; double currO = 0;
 
     // Panes for each category
     @FXML
@@ -95,10 +97,6 @@ public class BudgetController implements Subject, Initializable{
     try {
         currentUser = UserSessionManager.getCurrentUser();
 
-        if (currentUser == null) {
-            throw new RuntimeException("Current user is null.");
-        }
-
         tAlert.setVisible(false);
         fAlert.setVisible(false);
         hAlert.setVisible(false);
@@ -107,9 +105,6 @@ public class BudgetController implements Subject, Initializable{
         uAlert.setVisible(false);
 
         Map<Category, Budget> budgets = currentUser.getBudgetsByCategory();
-        if (budgets == null || budgets.isEmpty()) {
-            System.err.println("No budgets found for current user.");
-        }
 
         System.out.println("USER'S INFO  ONCE THE BUDGET PAGE IS LOADED:\n" + currentUser.toString());
 
@@ -117,12 +112,12 @@ public class BudgetController implements Subject, Initializable{
             System.out.println(b.toString());
     }
 
-        setupSpinnerAndProgress(budgets.get(Category.FOOD), fSpinner, foodProgress, fAlert);
-        setupSpinnerAndProgress(budgets.get(Category.ENTERTAINMENT), eSpinner, entertainmentProgress, eAlert);
-        setupSpinnerAndProgress(budgets.get(Category.HEALTHCARE), hSpinner, healthProgress, hAlert);
-        setupSpinnerAndProgress(budgets.get(Category.UTILITIES), uSpinner, utilitiesProgress, uAlert);
-        setupSpinnerAndProgress(budgets.get(Category.TRANSPORTATION), tSpinner, transportationProgress, tAlert);
-        setupSpinnerAndProgress(budgets.get(Category.OTHER), oSpinner, otherProgress, oAlert);
+        setupPromptText(budgets.get(Category.FOOD), fText, foodProgress, fAlert);
+        setupPromptText(budgets.get(Category.ENTERTAINMENT), eText, entertainmentProgress, eAlert);
+        setupPromptText(budgets.get(Category.HEALTHCARE), hText, healthProgress, hAlert);
+        setupPromptText(budgets.get(Category.UTILITIES), uText, utilitiesProgress, uAlert);
+        setupPromptText(budgets.get(Category.TRANSPORTATION), tText, transportationProgress, tAlert);
+        setupPromptText(budgets.get(Category.OTHER), oText, otherProgress, oAlert);
 
     } catch (Exception e) {
         e.printStackTrace();
@@ -130,56 +125,44 @@ public class BudgetController implements Subject, Initializable{
     }
     }
 
-    private void setupSpinnerAndProgress(Budget budg, Spinner<Double> spinner, ProgressIndicator progressBar, ImageView alert) {
+    private void setupPromptText(Budget budg, TextField field, ProgressIndicator progressBar, ImageView alert) {
     if (budg != null) {
         double limit = budg.getLimit();
-        if (limit > 0) {
-            DoubleSpinnerValueFactory factory = new DoubleSpinnerValueFactory(0, limit, 5);
-            spinner.setValueFactory(factory);
-            progressBar.setProgress(budg.getTotalSpent() / limit);
-        } else {
-            
-            DoubleSpinnerValueFactory factory = new DoubleSpinnerValueFactory(0, 0, 5);
-            spinner.setValueFactory(factory);progressBar.setProgress(0);
-        }
+        field.setPromptText(limit + "");
         if (budg.isExceeded()) {
             alert.setVisible(true);
         }
-    } else {
-        DoubleSpinnerValueFactory factory = new DoubleSpinnerValueFactory(0, 0, 5);
-        spinner = new Spinner<Double>();
-        spinner.setValueFactory(factory);
-        progressBar.setProgress(0);
-        alert.setVisible(false);
     }
 
-    System.out.println(spinner.isEditable());
+    System.out.println(field.isEditable());
     // Set spinner to editable
-    spinner.setEditable(true);
-    spinner.editableProperty();
+    field.setEditable(true);
 }
 
-    private double handleBudget(Category category, Spinner<Double> spinner, ProgressIndicator progress, ImageView alert) {
+    private double handleBudget(Category category, TextField field, ProgressIndicator progress, ImageView alert) {
         alert.setVisible(false);
-                if (spinner.getValueFactory() == null) {
-                    System.out.println("This spinner's factory is null.");
-                }
+        Double value = 0.0;
+        try
+        {
+          value = Double.parseDouble(field.getText());
+        }
+        catch(NumberFormatException e)
+        {
+          showAlert(AlertType.ERROR, "Input error", "The input is not a number format");
+          return value;
+        }
                 
-                System.out.println(spinner.getEditor().getText());
+                System.out.println(value);
                 // Convert user input to double 
-                String inputValue = spinner.getEditor().getText();
-                SpinnerValueFactory<Double> factory = spinner.getValueFactory();
-                Double newLimit = factory.getConverter().fromString(inputValue);
-                factory.setValue(newLimit);
 
-                currentUser.setBudget(new Budget(category, newLimit));
-                System.out.println("The new value is now: " + Double.toString(newLimit));
-
-                for (Budget b : UserSessionManager.getCurrentUser().getBudgetsByCategory().values()) {
+                currentUser.setBudget(new Budget(category, value));
+                System.out.println("The new value is now: " + Double.toString(value));
+                Double fraction = 0.0;
+                for (Budget b : currentUser.getBudgetsByCategory().values()) {
                     if (b.getCategory().equals(category)) {
+                        fraction = b.getPercentage() / 100;
                         if (b.isExceeded()) {
                             alert.setVisible(true);
-                            progress.setProgress(Math.min(1.0, b.getTotalSpent() / b.getLimit()));
                         }
                         if (b.getLimit() < 0) {
                             showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
@@ -188,40 +171,44 @@ public class BudgetController implements Subject, Initializable{
                     }
                 }
     
-                progress.setProgress(newLimit / 100); // Normalize for example (e.g., value out of 100)
+                progress.setProgress(fraction); // Normalize for example (e.g., value out of 100)
                 // saveBudgetToFile();
-                return newLimit;
+                return value;
             }
 
 // Individual handlers call the generalized method
 @FXML
 private void handleTransport() {
-    currT = handleBudget(Category.TRANSPORTATION, tSpinner, transportationProgress, tAlert);
+    tText.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.ENTER) {
+            currT = handleBudget(Category.TRANSPORTATION, tText, transportationProgress, tAlert);
+        }
+    });
 }
 
 @FXML
 private void handleEntertainment() {
-    currE = handleBudget(Category.ENTERTAINMENT, eSpinner, entertainmentProgress, eAlert);
+    currE = handleBudget(Category.ENTERTAINMENT, eText, entertainmentProgress, eAlert);
 }
 
 @FXML
 private void handleUtilities() {
-    currU = handleBudget(Category.UTILITIES, uSpinner, utilitiesProgress, uAlert);
+    currU = handleBudget(Category.UTILITIES, uText, utilitiesProgress, uAlert);
 }
 
 @FXML
 private void handleFood() {
-    currF = handleBudget(Category.FOOD, fSpinner, foodProgress, fAlert);
+    currF = handleBudget(Category.FOOD, fText, foodProgress, fAlert);
 }
 
 @FXML
 private void handleHealth() {
-    currH = handleBudget(Category.HEALTHCARE, hSpinner, healthProgress, hAlert);
+    currH = handleBudget(Category.HEALTHCARE, hText, healthProgress, hAlert);
 }
 
 @FXML
 private void handleOther() {
-    currO = handleBudget(Category.OTHER, oSpinner, otherProgress, oAlert);
+    currO = handleBudget(Category.OTHER, oText, otherProgress, oAlert);
 }
    
 
