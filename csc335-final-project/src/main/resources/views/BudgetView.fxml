@@ -17,83 +17,8 @@
 
 <AnchorPane fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../css/budget.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.BudgetController">
    <children>
-      <VBox prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: #fff;" styleClass="nav-bar">
-<children>
-            <Pane layoutY="150.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #fff;">
-               <padding>
-                  <Insets bottom="25.0" />
-               </padding>
-            </Pane>
-            <Pane fx:id="anchor" layoutY="150.0" prefHeight="670.0" prefWidth="200.0" styleClass="barBackground" stylesheets="@../css/sidebar.css">
-               <padding>
-                  <Insets bottom="25.0" top="20.0" />
-               </padding>
-               <children>
-                  <Pane fx:id="dashboard" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleGoToDashboardClick" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label alignment="CENTER" layoutX="53.0" layoutY="20.0" prefHeight="23.0" prefWidth="90.0" text="Dashboard">
-                           <font>
-                              <Font size="18.0" />
-                           </font></Label>
-                        <ImageView fitHeight="38.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/home_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children></Pane>
-                  <Pane fx:id="expense" layoutX="10.0" layoutY="90.0" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label layoutX="55.0" layoutY="20.0" text="Expenses">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="38.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/expenses_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="budget" layoutX="10.0" layoutY="170.0" onMouseClicked="#handleGoToBudgetClick" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label layoutX="55.0" layoutY="20.0" text="Budget">
-                           <font>
-                              <Font size="18.0" />
-                           </font></Label>
-                        <ImageView fitHeight="34.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/budget_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children></Pane>
-                  <Pane fx:id="reports" layoutX="10.0" layoutY="250.0" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label layoutX="55.0" layoutY="20.0" text="Reports">
-                           <font>
-                              <Font size="18.0" />
-                           </font></Label>
-                        <ImageView fitHeight="34.0" fitWidth="40.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/reports_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children></Pane>
-                  <Pane fx:id="logout" layoutX="10.0" layoutY="579.0" onMouseClicked="#handleGoToLogoutClick" prefHeight="60.0" prefWidth="180.0" styleClass="pages" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label layoutX="55.0" layoutY="20.0" text="Log-out">
-                           <font>
-                              <Font size="18.0" />
-                           </font></Label>
-                        <ImageView fitHeight="40.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/logout_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children></Pane>
-               </children>
-            </Pane>
-</children> </VBox>
+      <fx:include source="Sidebar.fxml"/>
+      <!-- <Label text="Sidebar Loaded " /> -->
       <StackPane alignment="TOP_LEFT" layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0">
          <children>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="880.0" style="-fx-background-color: #fff;" StackPane.alignment="TOP_LEFT">
@@ -133,7 +58,7 @@
                               <Image url="@../images/transport_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="transportationProgress" layoutX="94.0" layoutY="121.0" progress="0.14" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="transportationProgress" layoutX="94.0" layoutY="121.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
@@ -157,7 +82,7 @@
                               <Image url="@../images/food_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="foodProgress" layoutX="106.0" layoutY="125.0" progress="0.83" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="foodProgress" layoutX="106.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
@@ -181,7 +106,7 @@
                               <Image url="@../images/utilities_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="utilitiesProgress" layoutX="101.0" layoutY="119.0" progress="0.29" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="utilitiesProgress" layoutX="101.0" layoutY="119.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
@@ -205,7 +130,7 @@
                               <Image url="@../images/healtchcare_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="healthProgress" layoutX="95.0" layoutY="125.0" progress="0.61" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="healthProgress" layoutX="95.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
@@ -229,7 +154,7 @@
                               <Image url="@../images/entertainm_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="entertainmentProgress" layoutX="95.0" layoutY="120.0" progress="0.47" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="entertainmentProgress" layoutX="95.0" layoutY="120.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
@@ -253,7 +178,7 @@
                               <Image url="@../images/others_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="otherProgress" layoutX="101.0" layoutY="125.0" progress="0.41" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="otherProgress" layoutX="101.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>

@@ -66,10 +66,16 @@ public final class AccountRepository implements Observer {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
             // Expected format -> Username, Email, Password
             bw.write(username + ", " + email + ", " + hashedPassword + ", " + salt + "\n");
-            return true;
         } catch (IOException e) {
             return false;
         }
+        User newUser = new User(username, email, hashedPassword, salt);
+        newUser.setBudgets();
+        saveUser(newUser);
+        accounts.put(username, newUser);
+        System.out.println("User created: " + newUser
+        .toString() + "\n");
+        return true;
     }
 
     protected static String[] getCredentials(String username) {
@@ -115,9 +121,7 @@ public final class AccountRepository implements Observer {
                 }
 
                 User acc = new User(username, email, hashedPassword, salt);
-                loadedAccounts.put(username, acc);
-                System.out.println("Account added.");
-                System.out.println(acc);    
+                loadedAccounts.put(username, acc);   
                 count += 1;
             }
 
@@ -126,13 +130,8 @@ public final class AccountRepository implements Observer {
         }
 
         accounts = loadedAccounts;
-        System.out.println(Integer.toString(count) + " accounts added.");
+        System.out.println(Integer.toString(count) + " accounts added.\n");
     }
-
-    
-
-    
-
      /**
      * Loads the account of a given user
      * 
@@ -146,20 +145,24 @@ public final class AccountRepository implements Observer {
         Path path = Path.of(REPOSITORY, ACCOUNTS_DIRECTORY, username + "_transactions.txt");
         File file = path.toFile();
         if (!file.exists()) {
+            System.out.println("User doesn't have a transactions file.");
+            loadAccounts();
             return accounts.get(username);
         }
 
         User user = accounts.get(username);
-
+        System.out.println("Loading user: " + username + "\n");
         // Search through user's transcations in the file
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             // Reading each line until end of file
             String line;
             while ((line = br.readLine()) != null) {
                 // Checking if the line contains characters (not including whitespace)
-                if (!line.isEmpty()) {
+                if (line.isEmpty()) {
                     continue;
                 }
+
+                System.out.println("Line in file -> " + line + "\n");
 
                 // Expecting one of the formats specified in method comment
                 String[] data = line.split(":");
@@ -170,6 +173,7 @@ public final class AccountRepository implements Observer {
 
                 // Checking if the line contains a budget or an expense
                 if (data[0].trim().equals("Budget")) {
+                    System.out.println("Budget found!");
                     // Extracting budget
                     String[] parts = data[1].split(",");
                     
@@ -181,6 +185,7 @@ public final class AccountRepository implements Observer {
                     Budget budget = new Budget(category, limit);
                     user.setBudget(budget);
                 } else if (data[0].trim().equals("Expense")) {
+                    System.out.println("Expense found!");
                     // Extracting expense
                     String[] parts = data[1].split(",");
 
@@ -205,20 +210,20 @@ public final class AccountRepository implements Observer {
                 throw new RuntimeException("An error occured loading accounts from database: " + e.getMessage());
             } 
 
+        System.out.println("Loading user:\n" + user.toString());
         return user;
     }
 
-    public void saveUserData() {
-        User activeUser = UserSessionManager.getCurrentUser();
+    public static void saveUser(User user) {
         // Open and read file
-        Path path = Path.of(REPOSITORY, ACCOUNTS_DIRECTORY, activeUser.getUsername() + "_transactions.txt");
+        Path path = Path.of(REPOSITORY, ACCOUNTS_DIRECTORY, user.getUsername() + "_transactions.txt");
         File userFile = path.toFile();
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(userFile))) {
             // Write budgets to file
             bw.write("Budgets ----------");
             bw.newLine();
-            Map<Category, Budget> budgets = activeUser.getBudgetsByCategory();
+            Map<Category, Budget> budgets = user.getBudgetsByCategory();
             for (Category category : budgets.keySet()) {
                 bw.write("Budget: " + budgets.get(category));
                 bw.newLine();
@@ -227,7 +232,7 @@ public final class AccountRepository implements Observer {
             // Write expenses to file
             bw.write("Expenses ----------");
             bw.newLine();
-            Map<Category, List<Expense>> expenses = activeUser.getExpensesByCategory();
+            Map<Category, List<Expense>> expenses = user.getExpensesByCategory();
             for (Category category : expenses.keySet()) {
                 for (Expense expense : expenses.get(category)) {
                     bw.write("Expense: " + expense);

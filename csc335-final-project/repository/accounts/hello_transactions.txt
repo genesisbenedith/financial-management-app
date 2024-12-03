@@ -1,0 +1,8 @@
+Budgets ----------
+Budget: Other,0.0
+Budget: Entertainment,0.0
+Budget: Food,0.0
+Budget: Healthcare,0.0
+Budget: Transportation,0.0
+Budget: Utilities,0.0
+Expenses ----------

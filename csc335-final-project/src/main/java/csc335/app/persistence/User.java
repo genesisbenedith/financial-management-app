@@ -85,6 +85,15 @@ public class User {
         this.hashedPassword = password;
     }
 
+    public void setBudgets(){
+        System.out.println("Size before no budgets in map: " + Integer.toString(budgetsByCategory.size()));
+        for (Category category : Category.values()) {
+            this.budgetsByCategory.put(category, new Budget(category, 0));
+        }
+        System.out.println("Size after putting budgets in map: " + Integer.toString(budgetsByCategory.size()));
+
+    }
+
     /*
      * ------------------------------ Helper Methods ------------------------------
      */

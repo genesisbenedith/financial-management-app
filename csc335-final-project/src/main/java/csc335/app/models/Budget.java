@@ -55,6 +55,10 @@ public class Budget {
 
     /* ------------------------------ Helper Methods ------------------------------ */
 
+    public double getPercentage(){
+        return (this.getTotalSpent() / this.getLimit()) * 100;
+    }
+
     public void addExpense(Expense newExpense) {
         this.budgetedExpenses.add(newExpense);
     }
@@ -69,11 +73,11 @@ public class Budget {
     }
     
     public boolean isExceeded() {
-        return getTotalSpent() > limit;
+        return getTotalSpent() > this.limit;
     }
     
     @Override
     public String toString() {
-        return category + ": " + getTotalSpent() + "/" + limit;
+        return String.join(",", category.toString(), Double.toString(this.limit));
     }
 }

@@ -3,6 +3,7 @@ package csc335.app.persistence;
 public final class AccountManager {
     
     private static AccountManager manager = null;
+    private static UserSessionManager session = null;
     private static User activeUser;
 
     private AccountManager() {
@@ -59,9 +60,9 @@ public final class AccountManager {
         if (authenticated) {
             activeUser = AccountRepository.loadUser(username);
         }
-
-        UserSessionManager.setCurrentUser(activeUser);
         
+        UserSessionManager.setCurrentUser(activeUser);
+        System.out.println("LOGIN SUCCESS! THIS USER IS AUTHENTICATED!: " + activeUser.toString());
         return authenticated;
     }
 

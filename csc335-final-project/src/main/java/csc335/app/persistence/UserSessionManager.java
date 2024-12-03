@@ -26,7 +26,7 @@ public final class UserSessionManager {
         if (currentUser == null) {
             return null;
         }
-        return new User(currentUser.getUsername(), currentUser.getEmail(), "", "");
+        return currentUser;
     }
 
     public static UserSessionManager getUserSessionManager() {
