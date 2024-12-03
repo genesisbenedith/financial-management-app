@@ -1,6 +1,7 @@
 package csc335.app.persistence;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -15,12 +16,12 @@ import csc335.app.models.Expense;
  * @author Genesis Benedith
  */
 
- // [ ] Complete class coment
+// [ ] Complete class coment
 /**
  * 
  */
 public class User {
-    private String username; 
+    private String username;
     private String email;
     private String hashedPassword;
     private final String salt;
@@ -85,6 +86,12 @@ public class User {
         this.hashedPassword = password;
     }
 
+    public void setBudgets() {
+        for (Category category : Category.values()) {
+            this.budgetsByCategory.put(category, new Budget(category, 0));
+        }
+    }
+
     /*
      * ------------------------------ Helper Methods ------------------------------
      */
@@ -104,9 +111,6 @@ public class User {
             categoryExpenses.add(expense);
             this.expensesByCategory.put(expense.getCategory(), categoryExpenses);
         }
-
-        // Update all budgets
-        updateUserBudgets();
     }
 
     public void removeExpense(Expense expense) {
@@ -126,7 +130,6 @@ public class User {
         }
 
     }
-    
 
     @Override
     public String toString() {
@@ -157,34 +160,129 @@ public class User {
         return sb.toString();
     }
 
-    /* ------------------------------ INACTIVE ------------------------------ */
+    /* ------------------------------ Helper Methods ------------------------------ */
 
-    // public List<Expense> getMonthExpenses(int month, int year) {
-    // List<Expense> monthExpenses = new ArrayList<>();
-    // for (Expense expense : getAllExpenses()) {
-    // // Check the date of the expense
-    // if (expense.getCalendarDate().get(Calendar.MONTH) == month
-    // && expense.getCalendarDate().get(Calendar.YEAR) == year) {
-    // monthExpenses.add(expense);
-    // }
-    // }
-    // return monthExpenses;
-    // }
+    /**
+     * Gets all of the user's expenses (no filter)
+     * 
+     * @return list of expenses
+     */
+    public List<Expense> getExpenses() {
+        List<Expense> allExpenses = new ArrayList<>();
+        for (List<Expense> expenses : this.expensesByCategory.values()) {
+            allExpenses.addAll(expenses);
+        }
+        return allExpenses;
+    }
 
-    // public double getTotalExpenses() {
-    // double totalExpenses = 0;
-    // for (Expense expense : getAllExpenses()) {
-    // totalExpenses += expense.getAmount();
-    // }
-    // return totalExpenses;
-    // }
+    /**
+     * Get's the user's expenses within a specific category
+     * 
+     * @param category
+     * @return a list of expenses
+     */
+    public List<Expense> getExpenses(Category category) {
+        return this.expensesByCategory.get(category);
+    }
 
-    // public List<Expense> getCategoryExpenses(Category expenseCategory) {
-    // List<Expense> categoryExpenses = new ArrayList<>();
-    // if (categorizedExpenses.containsKey(expenseCategory)) {
-    // categoryExpenses.addAll(categorizedExpenses.get(expenseCategory));
-    // }
-    // return Collections.unmodifiableList(categoryExpenses);
-    // }
+    /**
+     * Get's the users expenses within a specific month and year
+     * 
+     * @param month the month of the transaction
+     * @param year  the year of the transaction
+     * @return a list of expenses
+     */
+    public List<Expense> getExpenses(int month, int year) {
+        List<Expense> monthExpenses = new ArrayList<>();
+        for (Expense expense : getExpenses()) {
+            // Check the date of the expense
+            if (expense.getCalendarDate().get(Calendar.MONTH) == month
+                    && expense.getCalendarDate().get(Calendar.YEAR) == year) {
+                monthExpenses.add(expense);
+            }
+        }
+        return monthExpenses;
+    }
+
+    /**
+     * Get's the users expenses within a specific month and year
+     * @author Lauren Schroeder
+     * @param day the day of the transaction
+     * @param month the month of the transaction
+     * @param year  the year of the transaction
+     * @return a list of expenses
+     */
+    public List<Expense> getExpenses(int day, int month, int year) {
+        List<Expense> dayExpenses = new ArrayList<>();
+        for (Expense expense : getExpenses()) {
+            // Check the date of the expense
+            if (expense.getCalendarDate().get(Calendar.MONTH) == month
+                    && expense.getCalendarDate().get(Calendar.YEAR) == year && expense.getCalendarDate().get(Calendar.DAY_OF_MONTH) == day) {
+                dayExpenses.add(expense);
+            }
+        }
+        return dayExpenses;
+    }
+
+    /**
+     * Get's the users expenses within a specific month and year
+     * @authors Lauren Schroeder and Genesis Benedith
+     * @param day the day of the transaction
+     * @param month the month of the transaction
+     * @param year  the year of the transaction
+     * @return a list of expenses
+     */
+    public List<Expense> getExpensesInRange(Calendar start, Calendar end, Category category){
+        List<Expense> filteredExpenses = new ArrayList<>();
+        for (Expense expense : getExpenses(category)){
+            if ((expense.getCalendarDate().after(start) || expense.getCalendarDate().equals(start)) && (expense.getCalendarDate().before(end) || expense.getCalendarDate().equals(end))){
+                filteredExpenses.add(expense);
+            }
+        }
+        return filteredExpenses;
+    }
+
+    /**
+     * Get's the total amount spent (no filter)
+     * 
+     * @param category
+     * @return the total amount spent 
+     */
+    public double getTotalExpenses() {
+        double total = 0;
+        for (Expense expense : getExpenses()) {
+            total += expense.getAmount();
+        }
+        return total;
+    }
+
+    /**
+     * Get's the total amount spent within a specific category
+     * 
+     * @param category
+     * @return the total amount spent 
+     */
+    public double getTotalExpenses(Category category) {
+        double total = 0;
+        for (Expense expense : getExpenses(category)) {
+            total += expense.getAmount();
+        }
+        return total;
+    }
+
+    /**
+     * Get's the total amount spent within a specific month and year
+     * 
+     * @param month the month of the transaction
+     * @param year  the year of the transaction
+     * @return the total amount spent 
+     */
+    public double getTotalExpenses(int month, int year) {
+        double total = 0;
+        for (Expense expense : getExpenses(month, year)) {
+            total += expense.getAmount();
+        }
+        return total;
+    }
 
 }

@@ -54,9 +54,12 @@ import csc335.app.Category;
 import csc335.app.models.Expense;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
+import io.github.palexdev.materialfx.builders.control.DatePickerBuilder;
+import io.github.palexdev.materialfx.controls.BoundTextField;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
+import io.github.palexdev.materialfx.controls.cell.MFXDateCell;
 import io.github.palexdev.mfxcore.controls.Label;
 
 
@@ -221,16 +224,37 @@ public class ExpensesController implements Initializable{
         // create a popup like the one with add espense but with the information already filled in, just editable
     }
 
-    private void removeExpenseClick(){
-        
-    }
-
+    @FXML
     private void dateFrom(){
         startDate = dateFrom.getValue();
+
+        if (startDate != null && dateTo.getValue() == null){
+            showAlert(AlertType.ERROR, "Error", "End date must be chosen.");
+            return;
+        }
+        else if (dateTo.getValue().isBefore(startDate)){
+            showAlert(AlertType.ERROR, "Error", "End date has to be after start date.");
+            return;
+        }
+        
+        endDate = dateTo.getValue();
+        if(startDate !=  null){
+            dateTo.show();
+        }
+        
+
     }
 
+    @FXML
     private void dateTo(){
+        // has to be greater than start date
+        if (dateFrom.getValue() == null){
+            showAlert(AlertType.ERROR, "Error", "start date must be chosen before end date.");
+            return;
+        }
+        startDate = dateFrom.getValue();
         endDate = dateTo.getValue();
+        
     }
 
     private void loadExpenses(){
