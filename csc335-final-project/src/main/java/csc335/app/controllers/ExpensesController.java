@@ -1,5 +1,8 @@
 package csc335.app.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.collections.ObservableList;
+
 /**
  * Author(s): Lauren Schroeder
  * File: ExpenseController.java
@@ -12,12 +15,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseButton;
 //import scala.collection.immutable.List;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 
 import java.io.BufferedReader;
@@ -40,9 +48,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import csc335.app.Category;
 import csc335.app.models.Expense;
 import csc335.app.persistence.User;
+import csc335.app.persistence.UserSessionManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
@@ -79,24 +90,35 @@ public class ExpensesController implements Initializable{
     private Pane expensePane;
 
     @FXML
+    private Pane expenseTemplate;
+
+    @FXML
     private MFXScrollPane expenseList;
 
     @FXML
     private VBox vBox;
 
     @FXML
-    private Label amountText;
+    private Label amountChild;
 
     @FXML
-    private Label categoryText;
+    private Label categoryChild;
 
     @FXML
-    private Label dateText;
+    private Label dateChild;
 
     @FXML
-    private Label summaryText;
+    private Label summaryChild;
+
+    @FXML
+    private ImageView edit;
+
+    @FXML
+    private ImageView delete;
+
 
     private User currentUser;
+    private Expense expense;
     private String currentDate;
     private String currentCategory;
     private String currentAmount;
@@ -105,25 +127,11 @@ public class ExpensesController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Expense Controller initialized.");
+
+        // Get current user
+        currentUser = UserSessionManager.getCurrentUser();
     }
 
-    /**
-     * 
-     * @param fxmlPath
-     */
-    public void loadPage(String fxmlPath){
-        try {
-            if (contentArea != null) {
-                Pane view = FXMLLoader.load(getClass().getResource(fxmlPath));
-                contentArea.getChildren().clear();
-                contentArea.getChildren().add(view);
-            } else {
-                System.err.println("contentArea is null. Check FXML and Controller binding.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     // @Override
     // public void addObserver(Observer observer) {
@@ -208,8 +216,9 @@ public class ExpensesController implements Initializable{
         ViewManager.getViewManager().loadView(View.EXPENSE);
     }
 
+
     private void editExpenseClick(){
-        
+        // create a popup like the one with add espense but with the information already filled in, just editable
     }
 
     private void removeExpenseClick(){
@@ -224,17 +233,94 @@ public class ExpensesController implements Initializable{
         endDate = dateTo.getValue();
     }
 
-    private void addExpensesToScroll(){
-        Pane newLoadedPane;
-        try {
-            newLoadedPane = FXMLLoader.load(getClass().getResource("../views/ExpensePane.fxml"));
-            dateText = "";
+    private void loadExpenses(){
+        // dateChild.setText("");
+        // summaryChild.setText("");
+        // categoryChild.setText("");
+        // amountChild.setText("");
+        
 
-            vBox.getChildren().add(newLoadedPane);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        for (Expense expense : getAllExpenses()) {
+            Pane clonedPane = new Pane();
+
+            for (Node node : expenseTemplate.getChildren()) {
+
+                if (node.getId() == "dateChild") {
+                    Label originalLabel = (Label) node;
+                    // Date to string
+
+                    Label clonedDateLabel = new Label(expense.getStringDate()); // Put date as string here
+                    clonedDateLabel.setStyle(originalLabel.getStyle());
+                    clonedDateLabel.setFont(originalLabel.getFont());
+                    clonedPane.getChildren().add(clonedPane);
+                }
+
+                if (node.getId() == "summaryChild") {
+                    Label originalLabel = (Label) node;
+
+                    Label clonedSumLabel = new Label(expense.getDescription()); 
+                    clonedSumLabel.setStyle(originalLabel.getStyle());
+                    clonedSumLabel.setFont(originalLabel.getFont());
+                    clonedPane.getChildren().add(clonedPane);
+                }
+
+                if (node.getId() == "categoryChild") {
+                    Label originalLabel = (Label) node;
+
+                    Label clonedCatLabel = new Label(expense.getCategory().toString()); 
+                    clonedCatLabel.setStyle(originalLabel.getStyle());
+                    clonedCatLabel.setFont(originalLabel.getFont());
+                    clonedPane.getChildren().add(clonedPane);
+                }
+
+                if (node.getId() == "amountChild") {
+                    Label originalLabel = (Label) node;
+
+                    Label clonedAmtLabel = new Label("$" + String.valueOf(expense.getAmount())); 
+                    clonedAmtLabel.setStyle(originalLabel.getStyle());
+                    clonedAmtLabel.setFont(originalLabel.getFont());
+                    clonedPane.getChildren().add(clonedPane);
+                }
+
+                if(node.getId() == "edit"){
+                    edit.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                        if(newValue){
+                            edit.setVisible(true);
+                        }
+                        else{
+                            edit.setVisible(false);
+                        }
+                    });
+                }
+
+                if(node.getId() == "delete"){
+                    delete.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                        if(newValue){
+                            delete.setVisible(true);
+                            delete.setOnMouseClicked(e ->{
+                                if (e.getButton() == MouseButton.SECONDARY){
+                                    Alert alert = new Alert(AlertType.CONFIRMATION);
+                                    alert.setTitle("Confirmation Dialog Box");
+                                    alert.setHeaderText("Please Confirm!");
+                                    alert.setContentText("Are you sure want to delete expense?");
+                                    Optional<ButtonType> result = alert.showAndWait();
+                                    if(result.get() == ButtonType.OK){
+                                        vBox.getChildren().remove(clonedPane);
+                                        currentUser.removeExpense(expense);
+                                    }
+                                }
+                            });
+                        }
+                        else{
+                            delete.setVisible(false);
+                        }
+                    });
+                }
+
+            }
+            vBox.getChildren().add(clonedPane);
         }
+        
         
     }
 
@@ -244,5 +330,28 @@ public class ExpensesController implements Initializable{
 
     private void progressBarClick(){
         
+    }
+
+    private List<Expense> getAllExpenses() {
+        List<Expense> allExpenses = new ArrayList<>();
+        for (List<Expense> expenses : currentUser.getExpensesByCategory().values()) {
+            allExpenses.addAll(allExpenses);
+        }
+
+        return allExpenses;
+    }
+
+    // [ ] Needs method comment
+    /**
+     * 
+     * @param alertType
+     * @param title
+     * @param message
+     */
+    private void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
