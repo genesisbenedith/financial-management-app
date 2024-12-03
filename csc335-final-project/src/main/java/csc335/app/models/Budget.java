@@ -2,92 +2,78 @@ package csc335.app.models;
 
 /**
  * Author(s): Genesis Benedith
+ * Course: CSC 335 (Fall 2024)
  * File: Budget.java
- * Description: 
+ * Description: Model class that represents a budget for a user's expense category
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
+import csc335.app.Category;
+
 public class Budget {
-    private Category category; // Budget category (e.g., Groceries, Transportation)
+    private final Category category; // Budget category (e.g., Groceries, Transportation, etc.)
     private double limit;    // Budget limit for the category
-    private double spent;    // Amount spent so far in the category
+    private final List<Expense> budgetedExpenses; // List of expenses associated with budget
 
     /* ------------------------------ Constructor ------------------------------ */
 
-    /**
-     * 
-     * @param category
-     * @param limit
-     */
     public Budget(Category category, double limit) {
         this.category = category;
         this.limit = limit;
-        this.spent = 0.0;
+        this.budgetedExpenses = new ArrayList<>();
     }
 
-    /**
-     * 
-     * @param amount
-     */
-    public void addExpense(double amount) {
-        this.spent += amount;
-    }
+    /* ------------------------------ Getters ------------------------------ */
 
-    /**
-     * 
-     * @return
-     */
-    public boolean isExceeded() {
-        return spent > limit;
-    }
-
-    /* ------------------------------ Getters and Setters ------------------------------ */
-
-    /**
-     * 
-     * @return
-     */
     public Category getCategory() {
         return category;
     }
 
-    /**
-     * 
-     * @param category
-     */
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    /**
-     * 
-     * @return
-     */
     public double getLimit() {
         return limit;
     }
 
-    /**
-     * 
-     * @param limit
-     */
+    public double getTotalSpent() {
+        double totalSpent = 0.0;
+        for (Expense expense : budgetedExpenses) {
+            totalSpent += expense.getAmount();
+        }
+        return totalSpent;
+    }
+
+    /* ------------------------------ Setters ------------------------------ */
+
     public void setLimit(double limit) {
+        if (limit < 0) {
+            throw new IllegalArgumentException("Budget amount cannot be negative.");
+        }
+
         this.limit = limit;
     }
 
-    /**
-     * 
-     * @return
-     */
-    public double getSpent() {
-        return spent;
+    /* ------------------------------ Helper Methods ------------------------------ */
+
+    public void addExpense(Expense newExpense) {
+        this.budgetedExpenses.add(newExpense);
     }
 
-    /**
-     * 
-     * @return
-     */
+    public void addExpenses(List<Expense> expenses) {
+        this.budgetedExpenses.clear();
+        this.budgetedExpenses.addAll(expenses);
+    }
+
+    public void removeExpense(Expense expense) {
+        this.budgetedExpenses.remove(expense);
+    }
+    
+    public boolean isExceeded() {
+        return getTotalSpent() > limit;
+    }
+    
     @Override
     public String toString() {
-        return category + ": " + spent + "/" + limit;
+        return category + ": " + getTotalSpent() + "/" + limit;
     }
 }

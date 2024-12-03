@@ -1,0 +1,20 @@
+.nav-bar {
+    -fx-background-color:  #FFF;
+}
+.category {
+    -fx-background-radius: 50px;
+    -fx-background-color:  #E6E6FA;
+}
+
+/* .prog-chart {
+      /* Light background for the progress bar */
+      /* -mfx-accent-color: #3526c3;          Set the height of the progress bar */
+/* } */
+
+.icons{
+    -fx-background-radius: 50%; /* Makes it circular */
+    -fx-min-width: 200px; /* Adjust the size */
+    -fx-min-height: 200px;
+    -fx-max-width: 200px;
+    -fx-max-height: 200px;
+}
