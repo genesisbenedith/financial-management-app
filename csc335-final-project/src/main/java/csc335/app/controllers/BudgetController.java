@@ -120,31 +120,35 @@ public class BudgetController implements Subject, Initializable {
 
     public void initializeSpinners() {
 
-        Map<Category, Budget> budgets = currentUser.getBudgetsByCategory();
-        for (Category category : Category.values()) {
-            if (budgets.containsKey(category)) {
-                switch (category) {
-                    case FOOD -> {
+        // Map<Category, Budget> budgets = currentUser.getBudgetsByCategory();
+        // for (Category category : Category.values()) {
+        //     Budget budget = budgets.get(category);
+        //     switch (category) {
+        //         case FOOD -> {
+        //             fSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 1000000, budget.getLimit(), 5));
+        //             foodProgress.setProgress(budget.getTotalSpent() / budget.getLimit());
+        //             if (budget.isExceeded()) {
+        //                 fAlert.setVisible(true);
+        //             }
+        //         }
+        //         case ENTERTAINMENT -> {
 
-                    }
-                    case ENTERTAINMENT -> {
+        //         }
+        //         case TRANSPORTATION -> {
 
-                    }
-                    case TRANSPORTATION -> {
+        //         }
+        //         case UTILITIES -> {
 
-                    }
-                    case UTILITIES -> {
+        //         }
+        //         case HEALTHCARE -> {
 
-                    }
-                    case HEALTHCARE -> {
+        //         }
+        //         case OTHER -> {
 
-                    }
-                    case OTHER -> {
-
-                    }
-                }
-            }
-        }
+        //         }
+        //     }
+            
+        // }
 
     }
 

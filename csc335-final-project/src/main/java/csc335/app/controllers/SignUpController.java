@@ -18,7 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class SignUpController implements Initializable, Subject{
+public class SignUpController implements Initializable, Subject {
 
     @FXML
     private TextField emailField;

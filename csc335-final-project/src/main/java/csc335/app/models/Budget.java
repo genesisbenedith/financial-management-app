@@ -35,14 +35,6 @@ public class Budget {
         return limit;
     }
 
-    public double getTotalSpent() {
-        double totalSpent = 0.0;
-        for (Expense expense : budgetedExpenses) {
-            totalSpent += expense.getAmount();
-        }
-        return totalSpent;
-    }
-
     /* ------------------------------ Setters ------------------------------ */
 
     public void setLimit(double limit) {
@@ -54,6 +46,18 @@ public class Budget {
     }
 
     /* ------------------------------ Helper Methods ------------------------------ */
+
+    public double getTotalSpent() {
+        double totalSpent = 0.0;
+        for (Expense expense : budgetedExpenses) {
+            totalSpent += expense.getAmount();
+        }
+        return totalSpent;
+    }
+
+    public double getPercentage() {
+        return getTotalSpent() / limit;
+    }
 
     public void addExpense(Expense newExpense) {
         this.budgetedExpenses.add(newExpense);

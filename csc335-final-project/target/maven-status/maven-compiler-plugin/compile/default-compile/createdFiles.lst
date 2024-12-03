@@ -14,7 +14,6 @@ csc335/app/persistence/Hasher.class
 csc335/app/App.class
 csc335/app/models/Budget.class
 csc335/app/persistence/User.class
-csc335/app/controllers/BudgetControllerMINE.class
 csc335/app/persistence/AccountManager.class
 csc335/app/controllers/SplashController.class
 csc335/app/persistence/AccountRepository.class

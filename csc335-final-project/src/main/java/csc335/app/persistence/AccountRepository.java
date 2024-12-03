@@ -66,10 +66,14 @@ public final class AccountRepository implements Observer {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
             // Expected format -> Username, Email, Password
             bw.write(username + ", " + email + ", " + hashedPassword + ", " + salt + "\n");
-            return true;
         } catch (IOException e) {
             return false;
         }
+
+        User newUser = new User(username, email, hashedPassword, salt);
+        newUser.setBudgets();
+        saveUser(newUser);
+        return true;
     }
 
     protected static String[] getCredentials(String username) {
@@ -129,9 +133,6 @@ public final class AccountRepository implements Observer {
         System.out.println(Integer.toString(count) + " accounts added.");
     }
 
-    
-
-    
 
      /**
      * Loads the account of a given user
@@ -208,17 +209,16 @@ public final class AccountRepository implements Observer {
         return user;
     }
 
-    public void saveUserData() {
-        User activeUser = UserSessionManager.getCurrentUser();
+    public static void saveUser(User user) {
         // Open and read file
-        Path path = Path.of(REPOSITORY, ACCOUNTS_DIRECTORY, activeUser.getUsername() + "_transactions.txt");
+        Path path = Path.of(REPOSITORY, ACCOUNTS_DIRECTORY, user.getUsername() + "_transactions.txt");
         File userFile = path.toFile();
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(userFile))) {
             // Write budgets to file
             bw.write("Budgets ----------");
             bw.newLine();
-            Map<Category, Budget> budgets = activeUser.getBudgetsByCategory();
+            Map<Category, Budget> budgets = user.getBudgetsByCategory();
             for (Category category : budgets.keySet()) {
                 bw.write("Budget: " + budgets.get(category));
                 bw.newLine();
@@ -227,7 +227,7 @@ public final class AccountRepository implements Observer {
             // Write expenses to file
             bw.write("Expenses ----------");
             bw.newLine();
-            Map<Category, List<Expense>> expenses = activeUser.getExpensesByCategory();
+            Map<Category, List<Expense>> expenses = user.getExpensesByCategory();
             for (Category category : expenses.keySet()) {
                 for (Expense expense : expenses.get(category)) {
                     bw.write("Expense: " + expense);
