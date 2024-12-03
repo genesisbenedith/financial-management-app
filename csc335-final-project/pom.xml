@@ -110,6 +110,12 @@
     <artifactId>jacoco-maven-plugin</artifactId>
     <version>0.8.12</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/com.gluonhq/charm-glisten -->
+<!-- <dependency>
+    <groupId>com.gluonhq</groupId>
+    <artifactId>charm-glisten</artifactId>
+    <version>6.0.6</version>
+</dependency> -->
 
   </dependencies>
   <build>
@@ -280,7 +286,7 @@
 		    <url>https://jitpack.io</url>
 		</repository>
     <repository>
-		    <id>mvnrepository</id>
+		    <id>mvnrepository.com</id>
 		    <url>https://mvnrepository.com/</url>
 		</repository>
 	</repositories>

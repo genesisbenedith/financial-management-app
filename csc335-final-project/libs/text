@@ -1,0 +1,2 @@
+mvn install:install-file –Dfile=\Users\lbs32\OneDrive\Documents\GitHub\financial-management-app\csc335-final-project\libs\charm-glisten-6.0.6.jar -DgroupId=com.gluonhq -DartifactId=charm-glisten -Dversion=6.0.6
+

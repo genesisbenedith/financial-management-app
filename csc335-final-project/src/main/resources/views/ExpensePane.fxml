@@ -1,0 +1,27 @@
+<Pane fx:id="expensePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="760.0" styleClass="totalspent" stylesheets="@../css/expense.css">
+    <children>
+        <Label fx:id="dateText" layoutX="30.0" layoutY="7.0" text="date">
+            <font>
+            <Font size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="summaryText" layoutX="200.0" layoutY="7.0" text="summary">
+            <font>
+            <Font size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="categoryText" layoutX="425.0" layoutY="7.0" text="category">
+            <font>
+            <Font size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="amountText" layoutX="625.0" layoutY="7.0" text="\$ amount">
+            <font>
+            <Font size="24.0" />
+            </font>
+        </Label>
+    </children>
+    <HBox.margin>
+        <Insets />
+    </HBox.margin>
+</Pane>

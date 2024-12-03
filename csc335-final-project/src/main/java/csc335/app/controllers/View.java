@@ -13,7 +13,8 @@ public enum View {
     LOGIN("SignIn", "Finantra: Personal Finance Assistant"),
     DASHBOARD("Dashboard", "Dashboard"),
     BUDGET("Budget", "Budget Tracker"),
-    EXPENSE("Expense", "Expense Tracker"),
+    EXPENSES("Expenses", "Expense Tracker"),
+    EXPENSE("Expense", "Add an Expense"),
     REPORT("Report", "Monthly Report");
 
     // [ ] Needs field comments
