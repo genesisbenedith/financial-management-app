@@ -2,23 +2,19 @@ package csc335.app.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import csc335.app.models.Subject;
-import csc335.app.persistence.AccountManager;
-import csc335.app.persistence.AccountRepository;
+import csc335.app.persistence.AccountRepo;
+import csc335.app.persistence.Validator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class SignUpController implements Initializable, Subject {
+public class SignUpController implements Initializable {
 
     @FXML
     private TextField emailField;
@@ -35,8 +31,6 @@ public class SignUpController implements Initializable, Subject {
     @FXML
     private Label signInLabel;
 
-    private static final List<Observer> observers = new ArrayList<>();
-    
 
     // [ ] Needs method comment and in-line comments
     /**
@@ -45,13 +39,12 @@ public class SignUpController implements Initializable, Subject {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignUpController initialized.");
-        addObserver(AccountRepository.getAccountRepository());
-        notifyObservers();
+        
     }
 
     @FXML
     private void handleSignInClick(MouseEvent event) {
-        ViewManager.getViewManager().loadView(View.LOGIN);
+        ViewManager.INSTANCE.loadView(View.LOGIN);
     }
 
     // [ ] Needs in-line comments
@@ -63,31 +56,25 @@ public class SignUpController implements Initializable, Subject {
      */
     @FXML
     private void handleCreateAccountClick() {
-        // Check if any field is empty
+        /* Show error alert and void if any field is null */
         if (emailField == null || usernameField == null || passwordField == null || confirmPasswordField == null) {
-            showAlert(AlertType.ERROR, "Error", "All fields are required.");
+            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return;
         }
 
         try {
-            if (!validateFields())
-                return;
+            // Validate fields 
+            if (validateFields()) {
+                /* Get text from input fields */
+                String email = emailField.getText().trim();
+                String username = usernameField.getText().trim();
+                String password = passwordField.getText().trim();
+                AccountRepo.REPOSITORY.setNewUser(username, email, password);
+            }
         } catch (IOException e) {
-            return;
+            System.err.println("Unable to create this account.");
         }
 
-        String email = emailField.getText().trim();
-        String username = usernameField.getText().trim();
-        String password = passwordField.getText().trim();
-
-        String registrationStatus = AccountManager.getAccountManager().registerAccount(username, email, password);
-
-        if (registrationStatus == "Success"){
-            showAlert(AlertType.INFORMATION, registrationStatus, "Account created successfully!");
-            ViewManager.getViewManager().loadView(View.LOGIN);
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Error", registrationStatus);
-        }
     }
 
     // [ ] Needs method comment
@@ -98,76 +85,45 @@ public class SignUpController implements Initializable, Subject {
      * @throws IOException
      */
     private boolean validateFields() throws IOException {
+        /* Get text from input fields */
         String email = emailField.getText().trim();
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
         String confirmPassword = confirmPasswordField.getText().trim();
 
-        // Check if any field is empty
+        /* Show alert if any field is empty */
         if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            showAlert(AlertType.ERROR, "Error", "All fields are required.");
+            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return false;
         }
 
-        // Validate email format
+        /* Valid the form fields */
         try {
             // boolean validEmail = Validator.isValidEmail(email);
-            // boolean validPassword = Validator.isValidPassword(password);
-            
             // if (!validEmail) {
-            //     showAlert(AlertType.ERROR, "Error", "Please enter a valid email address."); 
-            //     return false;
+            // showAlert(AlertType.ERROR, "Error", "Please enter a valid email address.");
+            // return false;
             // }
 
-            // if (!validPassword) {
-            //     showAlert(AlertType.ERROR, "Error", "Password must be at least 5 characters long.");
-            //     return false;
-            // }
-
-            // Check if passwords match
-            if (!password.equals(confirmPassword)) {
-                showAlert(AlertType.ERROR, "Error", "Passwords do not match.");
+            /* Show error alert and void if password is too short */
+            boolean validPassword = Validator.isValidPassword(password);
+            if (!validPassword) {
+                ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Password must be at least 3 characters long.");
                 return false;
             }
-            
+
+            /* Show error alert and void if passwords do not match */
+            if (!password.equals(confirmPassword)) {
+                ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Passwords do not match.");
+                return false;
+            }
+
         } catch (IllegalArgumentException e) {
-            showAlert(AlertType.ERROR, "Error", "All fields are required.");
+            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return false;
         }
 
         return true;
-    }
-
-    
-    // [ ] Needs method comment
-    /**
-     * 
-     * @param alertType
-     * @param title
-     * @param message
-     */
-    private void showAlert(AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
     }
 
 }

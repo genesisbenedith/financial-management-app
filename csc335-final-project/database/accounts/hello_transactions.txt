@@ -1,0 +1,26 @@
+
+-------------------- Expenses --------------------
+FOOD CATEGORY
+	Budget: (Category,Limit,Spent)
+	-> Budget: Food,0.0,0.0
+		Expense: YYYY-MM-DD,Category,Amount,Description
+ENTERTAINMENT CATEGORY
+	Budget: (Category,Limit,Spent)
+	-> Budget: Entertainment,0.0,0.0
+		Expense: YYYY-MM-DD,Category,Amount,Description
+TRANSPORTATION CATEGORY
+	Budget: (Category,Limit,Spent)
+	-> Budget: Transportation,0.0,0.0
+		Expense: YYYY-MM-DD,Category,Amount,Description
+UTILITIES CATEGORY
+	Budget: (Category,Limit,Spent)
+	-> Budget: Utilities,0.0,0.0
+		Expense: YYYY-MM-DD,Category,Amount,Description
+HEALTHCARE CATEGORY
+	Budget: (Category,Limit,Spent)
+	-> Budget: Healthcare,0.0,0.0
+		Expense: YYYY-MM-DD,Category,Amount,Description
+OTHER CATEGORY
+	Budget: (Category,Limit,Spent)
+	-> Budget: Other,0.0,0.0
+		Expense: YYYY-MM-DD,Category,Amount,Description

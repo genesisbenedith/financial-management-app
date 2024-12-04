@@ -1,5 +1,0 @@
-#Username,Email,Password,Hash,Salt
-cat123,cat123@gmail.com,jklol
-gen,genny@gmail.com,jklol
-genny, genny@arizona.edu, cat333
-hello, hi@aol.com, 9hZR7cg/RASwPAvLYliECtEIChOVPSJJGmPxCNdXM9o=, bioM67+vsX6xVa0bq5O8IhLq9fcrrr1CNE23cX960G8EW8dPgcDdrIE6917yQKtTq7QwbmP0KL+W7WzPAR560Q==

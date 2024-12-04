@@ -1,0 +1,34 @@
+-------------------- Expenses --------------------
+FOOD CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Food,500.0
+		Expense: 2024-11-01,Food,32.45,Grocery shopping at Walmart
+		Expense: 2024-11-05,Food,18.20,Fast food at McDonald's
+		Expense: 2024-11-10,Food,72.91,Weekly grocery shopping
+ENTERTAINMENT CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Entertainment,250.0
+		Expense: 2024-11-03,Entertainment,120.00,Concert tickets
+		Expense: 2024-11-09,Entertainment,75.00,Movie night with friends
+		Expense: 2024-11-15,Entertainment,152.00,Escape room adventure
+TRANSPORTATION CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Transportation,72.36
+		Expense: 2024-11-02,Transportation,25.00,Gas station fill-up
+		Expense: 2024-11-08,Transportation,17.56,Uber ride to downtown
+UTILITIES CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Utilities,367.45
+		Expense: 2024-11-04,Utilities,70.00,Electricity bill
+		Expense: 2024-11-12,Utilities,56.78,Water bill
+HEALTHCARE CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Healthcare,230.00
+		Expense: 2024-11-07,Healthcare,500.00,Dental procedure
+		Expense: 2024-11-14,Healthcare,689.00,Medical checkup and tests
+OTHER CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Other,720.0
+		Expense: 2024-11-06,Other,350.00,New phone purchase
+		Expense: 2024-11-13,Other,200.00,Clothing shopping
+		Expense: 2024-11-18,Other,340.00,Gifts for friends and family

@@ -1,40 +1,32 @@
 package csc335.app.controllers;
 
-import java.io.IOException;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 // [ ] Finish header comment
 /**
  * @author Genesis Benedith
  * 
- */
+*/
+
+import java.io.IOException;
+
+import csc335.app.persistence.AccountRepo;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 // [ ] Complete class comment
-public final class ViewManager {
+public enum ViewManager {
+    
+    INSTANCE; // Singleton instance 
     
     // [ ] Needs field comments
-    private static ViewManager manager = null;
     private Stage primaryStage;
     private View currentView;
 
     // [ ] Needs method comment
-    private ViewManager() {
-    }
-
-    // [ ] Needs method comment
-    public static ViewManager getViewManager() {
-        if (manager == null) {
-            manager = new ViewManager();
-        }
-        return manager;
-    }
-
-    // [ ] Needs method comment
-    public void showView(Parent parent) {
+    private void showView(Parent parent) {
         if (primaryStage == null) {
             primaryStage = new Stage();
         }
@@ -47,6 +39,8 @@ public final class ViewManager {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        AccountRepo.REPOSITORY.loadUsers();
     };
     
     // [ ] Needs method comment
@@ -63,44 +57,18 @@ public final class ViewManager {
         }
     }
 
-    // private FXMLLoader setController() {
-    //     String fxmlPath = currentView.getFXMLPath(currentView.name());
-    //     System.out.println("Path " + fxmlPath);
-        
-    //     FXMLLoader fxmlView = null;
-    //     if (null != currentView) switch (currentView) {
-    //         case BUDGET -> {
-    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
-    //             fxmlView.setController(BudgetController.getBudgetController());
-    //         }
-    //         case DASHBOARD -> {
-    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
-    //             fxmlView.setController(DashboardController.getDashboardController());
-    //         }
-    //         case REGISTER -> {
-    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
-    //             fxmlView.setController(SignUpController.getSignUpController());
-    //         }
-    //         case REPORT -> {
-    //         }
-    //         case LOGIN -> {
-    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
-    //             fxmlView.setController(SignInController.getSignInController());
-    //         }
-    //         case SPLASH -> {
-    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
-    //             fxmlView.setController(SplashController.getSplashController());
-    //         }
-    //         case EXPENSE -> {
-    //             fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
-    //             fxmlView.setController(ExpensesController.getExpensesController());
-    //         }
-    //         default -> {
-    //         }
-    //     }
-
-    //     return fxmlView;
-
-    // }
-
+    // [ ] Needs method comment
+    /**
+     * 
+     * @param alertType
+     * @param title
+     * @param message
+     */
+    public void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
 }

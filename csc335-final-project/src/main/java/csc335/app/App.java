@@ -17,20 +17,8 @@ public final class App extends Application {
     @Override
     public void start(Stage stage) {
         System.out.println("Starting application...");
-        ViewManager.getViewManager().loadView(View.SPLASH);
+        ViewManager.INSTANCE.loadView(View.SPLASH);
 
-        // String fxmlPath = View.SPLASH.getFXMLPath(View.SPLASH.name());
-        // System.out.println("Path " + fxmlPath);
-        // FXMLLoader fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
-        
-        // String currentDirectory = System.getProperty("user.dir");
-        // System.out.println("Current working directory: " + currentDirectory);
-        // try {
-        //     Parent parent = fxmlView.load();
-        //     ViewManager.getViewManager().showView(parent);
-        // } catch (IOException e) {
-        //     throw new RuntimeException("View cannot be loaded -> " + e.getMessage());
-        // }
     }
 
     // [ ] Compete method comment

@@ -7,50 +7,29 @@ package csc335.app.persistence;
 /**
  * 
  */
-public final class UserSessionManager {
+public enum UserSessionManager {
     
-    private static UserSessionManager manager = null;  
-    private static User currentUser; 
-    
-    /**
-     * Private constructor prevents instantiation from other classes
-     */
-    private UserSessionManager () {
+    INSTANCE; // Singleton instance
+
+    private User currentUser = null; 
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 
-    /**
-     * 
-     * @return
-     */
-    public static User getCurrentUser() {
-        if (currentUser == null) {
-            return null;
-        }
-        return new User(currentUser.getUsername(), currentUser.getEmail(), "", "");
-    }
-
-    public static UserSessionManager getUserSessionManager() {
-        if (manager == null) {
-            manager = new UserSessionManager();
-        }
-        return manager;
-    }
-
-    protected static void setCurrentUser(User user) {
+    public void setCurrentUser(User user) throws CloneNotSupportedException {
         if (user == null) {
-            throw new IllegalArgumentException("User cannot be null.");
+            currentUser = null;
+            return;
         }
-        currentUser = user;
+        currentUser = (User)user.clone();
     }
     
-    public static boolean hasActiveUser() {
+    protected boolean hasActiveUser() {
         return !(currentUser == null);
     }
 
-    /**
-     * 
-     */
-    public void resetCurrentUser() {
+    public void resetCurrentUser () {
         currentUser = null;
     }
 

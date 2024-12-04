@@ -1,10 +1,11 @@
 package csc335.app.controllers;
 
+import java.nio.file.Path;
+
 // [ ] Finish file comment
 /**
  * @author Genesis Benedith
  */
-import java.nio.file.Path;
 
 // [ ] Needs class comment
 public enum View {
@@ -19,12 +20,11 @@ public enum View {
     // [ ] Needs field comments
     private final String VIEW_TITLE;
     private final String VIEW_NAME;
-    // private final String FXML_VIEW_DIRECTORY = Path.of("..", "..", "..", "resources", "views").toString();
     private final String FXML_VIEW_DIRECTORY = Path.of("/views").toString();
     private final String FXML_VIEW_PATH;
 
     // [ ] Needs method comment
-    View(String viewName, String viewTitle) {
+    private View(String viewName, String viewTitle) {
         this.VIEW_TITLE = viewTitle;
         this.VIEW_NAME = viewName;
         this.FXML_VIEW_PATH = Path.of(FXML_VIEW_DIRECTORY, VIEW_NAME + "View.fxml").toString();
