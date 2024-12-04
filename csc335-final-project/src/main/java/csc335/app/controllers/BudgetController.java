@@ -14,15 +14,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-// import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.ProgressIndicator;
-// import javafx.scene.control.Spinner;
-// import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-// import javafx.util.StringConverter;
 
 public class BudgetController implements Subject, Initializable{
 
@@ -31,7 +27,7 @@ public class BudgetController implements Subject, Initializable{
     @FXML
     private MFXNotificationCenter notificationCenter;
 
-    //Spinners for each category
+    //TextFields for each category
     @FXML
     private TextField fText; double currF = 0;
     @FXML
@@ -127,6 +123,9 @@ public class BudgetController implements Subject, Initializable{
 
     private void setupPromptText(Budget budg, TextField field, ProgressIndicator progressBar, ImageView alert) {
     if (budg != null) {
+        if(budg.getLimit() != 0){
+            progressBar.setProgress(budg.getPercentage()/100);
+        }
         double limit = budg.getLimit();
         field.setPromptText(limit + "");
         if (budg.isExceeded()) {
@@ -183,6 +182,7 @@ private void handleTransport() {
     tText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
             currT = handleBudget(Category.TRANSPORTATION, tText, transportationProgress, tAlert);
+            //[ ] updateFile()
         }
     });
 }
@@ -192,6 +192,7 @@ private void handleEntertainment() {
     eText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currE = handleBudget(Category.ENTERTAINMENT, eText, entertainmentProgress, eAlert);
+    //[ ] updateFile()
         }
     });
 }
@@ -201,6 +202,7 @@ private void handleUtilities() {
     uText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currU = handleBudget(Category.UTILITIES, uText, utilitiesProgress, uAlert);
+    //[ ] updateFile()
         }
     });
 }
@@ -210,6 +212,7 @@ private void handleFood() {
     fText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currF = handleBudget(Category.FOOD, fText, foodProgress, fAlert);
+    //[ ] updateFile()
         }
     });
 }
@@ -219,6 +222,7 @@ private void handleHealth() {
     hText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currH = handleBudget(Category.HEALTHCARE, hText, healthProgress, hAlert);
+    //[ ] updateFile()
         }
     });
 }
@@ -228,6 +232,7 @@ private void handleOther() {
     oText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currO = handleBudget(Category.OTHER, oText, otherProgress, oAlert);
+    //[ ] updateFile()
         }
     });
 }

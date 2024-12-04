@@ -1,0 +1,15 @@
+.sidebar-buttons{
+    -fx-background-color: #e0e099;
+    -fx-background-radius: 20px;
+    -fx-font-family: Poppins;
+
+    background-color: #e0e099;
+    background-radius: 20px;
+    font-family: Poppins;
+}
+
+.sidebar-background{
+    -fx-background-color: #ffffe0;
+    
+    background-color: #ffffe0;
+}

@@ -1,5 +1,5 @@
-//import org.junit.jupiter.api.Assertions.*;
 
+package csc335.app;
 import java.beans.Transient;
 import java.util.Calendar;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.List;
 import csc335.app.Category;
 import csc335.app.models.Budget;
 import csc335.app.models.Expense;
+import org.junit.jupiter.api.Assertions.*;
 
 
 public class AllTests {
