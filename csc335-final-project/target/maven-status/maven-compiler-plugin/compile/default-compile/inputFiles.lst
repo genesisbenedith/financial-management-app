@@ -1,14 +1,25 @@
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/App.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/FileIOManager.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/TextUI.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/TextUIController.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/TextUIModel.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/UserAuth.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/UserSessionManager.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/controllers/AuthController.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/controllers/DashboardController.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/Budget.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/Category.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/Expense.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/Report.java
-/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/src/main/java/csc335/app/models/User.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/App.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/Category.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/BudgetController.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/DashboardController.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/ExpensesController.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/Observer.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/SidebarController.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/SignInController.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/SignUpController.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/SplashController.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/View.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/ViewManager.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Budget.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Expense.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Subject.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/UserOLD.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/AccountManager.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/AccountRepository.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/Hasher.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/User.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/UserSessionManager.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/Validator.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/text-ui/TextUI.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/text-ui/TextUIController.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/text-ui/TextUIModel.java

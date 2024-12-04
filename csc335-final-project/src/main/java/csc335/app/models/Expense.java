@@ -1,5 +1,11 @@
 package csc335.app.models;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+import csc335.app.Category;
+
 /**
  * Author(s): Genesis Benedith
  * File: Expense.java
@@ -7,7 +13,7 @@ package csc335.app.models;
  */
 
 public class Expense {
-    private String date;        // Date in format "YYYY-MM-DD"
+    private Calendar date;        // Date in format "YYYY-MM-DD"
     private Category category;    // Expense category (e.g., Groceries, Entertainment)
     private double amount;      // Transaction amount
     private String description; // Brief description of the transaction
@@ -15,7 +21,7 @@ public class Expense {
     /* ------------------------------ Constructor ------------------------------ */
 
 
-    public Expense(String date, Category category, double amount, String description) {
+    public Expense(Calendar date, Category category, double amount, String description) {
         this.date = date;
         this.category = category;
         this.amount = amount;
@@ -28,15 +34,21 @@ public class Expense {
      * 
      * @return
      */
-    public String getDate() {
+    public Calendar getCalendarDate() {
         return date;
+    }
+
+    public String getStringDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD", Locale.getDefault());
+        String formattedDate = formatter.format(date.getTime());
+        return formattedDate;
     }
 
     /**
      * 
      * @param date
      */
-    public void setDate(String date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
@@ -93,7 +105,7 @@ public class Expense {
      */
     @Override
     public String toString() {
-        return date + "," + category + "," + amount + "," + description;
+        return getStringDate() + "," + category.toString() + "," + amount + "," + description;
     }
 }
 
