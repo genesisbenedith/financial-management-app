@@ -48,10 +48,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import csc335.app.Category;
 import csc335.app.models.Expense;
+import csc335.app.models.Subject;
+import csc335.app.persistence.AccountRepository;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
 import io.github.palexdev.materialfx.builders.control.DatePickerBuilder;
@@ -63,7 +66,7 @@ import io.github.palexdev.materialfx.controls.cell.MFXDateCell;
 import io.github.palexdev.mfxcore.controls.Label;
 
 
-public class ExpensesController implements Initializable{
+public class ExpensesController implements Initializable, Subject{
     @FXML
     private AnchorPane contentArea;
     private static final String USER_DATA_DIRECTORY = "data/users";
@@ -119,7 +122,7 @@ public class ExpensesController implements Initializable{
     @FXML
     private ImageView delete;
 
-
+    private static final List<Observer> observers = new ArrayList<>();
     private User currentUser;
     private Expense expense;
     private String currentDate;
@@ -133,25 +136,28 @@ public class ExpensesController implements Initializable{
 
         // Get current user
         currentUser = UserSessionManager.getCurrentUser();
+        expenses = currentUser.getExpenses();
+        loadExpenses(expenses);
+        addObserver(AccountRepository.getAccountRepository());
     }
 
 
-    // @Override
-    // public void addObserver(Observer observer) {
-    //     observers.add(observer);
-    // }
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
 
-    // @Override
-    // public void removeObserver(Observer observer) {
-    //     observers.remove(observer);
-    // }
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
 
-    // @Override
-    // public void notifyObservers() {
-    //     for (Observer observer : observers) {
-    //         observer.update();
-    //     }
-    // }
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
 
     /**
      * 
@@ -172,6 +178,7 @@ public class ExpensesController implements Initializable{
         
     }
 
+    @FXML
     private void importFileClick(){
         FileChooser chooseFile = new FileChooser();
         chooseFile.setTitle("Import File");
@@ -214,14 +221,14 @@ public class ExpensesController implements Initializable{
 
     }
 
+    @FXML
     private void addNewExpenseClick(){
         ExpenseController addExpense = new ExpenseController();
         ViewManager.getViewManager().loadView(View.EXPENSE);
     }
 
-
     private void editExpenseClick(){
-        // create a popup like the one with add espense but with the information already filled in, just editable
+        // use add expense popup but with different title and the information already filled in, just editable
     }
 
     @FXML
@@ -241,8 +248,6 @@ public class ExpensesController implements Initializable{
         if(startDate !=  null){
             dateTo.show();
         }
-        
-
     }
 
     @FXML
@@ -254,17 +259,25 @@ public class ExpensesController implements Initializable{
         }
         startDate = dateFrom.getValue();
         endDate = dateTo.getValue();
-        
+        Calendar startCal = Calendar.getInstance(Locale.getDefault());
+        startCal.set(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
+        Calendar endCal = Calendar.getInstance(Locale.getDefault());
+        endCal.set(endDate.getYear(), endDate.getMonthValue(), endDate.getDayOfMonth());
+        if (!progressBarClick() || clearButton){
+            loadExpenses(currentUser.getExpensesInRange(startCal, endCal));
+        }
+        loadExpenses(currentUser.getExpensesInRange(startCal, endCal, category)); // category will be te category clicked form the bar or the total expenses if none were selected
+
     }
 
-    private void loadExpenses(){
+    private void loadExpenses(List<Expense> expenses){
         // dateChild.setText("");
         // summaryChild.setText("");
         // categoryChild.setText("");
         // amountChild.setText("");
         
 
-        for (Expense expense : getAllExpenses()) {
+        for (Expense expense : expenses) {
             Pane clonedPane = new Pane();
 
             for (Node node : expenseTemplate.getChildren()) {
@@ -331,6 +344,7 @@ public class ExpensesController implements Initializable{
                                     if(result.get() == ButtonType.OK){
                                         vBox.getChildren().remove(clonedPane);
                                         currentUser.removeExpense(expense);
+                                        notifyObservers();
                                     }
                                 }
                             });
@@ -349,20 +363,13 @@ public class ExpensesController implements Initializable{
     }
 
     private void progressBarFill(){
-        
+        // make it hoverable with the label and percentage of the total expenses from that catefory visible when hovered over
+        // and then it will be clickable and the bar will change to that category and the percentage of the budget for that category already set in expenses will show up
+        // clear will send you back to the total budget
     }
 
     private void progressBarClick(){
         
-    }
-
-    private List<Expense> getAllExpenses() {
-        List<Expense> allExpenses = new ArrayList<>();
-        for (List<Expense> expenses : currentUser.getExpensesByCategory().values()) {
-            allExpenses.addAll(allExpenses);
-        }
-
-        return allExpenses;
     }
 
     // [ ] Needs method comment

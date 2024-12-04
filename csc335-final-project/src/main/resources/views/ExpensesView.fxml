@@ -108,7 +108,7 @@
                                                             <Font size="24.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="amountText" layoutX="600.0" layoutY="7.0" text="\$ amount">
+                                                      <Label fx:id="amountText" layoutX="560.0" layoutY="7.0" text="\$ amount">
                                                          <font>
                                                             <Font size="24.0" />
                                                          </font>
@@ -137,7 +137,7 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="amountChild" layoutX="600.0" layoutY="10.0" text="\$ 50.00">
+                                                <Label fx:id="amountChild" layoutX="560.0" layoutY="10.0" text="\$ 50.00">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>

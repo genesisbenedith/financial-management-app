@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import csc335.app.models.Expense;
+import csc335.app.models.Subject;
+import csc335.app.persistence.AccountRepository;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
 import com.gluonhq.charm.glisten.control.DropdownButton;
@@ -15,9 +17,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public class ExpenseController implements Initializable{
+public class ExpenseController implements Initializable, Subject{
     @FXML
     private TextField amountField;
 
@@ -31,12 +35,31 @@ public class ExpenseController implements Initializable{
     private TextField expenseSummary;
 
     private User currentUser;
+    private static final List<Observer> observers = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Expense Controller initialized");
         UserSessionManager.getUserSessionManager();
         currentUser = UserSessionManager.getCurrentUser();
+        addObserver(AccountRepository.getAccountRepository());
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 
     public void loadPage(String string) {
@@ -80,7 +103,7 @@ public class ExpenseController implements Initializable{
             // Save expense to user
 
             currentUser.addExpense(new Expense(localDateToCalenderDate(currentDate.getValue()), null, amount, expenseSummary.getText()));
-
+            notifyObservers();
 
             // [ ] close popup
         } catch (NumberFormatException e) {

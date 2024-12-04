@@ -243,6 +243,24 @@ public class User {
     }
 
     /**
+     * Get's the users expenses within a specific month and year
+     * @authors Lauren Schroeder and Genesis Benedith
+     * @param day the day of the transaction
+     * @param month the month of the transaction
+     * @param year  the year of the transaction
+     * @return a list of expenses
+     */
+    public List<Expense> getExpensesInRange(Calendar start, Calendar end){
+        List<Expense> filteredExpenses = new ArrayList<>();
+        for (Expense expense : getExpenses()){
+            if ((expense.getCalendarDate().after(start) || expense.getCalendarDate().equals(start)) && (expense.getCalendarDate().before(end) || expense.getCalendarDate().equals(end))){
+                filteredExpenses.add(expense);
+            }
+        }
+        return filteredExpenses;
+    }
+
+    /**
      * Get's the total amount spent (no filter)
      * 
      * @param category
