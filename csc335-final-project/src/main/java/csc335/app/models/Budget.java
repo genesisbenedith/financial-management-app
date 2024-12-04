@@ -56,7 +56,8 @@ public class Budget {
     /* ------------------------------ Helper Methods ------------------------------ */
 
     public double getPercentage(){
-        return (this.getTotalSpent() / this.getLimit()) * 100;
+        double percentage = (this.getTotalSpent() / this.getLimit()) * 100;
+        return Math.round(percentage * 100.0) / 100.0;
     }
 
     public void addExpense(Expense newExpense) {
@@ -73,7 +74,7 @@ public class Budget {
     }
     
     public boolean isExceeded() {
-        return getTotalSpent() > this.limit;
+        return getTotalSpent()/this.limit > 0.8;
     }
     
     @Override

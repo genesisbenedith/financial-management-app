@@ -105,7 +105,7 @@ public class Expense {
      */
     @Override
     public String toString() {
-        return getStringDate() + "," + category + "," + amount + "," + description;
+        return getStringDate() + "," + category.toString() + "," + amount + "," + description;
     }
 }
 
