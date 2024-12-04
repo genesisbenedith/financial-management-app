@@ -155,11 +155,12 @@ public class BudgetController implements Subject, Initializable{
                 System.out.println(value);
                 // Convert user input to double 
 
-                currentUser.setBudget(new Budget(category, value));
+                currentUser.updateBudget(category, value);
                 System.out.println("The new value is now: " + Double.toString(value));
                 Double fraction = 0.0;
                 for (Budget b : currentUser.getBudgetsByCategory().values()) {
                     if (b.getCategory().equals(category)) {
+                        //currentUser.setBudget(b);
                         fraction = b.getPercentage() / 100;
                         if (b.isExceeded()) {
                             alert.setVisible(true);
@@ -188,27 +189,47 @@ private void handleTransport() {
 
 @FXML
 private void handleEntertainment() {
+    eText.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.ENTER) {
     currE = handleBudget(Category.ENTERTAINMENT, eText, entertainmentProgress, eAlert);
+        }
+    });
 }
 
 @FXML
 private void handleUtilities() {
+    uText.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.ENTER) {
     currU = handleBudget(Category.UTILITIES, uText, utilitiesProgress, uAlert);
+        }
+    });
 }
 
 @FXML
 private void handleFood() {
+    fText.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.ENTER) {
     currF = handleBudget(Category.FOOD, fText, foodProgress, fAlert);
+        }
+    });
 }
 
 @FXML
 private void handleHealth() {
+    hText.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.ENTER) {
     currH = handleBudget(Category.HEALTHCARE, hText, healthProgress, hAlert);
+        }
+    });
 }
 
 @FXML
 private void handleOther() {
+    oText.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.ENTER) {
     currO = handleBudget(Category.OTHER, oText, otherProgress, oAlert);
+        }
+    });
 }
    
 

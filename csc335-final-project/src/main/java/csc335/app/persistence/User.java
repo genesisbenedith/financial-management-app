@@ -102,6 +102,14 @@ public class User {
         this.budgetsByCategory.put(budget.getCategory(), budget);
     }
 
+    public void updateBudget(Category category, double newLimit){
+        for(Budget b: budgetsByCategory.values()){
+            if(b.getCategory() == category){
+                b.setLimit(newLimit);
+            }
+        }
+    }
+
     public void addExpense(Expense expense) {
         // Check if expense category is already a key in map
         if (this.expensesByCategory.containsKey(expense.getCategory())) {
