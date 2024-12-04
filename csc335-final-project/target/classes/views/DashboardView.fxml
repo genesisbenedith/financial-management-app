@@ -102,16 +102,13 @@
                               </Label>
                            </top>
                            <center>
-                              <BarChart fx:id="barChart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="470.0" BorderPane.alignment="CENTER">
+                              <BarChart fx:id="barChart" alternativeRowFillVisible="false" categoryGap="4.0" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="450.0" style="-fx-background-color: #fff;" verticalGridLinesVisible="false" verticalZeroLineVisible="false" BorderPane.alignment="CENTER">
                                 <xAxis>
-                                  <CategoryAxis gapStartAndEnd="false" label="Months" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" side="BOTTOM" />
+                                  <CategoryAxis fx:id="monthAxis" gapStartAndEnd="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="389.0" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" />
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis label="Total Spent" minorTickCount="0" side="LEFT" />
+                                  <NumberAxis fx:id="totalAxis" label="Total Spent" minorTickCount="0" side="LEFT" />
                                 </yAxis>
-                                 <BorderPane.margin>
-                                    <Insets />
-                                 </BorderPane.margin>
                               </BarChart>
                            </center>
                         </BorderPane>

@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-
+import csc335.app.CalendarConverter;
 import csc335.app.Category;
 import csc335.app.models.Budget;
 import csc335.app.models.Expense;
@@ -25,7 +26,7 @@ public enum Database {
     private  final String DATABASE_DIRECTORY = "database";
     private  final String ACCOUNTS_DIRECTORY = "accounts";
     private  final String ACCOUNT_DATA = "_all_accounts.txt";
-    private final Map<String, User> USER_ACCOUNTS = new HashMap<>();
+    private final Map<String, User> USER_ACCOUNTS = loadUserAccounts();
 
     /**
      * Saves the credentials of a new user to the file login_data.txt
@@ -171,6 +172,7 @@ public enum Database {
                 System.out.println("\nUser account loaded --------------------");
                 System.out.println(usr.toString()); 
                 usersLoaded.put(usr.getUsername(), usr);
+                USER_ACCOUNTS.put(usr.getUsername(), usr);
             } catch (RuntimeException e) {
                 System.err.println("An error occurred loading the account history for -> " + usr.getUsername());
                 
@@ -196,8 +198,8 @@ public enum Database {
         /* Searching through user's transcations in the file */
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             
-            List<Expense> expenses = new ArrayList<>();
-            Map<Category, Budget> budgetsByCategory = new HashMap<>();
+            List<Expense> expensesFoundInFile = new ArrayList<>();
+            Map<Category, Budget> budgetsfoundInFile = new HashMap<>();
 
             /* Read each line until end of file */
             String line;
@@ -222,46 +224,46 @@ public enum Database {
                     Category category = Category.valueOf(parts[0].trim().toUpperCase());
                     double limit = Double.parseDouble(parts[1]);
 
-                    /* Instantiate a new <Budget> object to represent user's budget */
+                    /* Add a new <Budget> object to the category map of budgets found in the file */
                     List<Expense> budgetExpenses = new ArrayList<>();
                     Budget budget = new Budget(category, limit, budgetExpenses);
-                    budgetsByCategory.put(category, budget);
+                    budgetsfoundInFile.put(category, budget);
 
                 } else if (data[0].trim().contains("Expense")) {
 
-                    /* Extracting the transaction details from the line*/
+                    /* Extracting the transaction details from the line */
                     String[] parts = data[1].split(",");
                     String[] date = parts[0].trim().split("-");
+                    int year = Integer.parseInt(date[0]);
+                    int month = Integer.parseInt(date[1]);
+                    int day = Integer.parseInt(date[2]);
+
+                    // System.out.print("THE EXPENSE DATE FOUND");
+                    
+                    /* Setting the calendar for transaction date */
+                    Calendar calendar = CalendarConverter.INSTANCE.getCalendar(year, month, day);
                     Category category = Category.valueOf(parts[1].trim().toUpperCase());
                     double amount = Double.parseDouble(parts[2].trim());
                     String description = parts[3].trim();
 
-                    System.out.println("EXPENSE FOUND!");
-
-                    /* Setting the calendar for transaction date */
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
-                    calendar.set(Calendar.MONTH, Integer.parseInt(date[1]));
-                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date[2]));
-
-                    /* Instantiate a new <Expense> object to represent user's transaction */
+                    /* Add a new <Expense> object to the list of expenses found in the file */
                     Expense expense = new Expense(calendar, category, amount, description);
-                    expenses.add(expense);
+                    expensesFoundInFile.add(expense);
                 }
             }
 
             /* Loops through all the expenses found and finding the 
              * assigned budget. Also adds the expense to the Budget class.
              */
-            for (Expense expense : expenses) {
-                Budget assignedBudget = budgetsByCategory.get(expense.getCategory());
+            for (Expense expense : expensesFoundInFile) {
+                Budget assignedBudget = budgetsfoundInFile.get(expense.getCategory());
                 assignedBudget.addExpense(expense);
             }
 
             /* Indiviually sets each budget for the User class 
              * with the expenses already loaded
             */
-            for (Budget budget : budgetsByCategory.values())
+            for (Budget budget : budgetsfoundInFile.values())
                 user.setBudget(budget);
             
         } catch (Exception e) {
@@ -269,6 +271,10 @@ public enum Database {
             throw new RuntimeException("An error occured loading account from database: " + e.getMessage());
         }
 
+    }
 
+    protected boolean findUser(String username) {
+        loadUserAccounts();
+        return USER_ACCOUNTS.containsKey(username);
     }
 }

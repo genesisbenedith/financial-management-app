@@ -2,33 +2,57 @@
 FOOD CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Food,500.0
-		Expense: 2024-11-01,Food,32.45,Grocery shopping at Walmart
-		Expense: 2024-11-05,Food,18.20,Fast food at McDonald's
-		Expense: 2024-11-10,Food,72.91,Weekly grocery shopping
+		Expense: 2024-11-05,Food,45.00,Dinner at Chili's
+		Expense: 2024-11-07,Food,12.50,Coffee at Starbucks
+		Expense: 2024-11-08,Food,68.75,Weekly groceries at Safeway
+		Expense: 2024-11-10,Food,15.00,Lunch at Chipotle
+		Expense: 2024-11-15,Food,70.20,Specialty grocery store purchase
+		Expense: 2024-11-18,Food,9.25,Bagel and coffee at local café
+		Expense: 2024-11-20,Food,54.60,Grocery shopping for the week
+		Expense: 2024-11-25,Food,21.90,Dinner with friends at a Thai restaurant
+		Expense: 2024-12-01,Food,60.30,Weekly grocery trip to Whole Foods
+
 ENTERTAINMENT CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Entertainment,250.0
-		Expense: 2024-11-03,Entertainment,120.00,Concert tickets
-		Expense: 2024-11-09,Entertainment,75.00,Movie night with friends
-		Expense: 2024-11-15,Entertainment,152.00,Escape room adventure
+		Expense: 2024-11-06,Entertainment,20.00,Movie rental on Amazon Prime
+		Expense: 2024-11-09,Entertainment,75.00,Comedy club tickets
+		Expense: 2024-11-13,Entertainment,50.00,Arcade gaming night with friends
+		Expense: 2024-11-19,Entertainment,30.00,Netflix and Disney+ subscriptions
+		Expense: 2024-11-24,Entertainment,45.00,Music concert ticket
+		Expense: 2024-11-28,Entertainment,25.00,Bowling night
+		Expense: 2024-12-02,Entertainment,10.00,Online game purchase on Steam
+
 TRANSPORTATION CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Transportation,72.36
-		Expense: 2024-11-02,Transportation,25.00,Gas station fill-up
-		Expense: 2024-11-08,Transportation,17.56,Uber ride to downtown
+		Expense: 2024-11-04,Transportation,20.00,Gas station fill-up
+		Expense: 2024-11-12,Transportation,22.36,Uber ride to a meeting
+		Expense: 2024-11-17,Transportation,12.50,Parking fees at city event
+		Expense: 2024-11-23,Transportation,17.50,Taxi to airport
+		Expense: 2024-11-30,Transportation,20.00,Gas for weekend road trip
+
 UTILITIES CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Utilities,367.45
-		Expense: 2024-11-04,Utilities,70.00,Electricity bill
-		Expense: 2024-11-12,Utilities,56.78,Water bill
+		Expense: 2024-11-07,Utilities,120.00,Electricity bill
+		Expense: 2024-11-11,Utilities,85.00,Internet bill
+		Expense: 2024-11-21,Utilities,78.50,Water bill
+		Expense: 2024-11-30,Utilities,50.00,Trash and recycling fees
+
 HEALTHCARE CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Healthcare,230.00
-		Expense: 2024-11-07,Healthcare,500.00,Dental procedure
-		Expense: 2024-11-14,Healthcare,689.00,Medical checkup and tests
+		Expense: 2024-11-06,Healthcare,45.00,Pharmacy medication refill
+		Expense: 2024-11-12,Healthcare,200.00,Visit to a specialist
+		Expense: 2024-11-20,Healthcare,30.00,Co-pay for routine check-up
+		Expense: 2024-11-29,Healthcare,150.00,Physical therapy session
+
 OTHER CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Other,720.0
-		Expense: 2024-11-06,Other,350.00,New phone purchase
-		Expense: 2024-11-13,Other,200.00,Clothing shopping
-		Expense: 2024-11-18,Other,340.00,Gifts for friends and family
+		Expense: 2024-11-08,Other,300.00,Holiday gift shopping
+		Expense: 2024-11-15,Other,150.00,New headphones purchase
+		Expense: 2024-11-22,Other,120.00,Donation to local charity
+		Expense: 2024-11-26,Other,80.00,Clothing shopping at the mall
+		Expense: 2024-11-30,Other,200.00,Furniture purchase for apartment

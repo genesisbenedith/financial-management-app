@@ -122,9 +122,11 @@ public class Expense {
      * @return a formatted version of the transaction date
      */
     public String getStringDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD", Locale.getDefault());
-        String formattedDate = formatter.format(this.date.getTime());
-        return formattedDate;
+        Calendar calendar = this.getCalendarDate();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1; // Calendar months are 0-indexed
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return year + "-" + month + "-" + day;
     }
 
     /**

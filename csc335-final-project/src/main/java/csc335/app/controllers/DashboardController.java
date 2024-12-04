@@ -1,15 +1,20 @@
 package csc335.app.controllers;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import csc335.app.CalendarConverter;
 import csc335.app.Category;
 import csc335.app.models.Expense;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
+import csc335.app.services.ExpenseTracker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -34,23 +39,45 @@ public class DashboardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Welcome to the dashboard!");
         currentUser = UserSessionManager.INSTANCE.getCurrentUser();
+        System.out.println("Current user: " + currentUser.getUsername());
         initializeBarChart();
+    }
+
+    public String getStringDate(Calendar calendar) {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1; // Calendar months are 0-indexed
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return year + "-" + month + "-" + day;
     }
 
     private void initializeBarChart() {
 
-        // Bar chart will show the last 3 months (including current month)
+        // Bar chart will show the category spending summary in the last month (including current month)
+        // If the date range button in dropdown is changed, get the new set value then...
 
-        // Set current date as end date
-        Calendar endDate = Calendar.getInstance(Locale.getDefault());
+        // Get current cal date
+        Calendar startCal = CalendarConverter.INSTANCE.getCalendar(1);
+        Calendar endCal = CalendarConverter.INSTANCE.getCalendar();
+        /*
+         * if set to past 30 days, then
+         * getCalendar(1)
+         * 
+         * if set to past 3 months, then 
+         * getCalendar(3)
+         * 
+         * and so on...
+         */
 
-        // Set start date to the first day of the month (2 months ago)
-        Calendar startDate = Calendar.getInstance(Locale.getDefault());
-        startDate.set(Calendar.MONTH, endDate.get(Calendar.MONTH - 2));
-        startDate.set(Calendar.DAY_OF_MONTH, startDate.getActualMinimum(Calendar.DAY_OF_MONTH));
+        // Print the start and end dates
+        System.out.println("Start date: " + getStringDate(startCal));
+        System.out.println("End date: " + getStringDate(endCal));
 
-        // The expenses within the 3-month date range
-        List<Expense> expensesInRange = currentUser.getExpensesInRange(startDate, endDate);
+        // The expenses within the last month
+        List<Expense> expensesInRange = ExpenseTracker.filterExpensesInRange(startCal, endCal);
+        System.out.println("All of the transactions in the last 30 days: ");
+        for (Object elem : expensesInRange) {
+            System.out.println(elem);
+        }
 
         // Creating the legend for the bar chart that explains the colors
         for (Category category : Category.values()) {
@@ -59,31 +86,21 @@ public class DashboardController implements Initializable {
             XYChart.Series<String, Double> series = new XYChart.Series<>();
             series.setName(category.toString());
 
-            // Filter the expenses in range by category then filter them by month
-            List<Expense> filteredExpenses = currentUser.filterExpenses(expensesInRange, category);
-            for (int monthValue = startDate.get(Calendar.MONTH); monthValue <= endDate
-                    .get(Calendar.MONTH); monthValue++) {
-
-                // Get the name of the month
-                Calendar cal = Calendar.getInstance(Locale.getDefault());
-                cal.set(Calendar.MONTH, monthValue);
-                String monthName = cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
-
-                // Calculate total spent in the month
+            // Filter the expenses in range by category
+            List<Expense> filteredExpenses = ExpenseTracker.filterExpenses(expensesInRange, category);
+            // Calculate total spent in the month
                 double totalSpent = 0.0;
                 for (Expense expense : filteredExpenses) {
-                    if (monthValue == expense.getCalendarDate().get(Calendar.MONTH)) {
-                        totalSpent += expense.getAmount();
-                    }
+                    totalSpent += expense.getAmount();
                 }
-
-                // Add this month's data to the dataset for this category
-                series.getData().add(new XYChart.Data<>(monthName, totalSpent));
-            }
+                
+                // Add this category's data to the dataset for this month
+                series.getData().add(new XYChart.Data<>(category.toString(), totalSpent));
 
             // Add hover effect to each bar
             for (XYChart.Data<String, Double> data : series.getData()) {
                 Node barNode = data.getNode(); // Bar node will be available after adding data to chart
+                
                 data.nodeProperty().addListener((obs, oldNode, newNode) -> {
                     if (newNode != null) {
                         addHoverEffect(newNode, category);

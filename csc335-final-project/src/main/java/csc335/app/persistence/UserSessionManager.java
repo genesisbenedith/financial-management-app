@@ -17,12 +17,12 @@ public enum UserSessionManager {
         return currentUser;
     }
 
-    public void setCurrentUser(User user) throws CloneNotSupportedException {
+    public void setCurrentUser(User user) {
         if (user == null) {
             currentUser = null;
             return;
         }
-        currentUser = (User)user.clone();
+        currentUser = user;
     }
     
     protected boolean hasActiveUser() {

@@ -19,7 +19,7 @@ public enum AccountRepo {
 
     REPOSITORY; // The single instance of the enum
 
-    private Map<String, User> users = null;
+    private Map<String, User> users = Database.INSTANCE.loadUserAccounts();
 
     public void loadUsers() {
         REPOSITORY.users = Database.INSTANCE.loadUserAccounts();
@@ -76,10 +76,8 @@ public enum AccountRepo {
      * @param password
      */
     public void authenticateUser(String username, String password) {
-        System.out.println(Integer.toString(users.size()) + " items in AccountRepo users before line 88 call\n");
-        System.out.println(Integer.toString(users.size()) + " items in AccountRepo users before line 88 call\n");
         /* Show error alert and void if username does not exist to any account */
-        if (!users.containsKey(username)) {
+        if (!Database.INSTANCE.findUser(username)) {
             ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Username does not exist!");
             return;
         }
@@ -98,13 +96,10 @@ public enum AccountRepo {
             ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Authentication Failed", "Invalid username or password.");
 
         /* Set active user session and load dashboard view */
-        try {
-            UserSessionManager.INSTANCE.setCurrentUser(user);
+        UserSessionManager.INSTANCE.setCurrentUser(user);
             System.out.println("User authenticated. Session active. Loading dashboard now.");
             ViewManager.INSTANCE.loadView(View.DASHBOARD);
-        } catch (CloneNotSupportedException e) {
-            System.err.println("Cannot set active user session -> " + e.getMessage());
-        }
+       
     }
 
     /**

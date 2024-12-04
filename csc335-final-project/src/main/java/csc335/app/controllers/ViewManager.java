@@ -8,7 +8,6 @@ package csc335.app.controllers;
 
 import java.io.IOException;
 
-import csc335.app.persistence.AccountRepo;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,8 +38,6 @@ public enum ViewManager {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        AccountRepo.REPOSITORY.loadUsers();
     };
     
     // [ ] Needs method comment
