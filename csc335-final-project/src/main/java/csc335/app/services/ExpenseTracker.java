@@ -172,6 +172,16 @@ public enum ExpenseTracker {
         return dayExpenses;
     }
 
+    public static List<Expense> filterExpenses(Calendar monthCal) {
+        List<Expense> monthExpenses = new ArrayList<>();
+        for (Expense expense : getExpenses()) {
+            if ((expense.getCalendarDate().get(Calendar.MONTH) == monthCal.get(Calendar.MONTH)) && (expense.getCalendarDate().get(Calendar.YEAR) == monthCal.get(Calendar.YEAR)) ) {
+                monthExpenses.add(expense);
+            }
+        }
+        return monthExpenses;
+    }
+
     /**
      * Filters a list of expenses within a specific category
      * 
