@@ -11,13 +11,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import csc335.app.CalendarConverter;
 import csc335.app.Category;
 import csc335.app.models.Budget;
 import csc335.app.models.Expense;
+import csc335.app.utils.CalendarConverter;
 
 public enum Database {
 

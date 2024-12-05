@@ -1,21 +1,25 @@
 package csc335.app.models;
 
+
+
 /**
- * Author(s): Genesis Benedith
+ * @author Genesis Benedith
  * Course: CSC 335 (Fall 2024)
  * File: Budget.java
  * Description: Model class that represents a budget for a user's expense category
  */
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import csc335.app.*;
+import csc335.app.Category;
+
 public class Budget {
-    private final Category category; // Budget category (e.g., Groceries, Transportation, etc.)
-    private double limit;    // Budget limit for the category
-    private final List<Expense> expenses; // List of expenses associated with budget
+
+    /*  */
+    private final Category category; 
+    private double limit; 
+    private final List<Expense> expenses;
 
     /* ------------------------------ Constructor ------------------------------ */
 
@@ -26,23 +30,25 @@ public class Budget {
      * @param limit
      * @param expenses
      */
-    public Budget(Category category, double limit) {
+    public Budget(Category category, double limit, List<Expense> expenses) {
         this.category = category;
         this.limit = limit;
-        this.expenses = new ArrayList<>();
+        this.expenses = expenses;
     }
 
-    /* ------------------------------ Getters ------------------------------ */
-
+    
     /** 
      * Gets the budget's category 
      * 
      * @return the category assigned for all the expenses in this group
      */
+    /* ------------------------------ Getters ------------------------------ */
+
     public Category getCategory() {
         return category;
     }
 
+    
     /** 
      * Gets the spending limit for this category group
      * 
@@ -61,15 +67,51 @@ public class Budget {
     public List<Expense> getExpenses() {
         return Collections.unmodifiableList(this.expenses);
     }
-    
+
     /* ------------------------------ Setters ------------------------------ */
 
     public void setLimit(double limit) {
         if (limit < 0) {
             throw new IllegalArgumentException("Budget amount cannot be negative.");
         }
-
         this.limit = limit;
+    }
+
+    /* ------------------------------ Helper Methods ------------------------------ */
+
+    /**
+     * Calculates the total amount spent in the category group
+     * 
+     * @return the total spent towards this budget
+     */
+    public double getTotalSpent() {
+        double totalSpent = 0.0;
+        for (Expense expense : this.expenses) {
+            totalSpent += expense.getAmount();
+        }
+        return totalSpent;
+    }
+
+    /**
+     * Calculates the percentage of the amount spent towards the
+     * category group 
+     * 
+     * @return
+     */
+    public double getPercentage() {
+        return this.getTotalSpent() / limit;
+    }
+
+    /**
+     * Adds a new expense to this budget if it is within
+     * this category group
+     * 
+     * @param newExpense
+     */
+    public void addExpense(Expense newExpense) {
+        if (newExpense.getCategory().equals(this.category)) {
+            this.expenses.add(newExpense);
+        }
     }
 
     /**
@@ -88,45 +130,11 @@ public class Budget {
         
     }
 
-    /* ------------------------------ Helper Methods ------------------------------ */
-    
-    /**
-     * Calculates the total amount spent in the category group
-     * 
-     * @return the total spent towards this budget
-     */
-    public double getTotalSpent() {
-            double totalSpent = 0.0;
-            for (Expense expense : expenses) {
-                totalSpent += expense.getAmount();
-            }
-            return totalSpent;
-        }
-
-    /**
-     * Calculates the percentage of the amount spent towards the
-     * category group 
-     * 
-     * @return
-     */ 
-    public double getPercentage(){
-        double percentage = (this.getTotalSpent() / this.getLimit()) * 100;
-        return Math.round(percentage * 100.0) / 100.0;
-    }
-
-    /**
-     * Adds a new expense to this budget if it is within
-     * this category group
-     * 
-     * @param newExpense
-     */
-    public void addExpense(Expense newExpense) {
-        this.expenses.add(newExpense);
-    }
-
     public void addExpenses(List<Expense> expenses) {
-        this.expenses.clear();
-        this.expenses.addAll(expenses);
+        for (Expense expense : expenses) {
+            this.addExpense(expense);
+        }
+        
     }
 
     /**
@@ -149,7 +157,7 @@ public class Budget {
      * @return true if max reached, false if otherwise
      */
     public boolean isExceeded() {
-        return getTotalSpent()/this.limit > 0.8;
+        return this.getTotalSpent() > limit;
     }
     
     /**
@@ -159,7 +167,7 @@ public class Budget {
      */
     @Override
     public String toString() {
-        return String.join(",", category.toString(), Double.toString(this.limit));
+        return String.join(",", this.getCategory().toString(), Double.toString(this.getLimit()));
     }
 
     /**

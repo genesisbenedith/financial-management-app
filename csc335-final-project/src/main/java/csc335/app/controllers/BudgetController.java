@@ -3,13 +3,12 @@ package csc335.app.controllers;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import csc335.app.Category;
+import csc335.app.persistence.AccountManager;
 import csc335.app.models.Budget;
 import csc335.app.models.Subject;
-import csc335.app.persistence.AccountRepository;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
@@ -23,7 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
-public class BudgetController implements Subject, Initializable{
+public class BudgetController implements Subject, Initializable {
 
     private static User currentUser;
 
@@ -32,19 +31,25 @@ public class BudgetController implements Subject, Initializable{
     @FXML
     private MFXNotificationCenter notificationCenter;
 
-    //TextFields for each category
+    // TextFields for each category
     @FXML
-    private TextField fText; double currF = 0;
+    private TextField fText;
+    double currF = 0;
     @FXML
-    private TextField tText; double currT = 0;
+    private TextField tText;
+    double currT = 0;
     @FXML
-    private TextField uText; double currU = 0;
+    private TextField uText;
+    double currU = 0;
     @FXML
-    private TextField hText; double currH = 0;
+    private TextField hText;
+    double currH = 0;
     @FXML
-    private TextField eText; double currE = 0;
+    private TextField eText;
+    double currE = 0;
     @FXML
-    private TextField oText; double currO = 0;
+    private TextField oText;
+    double currO = 0;
 
     // Panes for each category
     @FXML
@@ -78,7 +83,7 @@ public class BudgetController implements Subject, Initializable{
     @FXML
     private SidebarController navigation;
 
-    //Alert Images for each category
+    // Alert Images for each category
     @FXML
     private ImageView tAlert;
     @FXML
@@ -93,179 +98,157 @@ public class BudgetController implements Subject, Initializable{
     private ImageView oAlert;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Welcome to the Budget Panel!");
-    try {
-        currentUser = UserSessionManager.getCurrentUser();
+        currentUser = UserSessionManager.INSTANCE.getCurrentUser();
+        try {
 
-        tAlert.setVisible(false);
-        fAlert.setVisible(false);
-        hAlert.setVisible(false);
-        eAlert.setVisible(false);
-        oAlert.setVisible(false);
-        uAlert.setVisible(false);
+            tAlert.setVisible(false);
+            fAlert.setVisible(false);
+            hAlert.setVisible(false);
+            eAlert.setVisible(false);
+            oAlert.setVisible(false);
+            uAlert.setVisible(false);
 
-        Map<Category, Budget> budgets = currentUser.getBudgetsByCategory();
+            List<Budget> budgets = currentUser.getBudgets();
 
-        System.out.println("USER'S INFO  ONCE THE BUDGET PAGE IS LOADED:\n" + currentUser.toString());
+            System.out.println("USER'S INFO  ONCE THE BUDGET PAGE IS LOADED:\n" + currentUser.toString());
 
-        for (Budget b : budgets.values()) {
-            System.out.println(b.toString());
-    }
+            for (Budget b : budgets) {
+                System.out.println(b.toString());
+            }
 
-        setupPromptText(budgets.get(Category.FOOD), fText, foodProgress, fAlert);
-        setupPromptText(budgets.get(Category.ENTERTAINMENT), eText, entertainmentProgress, eAlert);
-        setupPromptText(budgets.get(Category.HEALTHCARE), hText, healthProgress, hAlert);
-        setupPromptText(budgets.get(Category.UTILITIES), uText, utilitiesProgress, uAlert);
-        setupPromptText(budgets.get(Category.TRANSPORTATION), tText, transportationProgress, tAlert);
-        setupPromptText(budgets.get(Category.OTHER), oText, otherProgress, oAlert);
+            setupPromptText(currentUser.findBudget(Category.FOOD), fText, foodProgress, fAlert);
+            setupPromptText(currentUser.findBudget(Category.ENTERTAINMENT), eText, entertainmentProgress, eAlert);
+            setupPromptText(currentUser.findBudget(Category.HEALTHCARE), hText, healthProgress, hAlert);
+            setupPromptText(currentUser.findBudget(Category.UTILITIES), uText, utilitiesProgress, uAlert);
+            setupPromptText(currentUser.findBudget(Category.TRANSPORTATION), tText, transportationProgress, tAlert);
+            setupPromptText(currentUser.findBudget(Category.OTHER), oText, otherProgress, oAlert);
 
-    } catch (Exception e) {
-        e.printStackTrace();
-        throw new RuntimeException("Failed to initialize BudgetController: " + e.getMessage());
-    }
-    addObserver(AccountRepository.getAccountRepository());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to initialize BudgetController: " + e.getMessage());
+        }
+
+        addObserver(AccountManager.REPOSITORY);
 
     }
 
     private void setupPromptText(Budget budg, TextField field, ProgressIndicator progressBar, ImageView alert) {
-    if (budg != null) {
-        if(budg.getLimit() != 0){
-            progressBar.setProgress(budg.getPercentage()/100);
+        if (budg != null) {
+            if (budg.getLimit() != 0) {
+                progressBar.setProgress(budg.getPercentage() / 100);
+            }
+            double limit = budg.getLimit();
+            field.setPromptText(limit + "");
+            if (budg.isExceeded()) {
+                alert.setVisible(true);
+            }
         }
-        double limit = budg.getLimit();
-        field.setPromptText(limit + "");
-        if (budg.isExceeded()) {
-            alert.setVisible(true);
-        }
+
+        System.out.println(field.isEditable());
+        // Set spinner to editable
+        field.setEditable(true);
     }
 
-    System.out.println(field.isEditable());
-    // Set spinner to editable
-    field.setEditable(true);
-}
-
-    private double handleBudget(Category category, TextField field, ProgressIndicator progress, ImageView alert) {
+    private void handleBudget(Category category, TextField field, ProgressIndicator progress, ImageView alert) {
         alert.setVisible(false);
         Double value = 0.0;
-        try
-        {
-          value = Double.parseDouble(field.getText());
+        try {
+            value = Double.parseDouble(field.getText());
+        } catch (NumberFormatException e) {
+            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Input error", "The input is not a number format");
+            return;
         }
-        catch(NumberFormatException e)
-        {
-          showAlert(AlertType.ERROR, "Input error", "The input is not a number format");
-          return value;
-        }
-                
-                System.out.println(value);
-                // Convert user input to double 
 
-                currentUser.updateBudget(category, value);
-                System.out.println("The new value is now: " + Double.toString(value));
-                Double fraction = 0.0;
-                for (Budget b : currentUser.getBudgetsByCategory().values()) {
-                    if (b.getCategory().equals(category)) {
-                        //currentUser.setBudget(b);
-                        fraction = b.getPercentage() / 100;
-                        if (b.isExceeded()) {
-                            alert.setVisible(true);
-                        }
-                        if (b.getLimit() < 0) {
-                            showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
-                            return 0;
-                        }
-                    }
-                }
-    
-                progress.setProgress(fraction); // Normalize for example (e.g., value out of 100)
-                // saveBudgetToFile();
-                return value;
+        System.out.println(value);
+        // Check if value is negative
+        if (value < 0) {
+            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+            return;
+        }
+
+        // Set budget to new value
+        Budget budget = currentUser.findBudget(category);
+        currentUser.setBudget(category, value);
+        System.out.println("The new value is now: " + Double.toString(value));
+        
+        
+        if (budget.isExceeded()) {
+            alert.setVisible(true);
+        }
+        
+        Double fraction = budget.getPercentage() / 100;
+        progress.setProgress(fraction); // Normalize for example (e.g., value out of 100)
+
+        notifyObservers();
+    }
+
+    // Individual handlers call the generalized method
+    @FXML
+    private void handleTransport() {
+        tText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.TRANSPORTATION, tText, transportationProgress, tAlert);
             }
+        });
+    }
 
-// Individual handlers call the generalized method
-@FXML
-private void handleTransport() {
-    tText.setOnKeyPressed(event -> {
-        if (event.getCode() == KeyCode.ENTER) {
-            currT = handleBudget(Category.TRANSPORTATION, tText, transportationProgress, tAlert);
-            notifyObservers();
-        }
-    });
-}
+    @FXML
+    private void handleEntertainment() {
+        eText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.ENTERTAINMENT, eText, entertainmentProgress, eAlert);
+            }
+        });
+    }
 
-@FXML
-private void handleEntertainment() {
-    eText.setOnKeyPressed(event -> {
-        if (event.getCode() == KeyCode.ENTER) {
-    currE = handleBudget(Category.ENTERTAINMENT, eText, entertainmentProgress, eAlert);
-    notifyObservers();
-        }
-    });
-}
+    @FXML
+    private void handleUtilities() {
+        uText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.UTILITIES, uText, utilitiesProgress, uAlert);
+            }
+        });
+    }
 
-@FXML
-private void handleUtilities() {
-    uText.setOnKeyPressed(event -> {
-        if (event.getCode() == KeyCode.ENTER) {
-    currU = handleBudget(Category.UTILITIES, uText, utilitiesProgress, uAlert);
-    notifyObservers();
-        }
-    });
-}
+    @FXML
+    private void handleFood() {
+        fText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.FOOD, fText, foodProgress, fAlert);
+            }
+        });
+    }
 
-@FXML
-private void handleFood() {
-    fText.setOnKeyPressed(event -> {
-        if (event.getCode() == KeyCode.ENTER) {
-    currF = handleBudget(Category.FOOD, fText, foodProgress, fAlert);
-    notifyObservers();
-        }
-    });
-}
+    @FXML
+    private void handleHealth() {
+        hText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.HEALTHCARE, hText, healthProgress, hAlert);
+            }
+        });
+    }
 
-@FXML
-private void handleHealth() {
-    hText.setOnKeyPressed(event -> {
-        if (event.getCode() == KeyCode.ENTER) {
-    currH = handleBudget(Category.HEALTHCARE, hText, healthProgress, hAlert);
-    notifyObservers();
-        }
-    });
-}
-
-@FXML
-private void handleOther() {
-    oText.setOnKeyPressed(event -> {
-        if (event.getCode() == KeyCode.ENTER) {
-    currO = handleBudget(Category.OTHER, oText, otherProgress, oAlert);
-    notifyObservers();
-        }
-    });
-}
-   
-
-    /**
-     * 
-     * @param alertType
-     * @param title
-     * @param message
-     */
-    private void showAlert(AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
+    @FXML
+    private void handleOther() {
+        oText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.OTHER, oText, otherProgress, oAlert);
+            }
+        });
     }
 
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
     }
+
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
+
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {

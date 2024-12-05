@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import csc335.app.CalendarConverter;
 import csc335.app.Category;
 import csc335.app.models.Expense;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
+import csc335.app.utils.CalendarConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;

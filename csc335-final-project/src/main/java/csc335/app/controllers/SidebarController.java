@@ -53,39 +53,39 @@ public class SidebarController implements Initializable{
 
         
         // REVIEW Action listeners
-        // dashboardPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.DASHBOARD));
-        // expensePane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.EXPENSE));
-        // budgetPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.BUDGET));
-        // reportPane.setOnMouseClicked(click -> ViewManager.getViewManager().loadView(View.REPORT));
-        // logoutPane.setOnMouseClicked(click -> handleLogOutPaneClicked());
+        // dashboardPane.setOnMouseClicked(click -> ViewManager.INSTANCE.loadView(View.DASHBOARD));
+        // expensePane.setOnMouseClicked(click -> ViewManager.INSTANCE.loadView(View.EXPENSE));
+        // budgetPane.setOnMouseClicked(click -> ViewManager.INSTANCE.loadView(View.BUDGET));
+        // reportPane.setOnMouseClicked(click -> ViewManager.INSTANCE.loadView(View.REPORT));
+        logoutPane.setOnMouseClicked(click -> handleLogOutPaneClick());
         System.out.println("Sidebar panel has been activated.");
 
     }
 
     @FXML
     private void handleBudgetPaneClick(MouseEvent event) {
-        ViewManager.getViewManager().loadView(View.BUDGET);
+        ViewManager.INSTANCE.loadView(View.BUDGET);
     }
 
     @FXML
     private void handleExpensePaneClick(MouseEvent event) {
-        ViewManager.getViewManager().loadView(View.EXPENSE);
+        ViewManager.INSTANCE.loadView(View.EXPENSE);
     }
 
     @FXML
     private void handleReportPaneClick(MouseEvent event) {
-        ViewManager.getViewManager().loadView(View.REPORT);
+        ViewManager.INSTANCE.loadView(View.REPORT);
     }
 
     @FXML
     private void handleDashboardPaneClick(MouseEvent event) {
-        ViewManager.getViewManager().loadView(View.DASHBOARD);
+        ViewManager.INSTANCE.loadView(View.DASHBOARD);
     }
 
     @FXML
     private void handleLogOutPaneClick() {
-        UserSessionManager.getUserSessionManager().resetCurrentUser();
-        ViewManager.getViewManager().loadView(View.LOGIN);
+        UserSessionManager.INSTANCE.resetCurrentUser();
+        ViewManager.INSTANCE.loadView(View.LOGIN);
     }
 
    
