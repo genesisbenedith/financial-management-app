@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseButton;
@@ -52,6 +53,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import csc335.app.Category;
+import csc335.app.models.Budget;
 import csc335.app.models.Expense;
 import csc335.app.models.Subject;
 import csc335.app.persistence.AccountRepository;
@@ -121,6 +123,27 @@ public class ExpensesController implements Initializable, Subject{
 
     @FXML
     private ImageView delete;
+
+    @FXML
+    private HBox percentBar;
+
+    @FXML
+    private Pane foodBar;
+
+    @FXML
+    private Pane enterntainmentBar;
+
+    @FXML
+    private Pane transportBar;
+
+    @FXML
+    private Pane utilityBar;
+
+    @FXML
+    private Pane healthcareBar;
+
+    @FXML
+    private Pane otherBar;
 
     private static final List<Observer> observers = new ArrayList<>();
     private User currentUser;
@@ -366,6 +389,19 @@ public class ExpensesController implements Initializable, Subject{
         // make it hoverable with the label and percentage of the total expenses from that catefory visible when hovered over
         // and then it will be clickable and the bar will change to that category and the percentage of the budget for that category already set in expenses will show up
         // clear will send you back to the total budget
+        
+        for (Budget b : UserSessionManager.getCurrentUser().getBudgetsByCategory().values()) {
+            if (b.getCategory().equals(category)) {
+                if (b.isExceeded()) {
+                    alert.setVisible(true);
+                    progress.setProgress(Math.min(1.0, b.getTotalSpent() / b.getLimit()));
+                }
+                if (b.getLimit() < 0) {
+                    showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+                    return 0;
+                }
+            }
+        }
     }
 
     private void progressBarClick(){

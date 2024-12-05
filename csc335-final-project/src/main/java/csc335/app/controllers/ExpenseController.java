@@ -9,12 +9,16 @@ import csc335.app.persistence.AccountRepository;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
 import com.gluonhq.charm.glisten.control.DropdownButton;
+
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -33,6 +37,12 @@ public class ExpenseController implements Initializable, Subject{
 
     @FXML
     private TextField expenseSummary;
+
+    @FXML
+    private MFXButton save;
+
+    @FXML
+    private MFXButton cancel;
 
     private User currentUser;
     private static final List<Observer> observers = new ArrayList<>();
@@ -87,6 +97,8 @@ public class ExpenseController implements Initializable, Subject{
         return calendar;
     }
 
+    // use this for the save click
+    @FXML
     public void handleAddExpenseClick(){
         if (amountField == null) {
             showAlert(AlertType.ERROR, "Error", "All fields are required.");
@@ -105,12 +117,17 @@ public class ExpenseController implements Initializable, Subject{
             currentUser.addExpense(new Expense(localDateToCalenderDate(currentDate.getValue()), null, amount, expenseSummary.getText()));
             notifyObservers();
 
+
             // [ ] close popup
         } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error", "Invalid amount format.");
         }
     }
 
-    
+    @FXML
+    public void onCancelClick(){
+        Stage stage = (Stage) cancel.getScene().getWindow();
+        stage.close();
+    }
 
 }
