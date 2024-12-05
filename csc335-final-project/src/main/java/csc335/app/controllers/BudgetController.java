@@ -9,9 +9,10 @@ import java.util.ResourceBundle;
 import csc335.app.Category;
 import csc335.app.models.Budget;
 import csc335.app.models.Subject;
-import csc335.app.persistence.AccountRepository;
+import csc335.app.persistence.AccountRepo;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
+import csc335.app.services.ExpenseTracker;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -96,7 +97,7 @@ public class BudgetController implements Subject, Initializable{
     public void initialize(URL location, ResourceBundle resources){
         System.out.println("Welcome to the Budget Panel!");
     try {
-        currentUser = UserSessionManager.getCurrentUser();
+        currentUser = ExpenseTracker.INSTANCE;
 
         tAlert.setVisible(false);
         fAlert.setVisible(false);
@@ -105,11 +106,11 @@ public class BudgetController implements Subject, Initializable{
         oAlert.setVisible(false);
         uAlert.setVisible(false);
 
-        Map<Category, Budget> budgets = currentUser.getBudgetsByCategory();
+        List<Budget> budgets = currentUser.getBudgets();
 
         System.out.println("USER'S INFO  ONCE THE BUDGET PAGE IS LOADED:\n" + currentUser.toString());
 
-        for (Budget b : budgets.values()) {
+        for (Budget b : budgets) {
             System.out.println(b.toString());
     }
 
@@ -124,7 +125,7 @@ public class BudgetController implements Subject, Initializable{
         e.printStackTrace();
         throw new RuntimeException("Failed to initialize BudgetController: " + e.getMessage());
     }
-    addObserver(AccountRepository.getAccountRepository());
+    //addObserver(AccountRepo.REPOSITORY.loadUsers());
 
     }
 
@@ -164,7 +165,7 @@ public class BudgetController implements Subject, Initializable{
                 currentUser.updateBudget(category, value);
                 System.out.println("The new value is now: " + Double.toString(value));
                 Double fraction = 0.0;
-                for (Budget b : currentUser.getBudgetsByCategory().values()) {
+                for (Budget b : currentUser.getBudgets().values()) {
                     if (b.getCategory().equals(category)) {
                         //currentUser.setBudget(b);
                         fraction = b.getPercentage() / 100;
