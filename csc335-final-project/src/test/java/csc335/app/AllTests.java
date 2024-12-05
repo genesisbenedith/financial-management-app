@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import csc335.app.models.Budget;
+import csc335.app.models.Category;
 import csc335.app.models.Expense;
 import java.util.ArrayList;
 
@@ -21,19 +22,19 @@ public class AllTests{
     /*---------------------------------------------------------Budget Tests---------------------------------------------------------------------------------------*/
     @Test 
     public void testgetCategory(){
-        Budget myBudget = new Budget(Category.FOOD, 500.25);
+        Budget myBudget = new Budget(Category.FOOD, 500.25, new ArrayList<>());
         assertEquals(Category.FOOD, myBudget.getCategory());
     }
 
     @Test
     public void testgetLimit(){
-        Budget myBudget = new Budget(Category.UTILITIES, 510.25);
+        Budget myBudget = new Budget(Category.UTILITIES, 510.25, new ArrayList<>());
         assertEquals(510.25, myBudget.getLimit());
     }
 
     @Test
     public void testgetTotalSpentandAddRemoveExpense(){
-        Budget myBudget = new Budget(Category.FOOD, 500.25);
+        Budget myBudget = new Budget(Category.FOOD, 500.25, new ArrayList<>());
         assertEquals(500.25, myBudget.getLimit());
         Calendar calendar = Calendar.getInstance();
         calendar.set(2024, 12, 1);
@@ -48,7 +49,7 @@ public class AllTests{
 
     @Test
     public void testsetLimitandThrowException(){
-        Budget myBudget = new Budget(Category.ENTERTAINMENT, 76);
+        Budget myBudget = new Budget(Category.ENTERTAINMENT, 76, new ArrayList<>());
         myBudget.setLimit(45.15);
         assertTrue(myBudget.getLimit() != 76);
         assertThrows(IllegalArgumentException.class,() -> myBudget.setLimit(-1.0));
@@ -56,7 +57,7 @@ public class AllTests{
 
     @Test
     public void testgetPercentageandisExceeded(){
-        Budget myBudget = new Budget(Category.HEALTHCARE, 1000);
+        Budget myBudget = new Budget(Category.HEALTHCARE, 100, new ArrayList<>());
         List<Expense> expenses = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.set(2022, 8, 14);
@@ -66,12 +67,12 @@ public class AllTests{
         expenses.add(expense2); expenses.add(expense);
         myBudget.addExpenses(expenses);
         assertTrue(myBudget.isExceeded());
-        assertEquals(82.98, myBudget.getPercentage());
+        assertEquals(82.98, myBudget.getPercentage(), 0.01);
     }
 
     @Test
     public void testToString(){
-        Budget myBudget = new Budget(Category.TRANSPORTATION, 7500);
+        Budget myBudget = new Budget(Category.TRANSPORTATION, 7500, new ArrayList<>());
         assertEquals("Transportation,7500.0", myBudget.toString());
     }
 

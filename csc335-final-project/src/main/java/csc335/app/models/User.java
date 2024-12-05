@@ -1,10 +1,9 @@
-package csc335.app.persistence;
+package csc335.app.models;
 
 import java.util.Collections;
 import java.util.List;
-import csc335.app.Category;
-import csc335.app.models.Budget;
-import csc335.app.models.Expense;
+
+import csc335.app.persistence.Hasher;
 
 // [ ] Complete file coment
 /**
@@ -146,7 +145,10 @@ public class User {
 
         return sb.toString();
     }
-
+    
+    public boolean isPasswordCorrect(String password) {
+        return Hasher.matches(password, this.salt, this.hashedPassword);
+    }
    
   
 

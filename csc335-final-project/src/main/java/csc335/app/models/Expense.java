@@ -10,8 +10,6 @@ package csc335.app.models;
 
 import java.util.Calendar;
 
-import csc335.app.Category;
-
 
 /**
  * This class represents a transaction made by a user

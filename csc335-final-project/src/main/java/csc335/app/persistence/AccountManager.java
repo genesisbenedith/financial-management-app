@@ -1,10 +1,9 @@
 package csc335.app.persistence;
 
-import java.util.Map;
-
 import csc335.app.controllers.Observer;
 import csc335.app.controllers.View;
 import csc335.app.controllers.ViewManager;
+import csc335.app.models.User;
 import javafx.scene.control.Alert.AlertType;
 
 // [ ] Complete file coment
@@ -19,12 +18,6 @@ import javafx.scene.control.Alert.AlertType;
 public enum AccountManager implements Observer {
 
     REPOSITORY; // The single instance of the enum
-
-    private Map<String, User> users = Database.INSTANCE.loadUserAccounts();
-
-    public void loadUsers() {
-        REPOSITORY.users = Database.INSTANCE.loadUserAccounts();
-    }
 
     @Override
     public void update() {
@@ -83,23 +76,17 @@ public enum AccountManager implements Observer {
      * @param password
      */
     public void authenticateUser(String username, String password) {
+        /* Find user and get their login credentials */
+        User user = Database.INSTANCE.findUser(username, "Username");
+
         /* Show error alert and void if username does not exist to any account */
-        if (!Database.INSTANCE.findUser(username)) {
+        if (user == null) {
             ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Username does not exist!");
             return;
         }
 
-        /* Find user and get their login credentials */
-        User user = users.get(username);
-        String storedHashedPassword = user.getHashedPassword();
-        String storedSalt = user.getSalt();
-
-        /* Encrypt the entered password and compare to the stored encryption */
-        String hashedPassword = Hasher.hashPassword(password, storedSalt);
-        boolean authenticated = hashedPassword.equals(storedHashedPassword);
-
         /* Show alert and void if authentication failed */
-        if (!authenticated)
+        if (!user.isPasswordCorrect(password))
             ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Authentication Failed", "Invalid username or password.");
 
         /* Set active user session and load dashboard view */
@@ -117,7 +104,7 @@ public enum AccountManager implements Observer {
      * @return true if username is already in use, or false if otherwise
      */
     private boolean isUsernameTaken(String username) {
-        return REPOSITORY.users.containsKey(username);
+        return Database.INSTANCE.findUser(username, "Username") != null;
     }
 
     /**
@@ -128,11 +115,6 @@ public enum AccountManager implements Observer {
      * @return true if email is already in use, or false if otherwise
      */
     private boolean isEmailTaken(String email) {
-        for (User account : REPOSITORY.users.values()) {
-            if (account.getEmail().equalsIgnoreCase(email)) {
-                return true;
-            }
-        }
-        return false;
+        return Database.INSTANCE.findUser(email, "Email") != null;
     }
 }

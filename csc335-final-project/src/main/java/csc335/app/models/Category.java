@@ -1,4 +1,4 @@
-package csc335.app;
+package csc335.app.models;
 
 // [ ] Complete file comment
 /**

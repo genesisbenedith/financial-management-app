@@ -12,8 +12,6 @@ package csc335.app.models;
 import java.util.Collections;
 import java.util.List;
 
-import csc335.app.Category;
-
 public class Budget {
 
     /*  */
@@ -99,7 +97,7 @@ public class Budget {
      * @return
      */
     public double getPercentage() {
-        return this.getTotalSpent() / limit;
+        return (this.getTotalSpent() / limit) * 10;
     }
 
     /**

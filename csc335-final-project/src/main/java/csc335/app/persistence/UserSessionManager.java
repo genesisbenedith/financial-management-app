@@ -3,6 +3,8 @@ package csc335.app.persistence;
  * @author Genesis Benedith
  */
 
+import csc335.app.models.User;
+
 // [ ] Needs class comment
 /**
  * 

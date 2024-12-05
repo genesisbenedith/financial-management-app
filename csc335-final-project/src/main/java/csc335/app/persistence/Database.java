@@ -13,18 +13,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import csc335.app.Category;
 import csc335.app.models.Budget;
+import csc335.app.models.Category;
 import csc335.app.models.Expense;
+import csc335.app.models.User;
 import csc335.app.utils.CalendarConverter;
 
 public enum Database {
 
     INSTANCE; // Singleton instance
 
-    private  final String DATABASE_DIRECTORY = "database";
-    private  final String ACCOUNTS_DIRECTORY = "accounts";
-    private  final String ACCOUNT_DATA = "_all_accounts.txt";
+    private final String DATABASE_DIRECTORY = "database";
+    private final String ACCOUNTS_DIRECTORY = "accounts";
+    private final String ACCOUNT_DATA = "_all_accounts.txt";
     private final Map<String, User> USER_ACCOUNTS = loadUserAccounts();
 
     /**
@@ -52,24 +53,22 @@ public enum Database {
             bw.write(String.join(",", username, email, hashedPassword, salt) + "\n");
 
             List<Budget> budgets = new ArrayList<>();
-                for (Category category : Category.values()) {
-                    List<Expense> expenses = new ArrayList<>();
-                    Budget budget = new Budget(category, 0, expenses);
-                    budgets.add(budget);
-                }
-            
-            
-                System.out.println("Completing profile...\n");
+            for (Category category : Category.values()) {
+                List<Expense> expenses = new ArrayList<>();
+                Budget budget = new Budget(category, 0, expenses);
+                budgets.add(budget);
+            }
+
+            System.out.println("Completing profile...\n");
             User newUser = new User(username, email, hashedPassword, salt, budgets);
             System.out.println(newUser.toString());
 
             System.out.println("Saving new account...\n");
             saveUserFile(newUser);
 
-            System.out.println("Account creation success.\n"); 
+            System.out.println("Account creation success.\n");
             USER_ACCOUNTS.put(username, newUser);
             System.out.println(Integer.toString(USER_ACCOUNTS.values().size()) + " accounts in database.");
-
 
         } catch (IOException e) {
             throw new RuntimeException("An error occured adding account to database: " + e.getMessage());
@@ -91,20 +90,20 @@ public enum Database {
             bw.write("\n-------------------- Expenses --------------------");
             bw.newLine();
             bw.write(user.toString());
-                bw.newLine();
-                
+            bw.newLine();
+
         } catch (IOException e) {
             System.err.println("Unable to write to file: " + e.getMessage());
         }
     }
 
     /**
-     * Loads the accounts for all registered users 
+     * Loads the accounts for all registered users
      * 
      * @return a key-value map of every username and their account data
-     * @throws RuntimeException if there's an error accessing the database  
+     * @throws RuntimeException if there's an error accessing the database
      */
-    protected Map<String, User> loadUserAccounts() throws RuntimeException{
+    protected Map<String, User> loadUserAccounts() throws RuntimeException {
         List<User> usersFound = new ArrayList<>();
         Map<String, User> usersLoaded = new HashMap<>(); // Holds all user accounts
 
@@ -114,8 +113,8 @@ public enum Database {
 
         /* Searching through the registered accounts in the file */
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            
-            /* Reading each line until EOF  */
+
+            /* Reading each line until EOF */
             String line;
             while ((line = br.readLine()) != null) {
                 // Checking if the line contains characters (not including whitespace)
@@ -123,9 +122,11 @@ public enum Database {
                     continue;
                 }
 
-                /* Expecting accounts to be in the following format -> Username,Email,HashedPassword,Salt
+                /*
+                 * Expecting accounts to be in the following format ->
+                 * Username,Email,HashedPassword,Salt
                  *
-                 * Skipping any lines that do not have FOUR comma-separated values 
+                 * Skipping any lines that do not have FOUR comma-separated values
                  */
                 String[] account = line.split(",");
                 if (account.length != 4) {
@@ -155,26 +156,26 @@ public enum Database {
                 /* Instantiate a new <User> object to represent user */
                 User user = new User(username, email, hashedPassword, salt, budgets);
                 usersFound.add(user);
-                System.out.println("\nUser found -> " + username);  
+                System.out.println("\nUser found -> " + username);
             }
 
         } catch (IOException e) {
             throw new RuntimeException("\nAn error occured loading accounts from database: " + e.getMessage());
         }
-        
+
         System.out.println("\n" + Integer.toString(usersFound.size()) + " users found.");
-        
+
         /* Load the account for every user found */
-        for (User usr : usersFound ) {
+        for (User usr : usersFound) {
             try {
                 loadUserAccount(usr);
                 System.out.println("\nUser account loaded --------------------");
-                System.out.println(usr.toString()); 
+                System.out.println(usr.toString());
                 usersLoaded.put(usr.getUsername(), usr);
                 USER_ACCOUNTS.put(usr.getUsername(), usr);
             } catch (RuntimeException e) {
                 System.err.println("An error occurred loading the account history for -> " + usr.getUsername());
-                
+
             }
         }
 
@@ -187,23 +188,23 @@ public enum Database {
      * 
      * @param username the username that is registered to the account
      * @throws RuntimeException if the user's transaction history file
-     * cannot be found
+     *                          cannot be found
      */
     private void loadUserAccount(User user) throws RuntimeException {
         /* The path to the file that contains all registered accounts */
         Path filePath = Path.of(DATABASE_DIRECTORY, ACCOUNTS_DIRECTORY, user.getUsername() + "_transactions.txt");
         File file = filePath.toFile();
-        
+
         /* Searching through user's transcations in the file */
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            
+
             List<Expense> expensesFoundInFile = new ArrayList<>();
             Map<Category, Budget> budgetsfoundInFile = new HashMap<>();
 
             /* Read each line until end of file */
             String line;
             while ((line = br.readLine()) != null) {
-                
+
                 /* Skipping line if empty */
                 if (!(line.contains("-> Budget") || line.contains("Expense"))) {
                     continue;
@@ -213,7 +214,6 @@ public enum Database {
                 String[] data = line.split(":");
                 if (data.length != 2)
                     continue;
-
 
                 // Checking if the line contains a budget or an expense
                 if (data[0].trim().contains("Budget")) {
@@ -238,7 +238,7 @@ public enum Database {
                     int day = Integer.parseInt(date[2]);
 
                     // System.out.print("THE EXPENSE DATE FOUND");
-                    
+
                     /* Setting the calendar for transaction date */
                     Calendar calendar = CalendarConverter.INSTANCE.getCalendar(year, month, day);
                     Category category = Category.valueOf(parts[1].trim().toUpperCase());
@@ -251,7 +251,8 @@ public enum Database {
                 }
             }
 
-            /* Loops through all the expenses found and finding the 
+            /*
+             * Loops through all the expenses found and finding the
              * assigned budget. Also adds the expense to the Budget class.
              */
             for (Expense expense : expensesFoundInFile) {
@@ -259,12 +260,13 @@ public enum Database {
                 assignedBudget.addExpense(expense);
             }
 
-            /* Indiviually sets each budget for the User class 
+            /*
+             * Indiviually sets each budget for the User class
              * with the expenses already loaded
-            */
+             */
             for (Budget budget : budgetsfoundInFile.values())
                 user.setBudget(budget);
-            
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
             throw new RuntimeException("An error occured loading account from database: " + e.getMessage());
@@ -272,8 +274,19 @@ public enum Database {
 
     }
 
-    protected boolean findUser(String username) {
+    protected User findUser(String query, String filter) {
         loadUserAccounts();
-        return USER_ACCOUNTS.containsKey(username);
+
+        if ("Email".equals(filter)) {
+            for (User account : USER_ACCOUNTS.values()) {
+                if (account.getEmail().equalsIgnoreCase(query)) {
+                    return account;
+                }
+            }
+        } else if ("Username".equals(filter)) {
+            return USER_ACCOUNTS.get(query);
+        }
+
+        return null;
     }
 }

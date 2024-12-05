@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import csc335.app.Category;
 import csc335.app.persistence.AccountManager;
 import csc335.app.models.Budget;
+import csc335.app.models.Category;
 import csc335.app.models.Subject;
-import csc335.app.persistence.User;
+import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
@@ -35,22 +35,16 @@ public class BudgetController implements Subject, Initializable {
     // TextFields for each category
     @FXML
     private TextField fText;
-    double currF = 0;
     @FXML
     private TextField tText;
-    double currT = 0;
     @FXML
     private TextField uText;
-    double currU = 0;
     @FXML
     private TextField hText;
-    double currH = 0;
     @FXML
     private TextField eText;
-    double currE = 0;
     @FXML
     private TextField oText;
-    double currO = 0;
 
     // Panes for each category
     @FXML
@@ -81,8 +75,7 @@ public class BudgetController implements Subject, Initializable {
     private ProgressIndicator entertainmentProgress;
     @FXML
     private ProgressIndicator otherProgress;
-    @FXML
-    private SidebarController navigation;
+
 
     // Alert Images for each category
     @FXML
