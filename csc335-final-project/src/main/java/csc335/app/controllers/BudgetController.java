@@ -11,6 +11,7 @@ import csc335.app.models.Budget;
 import csc335.app.models.Subject;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
+import csc335.app.services.ExpenseTracker;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
