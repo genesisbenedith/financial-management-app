@@ -1,12 +1,15 @@
 package csc335.app.controllers;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import csc335.app.Category;
 import csc335.app.models.Budget;
 import csc335.app.models.Subject;
+import csc335.app.persistence.AccountRepository;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
@@ -23,6 +26,8 @@ import javafx.scene.layout.Pane;
 public class BudgetController implements Subject, Initializable{
 
     private static User currentUser;
+
+    private static final List<Observer> observers = new ArrayList<>();
 
     @FXML
     private MFXNotificationCenter notificationCenter;
@@ -119,6 +124,8 @@ public class BudgetController implements Subject, Initializable{
         e.printStackTrace();
         throw new RuntimeException("Failed to initialize BudgetController: " + e.getMessage());
     }
+    addObserver(AccountRepository.getAccountRepository());
+
     }
 
     private void setupPromptText(Budget budg, TextField field, ProgressIndicator progressBar, ImageView alert) {
@@ -182,7 +189,7 @@ private void handleTransport() {
     tText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
             currT = handleBudget(Category.TRANSPORTATION, tText, transportationProgress, tAlert);
-            //[ ] updateFile()
+            notifyObservers();
         }
     });
 }
@@ -192,7 +199,7 @@ private void handleEntertainment() {
     eText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currE = handleBudget(Category.ENTERTAINMENT, eText, entertainmentProgress, eAlert);
-    //[ ] updateFile()
+    notifyObservers();
         }
     });
 }
@@ -202,7 +209,7 @@ private void handleUtilities() {
     uText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currU = handleBudget(Category.UTILITIES, uText, utilitiesProgress, uAlert);
-    //[ ] updateFile()
+    notifyObservers();
         }
     });
 }
@@ -212,7 +219,7 @@ private void handleFood() {
     fText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currF = handleBudget(Category.FOOD, fText, foodProgress, fAlert);
-    //[ ] updateFile()
+    notifyObservers();
         }
     });
 }
@@ -222,7 +229,7 @@ private void handleHealth() {
     hText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currH = handleBudget(Category.HEALTHCARE, hText, healthProgress, hAlert);
-    //[ ] updateFile()
+    notifyObservers();
         }
     });
 }
@@ -232,7 +239,7 @@ private void handleOther() {
     oText.setOnKeyPressed(event -> {
         if (event.getCode() == KeyCode.ENTER) {
     currO = handleBudget(Category.OTHER, oText, otherProgress, oAlert);
-    //[ ] updateFile()
+    notifyObservers();
         }
     });
 }
@@ -253,18 +260,17 @@ private void handleOther() {
 
     @Override
     public void addObserver(Observer observer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addObserver'");
+        observers.add(observer);
     }
     @Override
     public void removeObserver(Observer observer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeObserver'");
+        observers.remove(observer);
     }
     @Override
     public void notifyObservers() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'notifyObservers'");
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 
 }
