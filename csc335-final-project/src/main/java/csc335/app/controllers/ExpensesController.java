@@ -250,8 +250,12 @@ public class ExpensesController implements Initializable, Subject{
         ViewManager.getViewManager().loadView(View.EXPENSE);
     }
 
+    @FXML
     private void editExpenseClick(){
         // use add expense popup but with different title and the information already filled in, just editable
+        ViewManager.getViewManager().loadView(View.EXPENSE);
+        ExpenseController editExpense = new ExpenseController();
+        editExpense.setContentText(expense);
     }
 
     @FXML
@@ -289,11 +293,11 @@ public class ExpensesController implements Initializable, Subject{
         if (!progressBarClick() || clearButton){
             loadExpenses(currentUser.getExpensesInRange(startCal, endCal));
         }
-        loadExpenses(currentUser.getExpensesInRange(startCal, endCal, category)); // category will be te category clicked form the bar or the total expenses if none were selected
+        loadExpenses(currentUser.getExpensesInRange(startCal, endCal, category)); // category will be the category clicked form the bar or the total expenses if none were selected
 
     }
 
-    private void loadExpenses(List<Expense> expenses){
+    public void loadExpenses(List<Expense> expenses){
         // dateChild.setText("");
         // summaryChild.setText("");
         // categoryChild.setText("");
