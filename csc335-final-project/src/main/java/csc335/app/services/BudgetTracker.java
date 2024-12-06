@@ -122,6 +122,10 @@ public enum BudgetTracker  {
         return findBudget(category).getLimit();
     }
 
+    public Double getBudgetSpent(Category category) {
+        return findBudget(category).getTotalSpent();
+    }
+
     
 
 

@@ -189,6 +189,14 @@ public class BudgetController implements Initializable {
             alert.setVisible(true);
         }
 
+        Double totalSpent = BudgetTracker.TRACKER.getBudgetSpent(category);
+        System.out.println(totalSpent / value >= 0.8);
+        if (totalSpent / value >= 0.8) {
+            alert.setVisible(true);
+        } else{
+            alert.setVisible(false);
+        }
+
         /* Set progress indicator for this budget category */
         Double fraction = BudgetTracker.TRACKER.getBudgetProgress(category);
         progress.setProgress(fraction); // Normalize for example (e.g., value out of 100)

@@ -163,9 +163,7 @@ public enum Database {
         File userFile = filePath.toFile();
 
         // Write expenses to file
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(userFile, true))) {
-            bw.write("\n-------------------- Expenses --------------------");
-            bw.newLine();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(userFile))) {
             bw.write(user.toString());
             bw.newLine();
 
@@ -215,7 +213,7 @@ public enum Database {
             while ((line = br.readLine()) != null) {
 
                 /* Skipping line if empty */
-                if (!(line.contains("-> Budget") || line.contains("Expense"))) {
+                if (!(line.contains("-> Budget:") || line.contains("Expense:"))) {
                     continue;
                 }
                 System.out.println("READING A LINE -> " + line);
@@ -290,14 +288,17 @@ public enum Database {
      */
     protected User findUserAccount(String query, String filter) {
         refreshAccounts();
-
+        System.out.println("Query: " + query);
+        System.out.println("Filter: " + filter);
+        System.out.println("USER_ACCOUNTS: " + USER_ACCOUNTS.keySet());
         if ("Email".equals(filter)) {
             for (User account : USER_ACCOUNTS.values()) {
                 if (account.getEmail().equalsIgnoreCase(query)) {
                     return account;
                 }
             }
-        } else if ("Username".equals(filter)) {
+        } 
+        if ("Username".equals(filter)) {
             return USER_ACCOUNTS.get(query);
         }
 

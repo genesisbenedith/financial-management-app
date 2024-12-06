@@ -4,14 +4,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.dlsc.gemsfx.EnhancedPasswordField;
+
 import csc335.app.persistence.AccountManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyCode;
 
 public class SignInController implements Initializable {
 
@@ -19,7 +21,10 @@ public class SignInController implements Initializable {
     private TextField usernameField;
 
     @FXML
-    private PasswordField passwordField;
+    private EnhancedPasswordField passwordField;
+
+    @FXML
+    private Button signInLabel;
 
     @FXML
     private Label signUpLabel;
@@ -27,11 +32,22 @@ public class SignInController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignInController initialized.");
-    }
 
-    @FXML
-    private void handleSignUpClick(MouseEvent event) {
-        View.REGISTER.loadView();
+        passwordField.setEchoChar('★');
+        passwordField.setOnKeyPressed(event1 -> {
+            if (event1.getCode() == KeyCode.ENTER) {
+                loginUser();
+            }
+        });
+
+        usernameField.setOnKeyPressed(event2 -> {
+            if (event2.getCode() == KeyCode.ENTER) {
+                loginUser();
+            }
+        });
+
+        signInLabel.setOnMouseClicked(event3 -> { loginUser(); });
+        signUpLabel.setOnMouseClicked(event4 -> { View.REGISTER.loadView(); });
     }
 
     // EDIT method comment and in-line comments
@@ -40,8 +56,7 @@ public class SignInController implements Initializable {
      * 
      * @throws IOException
      */
-    @FXML
-    private void handleSignInButtonClick() throws IOException {
+    private void loginUser() {
         String username;
         String password;
 

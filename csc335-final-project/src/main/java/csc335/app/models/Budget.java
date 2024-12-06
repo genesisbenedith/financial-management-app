@@ -96,8 +96,9 @@ public class Budget {
      * 
      * @return
      */
-    public double getPercentage() {
-        return (this.getTotalSpent() / limit) * 10;
+    public double getPercentage(){
+        double percentage = (this.getTotalSpent() / this.getLimit()) * 100;
+        return Math.round(percentage * 10.0) / 100.0;
     }
 
     /**

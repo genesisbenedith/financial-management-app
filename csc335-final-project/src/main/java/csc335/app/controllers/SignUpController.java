@@ -12,7 +12,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 public class SignUpController implements Initializable {
 
@@ -31,6 +30,9 @@ public class SignUpController implements Initializable {
     @FXML
     private Label signInLabel;
 
+    @FXML
+    private Label createAccountLabel;
+
 
     // [ ] Needs method comment and in-line comments
     /**
@@ -39,12 +41,10 @@ public class SignUpController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignUpController initialized.");
-        
-    }
 
-    @FXML
-    private void handleSignInClick(MouseEvent event) {
-        View.LOGIN.loadView();
+        createAccountLabel.setOnMouseClicked(event -> { registerUser(); });
+        signInLabel.setOnMouseClicked(event -> { View.LOGIN.loadView(); });
+        
     }
 
     // [ ] Needs in-line comments
@@ -54,8 +54,7 @@ public class SignUpController implements Initializable {
      * 
      * @throws IOException
      */
-    @FXML
-    private void handleCreateAccountClick() {
+    private void registerUser() {
         /* Show error alert and void if any field is null */
         if (emailField == null || usernameField == null || passwordField == null || confirmPasswordField == null) {
             View.ALERT.showAlert(AlertType.ERROR, "Error", "All fields are required.");
