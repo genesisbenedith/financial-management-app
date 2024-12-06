@@ -1,8 +1,8 @@
 package csc335.app.persistence;
 
+import java.io.File;
 import java.io.IOException;
 
-import csc335.app.controllers.Observer;
 import csc335.app.controllers.View;
 import csc335.app.models.User;
 import javafx.scene.control.Alert.AlertType;
@@ -16,15 +16,9 @@ import javafx.scene.control.Alert.AlertType;
 /**a
  * 
  */
-public enum AccountManager implements Observer{
+public enum AccountManager {
 
     ACCOUNT; // The single instance of the enum
-
-    @Override
-    public void update() {
-        User currentUser = UserSessionManager.SESSION.getCurrentUser();
-        Database.DATABASE.saveUserFile(currentUser);
-    }
 
     public void saveUserAccount() {
         User currentUser = UserSessionManager.SESSION.getCurrentUser();
@@ -137,5 +131,9 @@ public enum AccountManager implements Observer{
         }
     }
 
+    public File exportFile() throws IOException{
+        User currentUser = UserSessionManager.SESSION.getCurrentUser();
+        return  Database.DATABASE.writeExpenseExport(currentUser.getUsername());
+    }
 
 }
