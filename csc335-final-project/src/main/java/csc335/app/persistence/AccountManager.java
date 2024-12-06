@@ -16,15 +16,9 @@ import javafx.scene.control.Alert.AlertType;
 /**a
  * 
  */
-public enum AccountManager implements Observer{
+public enum AccountManager {
 
     ACCOUNT; // The single instance of the enum
-
-    @Override
-    public void update() {
-        User currentUser = UserSessionManager.SESSION.getCurrentUser();
-        Database.DATABASE.saveUserFile(currentUser);
-    }
 
     public void saveUserAccount() {
         User currentUser = UserSessionManager.SESSION.getCurrentUser();
