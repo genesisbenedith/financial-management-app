@@ -14,6 +14,7 @@ import csc335.app.persistence.AccountManager;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
 import csc335.app.utils.CalendarConverter;
+import io.github.palexdev.materialfx.controls.MFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -42,6 +43,9 @@ public class DashboardController implements Initializable {
     private PieChart pieChart;
 
     @FXML
+    private MFXListView<Expense> expenseListView;
+
+    @FXML
     private AvatarView userAvatar;
 
     @FXML
@@ -58,6 +62,9 @@ public class DashboardController implements Initializable {
         currentUser = UserSessionManager.SESSION.getCurrentUser();
         System.out.println("Current user: " + currentUser.getUsername());
 
+        // expenseListView = new MFXListView<>((ObservableList<Expense>) ExpenseTracker.TRACKER.getExpenses());
+
+        expenseListView = new MFXListView<>();
         initializeUserInfo();
         initializeBarChart();
         initializePieChart();
@@ -178,7 +185,7 @@ public class DashboardController implements Initializable {
             for (XYChart.Data<String, Number> data : series.getData()) {
                 Node barNode = data.getNode();
                 barNode.setScaleX(6);
-                barNode.setTranslateX(50); // Manually adjust position
+                barNode.setTranslateX(40); // Manually adjust position
                 String nodeStyle = "-fx-bar-fill: ";
                 barNode.setStyle(nodeStyle + Category.valueOf(series.getName().toUpperCase()).getDefaultColor());
                 barNode.hoverProperty().addListener((observable, oldValue, newValue) -> {

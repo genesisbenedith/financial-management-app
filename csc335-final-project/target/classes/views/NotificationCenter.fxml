@@ -1,0 +1,7 @@
+<?import 
+
+<InfoCenterView fx:id="notificationCenter">
+                     <HBox.margin>
+                        <Insets right="25.0" top="10.0" />
+                     </HBox.margin>
+                  </InfoCenterView>

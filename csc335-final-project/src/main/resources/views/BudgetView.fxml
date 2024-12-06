@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.dlsc.gemsfx.CircleProgressIndicator?>
 <?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?>
 <?import io.github.palexdev.materialfx.controls.MFXProgressSpinner?>
 <?import javafx.geometry.Insets?>
@@ -56,12 +57,12 @@
                               <Image url="@../images/transport_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="transportationProgress" layoutX="94.0" layoutY="121.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
+                        <TextField fx:id="tText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleTransport" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
+                        <MFXProgressSpinner fx:id="transportationProgress" layoutX="106.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
-                        <TextField fx:id="tText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleTransport" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
-                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
                   <Pane fx:id="food" layoutX="25.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">

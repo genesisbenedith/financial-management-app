@@ -13,9 +13,9 @@ csc335/app/controllers/SidebarController.class
 csc335/app/controllers/BudgetController.class
 csc335/app/persistence/Hasher.class
 csc335/app/App.class
-csc335/app/utils/Validator.class
 csc335/app/models/Budget.class
 csc335/app/utils/CalendarConverter.class
+csc335/app/services/BudgetTracker.class
 csc335/app/services/ExpenseTracker.class
 csc335/app/persistence/AccountManager.class
 csc335/app/controllers/SplashController.class

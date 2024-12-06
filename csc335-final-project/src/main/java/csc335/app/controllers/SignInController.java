@@ -10,10 +10,10 @@ import csc335.app.persistence.AccountManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 
 public class SignInController implements Initializable {
 
@@ -24,27 +24,30 @@ public class SignInController implements Initializable {
     private EnhancedPasswordField passwordField;
 
     @FXML
+    private Button signInLabel;
+
+    @FXML
     private Label signUpLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignInController initialized.");
-        passwordField.setEchoChar('★');
-        passwordField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                SignInCall();
-            }
-        });
-        usernameField.setOnKeyPressed(event1 -> {
-            if (event1.getCode() == KeyCode.ENTER) {
-                SignInCall();
-            }
-        });
-    }
 
-    @FXML
-    private void handleSignUpClick(MouseEvent event) {
-        View.REGISTER.loadView();
+        passwordField.setEchoChar('★');
+        passwordField.setOnKeyPressed(event1 -> {
+            if (event1.getCode() == KeyCode.ENTER) {
+                loginUser();
+            }
+        });
+
+        usernameField.setOnKeyPressed(event2 -> {
+            if (event2.getCode() == KeyCode.ENTER) {
+                loginUser();
+            }
+        });
+
+        signInLabel.setOnMouseClicked(event3 -> { loginUser(); });
+        signUpLabel.setOnMouseClicked(event4 -> { View.REGISTER.loadView(); });
     }
 
     // EDIT method comment and in-line comments
@@ -53,12 +56,7 @@ public class SignInController implements Initializable {
      * 
      * @throws IOException
      */
-    @FXML
-    private void handleSignInButtonClick() throws IOException {
-        SignInCall();
-    }
-
-    private void SignInCall(){
+    private void loginUser() {
         String username;
         String password;
 
@@ -80,6 +78,7 @@ public class SignInController implements Initializable {
 
         // Authenticate user
         AccountManager.ACCOUNT.authenticateUser(username, password);
+
     }
 
 }

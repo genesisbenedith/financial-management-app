@@ -3,6 +3,7 @@
 <!-- <?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?> -->
 
 <?import com.dlsc.gemsfx.AvatarView?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -88,6 +89,18 @@
                <children>
                   <Pane layoutX="30.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="250.0" prefWidth="490.0" style="-fx-background-radius: 15px; -fx-background-color: #fff;">
                      <children>
+                        <BarChart fx:id="barChart" barGap="0.0" categoryGap="0.0" horizontalGridLinesVisible="false" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="488.0" stylesheets="@../css/barchart.css" verticalGridLinesVisible="false">
+                          <xAxis>
+                            <CategoryAxis endMargin="0.0" gapStartAndEnd="false" nodeOrientation="LEFT_TO_RIGHT" side="BOTTOM" startMargin="0.0" stylesheets="@../css/barchart.css" tickLabelGap="0.0" tickLength="0.0" visible="false">
+                                 <tickLabelFont>
+                                    <Font size="1.0" />
+                                 </tickLabelFont>
+                              </CategoryAxis>
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis minorTickVisible="false" side="LEFT" stylesheets="@../css/barchart.css" tickLabelsVisible="false" tickMarkVisible="false" />
+                          </yAxis>
+                        </BarChart>
                         <Pane prefHeight="46.0" prefWidth="490.0">
                            <children>
                               <Label text="Dashboard">
@@ -100,24 +113,15 @@
                               </Label>
                            </children>
                         </Pane>
-                        <BarChart fx:id="barChart" barGap="0.0" categoryGap="0.0" horizontalGridLinesVisible="false" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="290.0" stylesheets="@../css/barchart.css" verticalGridLinesVisible="false">
-                          <xAxis>
-                            <CategoryAxis endMargin="0.0" gapStartAndEnd="false" nodeOrientation="LEFT_TO_RIGHT" side="BOTTOM" startMargin="0.0" stylesheets="@../css/barchart.css" tickLabelGap="0.0" tickLength="0.0" visible="false">
-                                 <tickLabelFont>
-                                    <Font size="1.0" />
-                                 </tickLabelFont>
-                              </CategoryAxis>
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis minorTickVisible="false" side="LEFT" stylesheets="@../css/barchart.css" tickLabelsVisible="false" tickMarkVisible="false" />
-                          </yAxis>
-                        </BarChart>
                      </children></Pane>
                   <Pane layoutX="30.0" layoutY="310.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="305.0" prefWidth="490.0" style="-fx-background-radius: 15px; -fx-background-color: #fff;">
                      <children>
                         <PieChart fx:id="pieChart" legendSide="RIGHT" prefHeight="300.0" prefWidth="488.0" />
                      </children></Pane>
-                  <Pane layoutX="550.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="300.0" style="-fx-background-radius: 15px; -fx-background-color: #fff;" />
+                  <Pane layoutX="550.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="300.0" style="-fx-background-radius: 15px; -fx-background-color: #fff;">
+                     <children>
+                        <MFXListView layoutX="38.0" layoutY="107.0" />
+                     </children></Pane>
                </children>
             </Pane>
          </children>

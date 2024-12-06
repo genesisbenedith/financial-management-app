@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="csc335.app.AllTests" time="0.257" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="csc335.app.AllTests" time="0.228" tests="11" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/local/Cellar/openjdk/23.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/target/surefire/surefirebooter12194122123994919326.jar /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/target/surefire 2024-12-06T02-18-23_796-jvmRun1 surefire11171405829959833754tmp surefire_08180818486993402668tmp"/>
+    <property name="sun.java.command" value="/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/target/surefire/surefirebooter16257094707671091041.jar /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/target/surefire 2024-12-06T06-53-00_048-jvmRun1 surefire1475828163510839945tmp surefire_010533969476096408458tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/target/test-classes:/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/target/classes:/Users/chelinaobiang/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.3/junit-jupiter-api-5.11.3.jar:/Users/chelinaobiang/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/chelinaobiang/.m2/repository/org/junit/platform/junit-platform-commons/1.11.3/junit-platform-commons-1.11.3.jar:/Users/chelinaobiang/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/chelinaobiang/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.3/junit-jupiter-engine-5.11.3.jar:/Users/chelinaobiang/.m2/repository/org/junit/platform/junit-platform-engine/1.11.3/junit-platform-engine-1.11.3.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-controls/21.0.4/javafx-controls-21.0.4.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-controls/21.0.4/javafx-controls-21.0.4-mac.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-graphics/21.0.4/javafx-graphics-21.0.4.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-graphics/21.0.4/javafx-graphics-21.0.4-mac.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-base/21.0.4/javafx-base-21.0.4.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-base/21.0.4/javafx-base-21.0.4-mac.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-fxml/21.0.4/javafx-fxml-21.0.4.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-fxml/21.0.4/javafx-fxml-21.0.4-mac.jar:/Users/chelinaobiang/.m2/repository/com/jfoenix/jfoenix/9.0.10/jfoenix-9.0.10.jar:/Users/chelinaobiang/.m2/repository/de/jensd/fontawesomefx/8.9/fontawesomefx-8.9.jar:/Users/chelinaobiang/.m2/repository/io/github/palexdev/materialfx-all/11.26.8/materialfx-all-11.26.8.jar:/Users/chelinaobiang/.m2/repository/io/github/palexdev/mfxcore/11.11.1/mfxcore-11.11.1.jar:/Users/chelinaobiang/.m2/repository/io/github/palexdev/materialfx/11.17.0/materialfx-11.17.0.jar:/Users/chelinaobiang/.m2/repository/io/github/palexdev/mfxlocalization/11.1.0/mfxlocalization-11.1.0.jar:/Users/chelinaobiang/.m2/repository/io/github/palexdev/mfxresources/11.12.0/mfxresources-11.12.0.jar:/Users/chelinaobiang/.m2/repository/io/github/palexdev/mfxcomponents/11.26.8/mfxcomponents-11.26.8.jar:/Users/chelinaobiang/.m2/repository/io/github/palexdev/mfxeffects/11.4.1/mfxeffects-11.4.1.jar:/Users/chelinaobiang/.m2/repository/io/github/palexdev/virtualizedfx/11.9.6/virtualizedfx-11.9.6.jar:/Users/chelinaobiang/.m2/repository/org/jacoco/jacoco-maven-plugin/0.8.12/jacoco-maven-plugin-0.8.12.jar:/Users/chelinaobiang/.m2/repository/org/codehaus/plexus/plexus-utils/3.0.24/plexus-utils-3.0.24.jar:/Users/chelinaobiang/.m2/repository/org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.jar:/Users/chelinaobiang/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/Users/chelinaobiang/.m2/repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar:/Users/chelinaobiang/.m2/repository/org/apache/maven/reporting/maven-reporting-api/3.0/maven-reporting-api-3.0.jar:/Users/chelinaobiang/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0/doxia-sink-api-1.0.jar:/Users/chelinaobiang/.m2/repository/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar:/Users/chelinaobiang/.m2/repository/org/jacoco/org.jacoco.core/0.8.12/org.jacoco.core-0.8.12.jar:/Users/chelinaobiang/.m2/repository/org/ow2/asm/asm/9.7/asm-9.7.jar:/Users/chelinaobiang/.m2/repository/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.jar:/Users/chelinaobiang/.m2/repository/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.jar:/Users/chelinaobiang/.m2/repository/org/jacoco/org.jacoco.report/0.8.12/org.jacoco.report-0.8.12.jar:/Users/chelinaobiang/.m2/repository/com/dlsc/gemsfx/gemsfx/2.69.0/gemsfx-2.69.0.jar:/Users/chelinaobiang/.m2/repository/net/synedra/validatorfx/0.5.0/validatorfx-0.5.0.jar:/Users/chelinaobiang/.m2/repository/com/dlsc/unitfx/unitfx/1.0.10/unitfx-1.0.10.jar:/Users/chelinaobiang/.m2/repository/tech/units/indriya/2.1.2/indriya-2.1.2.jar:/Users/chelinaobiang/.m2/repository/javax/measure/unit-api/2.1.2/unit-api-2.1.2.jar:/Users/chelinaobiang/.m2/repository/tech/uom/lib/uom-lib-common/2.1/uom-lib-common-2.1.jar:/Users/chelinaobiang/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/chelinaobiang/.m2/repository/com/dlsc/pickerfx/pickerfx/1.3.1/pickerfx-1.3.1.jar:/Users/chelinaobiang/.m2/repository/com/github/weisj/jsvg/1.2.0/jsvg-1.2.0.jar:/Users/chelinaobiang/.m2/repository/commons-validator/commons-validator/1.8.0/commons-validator-1.8.0.jar:/Users/chelinaobiang/.m2/repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar:/Users/chelinaobiang/.m2/repository/commons-digester/commons-digester/2.1/commons-digester-2.1.jar:/Users/chelinaobiang/.m2/repository/commons-logging/commons-logging/1.3.0/commons-logging-1.3.0.jar:/Users/chelinaobiang/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-swing/22/javafx-swing-22.jar:/Users/chelinaobiang/.m2/repository/org/openjfx/javafx-swing/22/javafx-swing-22-mac.jar:/Users/chelinaobiang/.m2/repository/org/controlsfx/controlsfx/11.1.2/controlsfx-11.1.2.jar:/Users/chelinaobiang/.m2/repository/org/kordamp/ikonli/ikonli-core/12.3.1/ikonli-core-12.3.1.jar:/Users/chelinaobiang/.m2/repository/org/kordamp/ikonli/ikonli-javafx/12.3.1/ikonli-javafx-12.3.1.jar:/Users/chelinaobiang/.m2/repository/org/kordamp/ikonli/ikonli-materialdesign-pack/12.3.1/ikonli-materialdesign-pack-12.3.1.jar:/Users/chelinaobiang/.m2/repository/org/kordamp/ikonli/ikonli-material-pack/12.3.1/ikonli-material-pack-12.3.1.jar:/Users/chelinaobiang/.m2/repository/org/kordamp/ikonli/ikonli-bootstrapicons-pack/12.3.1/ikonli-bootstrapicons-pack-12.3.1.jar:/Users/chelinaobiang/.m2/repository/org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.jar:/Users/chelinaobiang/.m2/repository/one/jpro/jproutils/tree-showing/0.2.2/tree-showing-0.2.2.jar:/Users/chelinaobiang/.m2/repository/de/sandec/JMemoryBuddy/0.5.1/JMemoryBuddy-0.5.1.jar:"/>
@@ -30,7 +30,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/target/surefire/surefirebooter12194122123994919326.jar"/>
+    <property name="surefire.real.class.path" value="/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/target/surefire/surefirebooter16257094707671091041.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="23.0.1"/>
@@ -59,7 +59,7 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-  <testcase name="testgetLimit" classname="csc335.app.AllTests" time="0.087">
+  <testcase name="testgetLimit" classname="csc335.app.AllTests" time="0.055">
     <system-err><![CDATA[java.lang.instrument.IllegalClassFormatException: Error while instrumenting csc335/app/AllTests.
 	at org.jacoco.agent.rt.internal_035b120.CoverageTransformer.transform(CoverageTransformer.java:93)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:242)
@@ -332,7 +332,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	... 83 more
 ]]></system-err>
   </testcase>
-  <testcase name="testToStringDetailed" classname="csc335.app.AllTests" time="0.096">
+  <testcase name="testToStringDetailed" classname="csc335.app.AllTests" time="0.1">
     <system-err><![CDATA[java.lang.instrument.IllegalClassFormatException: Error while instrumenting sun/util/resources/cldr/provider/CLDRLocaleDataMetaInfo.
 	at org.jacoco.agent.rt.internal_035b120.CoverageTransformer.transform(CoverageTransformer.java:93)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:242)
@@ -447,13 +447,13 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	... 98 more
 ]]></system-err>
   </testcase>
-  <testcase name="testToString" classname="csc335.app.AllTests" time="0.003"/>
-  <testcase name="testgetDateandDescription" classname="csc335.app.AllTests" time="0.004"/>
+  <testcase name="testToString" classname="csc335.app.AllTests" time="0.001"/>
+  <testcase name="testgetDateandDescription" classname="csc335.app.AllTests" time="0.005"/>
   <testcase name="testgetTotalSpentandAddRemoveExpense" classname="csc335.app.AllTests" time="0.002"/>
-  <testcase name="testsetLimitandThrowException" classname="csc335.app.AllTests" time="0.002"/>
+  <testcase name="testsetLimitandThrowException" classname="csc335.app.AllTests" time="0.003"/>
   <testcase name="testgetCategory" classname="csc335.app.AllTests" time="0.001"/>
-  <testcase name="testaddAndsetExpense" classname="csc335.app.AllTests" time="0.001"/>
-  <testcase name="testgetPercentageandisExceeded" classname="csc335.app.AllTests" time="0.001"/>
+  <testcase name="testaddAndsetExpense" classname="csc335.app.AllTests" time="0.002"/>
+  <testcase name="testgetPercentageandisExceeded" classname="csc335.app.AllTests" time="0"/>
   <testcase name="testgetCategoryandAmount" classname="csc335.app.AllTests" time="0.002"/>
   <testcase name="testStrings" classname="csc335.app.AllTests" time="0.001"/>
 </testsuite>

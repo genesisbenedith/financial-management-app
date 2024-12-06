@@ -2,7 +2,6 @@ package csc335.app.persistence;
 
 import java.io.IOException;
 
-import csc335.app.controllers.Observer;
 import csc335.app.controllers.View;
 import csc335.app.models.User;
 import javafx.scene.control.Alert.AlertType;

@@ -4,17 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.dlsc.gemsfx.EnhancedPasswordField;
-
 import csc335.app.persistence.AccountManager;
-import csc335.app.utils.Validator;
+import csc335.app.persistence.Validator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 
 public class SignUpController implements Initializable {
 
@@ -25,13 +22,16 @@ public class SignUpController implements Initializable {
     private TextField usernameField;
 
     @FXML
-    private EnhancedPasswordField passwordField;
+    private PasswordField passwordField;
 
     @FXML
-    private EnhancedPasswordField confirmPasswordField;
+    private PasswordField confirmPasswordField;
 
     @FXML
     private Label signInLabel;
+
+    @FXML
+    private Label createAccountLabel;
 
 
     // [ ] Needs method comment and in-line comments
@@ -41,33 +41,10 @@ public class SignUpController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignUpController initialized.");
-        passwordField.setEchoChar('★');
-        confirmPasswordField.setEchoChar('☆');
-        emailField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                CreateAccountCall();
-            }
-        });
-        usernameField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                CreateAccountCall();
-            }
-        });
-        passwordField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                CreateAccountCall();
-            }
-        });
-        confirmPasswordField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                CreateAccountCall();
-            }
-        });
-    }
 
-    @FXML
-    private void handleSignInClick(MouseEvent event) {
-        View.LOGIN.loadView();
+        createAccountLabel.setOnMouseClicked(event -> { registerUser(); });
+        signInLabel.setOnMouseClicked(event -> { View.LOGIN.loadView(); });
+        
     }
 
     // [ ] Needs in-line comments
@@ -77,13 +54,7 @@ public class SignUpController implements Initializable {
      * 
      * @throws IOException
      */
-    @FXML
-    private void handleCreateAccountClick() {
-        CreateAccountCall();
-
-    }
-
-    private void CreateAccountCall(){
+    private void registerUser() {
         /* Show error alert and void if any field is null */
         if (emailField == null || usernameField == null || passwordField == null || confirmPasswordField == null) {
             View.ALERT.showAlert(AlertType.ERROR, "Error", "All fields are required.");
@@ -102,6 +73,7 @@ public class SignUpController implements Initializable {
         } catch (IOException e) {
             System.err.println("Unable to create this account.");
         }
+
     }
 
     // [ ] Needs method comment

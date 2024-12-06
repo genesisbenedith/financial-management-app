@@ -4,11 +4,16 @@ ENTERTAINMENT CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Entertainment,350.0
 		2024-11-28,Entertainment,25.0,Bowling night
-		Total Expenses: $25.00
+		2024-11-9,Entertainment,75.0,Comedy club tickets
+		2024-11-13,Entertainment,50.0,Arcade gaming night with friends
+		2024-11-28,Entertainment,25.0,Bowling night
+		Total Expenses: $175.00
 HEALTHCARE CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Healthcare,230.0
-		Total Expenses: $0.00
+		2024-11-12,Healthcare,200.0,Visit to a specialist
+		2024-11-20,Healthcare,30.0,Co-pay for routine check-up
+		Total Expenses: $230.00
 UTILITIES CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Utilities,367.45
@@ -16,7 +21,11 @@ UTILITIES CATEGORY
 OTHER CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Other,95.0
-		Total Expenses: $0.00
+		2024-11-8,Other,300.0,Holiday gift shopping
+		2024-11-15,Other,150.0,New headphones purchase
+		2024-11-22,Other,120.0,Donation to local charity
+		2024-11-26,Other,80.0,Clothing shopping at the mall
+		Total Expenses: $650.00
 FOOD CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Food,500.0
