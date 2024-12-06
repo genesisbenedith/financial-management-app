@@ -21,9 +21,6 @@
     <jacoco.unit-tests.limit.class-complexity>20</jacoco.unit-tests.limit.class-complexity>
     <jacoco.unit-tests.limit.method-complexity>5</jacoco.unit-tests.limit.method-complexity>
   </properties>
-
-
-
   <dependencies>
 
     <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
@@ -32,25 +29,13 @@
     <artifactId>javafx-graphics</artifactId>
     <version>23.0.1</version>
 </dependency>
+
 <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
 <dependency>
     <groupId>org.openjfx</groupId>
     <artifactId>javafx-base</artifactId>
     <version>23.0.1</version>
 </dependency>
-   <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
-<dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-controls</artifactId>
-    <version>23.0.1</version>
-</dependency>
-    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
-<dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-fxml</artifactId>
-    <version>23.0.1</version>
-</dependency>
-
 
 
     <dependency>
@@ -65,9 +50,18 @@
       <version>5.11.3</version>
       <scope>test</scope>
     </dependency>
-
-
-
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-controls</artifactId>
+    <version>23.0.1</version>
+</dependency>
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-fxml</artifactId>
+    <version>23.0.1</version>
+</dependency>
 
     <dependency>
       <groupId>com.jfoenix</groupId>
@@ -81,17 +75,36 @@
     </dependency>
 
 
+    <!-- https://mvnrepository.com/artifact/io.github.palexdev/materialfx-all -->
+<dependency>
+    <groupId>io.github.palexdev</groupId>
+    <artifactId>materialfx-all</artifactId>
+    <version>11.26.8</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/io.github.palexdev/materialfx -->
 <dependency>
     <groupId>io.github.palexdev</groupId>
     <artifactId>materialfx</artifactId>
     <version>11.17.0</version>
 </dependency>
+
+
+<!-- https://mvnrepository.com/artifact/io.github.palexdev/mfxresources
+<dependency>
+    <groupId>io.github.palexdev</groupId>
+    <artifactId>mfxresources</artifactId>
+    <version>11.13.1</version>
+</dependency> -->
+
+
 <!-- https://mvnrepository.com/artifact/io.github.palexdev/mfxcomponents -->
 <dependency>
     <groupId>io.github.palexdev</groupId>
     <artifactId>mfxcomponents</artifactId>
     <version>11.26.8</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/io.github.palexdev/mfxeffects -->
+
 
 <dependency>
     <groupId>io.github.palexdev</groupId>
@@ -124,14 +137,26 @@
 </dependency>
 
 
+<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-controls</artifactId>
+    <version>21.0.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-fxml</artifactId>
+    <version>21.0.2</version>
+</dependency>
+
+
 <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
 <dependency>
     <groupId>org.jacoco</groupId>
     <artifactId>jacoco-maven-plugin</artifactId>
     <version>0.8.12</version>
 </dependency>
-
-
 <!-- https://mvnrepository.com/artifact/com.gluonhq/charm-glisten -->
 <!-- <dependency>
     <groupId>com.gluonhq</groupId>
@@ -139,18 +164,12 @@
     <version>6.2.3</version>
 </dependency> -->
 <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
-
-
 <dependency>
     <groupId>com.dlsc.gemsfx</groupId>
     <artifactId>gemsfx</artifactId>
     <version>2.70.0</version>
 </dependency>
   </dependencies>
-  
-  
-  
-  
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <resources>

@@ -15,7 +15,6 @@ import csc335.app.models.Category;
 import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.BudgetTracker;
-import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
@@ -29,8 +28,8 @@ import javafx.scene.input.KeyCode;
  */
 public class BudgetController implements Initializable {
 
-    @FXML
-    private MFXNotificationCenter notificationCenter;
+    // @FXML
+    // private MFXNotificationCenter notificationCenter;
 
     /* TextFields for each category */
     @FXML
