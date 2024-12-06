@@ -10,50 +10,32 @@ import javafx.collections.ObservableList;
  */
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.input.MouseButton;
-//import scala.collection.immutable.List;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Pattern;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-
-//import javax.faces.event.ActionEvent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -66,12 +48,9 @@ import csc335.app.models.Subject;
 import csc335.app.persistence.AccountRepository;
 import csc335.app.persistence.User;
 import csc335.app.persistence.UserSessionManager;
-import io.github.palexdev.materialfx.builders.control.DatePickerBuilder;
-import io.github.palexdev.materialfx.controls.BoundTextField;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
-import io.github.palexdev.materialfx.controls.cell.MFXDateCell;
 import io.github.palexdev.mfxcore.controls.Label;
 
 
@@ -155,14 +134,24 @@ public class ExpensesController implements Initializable, Subject{
     @FXML
     private Label expensePercentageLabel;
 
+    @FXML
+    private Label budgetHeader;
+
+    @FXML
+    private Label expensesHeader;
+
+    @FXML
+    private Label totalBudgetAmt;
+
+    @FXML
+    private Label totalExpensesAmt;
+
+    @FXML
+    private Pane downloadFile;
+
     private static final List<Observer> observers = new ArrayList<>();
     private User currentUser;
-    private Expense expense;
     private Category categoryClicked;
-    // private String currentDate;
-    // private String currentCategory;
-    // private String currentAmount;
-    // private String currentSummary;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -257,6 +246,50 @@ public class ExpensesController implements Initializable, Subject{
     @FXML
     private void addNewExpenseClick(){
         ViewManager.getViewManager().loadView(View.EXPENSE);
+    }
+
+    @FXML
+    private void downloadFileClick(){
+        FileChooser chooseFile = new FileChooser();
+        chooseFile.setTitle("Export Expenses");
+        chooseFile.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        chooseFile.setInitialDirectory(new File("e:\\")); // You can set this to a default folder of your choice
+
+        // Show save dialog and get the selected file
+        File selectedFile = chooseFile.showSaveDialog(null);
+        if (selectedFile != null) {
+            String fileName = selectedFile.getAbsolutePath();
+            if (!fileName.endsWith(".txt")) {
+                fileName += ".txt"; // Ensure the file has the correct extension
+            }
+
+            
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+                // Write the header line
+                writer.write("Date,Category,Amount,Description\n");
+
+                // Iterate over the expenses and write each one to the file
+                for (Expense expense : currentUser.getExpenses()) {
+                    // Get expense data
+                    String date = String.format("%04d-%02d-%02d", expense.getCalendarDate().get(Calendar.YEAR),
+                            expense.getCalendarDate().get(Calendar.MONTH) + 1, expense.getCalendarDate().get(Calendar.DAY_OF_MONTH));
+                    String category = expense.getCategory().toString(); // Assuming Category is an enum
+                    double amount = expense.getAmount();
+                    String description = expense.getDescription();
+
+                    // Write the expense to the file as a CSV row
+                    writer.write(String.format("%s,%s,%.2f,%s\n", date, category, amount, description));
+                }
+
+                System.out.println("Expenses exported successfully to " + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert(AlertType.ERROR, "Error", "An error occurred while exporting the file.");
+            }
+        } else {
+            System.out.println("File selection cancelled.");
+        }
     }
 
     // @FXML
@@ -414,13 +447,17 @@ public class ExpensesController implements Initializable, Subject{
         // and then it will be clickable and the bar will change to that category and the percentage of the budget for that category already set in expenses will show up
         // clear will send you back to the total budget
         //double totalExpenses = UserSessionManager.getCurrentUser().getTotalExpenses();
+        
         Map<Category, Budget> categoryBudgets = UserSessionManager.getCurrentUser().getBudgetsByCategory();
         double totalBudget = 0.0;
         for (Budget bud : categoryBudgets.values()){
             totalBudget += bud.getLimit();
         }
         //Map<Category, List<Expense>> expensesByCategory = UserSessionManager.getCurrentUser().getExpensesByCategory();
-
+        budgetHeader.setText("Total Budget");
+        expensesHeader.setText("Total Expenses");
+        totalExpensesAmt.setText("$" + totalBudget);
+        totalExpensesAmt.setText("$" + UserSessionManager.getCurrentUser().getExpenses());
         for (Map.Entry<Category, Budget> entry : categoryBudgets.entrySet()) {
             Category category = entry.getKey();
             Budget budget = entry.getValue();
@@ -474,6 +511,10 @@ public class ExpensesController implements Initializable, Subject{
     private void progressBarClicked(Category category, Budget budget, double categoryExpensePercentage){
         vBox.getChildren().clear();
         categoryClicked = category;
+        budgetHeader.setText(categoryClicked.toString() + "Budget");
+        expensesHeader.setText(categoryClicked.toString() + "Expenses");
+        totalExpensesAmt.setText("$" + budget.getLimit());
+        totalExpensesAmt.setText("$" + UserSessionManager.getCurrentUser().getExpenses(categoryClicked));
         // Load only the expenses for the specific category
         List<Expense> categoryExpenses = UserSessionManager.getCurrentUser().getExpensesByCategory().get(category);
         loadExpenses(categoryExpenses);
