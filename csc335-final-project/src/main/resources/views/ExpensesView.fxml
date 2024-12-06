@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import io.github.palexdev.mfxcomponents.controls.buttons.MFXButton?> -->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../css/expense.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.ExpensesController">
+   <children>
+      <fx:include source="Sidebar.fxml" />
+      <StackPane layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0" styleClass="bckgrnd" stylesheets="@../css/expense.css">
+         <children>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="880.0" styleClass="hbox" stylesheets="@../css/expense.css" StackPane.alignment="TOP_RIGHT" />
+            
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

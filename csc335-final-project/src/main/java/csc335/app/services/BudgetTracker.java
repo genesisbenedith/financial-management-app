@@ -54,7 +54,7 @@ public enum BudgetTracker  {
      * @param category
      * @return
      */
-    public Budget findBudget(Category category) {
+    protected Budget findBudget(Category category) {
         for (Budget budget : getBudgets()) {
             if (budget.getCategory().equals(category)) 
                 return budget;
@@ -120,6 +120,14 @@ public enum BudgetTracker  {
      */
     public Double getBudgetLimit(Category category) {
         return findBudget(category).getLimit();
+    }
+
+    public Double getTotalBudgetLimits() {
+        Double totalLimits = 0.0;
+        for (Budget bud : getBudgets()){
+            totalLimits += bud.getLimit();
+        }
+        return totalLimits;
     }
 
     

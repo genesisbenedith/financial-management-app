@@ -1,0 +1,23 @@
+.sidebar, .hbox, .bckgrnd{
+    -fx-background-color:  #fff;
+}
+
+.scrollpane, .headerpane {
+    -fx-background-color:  #fff;
+    -fx-background-radius: 20px;
+}
+
+.totalBudget, .totalspent {
+    -fx-background-color:   #E6E6FA;
+    -fx-background-radius: 20px;
+}
+
+.background {
+    -fx-background-color:    #ececec;
+    -fx-background-radius:  25px 0px 0px 0px;
+}
+
+.stackpane {
+    -fx-background-color:    #ececec;
+    -fx-background-radius:  20px 0px 0px 0px;
+}
