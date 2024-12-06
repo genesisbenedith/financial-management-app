@@ -1,14 +1,11 @@
 package csc335.app.controllers;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import csc335.app.persistence.AccountManager;
 import csc335.app.models.Budget;
 import csc335.app.models.Category;
-import csc335.app.models.Subject;
 import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
@@ -21,11 +18,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
-public class BudgetController implements Subject, Initializable {
+public class BudgetController implements Initializable {
 
     private static User currentUser;
-
-    private static final List<Observer> observers = new ArrayList<>();
 
     @FXML
     private MFXNotificationCenter notificationCenter;
@@ -122,8 +117,6 @@ public class BudgetController implements Subject, Initializable {
             throw new RuntimeException("Failed to initialize BudgetController: " + e.getMessage());
         }
 
-        addObserver(AccountManager.ACCOUNT);
-
     }
 
     private void setupPromptText(Budget budg, TextField field, ProgressIndicator progressBar, ImageView alert) {
@@ -175,7 +168,6 @@ public class BudgetController implements Subject, Initializable {
         Double fraction = budget.getPercentage() / 100;
         progress.setProgress(fraction); // Normalize for example (e.g., value out of 100)
 
-        notifyObservers();
     }
 
     // Individual handlers call the generalized method
@@ -231,23 +223,6 @@ public class BudgetController implements Subject, Initializable {
                 handleBudget(Category.OTHER, oText, otherProgress, oAlert);
             }
         });
-    }
-
-    @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
     }
 
 }
