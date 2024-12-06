@@ -88,10 +88,6 @@ public class ExpenseController implements Initializable, Subject{
         }
     }
 
-    public void loadPage(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loadPage'");
-    }
 
     // [ ] Needs method comment
     /**

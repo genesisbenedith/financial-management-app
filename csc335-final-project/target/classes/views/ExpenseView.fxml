@@ -65,8 +65,8 @@
                         </Label>
                      </children>
                   </Pane>
-                  <MFXButton fx:id="save" layoutX="430.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" text="Save" />
-                  <MFXButton fx:id="cancel" layoutX="430.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" text="Cancel" />
+                  <MFXButton fx:id="save" layoutX="430.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleAddExpenseClick" prefHeight="25.0" prefWidth="100.0" text="Save" />
+                  <MFXButton fx:id="cancel" layoutX="430.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onCancelClick" prefHeight="25.0" prefWidth="100.0" text="Cancel" />
                </children>
             </Pane>
          </children>

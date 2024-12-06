@@ -197,8 +197,6 @@ public class ExpensesController implements Initializable, Subject{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        
     }
 
     @FXML
@@ -246,7 +244,6 @@ public class ExpensesController implements Initializable, Subject{
 
     @FXML
     private void addNewExpenseClick(){
-        ExpenseController addExpense = new ExpenseController();
         ViewManager.getViewManager().loadView(View.EXPENSE);
     }
 
