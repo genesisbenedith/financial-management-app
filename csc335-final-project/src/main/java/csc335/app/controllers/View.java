@@ -37,7 +37,7 @@ public enum View {
     // [ ] Needs field comments
     private final String VIEW_TITLE;
     private final String VIEW_NAME;
-    private final String FXML_VIEW_DIRECTORY = Path.of("/views").toString();
+    private final String FXML_VIEW_DIRECTORY = Path.of(File.separator + "views").toString();
     private final String FXML_VIEW_PATH;
 
     private static Stage primaryStage;// Main application window (primary stage)
@@ -54,6 +54,7 @@ public enum View {
 
     // [ ] Needs method comment
     public String getFXMLPath(String viewName){
+        System.out.println(this.FXML_VIEW_PATH);
         return this.FXML_VIEW_PATH;
     }
 
