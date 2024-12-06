@@ -5,19 +5,15 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ResourceBundle;
 
-import csc335.app.Category;
+import csc335.app.models.Category;
 import csc335.app.models.Expense;
-import csc335.app.models.Subject;
-import csc335.app.persistence.AccountRepository;
-import csc335.app.persistence.User;
+import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
-
-
+import csc335.app.services.ExpenseTracker;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.mfxcore.controls.Label;
-//import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,12 +26,10 @@ import javafx.scene.control.TextFormatter;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
-public class ExpenseController implements Initializable, Subject{
+public class ExpenseController implements Initializable{
     @FXML
     private TextField amountField;
 
@@ -58,7 +52,6 @@ public class ExpenseController implements Initializable, Subject{
     private Label title;
 
     private User currentUser;
-    private static final List<Observer> observers = new ArrayList<>();
     private String selectedCategory;
     private ExpensesController exController;
     
@@ -66,27 +59,26 @@ public class ExpenseController implements Initializable, Subject{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Expense Controller initialized");
-        UserSessionManager.getUserSessionManager();
-        currentUser = UserSessionManager.getCurrentUser();
-        addObserver(AccountRepository.getAccountRepository());
+        currentUser = UserSessionManager.SESSION.getCurrentUser();
+        //List<Expense> expenses = ExpenseTracker.TRACKER.getExpenses();
     }
 
-    @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
+    // @Override
+    // public void addObserver(Observer observer) {
+    //     observers.add(observer);
+    // }
 
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
+    // @Override
+    // public void removeObserver(Observer observer) {
+    //     observers.remove(observer);
+    // }
 
-    @Override
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
-    }
+    // @Override
+    // public void notifyObservers() {
+    //     for (Observer observer : observers) {
+    //         observer.update();
+    //     }
+    // }
 
 
     // [ ] Needs method comment
@@ -169,11 +161,10 @@ public class ExpenseController implements Initializable, Subject{
             Category category = Category.valueOf(selectedCategory.trim().toUpperCase());
 
             // Save expense to user
+            
+            ExpenseTracker.TRACKER.addExpense(new Expense(localDateToCalenderDate(currentDate.getValue()), category, amount, expenseSummary.getText()));
 
-            currentUser.addExpense(new Expense(localDateToCalenderDate(currentDate.getValue()), category, amount, expenseSummary.getText()));
-            notifyObservers();
-
-            exController.loadExpenses(currentUser.getExpenses());
+            exController.loadExpenses(ExpenseTracker.TRACKER.getExpenses());
 
             // [ ] close popup
         } catch (NumberFormatException e) {
