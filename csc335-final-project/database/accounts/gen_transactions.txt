@@ -2,7 +2,7 @@
 -------------------- Expenses --------------------
 ENTERTAINMENT CATEGORY
 	Budget: (Category,Limit)
-	-> Budget: Entertainment,400.0
+	-> Budget: Entertainment,410.0
 		2024-11-6,Entertainment,20.0,Movie rental on Amazon Prime
 		2024-11-9,Entertainment,75.0,Comedy club tickets
 		2024-11-13,Entertainment,50.0,Arcade gaming night with friends
