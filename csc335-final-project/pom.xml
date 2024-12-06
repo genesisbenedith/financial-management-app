@@ -38,13 +38,13 @@
 <dependency>
     <groupId>org.openjfx</groupId>
     <artifactId>javafx-controls</artifactId>
-    <version>21.0.4</version>
+    <version>23.0.1</version>
 </dependency>
     <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
 <dependency>
     <groupId>org.openjfx</groupId>
     <artifactId>javafx-fxml</artifactId>
-    <version>21.0.4</version>
+    <version>23.0.1</version>
 </dependency>
 
     <dependency>
@@ -160,6 +160,12 @@
           <version>0.0.8</version>
           <configuration>
               <mainClass>csc335.app.App</mainClass>
+              <arguments>
+                <argument>--module-path</argument>
+                <argument>${java.home}/lib</argument>
+                <argument>--add-modules</argument>
+                <argument>javafx-controls,javafx-fxml</argument>
+              </arguments>
           </configuration>
       </plugin>
       <plugin>

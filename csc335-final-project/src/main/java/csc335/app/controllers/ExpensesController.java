@@ -31,7 +31,6 @@ import csc335.app.services.ExpenseTracker;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
-import io.github.palexdev.mfxcore.controls.Label;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,12 +38,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
@@ -154,9 +154,10 @@ public class ExpensesController implements Initializable {
     private void importFileClick(){
         FileChooser chooseFile = new FileChooser();
         chooseFile.setTitle("Import File");
-        chooseFile.setInitialDirectory(new File("e:\\"));
+        chooseFile.setInitialDirectory(new File("user.home"));
         //Label label = new Label("no files selected");
-        File selectedFile = chooseFile.showSaveDialog(null);
+        chooseFile.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT Files", "*.txt"));
+        File selectedFile = chooseFile.showOpenDialog(null);
         if (selectedFile != null) {
             // Process through the selected file
             //File file = new File(selectedFile.getAbsolutePath());
@@ -175,10 +176,12 @@ public class ExpensesController implements Initializable {
                     // Defining calendar for expense date
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
-                    calendar.set(Calendar.MONTH, Integer.parseInt(date[1]));
+                    calendar.set(Calendar.MONTH, Integer.parseInt(date[1]) - 1);
                     calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date[2]));
                     Expense expense = new Expense(calendar, category, amount, description);
                     ExpenseTracker.TRACKER.addExpense(expense);
+                    List<Expense> expenses = ExpenseTracker.TRACKER.getExpenses();
+                    loadExpenses(expenses);
                 }
             } 
             catch (IOException e) {
@@ -283,7 +286,11 @@ public class ExpensesController implements Initializable {
         // summaryChild.setText("");
         // categoryChild.setText("");
         // amountChild.setText("");
-        
+        if (vBox.getChildren().size() > 1) {
+            vBox.getChildren().retainAll(vBox.getChildren().get(0));
+        }
+        vBox.getChildren().clear();
+
 
         for (Expense expense : expenses) {
             Pane clonedPane = new Pane();
@@ -297,7 +304,7 @@ public class ExpensesController implements Initializable {
                     Label clonedDateLabel = new Label(expense.getStringDate()); // Put date as string here
                     clonedDateLabel.setStyle(originalLabel.getStyle());
                     clonedDateLabel.setFont(originalLabel.getFont());
-                    clonedPane.getChildren().add(clonedPane);
+                    clonedPane.getChildren().addAll(clonedDateLabel);
                 }
 
                 if (node.getId() == "summaryChild") {
@@ -306,7 +313,7 @@ public class ExpensesController implements Initializable {
                     Label clonedSumLabel = new Label(expense.getDescription()); 
                     clonedSumLabel.setStyle(originalLabel.getStyle());
                     clonedSumLabel.setFont(originalLabel.getFont());
-                    clonedPane.getChildren().add(clonedPane);
+                    clonedPane.getChildren().add(clonedSumLabel);
                 }
 
                 if (node.getId() == "categoryChild") {
@@ -315,7 +322,7 @@ public class ExpensesController implements Initializable {
                     Label clonedCatLabel = new Label(expense.getCategory().toString()); 
                     clonedCatLabel.setStyle(originalLabel.getStyle());
                     clonedCatLabel.setFont(originalLabel.getFont());
-                    clonedPane.getChildren().add(clonedPane);
+                    clonedPane.getChildren().add(clonedCatLabel);
                 }
 
                 if (node.getId() == "amountChild") {
@@ -324,7 +331,7 @@ public class ExpensesController implements Initializable {
                     Label clonedAmtLabel = new Label("$" + String.valueOf(expense.getAmount())); 
                     clonedAmtLabel.setStyle(originalLabel.getStyle());
                     clonedAmtLabel.setFont(originalLabel.getFont());
-                    clonedPane.getChildren().add(clonedPane);
+                    clonedPane.getChildren().add(clonedAmtLabel);
                 }
 
                 if(node.getId() == "edit"){

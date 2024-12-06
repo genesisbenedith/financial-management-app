@@ -37,7 +37,7 @@ public enum View {
     // [ ] Needs field comments
     private final String VIEW_TITLE;
     private final String VIEW_NAME;
-    private final String FXML_VIEW_DIRECTORY = Path.of(File.separator + "views").toString();
+    private final String FXML_VIEW_DIRECTORY = "/views/";
     private final String FXML_VIEW_PATH;
 
     private static Stage primaryStage;// Main application window (primary stage)
@@ -49,7 +49,7 @@ public enum View {
     private View(String viewName, String viewTitle) {
         this.VIEW_TITLE = viewTitle;
         this.VIEW_NAME = viewName;
-        this.FXML_VIEW_PATH = Path.of(FXML_VIEW_DIRECTORY, VIEW_NAME + "View.fxml").toString();
+        this.FXML_VIEW_PATH = FXML_VIEW_DIRECTORY + VIEW_NAME + "View.fxml";
     }
 
     // [ ] Needs method comment
@@ -213,9 +213,11 @@ public enum View {
     public void loadView() {
         System.out.println("Loading the " + this.name() + "...");
         String fxmlPath = this.getFXMLPath(this.name());
-        FXMLLoader fxmlView = new FXMLLoader(getClass().getResource(fxmlPath));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlPath));
+
         try {
-            Parent parent = fxmlView.load();
+            Parent parent = loader.load();
             showView(parent);
         } catch (IOException e) {
             throw new RuntimeException("View cannot be loaded -> " + e.getMessage());
