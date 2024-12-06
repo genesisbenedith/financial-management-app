@@ -1,3 +1,13 @@
 .chart-bar {
-    -fx-bar-width: 3; /* Sets the width of the bars */
+    /* Sets the width of the bars */
+    /* -fx-bar-width: 1;  */
 }
+
+.axis {
+    -fx-border-color: transparent;
+}
+
+.chart-plot-background {
+    -fx-background-color: #fff;
+}
+

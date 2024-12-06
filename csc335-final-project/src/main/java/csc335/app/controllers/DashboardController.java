@@ -26,7 +26,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 
-
 /**
  * ${file_name}
  * 
@@ -45,10 +44,10 @@ public class DashboardController implements Initializable {
     @FXML
     private AvatarView userAvatar;
 
-    @FXML 
+    @FXML
     private Label username;
 
-    @FXML 
+    @FXML
     private Label email;
 
     private static User currentUser;
@@ -65,54 +64,64 @@ public class DashboardController implements Initializable {
     }
 
     public void initializeUserInfo() {
-        userAvatar = currentUser.getAvatar(); 
+        userAvatar = currentUser.getAvatar();
         username.setText(currentUser.getUsername());
         email.setText(currentUser.getEmail());
-        
-    }
 
+    }
 
     private void initializePieChart() {
         for (Category category : Category.values()) {
-            PieChart.Data slice = new Data(category.toString(), ExpenseTracker.TRACKER.calculateTotalExpenses(category));
+            PieChart.Data slice = new Data(category.toString(),
+                    ExpenseTracker.TRACKER.calculateTotalExpenses(category));
             pieChart.getData().add(slice);
         }
 
         for (Data pieSlice : pieChart.getData()) {
-                Node pieNode = pieSlice.getNode();
-                String nodeStyle = "-fx-pie-color: ";
-                pieNode.setStyle(nodeStyle + Category.valueOf(pieSlice.getName().toUpperCase()).getDefaultColor());
-                Tooltip.install(pieNode, new Tooltip(pieSlice.getName() + ":\n$" + pieSlice.getPieValue()));
-                pieNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
-                    addHoverEffect(nodeStyle, pieNode, Category.valueOf(pieSlice.getName().toUpperCase()));
-                });
-               
-                pieNode.setOnMouseClicked(
+            Node pieNode = pieSlice.getNode();
+            String nodeStyle = "-fx-pie-color: ";
+            pieNode.setStyle(nodeStyle + Category.valueOf(pieSlice.getName().toUpperCase()).getDefaultColor());
+            Tooltip.install(pieNode, new Tooltip(pieSlice.getName() + ":\n$" + pieSlice.getPieValue()));
+            pieNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                addHoverEffect(nodeStyle, pieNode, Category.valueOf(pieSlice.getName().toUpperCase()));
+            });
+
+            pieNode.setOnMouseClicked(
                     event -> System.out.println("Clicked: " + pieSlice.getName() + " -> " + pieSlice.getPieValue()));
-            
+
         }
+        pieChart.applyCss(); // Apply CSS styles to the chart
+        pieChart.layout(); // Force layout to ensure legend nodes are created
+        pieChart.setLegendVisible(true); // Ensure the legend is enabled
+
+        System.out.println(pieChart.lookupAll(".chart-legend-item-symbol").size());
+        pieChart.lookupAll(".chart-legend-item-symbol").forEach(node -> {
+            String label = ((PieChart.Data) node.getUserData()).getName();
+            System.out.println(label);
+            if (Category.valueOf(label.toUpperCase()) != null) {
+                node.setStyle("-fx-background-color: " + Category.valueOf(label.toUpperCase()).getDefaultColor() + ";");
+            }
+        });
 
     }
 
     private void profileView() {
         Button button = new Button("Choose an image: ");
         button.setOnMouseClicked(
-            event -> {
-                String imagePath = View.CHOOSER.showFileChooser();
-                if (imagePath != null && !imagePath.isEmpty()){
-                    try {
-                        AccountManager.ACCOUNT.changeAvatarView(imagePath);
-                    } catch (Exception e) {
-                        System.err.print("Unable to save user avatar.");
-                        View.ALERT.showAlert(AlertType.ERROR, "Error", "Unable to save user avatar.");
+                event -> {
+                    String imagePath = View.CHOOSER.showFileChooser();
+                    if (imagePath != null && !imagePath.isEmpty()) {
+                        try {
+                            AccountManager.ACCOUNT.changeAvatarView(imagePath);
+                        } catch (Exception e) {
+                            System.err.print("Unable to save user avatar.");
+                            View.ALERT.showAlert(AlertType.ERROR, "Error", "Unable to save user avatar.");
+                        }
+                    } else {
+                        // [ ] Do something
                     }
-                } else {
-                    // [ ] Do something 
-                }
-            }
-            );
+                });
     }
-
 
     private void initializeBarChart() {
 
@@ -152,9 +161,9 @@ public class DashboardController implements Initializable {
             XYChart.Series<String, Number> series = new XYChart.Series<>();
             series.setName(category.toString());
 
-            double total = ExpenseTracker.TRACKER.calculateTotalExpenses(ExpenseTracker.TRACKER.filterExpenses(expensesInRange, category));
+            double total = ExpenseTracker.TRACKER
+                    .calculateTotalExpenses(ExpenseTracker.TRACKER.filterExpenses(expensesInRange, category));
             series.getData().add(new XYChart.Data<>(category.toString(), total));
-
 
             barChart.getData().add(series);
         }
@@ -168,13 +177,14 @@ public class DashboardController implements Initializable {
             System.out.println(series.getData().size() + "in " + series.getName());
             for (XYChart.Data<String, Number> data : series.getData()) {
                 Node barNode = data.getNode();
-                // barNode.setScaleX(0.5);
+                barNode.setScaleX(6);
+                barNode.setTranslateX(50); // Manually adjust position
                 String nodeStyle = "-fx-bar-fill: ";
                 barNode.setStyle(nodeStyle + Category.valueOf(series.getName().toUpperCase()).getDefaultColor());
                 barNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
                     addHoverEffect(nodeStyle, barNode, Category.valueOf(series.getName().toUpperCase()));
-                    }); 
-                
+                });
+
                 Tooltip.install(data.getNode(), new Tooltip(data.getXValue() + ":\n$" + data.getYValue()));
             }
         }
