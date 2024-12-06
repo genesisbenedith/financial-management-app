@@ -1,5 +1,12 @@
 package csc335.app.controllers;
 
+/**
+ * @author Lauren Schroeder
+ * Course: CSC 335 (Fall 2024)
+ * File: ExpensesController.java
+ * Description: Controller class that controls the window and functions of the Expenses page
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -43,6 +50,8 @@ import javafx.stage.FileChooser;
 
 
 public class ExpensesController implements Initializable {
+    
+    // fields from the view
     @FXML
     private AnchorPane contentArea;
 
