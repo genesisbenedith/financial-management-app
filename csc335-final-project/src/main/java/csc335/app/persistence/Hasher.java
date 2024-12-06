@@ -41,5 +41,7 @@ public final class Hasher {
         }
      }
 
+     public static boolean matches(String password, String salt, String hashedPassword) {
+        return hashedPassword.equals(hashPassword(password, salt));
+     }
 }
-

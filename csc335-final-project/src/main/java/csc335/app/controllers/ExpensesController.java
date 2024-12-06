@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
 
-public class ExpensesController implements Initializable{
+public class ExpensesController implements Initializable {
     
 
     @Override

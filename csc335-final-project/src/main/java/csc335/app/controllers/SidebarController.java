@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import csc335.app.persistence.UserSessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 // [ ] Needs class comment
@@ -35,12 +34,15 @@ public class SidebarController implements Initializable{
 
     // [ ] Complete method comment
     /**
+     * Initializes the sidebar panel & sets action listeners to handles
+     * mouse click events that loads different views to the stage
+     * 
      * @author Chelina Obiang
      * @author Genesis Benedith
+     * 
      * @param location
      * @param resources
      */
-    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
@@ -53,40 +55,16 @@ public class SidebarController implements Initializable{
 
         
         // REVIEW Action listeners
-        // dashboardPane.setOnMouseClicked(click -> ViewManager.INSTANCE.loadView(View.DASHBOARD));
-        // expensePane.setOnMouseClicked(click -> ViewManager.INSTANCE.loadView(View.EXPENSE));
-        // budgetPane.setOnMouseClicked(click -> ViewManager.INSTANCE.loadView(View.BUDGET));
-        // reportPane.setOnMouseClicked(click -> ViewManager.INSTANCE.loadView(View.REPORT));
-        // logoutPane.setOnMouseClicked(click -> handleLogOutPaneClicked());
+        dashboardPane.setOnMouseClicked(click -> { View.DASHBOARD.loadView(); });
+        expensePane.setOnMouseClicked(click -> { View.EXPENSES.loadView(); });
+        budgetPane.setOnMouseClicked(click -> { View.BUDGET.loadView(); });
+        reportPane.setOnMouseClicked(click -> { View.REPORT.loadView(); });
+        logoutPane.setOnMouseClicked(click -> {
+            UserSessionManager.SESSION.resetCurrentUser();
+            View.LOGIN.loadView();
+        });
         System.out.println("Sidebar panel has been activated.");
 
     }
-
-    @FXML
-    private void handleBudgetPaneClick(MouseEvent event) {
-        ViewManager.INSTANCE.loadView(View.BUDGET);
-    }
-
-    @FXML
-    private void handleExpensePaneClick(MouseEvent event) {
-        ViewManager.INSTANCE.loadView(View.EXPENSE);
-    }
-
-    @FXML
-    private void handleReportPaneClick(MouseEvent event) {
-        ViewManager.INSTANCE.loadView(View.REPORT);
-    }
-
-    @FXML
-    private void handleDashboardPaneClick(MouseEvent event) {
-        ViewManager.INSTANCE.loadView(View.DASHBOARD);
-    }
-
-    @FXML
-    private void handleLogOutPaneClick() {
-        UserSessionManager.INSTANCE.resetCurrentUser();
-        ViewManager.INSTANCE.loadView(View.LOGIN);
-    }
-
-   
 }
+

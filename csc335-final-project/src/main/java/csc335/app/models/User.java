@@ -1,15 +1,18 @@
-package csc335.app.persistence;
-
-import java.util.Collections;
-import java.util.List;
-import csc335.app.Category;
-import csc335.app.models.Budget;
-import csc335.app.models.Expense;
+package csc335.app.models;
 
 // [ ] Complete file coment
 /**
- * @author Genesis Benedith
+ * Author: Genesis Benedith
+ * File: User.java
+ * Description:
  */
+
+import java.util.Collections;
+import java.util.List;
+
+import com.dlsc.gemsfx.AvatarView;
+
+import csc335.app.persistence.Hasher;
 
 // [ ] Complete class coment
 /**
@@ -20,42 +23,71 @@ public class User {
     private String email;
     private String hashedPassword;
     private final String salt;
-    private final List<Budget> budgets;
+    private List<Budget> budgets;
+    private AvatarView avatar = null;
 
     /* ------------------------------ Constructor ------------------------------ */
 
+    /**
+     * 
+     * @param username
+     * @param email
+     * @param hashedPassword
+     * @param salt
+     * @param budgets
+     */
     public User(String username, String email, String hashedPassword, String salt, List<Budget> budgets) {
         this.username = username;
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.salt = salt;
         this.budgets = budgets;
+        this.avatar = null;
     }
 
-    /* ------------------------------ Getters ------------------------------ */
+    /*
+     * ------------------------------ Getter Methods ------------------------------
+     */
 
+    /**
+     * Gets the username for the account
+     * 
+     * @return account username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Get the email associated with the account
+     * 
+     * @return user's email address
+     */
     public String getEmail() {
         return email;
     }
 
-    protected String getHashedPassword() {
-        return hashedPassword;
-    }
-
-    protected String getSalt() {
-        return salt;
-    }
-
+    /**
+     * Gets the user's budgets
+     * 
+     * @return a list of the user's budgets
+     */
     public List<Budget> getBudgets() {
         return Collections.unmodifiableList(budgets);
     }
 
+    /**
+     * Get the user's avatar view
+     * 
+     * @return an avatar view for the user
+     */
+    public AvatarView getAvatar() {
+        return avatar;
+    }
 
-    /* ------------------------------ Setters ------------------------------ */
+    /*
+     * ------------------------------ Setter Methods ------------------------------
+     */
 
     public void setEmail(String email) {
 
@@ -77,60 +109,46 @@ public class User {
     }
 
     /**
-     * Set the budget limit for a given category
+     * Set the user's current list of budgets
+     * with another list of budgets, essentially
+     * overwriting the category, limit, and expenses
+     * for each budget stored on the user account
      * 
-     * @param category the category group of the budget
-     * @param limit the new spending limit for the category
-     */
-    public void setBudget(Category category, double limit) {
-        findBudget(category).setLimit(limit);
-    }
-
-    public void setBudget(Budget budget) {
-        findBudget(budget.getCategory()).setLimit(budget.getLimit());
-        findBudget(budget.getCategory()).addExpenses(budget.getExpenses());
-    }
-
-    /**
-     * Set the budget limits for each category
-     * included in a list of budgets
-     * 
-     * @param budgets the list of 
+     * @param budgets the list of budgets
      */
     public void setBudgets(List<Budget> budgets) {
-        for (Budget budget : budgets) {
-            Budget foundBudget = findBudget(budget.getCategory());
-            foundBudget.setLimit(budget.getLimit());
-            foundBudget.addExpenses(budget.getExpenses());
-        }
-
-            
+        this.budgets = budgets;
     }
 
     /**
      * 
+     * @param avatar
      */
-    public void addExpense(Expense expense) {
-        findBudget(expense.getCategory()).addExpense(expense);
-    }
-
-    private Budget findBudget(Category category) {
-        for (Budget budget : budgets) {
-            if (budget.getCategory().equals(category)) 
-                return budget;
-            }
-        return null;
+    public void setAvatar(AvatarView avatar) {
+        this.avatar = avatar;
     }
 
     /*
      * ------------------------------ Helper Methods ------------------------------
      */
 
-
-    public void removeExpense(Expense expense) {
-        findBudget(expense.getCategory()).removeExpense(expense);
+    /**
+     * Validates the user's credentials and
+     * checks if a given password is correct
+     *  
+     * @param password the password used in attempt to authenticate user 
+     * @return true if the password is correct, false if otherwise
+     */
+    public boolean isPasswordCorrect(String password) {
+        return Hasher.matches(password, this.salt, this.hashedPassword);
     }
 
+    /**
+     * Gets the user's details in a structured format.
+     * Includes the username, email, budgets, and expenses
+     * 
+     * @return the user's formatted details
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -146,8 +164,5 @@ public class User {
 
         return sb.toString();
     }
-
-   
-  
 
 }

@@ -26,7 +26,7 @@ public class SplashController implements Initializable {
     // Handling click event for the arrow image, redirecting client to login page
     @FXML
     private void handleArrowClick(MouseEvent event) {
-        ViewManager.INSTANCE.loadView(View.LOGIN);
+        View.LOGIN.loadView();
     }
 
 }

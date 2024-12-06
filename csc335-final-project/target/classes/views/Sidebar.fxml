@@ -13,7 +13,7 @@
          <children>
             <BorderPane prefHeight="75.0" prefWidth="200.0">
          <top>
-                  <Pane prefHeight="75.0" prefWidth="200.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="75.0" prefWidth="200.0" styleClass="sidebar-background" BorderPane.alignment="CENTER">
                      <children>
                         <ImageView fitHeight="80.0" fitWidth="180.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -24,12 +24,12 @@
                   </Pane>
          </top>
          <bottom>
-            <Pane fx:id="anchor" prefHeight="670.0" prefWidth="200.0" styleClass="sidebar-background" stylesheets="@../css/sidebar.css" BorderPane.alignment="CENTER">
+            <Pane fx:id="anchor" prefHeight="670.0" prefWidth="200.0" style="-fx-background-color: f0f0f0;" styleClass="sidebar-background" stylesheets="@../css/sidebar.css" BorderPane.alignment="CENTER">
                <padding>
                   <Insets bottom="25.0" top="20.0" />
                </padding>
                <children>
-                  <Pane fx:id="dashboardPane" id="dashboardPane" onMouseClicked="#handleDashboardPaneClick" layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
+                  <Pane id="dashboardPane" fx:id="dashboardPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleDashboardPaneClick" prefHeight="60.0" prefWidth="180.0" style="-fx-background-color: #fff;" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
                      <children>
                         <Label alignment="CENTER" layoutX="53.0" layoutY="20.0" prefHeight="23.0" prefWidth="90.0" text="Dashboard">
                            <font>
@@ -43,7 +43,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="expensePane" id="expensePane" onMouseClicked="#handleExpensePaneClick" layoutX="10.0" layoutY="90.0" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
+                  <Pane id="expensePane" fx:id="expensePane" layoutX="10.0" layoutY="90.0" onMouseClicked="#handleExpensePaneClick" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
                      <children>
                         <Label layoutX="55.0" layoutY="20.0" text="Expenses">
                            <font>
@@ -57,7 +57,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="budgetPane" id="budgetPane" onMouseClicked="#handleBudgetPaneClick" layoutX="10.0" layoutY="170.0" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
+                  <Pane id="budgetPane" fx:id="budgetPane" layoutX="10.0" layoutY="170.0" onMouseClicked="#handleBudgetPaneClick" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
                      <children>
                         <Label layoutX="55.0" layoutY="20.0" text="Budget">
                            <font>
@@ -71,7 +71,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="reportPane" id="reportPane" onMouseClicked="#handleReportPaneClick" layoutX="10.0" layoutY="250.0" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
+                  <Pane id="reportPane" fx:id="reportPane" layoutX="10.0" layoutY="250.0" onMouseClicked="#handleReportPaneClick" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
                      <children>
                         <Label layoutX="55.0" layoutY="20.0" text="Reports">
                            <font>

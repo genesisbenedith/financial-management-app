@@ -3,13 +3,15 @@ package csc335.app.persistence;
  * @author Genesis Benedith
  */
 
+import csc335.app.models.User;
+
 // [ ] Needs class comment
 /**
  * 
  */
 public enum UserSessionManager {
     
-    INSTANCE; // Singleton instance
+    SESSION; // A singleton instance of the app's session manager
 
     private User currentUser = null; 
 
@@ -17,10 +19,9 @@ public enum UserSessionManager {
         return currentUser;
     }
 
-    public void setCurrentUser(User user) {
+    public void setCurrentUser(User user) throws IllegalArgumentException {
         if (user == null) {
-            currentUser = null;
-            return;
+            throw new IllegalArgumentException("Current user cannot be set to null.");
         }
         currentUser = user;
     }

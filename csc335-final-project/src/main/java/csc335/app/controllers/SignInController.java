@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import csc335.app.persistence.AccountRepo;
-import csc335.app.persistence.Database;
+import csc335.app.persistence.AccountManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
@@ -32,7 +31,7 @@ public class SignInController implements Initializable {
 
     @FXML
     private void handleSignUpClick(MouseEvent event) {
-        ViewManager.INSTANCE.loadView(View.REGISTER);
+        View.REGISTER.loadView();
     }
 
     // EDIT method comment and in-line comments
@@ -48,13 +47,13 @@ public class SignInController implements Initializable {
 
         /* Show error alert and void if fields are null or empty */
         if (usernameField == null || passwordField == null) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Both username and password are required.");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "Both username and password are required.");
             return;
         } else {
             username = usernameField.getText().trim();
             password = passwordField.getText().trim();
             if (username.isEmpty() || password.isEmpty()) {
-                ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Both username and password are required.");
+                View.ALERT.showAlert(AlertType.ERROR, "Error", "Both username and password are required.");
                 return;
             }
         }
@@ -63,7 +62,7 @@ public class SignInController implements Initializable {
         password = passwordField.getText().trim();
 
         // Authenticate user
-        AccountRepo.REPOSITORY.authenticateUser(username, password);
+        AccountManager.ACCOUNT.authenticateUser(username, password);
 
     }
 

@@ -1,4 +1,4 @@
-package csc335.app;
+package csc335.app.utils;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;

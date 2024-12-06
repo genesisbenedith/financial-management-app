@@ -1,6 +1,6 @@
 package csc335.app.models;
 
-import java.util.ArrayList;
+
 
 /**
  * @author Genesis Benedith
@@ -9,11 +9,8 @@ import java.util.ArrayList;
  * Description: Model class that represents a budget for a user's expense category
  */
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import csc335.app.Category;
 
 public class Budget {
 
@@ -100,7 +97,7 @@ public class Budget {
      * @return
      */
     public double getPercentage() {
-        return this.getTotalSpent() / limit;
+        return (this.getTotalSpent() / limit) * 10;
     }
 
     /**

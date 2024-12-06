@@ -1,245 +1,267 @@
-// package csc335.app.controllers;
+package csc335.app.controllers;
 
-// import java.io.BufferedReader;
-// import java.io.File;
-// import java.io.FileReader;
-// import java.io.FileWriter;
-// import java.io.IOException;
-// import java.io.StringWriter;
-// import java.net.URL;
-// import java.util.ArrayList;
-// import java.util.List;
-// import java.util.Map;
-// import java.util.ResourceBundle;
+/**
+ * Author: Chelina Obiang
+ * File: BudgetController.java
+ * Description:
+ */
 
-// import csc335.app.Category;
-// import csc335.app.models.Budget;
-// import csc335.app.models.Subject;
-// import csc335.app.persistence.AccountRepository;
-// import csc335.app.persistence.User;
-// import csc335.app.persistence.UserSessionManager;
-// import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
-// import javafx.fxml.FXML;
-// import javafx.fxml.Initializable;
-// import javafx.scene.control.Alert;
-// import javafx.scene.control.Alert.AlertType;
-// import javafx.scene.control.ProgressIndicator;
-// import javafx.scene.control.Spinner;
-// import javafx.scene.control.SpinnerValueFactory;
-// import javafx.scene.image.ImageView;
-// import javafx.scene.layout.AnchorPane;
-// import javafx.scene.layout.Pane;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
-// public class BudgetController implements Subject, Initializable {
-//     @FXML
-//     private MFXNotificationCenter notificationCenter;
+import csc335.app.models.Budget;
+import csc335.app.models.Category;
+import csc335.app.models.User;
+import csc335.app.persistence.UserSessionManager;
+import csc335.app.services.BudgetTracker;
+import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 
-//     @FXML
-//     private AnchorPane contentArea;
+/**
+ * 
+ */
+public class BudgetController implements Initializable {
 
-//     // Spinners for each category
-//     @FXML
-//     private Spinner<Double> fSpinner;
-//     double currF = 0;
-//     @FXML
-//     private Spinner<Double> tSpinner;
-//     double currT = 0;
-//     @FXML
-//     private Spinner<Double> uSpinner;
-//     double currU = 0;
-//     @FXML
-//     private Spinner<Double> hSpinner;
-//     double currH = 0;
-//     @FXML
-//     private Spinner<Double> eSpinner;
-//     double currE = 0;
-//     @FXML
-//     private Spinner<Double> oSpinner;
-//     double currO = 0;
+    @FXML
+    private MFXNotificationCenter notificationCenter;
 
-//     // Panes for each category
-//     @FXML
-//     private Pane transportation;
-//     @FXML
-//     private Pane utilities;
-//     @FXML
-//     private Pane health;
-//     @FXML
-//     private Pane other;
-//     @FXML
-//     private Pane entertainment;
-//     @FXML
-//     private Pane food;
-//     @FXML
-//     private Pane root;
+    /* TextFields for each category */
+    @FXML
+    private TextField fText;
+    
+    @FXML
+    private TextField tText;
+    
+    @FXML
+    private TextField uText;
+    
+    @FXML
+    private TextField hText;
+    
+    @FXML
+    private TextField eText;
+    
+    @FXML
+    private TextField oText;
 
-//     // ProgressBars for each category
-//     @FXML
-//     private ProgressIndicator foodProgress;
-//     @FXML
-//     private ProgressIndicator transportationProgress;
-//     @FXML
-//     private ProgressIndicator utilitiesProgress;
-//     @FXML
-//     private ProgressIndicator healthProgress;
-//     @FXML
-//     private ProgressIndicator entertainmentProgress;
-//     @FXML
-//     private ProgressIndicator otherProgress;
-//     @FXML
-//     private SidebarController navigation;
+    /* ProgressIndicators for each category */
+    @FXML
+    private ProgressIndicator foodProgress;
+    
+    @FXML
+    private ProgressIndicator transportationProgress;
 
-//     // Alert Images for each category
-//     @FXML
-//     private ImageView tAlert;
-//     @FXML
-//     private ImageView eAlert;
-//     @FXML
-//     private ImageView uAlert;
-//     @FXML
-//     private ImageView hAlert;
-//     @FXML
-//     private ImageView fAlert;
-//     @FXML
-//     private ImageView oAlert;
+    @FXML
+    private ProgressIndicator utilitiesProgress;
+    
+    @FXML
+    private ProgressIndicator healthProgress;
 
-//     private static final List<Observer> observers = new ArrayList<>();
-//     private static User currentUser;
+    @FXML
+    private ProgressIndicator entertainmentProgress;
+    
+    @FXML
+    private ProgressIndicator otherProgress;
 
-//     @Override
-//     public void initialize(URL location, ResourceBundle resources) {
-//         System.out.println("Welcome to the Budget Page!");
+    /* Alert Images for each category */
+    @FXML
+    private ImageView tAlert;
+    
+    @FXML
+    private ImageView eAlert;
+    
+    @FXML
+    private ImageView uAlert;
+    
+    @FXML
+    private ImageView hAlert;
+    
+    @FXML
+    private ImageView fAlert;
+    
+    @FXML
+    private ImageView oAlert;
+
+    private static User currentUser; // The current user logged in
+
+    /***
+     * 
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("Welcome to the Budget Panel!");
+        currentUser = UserSessionManager.SESSION.getCurrentUser();
         
-//         currentUser = UserSessionManager.INSTANCE.getCurrentUser();
+        /* Setting up alerts & prompt texts */
+        try {
+            /* Set the visibility to all alerts as false */
+            tAlert.setVisible(false);
+            fAlert.setVisible(false);
+            hAlert.setVisible(false);
+            eAlert.setVisible(false);
+            oAlert.setVisible(false);
+            uAlert.setVisible(false);
 
-//         initializeSpinners();
-//         addObserver(AccountRepository.getAccountRepository());
-//         notifyObservers();
-//     }
+            /* TODO: REMOVE LATER! THIS BLOCK IS FOR TESTING PURPOSES */
+            List<Budget> budgets = currentUser.getBudgets();
+            System.out.println("USER'S INFO  ONCE THE BUDGET PAGE IS LOADED:\n" + currentUser.toString());
+            for (Budget b : budgets) {
+                System.out.println(b.toString());
+            }
 
-//     public void initializeSpinners() {
+            /* Set prompt texts for each category pane */
+            setupPromptText(Category.FOOD, fText, foodProgress, fAlert);
+            setupPromptText(Category.ENTERTAINMENT, eText, entertainmentProgress, eAlert);
+            setupPromptText(Category.HEALTHCARE, hText, healthProgress, hAlert);
+            setupPromptText(Category.UTILITIES, uText, utilitiesProgress, uAlert);
+            setupPromptText(Category.TRANSPORTATION, tText, transportationProgress, tAlert);
+            setupPromptText(Category.OTHER, oText, otherProgress, oAlert);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to initialize BudgetController: " + e.getMessage());
+        }
+    }
 
-//         Map<Category, Budget> budgets = currentUser.getBudgetsByCategory();
-//         for (Category category : Category.values()) {
-//             if (budgets.containsKey(category)) {
-//                 switch (category) {
-//                     case FOOD -> {
+    /**
+     * 
+     * @param category
+     * @param field
+     * @param progressBar
+     * @param alert
+     */
+    private void setupPromptText(Category category, TextField field, ProgressIndicator progressBar, ImageView alert) {
+        double limit = BudgetTracker.TRACKER.getBudgetLimit(category);
+        if (limit != 0) {
+            progressBar.setProgress(BudgetTracker.TRACKER.getBudgetProgress(category));
+        }
 
-//                     }
-//                     case ENTERTAINMENT -> {
+        field.setPromptText(limit + "");
+        if (BudgetTracker.TRACKER.isBudgetExceeded(category)) {
+            alert.setVisible(true);
+        }
 
-//                     }
-//                     case TRANSPORTATION -> {
+        System.out.println(field.isEditable());
+        field.setEditable(true); // Set spinner to editable
+    }
 
-//                     }
-//                     case UTILITIES -> {
+    /**
+     * 
+     * 
+     * @param category
+     * @param field
+     * @param progress
+     * @param alert
+     */
+    private void handleBudget(Category category, TextField field, ProgressIndicator progress, ImageView alert) {
+        alert.setVisible(false);
+        
+        /* Validate entry for new budget value */
+        Double value = 0.0;
+        try {
+            value = Double.valueOf(field.getText());
+        } catch (NumberFormatException e) {
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "The input is not a valid number.");
+            return;
+        }
 
-//                     }
-//                     case HEALTHCARE -> {
+        /* Check if value is negative */
+        if (value < 0) {
+            System.err.println("Value cannot be negative. Entered value: " + value);
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+            return;
+        }
 
-//                     }
-//                     case OTHER -> {
+        /* Set budget to new value */
+        BudgetTracker.TRACKER.updateLimit(category, value);
+        System.out.println("The new value is now: " + Double.toString(value));
 
-//                     }
-//                 }
-//             }
-//         }
+        /* Show alert if budget is exceeded */
+        if (BudgetTracker.TRACKER.isBudgetExceeded(category)) {
+            alert.setVisible(true);
+        }
 
-//     }
+        /* Set progress indicator for this budget category */
+        Double fraction = BudgetTracker.TRACKER.getBudgetProgress(category);
+        progress.setProgress(fraction); // Normalize for example (e.g., value out of 100)
 
-//     @FXML
-//     private double handleBudget(Category category, Spinner<Double> spinner, ProgressIndicator progress,
-//             ImageView alert) {
-//         alert.setVisible(false);
+    }
 
-//         Double value = (Double) spinner.getValue();
-//         if (value == null || value == 0) {
-//             SpinnerValueFactory<Double> valueF = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 100000.0, 0.0,
-//                     0.1);
-//             valueF.setValue(0.0);
-//             spinner.setValueFactory(valueF);
-//         }
+    /**
+     * Handles the events for the transportation pane
+     */
+    @FXML
+    private void handleTransport() {
+        tText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.TRANSPORTATION, tText, transportationProgress, tAlert);
+            }
+        });
+    }
 
-//         currentUser.setBudget(category, value);
-//         currentUser.
-//                 if (currentUser.isExceeded()) {
-//                     alert.setVisible(true);
-//                     progress.setProgress(Math.min(1.0, b.getTotalSpent() / b.getLimit()));
-//                 }
-//                 if (b.getLimit() < 0) {
-//                     ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
-//                     return 0;
-//                 }
-            
-       
+    /**
+     * Handles the events for the entertainment pane
+     */
+    @FXML
+    private void handleEntertainment() {
+        eText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.ENTERTAINMENT, eText, entertainmentProgress, eAlert);
+            }
+        });
+    }
 
-//         progress.setProgress(Math.min(1.0, value / 100)); // Normalize for example (e.g., value out of 100)
-//         return spinner.getValue();
-//     }
+    /**
+     * Handles the events for the utilities pane
+     */
+    @FXML
+    private void handleUtilities() {
+        uText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.UTILITIES, uText, utilitiesProgress, uAlert);
+            }
+        });
+    }
 
-//     @Override
-//     public void addObserver(Observer observer) {
-//         observers.add(observer);
-//     }
+    /**
+     * Handles the events for the food pane
+     */
+    @FXML
+    private void handleFood() {
+        fText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.FOOD, fText, foodProgress, fAlert);
+            }
+        });
+    }
 
-//     @Override
-//     public void removeObserver(Observer observer) {
-//         observers.remove(observer);
-//     }
+    /**
+     * Handles the events for the health pane
+     */
+    @FXML
+    private void handleHealth() {
+        hText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.HEALTHCARE, hText, healthProgress, hAlert);
+            }
+        });
+    }
 
-//     @Override
-//     public void notifyObservers() {
-//         for (Observer observer : observers) {
-//             observer.update();
-//         }
-//     }
+    /**
+     * Handles the events for the other pane
+     */
+    @FXML
+    private void handleOther() {
+        oText.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleBudget(Category.OTHER, oText, otherProgress, oAlert);
+            }
+        });
+    }
 
-//     // Individual handlers call the generalized method
-//     @FXML
-//     private void handleTransport() {
-//         currT = handleBudget(Category.TRANSPORTATION, tSpinner, transportationProgress, tAlert);
-//     }
-
-//     @FXML
-//     private void handleEntertainment() {
-//         currE = handleBudget(Category.ENTERTAINMENT, eSpinner, entertainmentProgress, eAlert);
-//     }
-
-//     @FXML
-//     private void handleUtilities() {
-//         currU = handleBudget(Category.UTILITIES, uSpinner, utilitiesProgress, uAlert);
-//     }
-
-//     @FXML
-//     private void handleFood() {
-//         currF = handleBudget(Category.FOOD, fSpinner, foodProgress, fAlert);
-//     }
-
-//     @FXML
-//     private void handleHealth() {
-//         currH = handleBudget(Category.HEALTHCARE, hSpinner, healthProgress, hAlert);
-//     }
-
-//     @FXML
-//     private void handleOther() {
-//         currO = handleBudget(Category.OTHER, oSpinner, otherProgress, oAlert);
-//     }
-
-//     @FXML
-//     private void handleGoToDashboardClick() {
-//         ViewManager.INSTANCE.loadView(View.DASHBOARD);
-//     }
-
-//     @FXML
-//     private void handleGoToBudgetClick() {
-//         ViewManager.INSTANCE.loadView(View.BUDGET);
-//     }
-
-//     @FXML
-//     private void handleGoToLogoutClick() {
-//         UserSessionManager.INSTANCE.resetCurrentUser();
-//         ViewManager.INSTANCE.loadView(View.LOGIN);
-//     }
-
-   
-// }
+}

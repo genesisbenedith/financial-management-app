@@ -1,35 +1,31 @@
 package csc335.app.controllers;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-import csc335.app.CalendarConverter;
-import csc335.app.Category;
+import com.dlsc.gemsfx.AvatarView;
+
+import csc335.app.models.Category;
 import csc335.app.models.Expense;
-import csc335.app.persistence.User;
+import csc335.app.models.User;
+import csc335.app.persistence.AccountManager;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
+import csc335.app.utils.CalendarConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
+
 
 /**
  * ${file_name}
@@ -43,22 +39,80 @@ public class DashboardController implements Initializable {
     @FXML
     private BarChart<String, Number> barChart;
 
+    @FXML
+    private PieChart pieChart;
+
+    @FXML
+    private AvatarView userAvatar;
+
+    @FXML 
+    private Label username;
+
+    @FXML 
+    private Label email;
+
     private static User currentUser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Welcome to the dashboard!");
-        currentUser = UserSessionManager.INSTANCE.getCurrentUser();
+        currentUser = UserSessionManager.SESSION.getCurrentUser();
         System.out.println("Current user: " + currentUser.getUsername());
+
+        initializeUserInfo();
         initializeBarChart();
+        initializePieChart();
     }
 
-    public String getStringDate(Calendar calendar) {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1; // Calendar months are 0-indexed
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return year + "-" + month + "-" + day;
+    public void initializeUserInfo() {
+        userAvatar = currentUser.getAvatar(); 
+        username.setText(currentUser.getUsername());
+        email.setText(currentUser.getEmail());
+        
     }
+
+
+    private void initializePieChart() {
+        for (Category category : Category.values()) {
+            PieChart.Data slice = new Data(category.toString(), ExpenseTracker.TRACKER.calculateTotalExpenses(category));
+            pieChart.getData().add(slice);
+        }
+
+        for (Data pieSlice : pieChart.getData()) {
+                Node pieNode = pieSlice.getNode();
+                String nodeStyle = "-fx-pie-color: ";
+                pieNode.setStyle(nodeStyle + Category.valueOf(pieSlice.getName().toUpperCase()).getDefaultColor());
+                Tooltip.install(pieNode, new Tooltip(pieSlice.getName() + ":\n$" + pieSlice.getPieValue()));
+                pieNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                    addHoverEffect(nodeStyle, pieNode, Category.valueOf(pieSlice.getName().toUpperCase()));
+                });
+               
+                pieNode.setOnMouseClicked(
+                    event -> System.out.println("Clicked: " + pieSlice.getName() + " -> " + pieSlice.getPieValue()));
+            
+        }
+
+    }
+
+    private void profileView() {
+        Button button = new Button("Choose an image: ");
+        button.setOnMouseClicked(
+            event -> {
+                String imagePath = View.CHOOSER.showFileChooser();
+                if (imagePath != null && !imagePath.isEmpty()){
+                    try {
+                        AccountManager.ACCOUNT.changeAvatarView(imagePath);
+                    } catch (Exception e) {
+                        System.err.print("Unable to save user avatar.");
+                        View.ALERT.showAlert(AlertType.ERROR, "Error", "Unable to save user avatar.");
+                    }
+                } else {
+                    // [ ] Do something 
+                }
+            }
+            );
+    }
+
 
     private void initializeBarChart() {
 
@@ -82,11 +136,11 @@ public class DashboardController implements Initializable {
          */
 
         // Print the start and end dates
-        System.out.println("Start date: " + getStringDate(startCal));
-        System.out.println("End date: " + getStringDate(endCal));
+        System.out.println("Start date: " + CalendarConverter.INSTANCE.getStringDate(startCal));
+        System.out.println("End date: " + CalendarConverter.INSTANCE.getStringDate(endCal));
 
         // The expenses within the last month
-        List<Expense> expensesInRange = ExpenseTracker.filterExpensesInRange(startCal, endCal);
+        List<Expense> expensesInRange = ExpenseTracker.TRACKER.filterExpensesInRange(startCal, endCal);
         System.out.println("All of the transactions for the last 3 calendar months: ");
         for (Object elem : expensesInRange) {
             System.out.println(elem);
@@ -98,24 +152,16 @@ public class DashboardController implements Initializable {
             XYChart.Series<String, Number> series = new XYChart.Series<>();
             series.setName(category.toString());
 
-            double total = ExpenseTracker
-                    .calculateTotalExpenses(ExpenseTracker.filterExpenses(expensesInRange, category));
+            double total = ExpenseTracker.TRACKER.calculateTotalExpenses(ExpenseTracker.TRACKER.filterExpenses(expensesInRange, category));
             series.getData().add(new XYChart.Data<>(category.toString(), total));
 
-            // Add hover effect and tooltip
-            Platform.runLater(() -> {
-                for (XYChart.Data<String, Number> data : series.getData()) {
-                    addHoverEffect(data.getNode(), category);
-                    Tooltip.install(data.getNode(), new Tooltip(data.getXValue() + ":\n$" + data.getYValue()));
-                }
-            });
 
             barChart.getData().add(series);
         }
 
         barChart.setBarGap(0); // Sets the gap between bars in the same category
         barChart.setCategoryGap(0); // Sets the gap between different categories (months)
-       
+        barChart.setStyle("-fx-background-color: #fff");
 
         // Add click listeners for debugging (optional)
         for (XYChart.Series<String, Number> series : barChart.getData()) {
@@ -123,22 +169,24 @@ public class DashboardController implements Initializable {
             for (XYChart.Data<String, Number> data : series.getData()) {
                 Node barNode = data.getNode();
                 // barNode.setScaleX(0.5);
-                barNode.setStyle(Category.valueOf(series.getName().toUpperCase()).getDefaultColor());
-                barNode.setOnMouseEntered(
-                        event -> addHoverEffect(barNode, Category.valueOf(series.getName().toUpperCase())));
-                barNode.setOnMousePressed(event -> System.out
-                        .println("Clicked: " + series.getName() + " - " + data.getXValue() + ": " + data.getYValue()));
+                String nodeStyle = "-fx-bar-fill: ";
+                barNode.setStyle(nodeStyle + Category.valueOf(series.getName().toUpperCase()).getDefaultColor());
+                barNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                    addHoverEffect(nodeStyle, barNode, Category.valueOf(series.getName().toUpperCase()));
+                    }); 
+                
+                Tooltip.install(data.getNode(), new Tooltip(data.getXValue() + ":\n$" + data.getYValue()));
             }
         }
     }
 
-    private void addHoverEffect(Node node, Category category) {
+    private void addHoverEffect(String style, Node node, Category category) {
         node.setOnMouseEntered(event -> {
-            node.setStyle("-fx-bar-fill: " + category.getHoverColor() + ";");
+            node.setStyle(style + category.getHoverColor() + ";");
         });
 
         node.setOnMouseExited(event -> {
-            node.setStyle(category.getDefaultColor()); // Reverts to default color
+            node.setStyle(style + category.getDefaultColor() + ";"); // Reverts to default color
         });
     }
 
