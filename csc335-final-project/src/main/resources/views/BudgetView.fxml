@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.dlsc.gemsfx.CircleProgressIndicator?>
 <?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?>
 <?import io.github.palexdev.materialfx.controls.MFXProgressSpinner?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../css/budget.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.BudgetController">
    <children>
-      
+      <fx:include source="Sidebar.fxml" />
+      <!-- <Label text="Sidebar Loaded " /> -->
       <StackPane alignment="TOP_LEFT" layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0">
          <children>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="880.0" style="-fx-background-color: #fff;" StackPane.alignment="TOP_LEFT">
@@ -51,13 +52,14 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <Spinner fx:id="tSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyPressed="#handleTransport" onMouseReleased="#handleTransport" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" preserveRatio="true">
                            <image>
                               <Image url="@../images/transport_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="transportationProgress" layoutX="94.0" layoutY="121.0" progress="0.14" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <TextField fx:id="tText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleTransport" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
+                        <MFXProgressSpinner fx:id="transportationProgress" layoutX="106.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
@@ -75,16 +77,17 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <Spinner fx:id="fSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyPressed="#handleFood" onMouseReleased="#handleFood" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/food_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="foodProgress" layoutX="106.0" layoutY="125.0" progress="0.83" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="foodProgress" layoutX="106.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
+                        <TextField fx:id="fText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleFood" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
                   <Pane fx:id="utilities" layoutX="610.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
@@ -99,16 +102,17 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <Spinner fx:id="eSpinner1" editable="true" layoutX="25.0" layoutY="210.0" onKeyPressed="#handleUtilities" onMouseReleased="#handleUtilities" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/utilities_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="utilitiesProgress" layoutX="101.0" layoutY="119.0" progress="0.29" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="utilitiesProgress" layoutX="101.0" layoutY="119.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
+                        <TextField fx:id="uText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleUtilities" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
                   <Pane fx:id="health" layoutX="315.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
@@ -123,16 +127,17 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <Spinner fx:id="hSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyPressed="#handleHealth" onMouseReleased="#handleHealth" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/healtchcare_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="healthProgress" layoutX="95.0" layoutY="125.0" progress="0.61" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="healthProgress" layoutX="95.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
+                        <TextField fx:id="hText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleHealth" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
                   <Pane fx:id="entertainment" layoutX="315.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
@@ -147,16 +152,17 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <Spinner fx:id="eSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyPressed="#handleEntertainment" onMouseReleased="#handleEntertainment" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/entertainm_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="entertainmentProgress" layoutX="95.0" layoutY="120.0" progress="0.47" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="entertainmentProgress" layoutX="95.0" layoutY="120.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
+                        <TextField fx:id="eText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleEntertainment" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
                   <Pane fx:id="other" layoutX="610.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
@@ -171,16 +177,17 @@
                               <Image url="@../images/warning-sign_icon.png" />
                            </image>
                         </ImageView>
-                        <Spinner fx:id="oSpinner" editable="true" layoutX="25.0" layoutY="210.0" onKeyPressed="#handleOther" onMouseReleased="#handleOther" promptText="0.00" scaleX="0.75" scaleY="0.75" />
                         <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="13.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/others_icon.png" />
                            </image>
                         </ImageView>
-                        <MFXProgressSpinner fx:id="otherProgress" layoutX="101.0" layoutY="125.0" progress="0.41" styleClass="prog-chart" stylesheets="@../css/budget.css">
+                        <MFXProgressSpinner fx:id="otherProgress" layoutX="101.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
                            <color4>
                               <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
                            </color4></MFXProgressSpinner>
+                        <TextField fx:id="oText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleOther" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
                </children></Pane>

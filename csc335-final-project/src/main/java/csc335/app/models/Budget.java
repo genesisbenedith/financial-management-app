@@ -155,7 +155,7 @@ public class Budget {
      * @return true if max reached, false if otherwise
      */
     public boolean isExceeded() {
-        return this.getTotalSpent() > limit;
+        return this.getTotalSpent() > this.limit;
     }
     
     /**

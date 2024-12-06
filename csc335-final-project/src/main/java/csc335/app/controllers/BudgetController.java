@@ -15,11 +15,12 @@ import csc335.app.models.Category;
 import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.BudgetTracker;
+import io.github.palexdev.materialfx.beans.NumberRange;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
+import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -51,24 +52,24 @@ public class BudgetController implements Initializable {
     @FXML
     private TextField oText;
 
-    /* ProgressIndicators for each category */
+    /* MFXProgressSpinners for each category */
     @FXML
-    private ProgressIndicator foodProgress;
+    private MFXProgressSpinner foodProgress;
     
     @FXML
-    private ProgressIndicator transportationProgress;
+    private MFXProgressSpinner transportationProgress;
 
     @FXML
-    private ProgressIndicator utilitiesProgress;
+    private MFXProgressSpinner utilitiesProgress;
     
     @FXML
-    private ProgressIndicator healthProgress;
+    private MFXProgressSpinner healthProgress;
 
     @FXML
-    private ProgressIndicator entertainmentProgress;
+    private MFXProgressSpinner entertainmentProgress;
     
     @FXML
-    private ProgressIndicator otherProgress;
+    private MFXProgressSpinner otherProgress;
 
     /* Alert Images for each category */
     @FXML
@@ -135,7 +136,8 @@ public class BudgetController implements Initializable {
      * @param progressBar
      * @param alert
      */
-    private void setupPromptText(Category category, TextField field, ProgressIndicator progressBar, ImageView alert) {
+    private void setupPromptText(Category category, TextField field, MFXProgressSpinner progressBar, ImageView alert) {
+        progressBar.getRanges1().add(NumberRange.of(0.0, 0.1));
         double limit = BudgetTracker.TRACKER.getBudgetLimit(category);
         if (limit != 0) {
             progressBar.setProgress(BudgetTracker.TRACKER.getBudgetProgress(category));
@@ -144,6 +146,7 @@ public class BudgetController implements Initializable {
         field.setPromptText(limit + "");
         if (BudgetTracker.TRACKER.isBudgetExceeded(category)) {
             alert.setVisible(true);
+            System.out.print("here");
         }
 
         System.out.println(field.isEditable());
@@ -158,7 +161,7 @@ public class BudgetController implements Initializable {
      * @param progress
      * @param alert
      */
-    private void handleBudget(Category category, TextField field, ProgressIndicator progress, ImageView alert) {
+    private void handleBudget(Category category, TextField field, MFXProgressSpinner progress, ImageView alert) {
         alert.setVisible(false);
         
         /* Validate entry for new budget value */
