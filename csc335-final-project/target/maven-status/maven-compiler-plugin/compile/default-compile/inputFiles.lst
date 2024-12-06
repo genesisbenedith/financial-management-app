@@ -1,8 +1,8 @@
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/App.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/BudgetController.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/DashboardController.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/ExpenseController.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/ExpensesController.java
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/Observer.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/SidebarController.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/SignInController.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/controllers/SignUpController.java
@@ -11,12 +11,12 @@
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Budget.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Category.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Expense.java
-/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/Subject.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/models/User.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/AccountManager.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/Database.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/Hasher.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/persistence/UserSessionManager.java
+/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/services/BudgetTracker.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/services/ExpenseTracker.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/text-ui/TextUI.java
 /Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/src/main/java/csc335/app/text-ui/TextUIController.java

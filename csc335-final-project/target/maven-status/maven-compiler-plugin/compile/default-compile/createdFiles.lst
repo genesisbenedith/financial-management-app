@@ -1,4 +1,3 @@
-csc335/app/models/Subject.class
 csc335/app/controllers/ExpensesController.class
 csc335/app/controllers/View.class
 csc335/app/persistence/Database.class
@@ -19,4 +18,3 @@ csc335/app/utils/CalendarConverter.class
 csc335/app/services/ExpenseTracker.class
 csc335/app/persistence/AccountManager.class
 csc335/app/controllers/SplashController.class
-csc335/app/controllers/Observer.class
