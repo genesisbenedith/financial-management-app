@@ -1,26 +1,28 @@
 
 -------------------- Expenses --------------------
-FOOD CATEGORY
-	Budget: (Category,Limit,Spent)
-	-> Budget: Food,0.0,0.0
-		Expense: YYYY-MM-DD,Category,Amount,Description
 ENTERTAINMENT CATEGORY
-	Budget: (Category,Limit,Spent)
-	-> Budget: Entertainment,0.0,0.0
-		Expense: YYYY-MM-DD,Category,Amount,Description
-TRANSPORTATION CATEGORY
-	Budget: (Category,Limit,Spent)
-	-> Budget: Transportation,0.0,0.0
-		Expense: YYYY-MM-DD,Category,Amount,Description
-UTILITIES CATEGORY
-	Budget: (Category,Limit,Spent)
-	-> Budget: Utilities,0.0,0.0
-		Expense: YYYY-MM-DD,Category,Amount,Description
+	Budget: (Category,Limit)
+	-> Budget: Entertainment,350.0
+		2024-11-28,Entertainment,25.0,Bowling night
+		Total Expenses: $25.00
 HEALTHCARE CATEGORY
-	Budget: (Category,Limit,Spent)
-	-> Budget: Healthcare,0.0,0.0
-		Expense: YYYY-MM-DD,Category,Amount,Description
+	Budget: (Category,Limit)
+	-> Budget: Healthcare,230.0
+		Total Expenses: $0.00
+UTILITIES CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Utilities,367.45
+		Total Expenses: $0.00
 OTHER CATEGORY
-	Budget: (Category,Limit,Spent)
-	-> Budget: Other,0.0,0.0
-		Expense: YYYY-MM-DD,Category,Amount,Description
+	Budget: (Category,Limit)
+	-> Budget: Other,95.0
+		Total Expenses: $0.00
+FOOD CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Food,500.0
+		Total Expenses: $0.00
+TRANSPORTATION CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Transportation,21.0
+		Total Expenses: $0.00
+

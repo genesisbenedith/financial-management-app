@@ -5,17 +5,17 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import csc335.app.Category;
+import csc335.app.models.Category;
 import csc335.app.models.Budget;
 import csc335.app.models.Expense;
-import csc335.app.persistence.User;
+import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 
 public enum ExpenseTracker {
     
-    INSTANCE;
+    TRACKER;
 
-    private static final User currentUser = UserSessionManager.INSTANCE.getCurrentUser();
+    private static final User currentUser = UserSessionManager.SESSION.getCurrentUser();
     private static final List<Budget> userBudgets = currentUser.getBudgets();
     
     /**
@@ -83,7 +83,7 @@ public enum ExpenseTracker {
      * @param category
      * @return the total amount spent
      */
-    public static double calculateTotalExpenses(Category category) {
+    public double calculateTotalExpenses(Category category) {
         double total = 0;
         for (Expense expense : filterExpenses(category)) {
             total += expense.getAmount();

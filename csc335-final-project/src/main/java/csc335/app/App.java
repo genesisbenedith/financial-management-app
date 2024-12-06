@@ -1,7 +1,6 @@
 package csc335.app;
 
 import csc335.app.controllers.View;
-import csc335.app.controllers.ViewManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -17,7 +16,7 @@ public final class App extends Application {
     @Override
     public void start(Stage stage) {
         System.out.println("Starting application...");
-        ViewManager.INSTANCE.loadView(View.SPLASH);
+        View.SPLASH.loadView();
 
     }
 

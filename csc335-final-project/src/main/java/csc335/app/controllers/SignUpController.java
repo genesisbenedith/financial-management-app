@@ -4,14 +4,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import csc335.app.persistence.AccountRepo;
-import csc335.app.persistence.Validator;
+import com.dlsc.gemsfx.EnhancedPasswordField;
+
+import csc335.app.persistence.AccountManager;
+import csc335.app.utils.Validator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 
 public class SignUpController implements Initializable {
@@ -23,10 +25,10 @@ public class SignUpController implements Initializable {
     private TextField usernameField;
 
     @FXML
-    private PasswordField passwordField;
+    private EnhancedPasswordField passwordField;
 
     @FXML
-    private PasswordField confirmPasswordField;
+    private EnhancedPasswordField confirmPasswordField;
 
     @FXML
     private Label signInLabel;
@@ -39,12 +41,33 @@ public class SignUpController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignUpController initialized.");
-        
+        passwordField.setEchoChar('★');
+        confirmPasswordField.setEchoChar('☆');
+        emailField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                CreateAccountCall();
+            }
+        });
+        usernameField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                CreateAccountCall();
+            }
+        });
+        passwordField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                CreateAccountCall();
+            }
+        });
+        confirmPasswordField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                CreateAccountCall();
+            }
+        });
     }
 
     @FXML
     private void handleSignInClick(MouseEvent event) {
-        ViewManager.INSTANCE.loadView(View.LOGIN);
+        View.LOGIN.loadView();
     }
 
     // [ ] Needs in-line comments
@@ -56,9 +79,14 @@ public class SignUpController implements Initializable {
      */
     @FXML
     private void handleCreateAccountClick() {
+        CreateAccountCall();
+
+    }
+
+    private void CreateAccountCall(){
         /* Show error alert and void if any field is null */
         if (emailField == null || usernameField == null || passwordField == null || confirmPasswordField == null) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "All fields are required.");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return;
         }
 
@@ -69,12 +97,11 @@ public class SignUpController implements Initializable {
                 String email = emailField.getText().trim();
                 String username = usernameField.getText().trim();
                 String password = passwordField.getText().trim();
-                AccountRepo.REPOSITORY.setNewUser(username, email, password);
+                AccountManager.ACCOUNT.setNewUser(username, email, password);
             }
         } catch (IOException e) {
             System.err.println("Unable to create this account.");
         }
-
     }
 
     // [ ] Needs method comment
@@ -93,7 +120,7 @@ public class SignUpController implements Initializable {
 
         /* Show alert if any field is empty */
         if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "All fields are required.");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return false;
         }
 
@@ -108,18 +135,18 @@ public class SignUpController implements Initializable {
             /* Show error alert and void if password is too short */
             boolean validPassword = Validator.isValidPassword(password);
             if (!validPassword) {
-                ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Password must be at least 3 characters long.");
+                View.ALERT.showAlert(AlertType.ERROR, "Error", "Password must be at least 3 characters long.");
                 return false;
             }
 
             /* Show error alert and void if passwords do not match */
             if (!password.equals(confirmPassword)) {
-                ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Passwords do not match.");
+                View.ALERT.showAlert(AlertType.ERROR, "Error", "Passwords do not match.");
                 return false;
             }
 
         } catch (IllegalArgumentException e) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "All fields are required.");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return false;
         }
 
