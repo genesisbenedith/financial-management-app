@@ -320,7 +320,7 @@ public enum Database {
 
         /* Write expenses to file */
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(exportFile))) {
-            List<Expense> expenses = ExpenseTracker.TRACKER.getExpenses();
+            List<Expense> expenses = ExpenseTracker.getExpenses();
             for (Expense expense : expenses) {
                 bw.write(expense.toString());
                 bw.newLine();
