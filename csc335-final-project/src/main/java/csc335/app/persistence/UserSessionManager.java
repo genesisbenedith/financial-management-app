@@ -11,7 +11,7 @@ import csc335.app.models.User;
  */
 public enum UserSessionManager {
     
-    INSTANCE; // Singleton instance
+    SESSION; // Singleton instance
 
     private User currentUser = null; 
 

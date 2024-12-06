@@ -11,7 +11,6 @@ csc335/app/controllers/DashboardController.class
 csc335/app/models/Category.class
 csc335/app/controllers/SidebarController.class
 csc335/app/controllers/BudgetController.class
-csc335/app/controllers/ViewManager.class
 csc335/app/persistence/Hasher.class
 csc335/app/App.class
 csc335/app/utils/Validator.class

@@ -45,4 +45,3 @@ public final class Hasher {
         return hashedPassword.equals(hashPassword(password, salt));
      }
 }
-

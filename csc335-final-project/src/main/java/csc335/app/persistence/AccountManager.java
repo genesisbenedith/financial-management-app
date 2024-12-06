@@ -1,8 +1,9 @@
 package csc335.app.persistence;
 
+import java.io.IOException;
+
 import csc335.app.controllers.Observer;
 import csc335.app.controllers.View;
-import csc335.app.controllers.ViewManager;
 import csc335.app.models.User;
 import javafx.scene.control.Alert.AlertType;
 
@@ -12,17 +13,22 @@ import javafx.scene.control.Alert.AlertType;
  */
 
 // [ ] Complete class coment
-/**
+/**a
  * 
  */
-public enum AccountManager implements Observer {
+public enum AccountManager implements Observer{
 
-    REPOSITORY; // The single instance of the enum
+    ACCOUNT; // The single instance of the enum
 
     @Override
     public void update() {
-        User currentUser = UserSessionManager.INSTANCE.getCurrentUser();
-        Database.INSTANCE.saveUserFile(currentUser);
+        User currentUser = UserSessionManager.SESSION.getCurrentUser();
+        Database.DATABASE.saveUserFile(currentUser);
+    }
+
+    public void saveUserAccount() {
+        User currentUser = UserSessionManager.SESSION.getCurrentUser();
+        Database.DATABASE.saveUserFile(currentUser);
     }
 
     /**
@@ -37,10 +43,10 @@ public enum AccountManager implements Observer {
 
         /* Show error alert and void if username or email is taken */
         if (isEmailTaken(email)) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Email is already taken!");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "Email is already taken!");
             return;
         } else if (isUsernameTaken(username)) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Username is already taken!");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "Username is already taken!");
             return;
         }
 
@@ -54,13 +60,13 @@ public enum AccountManager implements Observer {
          * then create a new file for the user's transaction history
          */
         try {
-            Database.INSTANCE.addNewUserAccount(username, email, hashedPassword, salt);
+            Database.DATABASE.createNewUserAccount(username, email, hashedPassword, salt);
             /* Show success alert and load login view */
             System.out.println("\nUser account successfully created!\n");
-            ViewManager.INSTANCE.showAlert(AlertType.INFORMATION, "Success", "User account successfully created!");
-            ViewManager.INSTANCE.loadView(View.LOGIN);
+            View.ALERT.showAlert(AlertType.INFORMATION, "Success", "User account successfully created!");
+            View.LOGIN.loadView();
 
-        } catch (RuntimeException e) {
+        } catch (IOException e) {
             // Cancel registration if there's an error adding account to database
             System.err.println("\nAn error occured. Registration aborted.\nPlease try again.");
         }
@@ -77,22 +83,22 @@ public enum AccountManager implements Observer {
      */
     public void authenticateUser(String username, String password) {
         /* Find user and get their login credentials */
-        User user = Database.INSTANCE.findUser(username, "Username");
+        User user = Database.DATABASE.findUserAccount(username, "Username");
 
         /* Show error alert and void if username does not exist to any account */
         if (user == null) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Username does not exist!");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "Username does not exist!");
             return;
         }
 
         /* Show alert and void if authentication failed */
         if (!user.isPasswordCorrect(password))
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Authentication Failed", "Invalid username or password.");
+            View.ALERT.showAlert(AlertType.ERROR, "Authentication Failed", "Invalid username or password.");
 
         /* Set active user session and load dashboard view */
-        UserSessionManager.INSTANCE.setCurrentUser(user);
+        UserSessionManager.SESSION.setCurrentUser(user);
             System.out.println("User authenticated. Session active. Loading dashboard now.");
-            ViewManager.INSTANCE.loadView(View.DASHBOARD);
+            View.DASHBOARD.loadView();
        
     }
 
@@ -104,7 +110,7 @@ public enum AccountManager implements Observer {
      * @return true if username is already in use, or false if otherwise
      */
     private boolean isUsernameTaken(String username) {
-        return Database.INSTANCE.findUser(username, "Username") != null;
+        return Database.DATABASE.findUserAccount(username, "Username") != null;
     }
 
     /**
@@ -115,6 +121,21 @@ public enum AccountManager implements Observer {
      * @return true if email is already in use, or false if otherwise
      */
     private boolean isEmailTaken(String email) {
-        return Database.INSTANCE.findUser(email, "Email") != null;
+        return Database.DATABASE.findUserAccount(email, "Email") != null;
     }
+
+    
+
+    public void changeAvatarView(String imagePath) throws Exception {
+        String username = UserSessionManager.SESSION.getCurrentUser().getUsername();
+        if (imagePath != null && !imagePath.isEmpty()){
+            try {
+                Database.DATABASE.saveUserAvatarImage(imagePath, username);
+            } catch (Exception e) {
+                throw new Exception("An error occurred while saving image.");
+            }
+        }
+    }
+
+
 }

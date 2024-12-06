@@ -7,8 +7,8 @@ package csc335.app.models;
  * Description: 
  */
 
-
 import java.util.Calendar;
+
 
 
 /**
@@ -91,7 +91,7 @@ public class Expense {
     
         public void setCategory(Category category){
             this.category = category;
-    }
+}
 
     /**
      * Updates the amount of the transacation
@@ -140,3 +140,4 @@ public class Expense {
         return String.join(",", getStringDate(), this.getCategory().toString(), Double.toString(this.amount), this.description);
     }
 }
+

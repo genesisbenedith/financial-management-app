@@ -1,17 +1,16 @@
 package csc335.app.controllers;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
+
+import com.dlsc.gemsfx.AvatarView;
 
 import csc335.app.models.Category;
 import csc335.app.models.Expense;
 import csc335.app.models.User;
+import csc335.app.persistence.AccountManager;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
 import csc335.app.utils.CalendarConverter;
@@ -19,7 +18,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 
 /**
  * ${file_name}
@@ -31,50 +36,121 @@ import javafx.scene.chart.XYChart;
 public class DashboardController implements Initializable {
 
     @FXML
-    private BarChart<String, Double> barChart;
+    private BarChart<String, Number> barChart;
+
+    @FXML
+    private PieChart pieChart;
+
+    @FXML
+    private AvatarView userAvatar;
+
+    @FXML
+    private Label username;
+
+    @FXML
+    private Label email;
 
     private static User currentUser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Welcome to the dashboard!");
-        currentUser = UserSessionManager.INSTANCE.getCurrentUser();
+        currentUser = UserSessionManager.SESSION.getCurrentUser();
         System.out.println("Current user: " + currentUser.getUsername());
+
+        initializeUserInfo();
         initializeBarChart();
+        initializePieChart();
     }
 
-    public String getStringDate(Calendar calendar) {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1; // Calendar months are 0-indexed
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return year + "-" + month + "-" + day;
+    public void initializeUserInfo() {
+        userAvatar = currentUser.getAvatar();
+        username.setText(currentUser.getUsername());
+        email.setText(currentUser.getEmail());
+
+    }
+
+    private void initializePieChart() {
+        for (Category category : Category.values()) {
+            PieChart.Data slice = new Data(category.toString(),
+                    ExpenseTracker.TRACKER.calculateTotalExpenses(category));
+            pieChart.getData().add(slice);
+        }
+
+        for (Data pieSlice : pieChart.getData()) {
+            Node pieNode = pieSlice.getNode();
+            String nodeStyle = "-fx-pie-color: ";
+            pieNode.setStyle(nodeStyle + Category.valueOf(pieSlice.getName().toUpperCase()).getDefaultColor());
+            Tooltip.install(pieNode, new Tooltip(pieSlice.getName() + ":\n$" + pieSlice.getPieValue()));
+            pieNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                addHoverEffect(nodeStyle, pieNode, Category.valueOf(pieSlice.getName().toUpperCase()));
+            });
+
+            pieNode.setOnMouseClicked(
+                    event -> System.out.println("Clicked: " + pieSlice.getName() + " -> " + pieSlice.getPieValue()));
+
+        }
+        pieChart.applyCss(); // Apply CSS styles to the chart
+        pieChart.layout(); // Force layout to ensure legend nodes are created
+        pieChart.setLegendVisible(true); // Ensure the legend is enabled
+
+        System.out.println(pieChart.lookupAll(".chart-legend-item-symbol").size());
+        pieChart.lookupAll(".chart-legend-item-symbol").forEach(node -> {
+            String label = ((PieChart.Data) node.getUserData()).getName();
+            System.out.println(label);
+            if (Category.valueOf(label.toUpperCase()) != null) {
+                node.setStyle("-fx-background-color: " + Category.valueOf(label.toUpperCase()).getDefaultColor() + ";");
+            }
+        });
+
+    }
+
+    private void profileView() {
+        Button button = new Button("Choose an image: ");
+        button.setOnMouseClicked(
+                event -> {
+                    String imagePath = View.CHOOSER.showFileChooser();
+                    if (imagePath != null && !imagePath.isEmpty()) {
+                        try {
+                            AccountManager.ACCOUNT.changeAvatarView(imagePath);
+                        } catch (Exception e) {
+                            System.err.print("Unable to save user avatar.");
+                            View.ALERT.showAlert(AlertType.ERROR, "Error", "Unable to save user avatar.");
+                        }
+                    } else {
+                        // [ ] Do something
+                    }
+                });
     }
 
     private void initializeBarChart() {
 
-        // Bar chart will show the category spending summary in the last month (including current month)
-        // If the date range button in dropdown is changed, get the new set value then...
+        // Bar chart will show the category spending summary in the last month
+        // (including current month)
+        // If the date range button in dropdown is changed, get the new set value
+        // then...
 
         // Get current cal date
-        Calendar startCal = CalendarConverter.INSTANCE.getCalendar(1);
         Calendar endCal = CalendarConverter.INSTANCE.getCalendar();
+        Calendar startCal = CalendarConverter.INSTANCE.getCalendar(1);
+
         /*
          * if set to past 30 days, then
          * getCalendar(1)
          * 
-         * if set to past 3 months, then 
+         * if set to past 3 months, then
          * getCalendar(3)
          * 
          * and so on...
          */
 
         // Print the start and end dates
-        System.out.println("Start date: " + getStringDate(startCal));
-        System.out.println("End date: " + getStringDate(endCal));
+        System.out.println("Start date: " + CalendarConverter.INSTANCE.getStringDate(startCal));
+        System.out.println("End date: " + CalendarConverter.INSTANCE.getStringDate(endCal));
 
         // The expenses within the last month
-        List<Expense> expensesInRange = ExpenseTracker.filterExpensesInRange(startCal, endCal);
-        System.out.println("All of the transactions in the last 30 days: ");
+        List<Expense> expensesInRange = ExpenseTracker.TRACKER.filterExpensesInRange(startCal, endCal);
+        System.out.println("All of the transactions for the last 3 calendar months: ");
         for (Object elem : expensesInRange) {
             System.out.println(elem);
         }
@@ -82,49 +158,45 @@ public class DashboardController implements Initializable {
         // Creating the legend for the bar chart that explains the colors
         for (Category category : Category.values()) {
 
-            // Initialize a dataset to represent an expense category
-            XYChart.Series<String, Double> series = new XYChart.Series<>();
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
             series.setName(category.toString());
 
-            // Filter the expenses in range by category
-            List<Expense> filteredExpenses = ExpenseTracker.filterExpenses(expensesInRange, category);
-            // ExpenseTracker.filterExpenses(expensesInRange, category);
-            // Calculate total spent in the month
-                double totalSpent = 0.0;
-                for (Expense expense : filteredExpenses) {
-                    totalSpent += expense.getAmount();
-                }
-                
-                // Add this category's data to the dataset for this month
-                series.getData().add(new XYChart.Data<>(category.toString(), totalSpent));
+            double total = ExpenseTracker.TRACKER
+                    .calculateTotalExpenses(ExpenseTracker.TRACKER.filterExpenses(expensesInRange, category));
+            series.getData().add(new XYChart.Data<>(category.toString(), total));
 
-            // Add hover effect to each bar
-            for (XYChart.Data<String, Double> data : series.getData()) {
-                Node barNode = data.getNode(); // Bar node will be available after adding data to chart
-                
-                data.nodeProperty().addListener((obs, oldNode, newNode) -> {
-                    if (newNode != null) {
-                        addHoverEffect(newNode, category);
-                    }
-            });
+            barChart.getData().add(series);
         }
 
-            // Add this dataset to the bar chart
-            barChart.getData().add(series);
+        barChart.setBarGap(0); // Sets the gap between bars in the same category
+        barChart.setCategoryGap(0); // Sets the gap between different categories (months)
+        barChart.setStyle("-fx-background-color: #fff");
+
+        // Add click listeners for debugging (optional)
+        for (XYChart.Series<String, Number> series : barChart.getData()) {
+            System.out.println(series.getData().size() + "in " + series.getName());
+            for (XYChart.Data<String, Number> data : series.getData()) {
+                Node barNode = data.getNode();
+                barNode.setScaleX(6);
+                barNode.setTranslateX(50); // Manually adjust position
+                String nodeStyle = "-fx-bar-fill: ";
+                barNode.setStyle(nodeStyle + Category.valueOf(series.getName().toUpperCase()).getDefaultColor());
+                barNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                    addHoverEffect(nodeStyle, barNode, Category.valueOf(series.getName().toUpperCase()));
+                });
+
+                Tooltip.install(data.getNode(), new Tooltip(data.getXValue() + ":\n$" + data.getYValue()));
+            }
         }
     }
 
-    private void addHoverEffect(Node node, Category category) {
+    private void addHoverEffect(String style, Node node, Category category) {
         node.setOnMouseEntered(event -> {
-            node.setStyle("-fx-bar-fill: " + category.getHoverColor() + ";"); 
-            node.setScaleX(1.1);
-            node.setScaleY(1.1);
+            node.setStyle(style + category.getHoverColor() + ";");
         });
 
         node.setOnMouseExited(event -> {
-            node.setStyle(category.getDefaultColor()); // Reverts to default color
-            node.setScaleX(1.0);
-            node.setScaleY(1.0);
+            node.setStyle(style + category.getDefaultColor() + ";"); // Reverts to default color
         });
     }
 

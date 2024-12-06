@@ -48,6 +48,24 @@ public class AllTests{
     }
 
     @Test
+    public void testaddAndsetExpense(){
+        Budget myBudget = new Budget(Category.UTILITIES, 340, new ArrayList<>());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, 12, 1);
+        Expense e = new Expense(calendar, Category.UTILITIES, 50.74, "Yes");
+        myBudget.addExpense(e);
+        List<Expense> expenses = new ArrayList<>();
+        expenses.add(e);
+        assertEquals(expenses, myBudget.getExpenses());
+        List<Expense> elist = new ArrayList<Expense>();
+        Expense e1 = new Expense(calendar, Category.UTILITIES, 50.01, "null"); 
+        Expense e2 = new Expense(calendar, Category.ENTERTAINMENT, 13, "Yes");
+        elist.add(e2); elist.add(e1);
+        myBudget.setExpenses(elist);
+        assertEquals(50.01, myBudget.getTotalSpent());
+    }
+
+    @Test
     public void testsetLimitandThrowException(){
         Budget myBudget = new Budget(Category.ENTERTAINMENT, 76, new ArrayList<>());
         myBudget.setLimit(45.15);
@@ -67,13 +85,26 @@ public class AllTests{
         expenses.add(expense2); expenses.add(expense);
         myBudget.addExpenses(expenses);
         assertTrue(myBudget.isExceeded());
-        assertEquals(82.98, myBudget.getPercentage(), 0.01);
+        assertEquals(82.98, myBudget.getPercentage());
     }
 
     @Test
     public void testToString(){
         Budget myBudget = new Budget(Category.TRANSPORTATION, 7500, new ArrayList<>());
         assertEquals("Transportation,7500.0", myBudget.toString());
+    }
+
+    @Test
+    public void testToStringDetailed(){
+        Budget mBudget = new Budget(Category.TRANSPORTATION, 65.50, new ArrayList<>());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2022, 8, 14);
+        mBudget.addExpense(new Expense(calendar, Category.TRANSPORTATION, 10, "null"));
+        String strBudget = mBudget.toStringDetailed();
+        assertEquals("TRANSPORTATION CATEGORY\n" + //
+                        "\tBudget: (Category,Limit)\n" + //
+                        "\t-> Budget: Transportation,65.5" +
+                        "\n\t\t2022-9-14,Transportation,10.0,null", strBudget);
     }
 
     /*---------------------------------------------------Expense Test--------------------------------------- */

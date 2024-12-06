@@ -31,7 +31,7 @@ public class SignInController implements Initializable {
 
     @FXML
     private void handleSignUpClick(MouseEvent event) {
-        ViewManager.INSTANCE.loadView(View.REGISTER);
+        View.REGISTER.loadView();
     }
 
     // EDIT method comment and in-line comments
@@ -47,13 +47,13 @@ public class SignInController implements Initializable {
 
         /* Show error alert and void if fields are null or empty */
         if (usernameField == null || passwordField == null) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Both username and password are required.");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "Both username and password are required.");
             return;
         } else {
             username = usernameField.getText().trim();
             password = passwordField.getText().trim();
             if (username.isEmpty() || password.isEmpty()) {
-                ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Both username and password are required.");
+                View.ALERT.showAlert(AlertType.ERROR, "Error", "Both username and password are required.");
                 return;
             }
         }
@@ -62,7 +62,7 @@ public class SignInController implements Initializable {
         password = passwordField.getText().trim();
 
         // Authenticate user
-        AccountManager.REPOSITORY.authenticateUser(username, password);
+        AccountManager.ACCOUNT.authenticateUser(username, password);
 
     }
 

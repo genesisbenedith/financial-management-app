@@ -11,11 +11,9 @@ import csc335.app.models.Category;
 import csc335.app.models.Subject;
 import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
-import csc335.app.services.ExpenseTracker;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
@@ -94,7 +92,7 @@ public class BudgetController implements Subject, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Welcome to the Budget Panel!");
-        currentUser = UserSessionManager.INSTANCE.getCurrentUser();
+        currentUser = UserSessionManager.SESSION.getCurrentUser();
         try {
 
             tAlert.setVisible(false);
@@ -124,7 +122,7 @@ public class BudgetController implements Subject, Initializable {
             throw new RuntimeException("Failed to initialize BudgetController: " + e.getMessage());
         }
 
-        addObserver(AccountManager.REPOSITORY);
+        addObserver(AccountManager.ACCOUNT);
 
     }
 
@@ -135,7 +133,7 @@ public class BudgetController implements Subject, Initializable {
             }
             double limit = budg.getLimit();
             field.setPromptText(limit + "");
-            if (budg.isExceeded()) {
+            if (budg.getPercentage() > 80) {
                 alert.setVisible(true);
             }
         }
@@ -151,14 +149,14 @@ public class BudgetController implements Subject, Initializable {
         try {
             value = Double.parseDouble(field.getText());
         } catch (NumberFormatException e) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Input error", "The input is not a number format");
+            View.ALERT.showAlert(AlertType.ERROR, "Input error", "The input is not a number format");
             return;
         }
 
         System.out.println(value);
         // Check if value is negative
         if (value < 0) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
             return;
         }
 

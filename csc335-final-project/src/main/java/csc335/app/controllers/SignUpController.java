@@ -44,7 +44,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void handleSignInClick(MouseEvent event) {
-        ViewManager.INSTANCE.loadView(View.LOGIN);
+        View.LOGIN.loadView();
     }
 
     // [ ] Needs in-line comments
@@ -58,7 +58,7 @@ public class SignUpController implements Initializable {
     private void handleCreateAccountClick() {
         /* Show error alert and void if any field is null */
         if (emailField == null || usernameField == null || passwordField == null || confirmPasswordField == null) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "All fields are required.");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return;
         }
 
@@ -69,7 +69,7 @@ public class SignUpController implements Initializable {
                 String email = emailField.getText().trim();
                 String username = usernameField.getText().trim();
                 String password = passwordField.getText().trim();
-                AccountManager.REPOSITORY.setNewUser(username, email, password);
+                AccountManager.ACCOUNT.setNewUser(username, email, password);
             }
         } catch (IOException e) {
             System.err.println("Unable to create this account.");
@@ -93,7 +93,7 @@ public class SignUpController implements Initializable {
 
         /* Show alert if any field is empty */
         if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "All fields are required.");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return false;
         }
 
@@ -108,18 +108,18 @@ public class SignUpController implements Initializable {
             /* Show error alert and void if password is too short */
             boolean validPassword = Validator.isValidPassword(password);
             if (!validPassword) {
-                ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Password must be at least 3 characters long.");
+                View.ALERT.showAlert(AlertType.ERROR, "Error", "Password must be at least 3 characters long.");
                 return false;
             }
 
             /* Show error alert and void if passwords do not match */
             if (!password.equals(confirmPassword)) {
-                ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "Passwords do not match.");
+                View.ALERT.showAlert(AlertType.ERROR, "Error", "Passwords do not match.");
                 return false;
             }
 
         } catch (IllegalArgumentException e) {
-            ViewManager.INSTANCE.showAlert(AlertType.ERROR, "Error", "All fields are required.");
+            View.ALERT.showAlert(AlertType.ERROR, "Error", "All fields are required.");
             return false;
         }
 
