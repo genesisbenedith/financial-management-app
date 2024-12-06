@@ -48,6 +48,6 @@ public class Validator {
             throw new IllegalArgumentException("Password cannot be null or empty.");
         }
 
-        return (password.length() < 5);
+        return (password.length() < 3);
     }
 }

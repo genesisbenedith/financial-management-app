@@ -1,9 +1,13 @@
 package csc335.app.utils;
 
+import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public enum CalendarConverter {
 
@@ -45,5 +49,20 @@ public enum CalendarConverter {
         int month = calendar.get(Calendar.MONTH) + 1; // Calendar months are 0-indexed
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         return year + "-" + month + "-" + day;
+    }
+
+    public static List<String> getLastMonths(int numMonths) {
+        List<String> months = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance(); // Current date
+
+        for (int i = 0; i < numMonths; i++) {
+            int monthIndex = calendar.get(Calendar.MONTH); // Get the current month (0-based index)
+            String monthName = new DateFormatSymbols().getShortMonths()[monthIndex]; // Get the month name
+            months.add(monthName);
+            calendar.add(Calendar.MONTH, -1); // Move back one month
+        }
+
+        Collections.reverse(months);
+        return months;
     }
 }
