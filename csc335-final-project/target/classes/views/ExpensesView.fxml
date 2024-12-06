@@ -42,8 +42,8 @@
                                        </font>
                                     </Label>
                                  </children></Pane>
-                              <MFXButton fx:id="clearButton" layoutX="710.0" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="85.0" text="Clear" textAlignment="JUSTIFY" textOverrun="CLIP" />
-                              <MFXDatePicker fx:id="dateFrom" layoutX="60.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" />
+                              <MFXButton fx:id="clearButton" layoutX="710.0" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clearButtonClick" prefHeight="30.0" prefWidth="85.0" text="Clear" textAlignment="JUSTIFY" textOverrun="CLIP" />
+                              <MFXDatePicker fx:id="dateFrom" layoutX="60.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#dateFrom" prefWidth="140.0" />
                               <Pane fx:id="importFile" layoutX="500.0" layoutY="181.5" onMouseClicked="#importFileClick" prefHeight="75.0" prefWidth="75.0" styleClass="totalspent" stylesheets="@../css/expense.css">
                                  <children>
                                     <Label layoutX="10.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="55.0" text="Upload File" textAlignment="CENTER" wrapText="true">
@@ -70,7 +70,7 @@
                                        </image>
                                     </ImageView>
                                  </children></Pane>
-                              <MFXDatePicker fx:id="dateTo" layoutX="260.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" />
+                              <MFXDatePicker fx:id="dateTo" layoutX="260.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#dateTo" prefWidth="140.0" />
                               <Pane layoutX="215.0" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="30.0" styleClass="totalspent" stylesheets="@../css/expense.css">
                                  <children>
                                     <Label layoutX="7.0" layoutY="7.0" text="TO" />

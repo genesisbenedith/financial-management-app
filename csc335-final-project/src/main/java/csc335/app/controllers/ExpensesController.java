@@ -12,10 +12,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.input.MouseButton;
 //import scala.collection.immutable.List;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +31,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 
 import java.io.BufferedReader;
@@ -42,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 
 //import javax.faces.event.ActionEvent;
 
@@ -50,6 +56,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 import csc335.app.Category;
@@ -72,16 +79,16 @@ public class ExpensesController implements Initializable, Subject{
     @FXML
     private AnchorPane contentArea;
     private static final String USER_DATA_DIRECTORY = "data/users";
-    private FlowPane mainPane, importPane, addNewPane, editPane, removePane;
-    private Scene mainScreen, importFile, addNewExpense, editExpense, removeExpense, progressBar;
-    private Button importFileButton, addNewExpenseButton, editExpenseButton, removeExpenseButton, dateFromButton, dateToButton, progressBarButton;
-    private Set<String> expenseCategories = new HashSet<>();
+    // private FlowPane mainPane, importPane, addNewPane, editPane, removePane;
+    // private Scene mainScreen, importFile, addNewExpense, editExpense, removeExpense, progressBar;
+    // private Button importFileButton, addNewExpenseButton, editExpenseButton, removeExpenseButton, dateFromButton, dateToButton, progressBarButton;
+    // private Set<String> expenseCategories = new HashSet<>();
     private List<Expense> expenses = new ArrayList<>();
-    private double totalBudget = 0.0;
-    private double totalExpenses = 0.0;
-    private String username;
+    // private double totalBudget = 0.0;
+    // private double totalExpenses = 0.0;
+    // private String username;
     
-    private Pane[] expensePanes;
+    // private Pane[] expensePanes;
 
     @FXML
     private MFXButton clearButton;
@@ -145,13 +152,17 @@ public class ExpensesController implements Initializable, Subject{
     @FXML
     private Pane otherBar;
 
+    @FXML
+    private Label expensePercentageLabel;
+
     private static final List<Observer> observers = new ArrayList<>();
     private User currentUser;
     private Expense expense;
-    private String currentDate;
-    private String currentCategory;
-    private String currentAmount;
-    private String currentSummary;
+    private Category categoryClicked;
+    // private String currentDate;
+    // private String currentCategory;
+    // private String currentAmount;
+    // private String currentSummary;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -161,6 +172,7 @@ public class ExpensesController implements Initializable, Subject{
         currentUser = UserSessionManager.getCurrentUser();
         expenses = currentUser.getExpenses();
         loadExpenses(expenses);
+        progressBarFill();
         addObserver(AccountRepository.getAccountRepository());
     }
 
@@ -247,13 +259,13 @@ public class ExpensesController implements Initializable, Subject{
         ViewManager.getViewManager().loadView(View.EXPENSE);
     }
 
-    @FXML
-    private void editExpenseClick(){
-        // use add expense popup but with different title and the information already filled in, just editable
-        ViewManager.getViewManager().loadView(View.EXPENSE);
-        ExpenseController editExpense = new ExpenseController();
-        editExpense.setContentText(expense);
-    }
+    // @FXML
+    // private void editExpenseClick(){
+    //     // use add expense popup but with different title and the information already filled in, just editable
+    //     ViewManager.getViewManager().loadView(View.EXPENSE);
+    //     ExpenseController editExpense = new ExpenseController();
+    //     editExpense.setContentText(expense);
+    // }
 
     @FXML
     private void dateFrom(){
@@ -287,10 +299,10 @@ public class ExpensesController implements Initializable, Subject{
         startCal.set(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
         Calendar endCal = Calendar.getInstance(Locale.getDefault());
         endCal.set(endDate.getYear(), endDate.getMonthValue(), endDate.getDayOfMonth());
-        if (!progressBarClick() || clearButton){
+        if (categoryClicked == null || clearButtonClick()){
             loadExpenses(currentUser.getExpensesInRange(startCal, endCal));
         }
-        loadExpenses(currentUser.getExpensesInRange(startCal, endCal, category)); // category will be the category clicked form the bar or the total expenses if none were selected
+        loadExpenses(currentUser.getExpensesInRange(startCal, endCal, categoryClicked)); // category will be the category clicked form the bar or the total expenses if none were selected
 
     }
 
@@ -347,6 +359,13 @@ public class ExpensesController implements Initializable, Subject{
                     edit.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                         if(newValue){
                             edit.setVisible(true);
+                            edit.setOnMouseClicked(e->{
+                                if (e.getButton() == MouseButton.SECONDARY){
+                                   ViewManager.getViewManager().loadView(View.EXPENSE);
+                                    ExpenseController editExpense = new ExpenseController();
+                                    editExpense.setContentText(expense); 
+                                }
+                            });
                         }
                         else{
                             edit.setVisible(false);
@@ -382,31 +401,117 @@ public class ExpensesController implements Initializable, Subject{
             }
             vBox.getChildren().add(clonedPane);
         }
-        
-        
+    }
+
+    @FXML
+    private boolean clearButtonClick(){
+        progressBarFill();
+        return true;
     }
 
     private void progressBarFill(){
         // make it hoverable with the label and percentage of the total expenses from that catefory visible when hovered over
         // and then it will be clickable and the bar will change to that category and the percentage of the budget for that category already set in expenses will show up
         // clear will send you back to the total budget
-        
-        for (Budget b : UserSessionManager.getCurrentUser().getBudgetsByCategory().values()) {
-            if (b.getCategory().equals(category)) {
-                if (b.isExceeded()) {
-                    alert.setVisible(true);
-                    progress.setProgress(Math.min(1.0, b.getTotalSpent() / b.getLimit()));
-                }
-                if (b.getLimit() < 0) {
-                    showAlert(AlertType.ERROR, "Error", "Budget cannot be set below zero.");
-                    return 0;
-                }
-            }
+        //double totalExpenses = UserSessionManager.getCurrentUser().getTotalExpenses();
+        Map<Category, Budget> categoryBudgets = UserSessionManager.getCurrentUser().getBudgetsByCategory();
+        double totalBudget = 0.0;
+        for (Budget bud : categoryBudgets.values()){
+            totalBudget += bud.getLimit();
+        }
+        //Map<Category, List<Expense>> expensesByCategory = UserSessionManager.getCurrentUser().getExpensesByCategory();
+
+        for (Map.Entry<Category, Budget> entry : categoryBudgets.entrySet()) {
+            Category category = entry.getKey();
+            Budget budget = entry.getValue();
+            double categoryExpenses = UserSessionManager.getCurrentUser().getTotalExpenses(category);
+
+            // Calculate the percentage of total budget and expenses for this category
+            double categoryPercentageOfTotal = budget.getLimit() / totalBudget;
+            double categoryExpensePercentage = categoryExpenses / budget.getLimit();
+            double totalWidth = percentBar.getWidth();
+            // Create a Region or Pane to represent this category's budget
+            Pane categoryBar = new Pane();
+            categoryBar.setPrefWidth(categoryPercentageOfTotal * totalWidth); // Width relative to total budget
+            categoryBar.setStyle(category.getDefaultColor()); // Reverts to default color
+            categoryBar.setStyle(category.getDefaultColor() + ";");
+            categoryBar.setStyle(Category.valueOf(category.toString().toUpperCase()).getDefaultColor());
+            
+            // pieNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            //     addHoverEffect(nodeStyle, pieNode, Category.valueOf(pieSlice.getName().toUpperCase()));
+            // });
+               
+            // Set hover event to show percentage spent for this category
+            categoryBar.setOnMouseEntered(event -> {
+                addHoverEffect(categoryBar, Category.valueOf(category.toString()));
+                Tooltip.install(categoryBar, new Tooltip(category + ":\n$" + categoryExpensePercentage));
+            });
+
+            categoryBar.setOnMouseClicked(event -> {
+                System.out.println("Clicked: " + category + " -> " + categoryExpensePercentage);
+                progressBarClicked(category, budget, categoryExpensePercentage);
+            });
+    
+            // Add the category bar to the main bar layout (HBox, etc.)
+            percentBar.getChildren().add(categoryBar);
         }
     }
 
-    private void progressBarClick(){
+    private void addHoverEffect(Node node, Category category) {
         
+        node.setOnMouseEntered(event -> {
+            node.setStyle("-fx-bar-fill: " + category.getHoverColor() + ";");
+            node.setStyle(category.getHoverColor() + ";");
+        });
+
+        node.setOnMouseExited(event -> {
+            node.setStyle(category.getDefaultColor()); // Reverts to default color
+            node.setStyle(category.getDefaultColor() + ";"); // Reverts to default color
+        });
+    }
+    
+
+    private void progressBarClicked(Category category, Budget budget, double categoryExpensePercentage){
+        vBox.getChildren().clear();
+        categoryClicked = category;
+        // Load only the expenses for the specific category
+        List<Expense> categoryExpenses = UserSessionManager.getCurrentUser().getExpensesByCategory().get(category);
+        loadExpenses(categoryExpenses);
+        
+        double categoryExpensesAmount = UserSessionManager.getCurrentUser().getTotalExpenses(category);
+        double categoryBudgetLimit = budget.getLimit();
+        
+        // Calculate the percentage of the budget used for this category
+        double categoryUsagePercentage = categoryExpensesAmount / categoryBudgetLimit;
+
+        // Get the HBox where we want to display the percentage bar
+        HBox percentBar = this.percentBar; // Assuming you have this HBox defined
+
+        // Clear the current content of the HBox before adding the new pane
+        percentBar.getChildren().clear();
+
+        // Create a new colored Pane that represents the percentage used of the budget
+        Pane categoryBar = new Pane();
+        categoryBar.setPrefWidth(percentBar.getWidth() * categoryUsagePercentage); // Set the width relative to the percentage used
+        categoryBar.setStyle("-fx-background-color: " + category.getDefaultColor()); // Use the default color of the category
+        addHoverEffect(categoryBar, category);
+        // Optionally, add a Tooltip or label to show the percentage used
+        Tooltip.install(categoryBar, new Tooltip(String.format("%.2f", categoryUsagePercentage * 100) + "%"));
+
+        // Add the category bar to the HBox
+        percentBar.getChildren().add(categoryBar);
+
+        // Optionally, if you want to update the UI with the exact percentage used
+        updateCategoryExpensePercentage(categoryUsagePercentage);
+        // You can also update the display to show this category's budget breakdown if needed
+        System.out.println("Category: " + category + ", Budget: $" + budget.getLimit() + ", Expenses: $" + UserSessionManager.getCurrentUser().getTotalExpenses(category));
+    }
+
+    private void updateCategoryExpensePercentage(double categoryExpensePercentage) {
+        // Update the UI with the percentage, this can be displayed in a label or progress bar
+        // Example:
+        
+        expensePercentageLabel.setText("Category spent: " + String.format("%.2f", categoryExpensePercentage * 100) + "%");
     }
 
     // [ ] Needs method comment
