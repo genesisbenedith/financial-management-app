@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 /** 
  * Author(s): Chelina Obiang
  * Desctription: Tests the java files inside the models folder (Budget.java and Expense.java)
@@ -5,6 +6,9 @@
 package csc335.app;
 
 
+=======
+package csc335.app;
+>>>>>>> Stashed changes
 import java.util.Calendar;
 import java.util.List;
 

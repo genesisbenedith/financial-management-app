@@ -1,5 +1,9 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
+<<<<<<< Updated upstream
     "java.debug.settings.onBuildFailureProceed": true,
     "maven.view": "hierarchical"
+=======
+    "java.debug.settings.onBuildFailureProceed": true
+>>>>>>> Stashed changes
 }

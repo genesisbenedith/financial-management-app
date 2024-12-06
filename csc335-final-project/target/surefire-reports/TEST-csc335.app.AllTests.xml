@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< Updated upstream
 <testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="csc335.app.AllTests" time="0.283" tests="11" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
@@ -25,11 +26,40 @@
     <property name="java.home" value="/usr/local/Cellar/openjdk/23.0.1/libexec/openjdk.jdk/Contents/Home"/>
     <property name="file.separator" value="/"/>
     <property name="basedir" value="/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project"/>
+=======
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="csc335.app.AllTests" time="0.039" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="23"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/test-classes:/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/classes:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-controls/21.0.4/javafx-controls-21.0.4.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-controls/21.0.4/javafx-controls-21.0.4-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-graphics/21.0.4/javafx-graphics-21.0.4.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-graphics/21.0.4/javafx-graphics-21.0.4-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-base/21.0.4/javafx-base-21.0.4.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-base/21.0.4/javafx-base-21.0.4-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-fxml/21.0.4/javafx-fxml-21.0.4.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-fxml/21.0.4/javafx-fxml-21.0.4-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/com/jfoenix/jfoenix/9.0.10/jfoenix-9.0.10.jar:/Users/genesisbenedith/.m2/repository/de/jensd/fontawesomefx/8.9/fontawesomefx-8.9.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/materialfx-all/11.26.8/materialfx-all-11.26.8.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxcore/11.11.1/mfxcore-11.11.1.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/materialfx/11.17.0/materialfx-11.17.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxlocalization/11.1.0/mfxlocalization-11.1.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxresources/11.12.0/mfxresources-11.12.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxcomponents/11.26.8/mfxcomponents-11.26.8.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxeffects/11.4.1/mfxeffects-11.4.1.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/virtualizedfx/11.9.6/virtualizedfx-11.9.6.jar:/Users/genesisbenedith/.m2/repository/org/jacoco/jacoco-maven-plugin/0.8.12/jacoco-maven-plugin-0.8.12.jar:/Users/genesisbenedith/.m2/repository/org/codehaus/plexus/plexus-utils/3.0.24/plexus-utils-3.0.24.jar:/Users/genesisbenedith/.m2/repository/org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.jar:/Users/genesisbenedith/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/Users/genesisbenedith/.m2/repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar:/Users/genesisbenedith/.m2/repository/org/apache/maven/reporting/maven-reporting-api/3.0/maven-reporting-api-3.0.jar:/Users/genesisbenedith/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0/doxia-sink-api-1.0.jar:/Users/genesisbenedith/.m2/repository/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar:/Users/genesisbenedith/.m2/repository/org/jacoco/org.jacoco.core/0.8.12/org.jacoco.core-0.8.12.jar:/Users/genesisbenedith/.m2/repository/org/ow2/asm/asm/9.7/asm-9.7.jar:/Users/genesisbenedith/.m2/repository/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.jar:/Users/genesisbenedith/.m2/repository/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.jar:/Users/genesisbenedith/.m2/repository/org/jacoco/org.jacoco.report/0.8.12/org.jacoco.report-0.8.12.jar:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter/5.11.3/junit-jupiter-5.11.3.jar:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.11.3/junit-jupiter-params-5.11.3.jar:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.3/junit-jupiter-api-5.11.3.jar:/Users/genesisbenedith/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/genesisbenedith/.m2/repository/org/junit/platform/junit-platform-commons/1.11.3/junit-platform-commons-1.11.3.jar:/Users/genesisbenedith/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.3/junit-jupiter-engine-5.11.3.jar:/Users/genesisbenedith/.m2/repository/org/junit/platform/junit-platform-engine/1.11.3/junit-platform-engine-1.11.3.jar:"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="23"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-23.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/surefire/surefirebooter10897846024446122673.jar /Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/surefire 2024-12-04T16-05-10_369-jvmRun1 surefire2027521796640093901tmp surefire_09607188546243853524tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="test" value="${packageClassName}"/>
+    <property name="surefire.test.class.path" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/test-classes:/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/classes:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-controls/21.0.4/javafx-controls-21.0.4.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-controls/21.0.4/javafx-controls-21.0.4-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-graphics/21.0.4/javafx-graphics-21.0.4.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-graphics/21.0.4/javafx-graphics-21.0.4-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-base/21.0.4/javafx-base-21.0.4.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-base/21.0.4/javafx-base-21.0.4-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-fxml/21.0.4/javafx-fxml-21.0.4.jar:/Users/genesisbenedith/.m2/repository/org/openjfx/javafx-fxml/21.0.4/javafx-fxml-21.0.4-mac-aarch64.jar:/Users/genesisbenedith/.m2/repository/com/jfoenix/jfoenix/9.0.10/jfoenix-9.0.10.jar:/Users/genesisbenedith/.m2/repository/de/jensd/fontawesomefx/8.9/fontawesomefx-8.9.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/materialfx-all/11.26.8/materialfx-all-11.26.8.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxcore/11.11.1/mfxcore-11.11.1.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/materialfx/11.17.0/materialfx-11.17.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxlocalization/11.1.0/mfxlocalization-11.1.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxresources/11.12.0/mfxresources-11.12.0.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxcomponents/11.26.8/mfxcomponents-11.26.8.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/mfxeffects/11.4.1/mfxeffects-11.4.1.jar:/Users/genesisbenedith/.m2/repository/io/github/palexdev/virtualizedfx/11.9.6/virtualizedfx-11.9.6.jar:/Users/genesisbenedith/.m2/repository/org/jacoco/jacoco-maven-plugin/0.8.12/jacoco-maven-plugin-0.8.12.jar:/Users/genesisbenedith/.m2/repository/org/codehaus/plexus/plexus-utils/3.0.24/plexus-utils-3.0.24.jar:/Users/genesisbenedith/.m2/repository/org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.jar:/Users/genesisbenedith/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/Users/genesisbenedith/.m2/repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar:/Users/genesisbenedith/.m2/repository/org/apache/maven/reporting/maven-reporting-api/3.0/maven-reporting-api-3.0.jar:/Users/genesisbenedith/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0/doxia-sink-api-1.0.jar:/Users/genesisbenedith/.m2/repository/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar:/Users/genesisbenedith/.m2/repository/org/jacoco/org.jacoco.core/0.8.12/org.jacoco.core-0.8.12.jar:/Users/genesisbenedith/.m2/repository/org/ow2/asm/asm/9.7/asm-9.7.jar:/Users/genesisbenedith/.m2/repository/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.jar:/Users/genesisbenedith/.m2/repository/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.jar:/Users/genesisbenedith/.m2/repository/org/jacoco/org.jacoco.report/0.8.12/org.jacoco.report-0.8.12.jar:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter/5.11.3/junit-jupiter-5.11.3.jar:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.11.3/junit-jupiter-params-5.11.3.jar:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.3/junit-jupiter-api-5.11.3.jar:/Users/genesisbenedith/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/genesisbenedith/.m2/repository/org/junit/platform/junit-platform-commons/1.11.3/junit-platform-commons-1.11.3.jar:/Users/genesisbenedith/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/genesisbenedith/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.3/junit-jupiter-engine-5.11.3.jar:/Users/genesisbenedith/.m2/repository/org/junit/platform/junit-platform-engine/1.11.3/junit-platform-engine-1.11.3.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/genesisbenedith"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2024-10-15"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-23.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project"/>
+>>>>>>> Stashed changes
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
+<<<<<<< Updated upstream
     <property name="surefire.real.class.path" value="/Users/chelinaobiang/210Workspace/335Workspace/csc335-final-project/csc335-final-project/target/surefire/surefirebooter8521021396725697289.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
@@ -55,11 +85,42 @@
     <property name="stderr.encoding" value="UTF-8"/>
     <property name="java.vendor" value="Homebrew"/>
     <property name="java.vm.version" value="23.0.1"/>
+=======
+    <property name="surefire.real.class.path" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project/target/surefire/surefirebooter10897846024446122673.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="23.0.1+11-39"/>
+    <property name="user.name" value="genesisbenedith"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="14.1.2"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="maven.ext.class.path" value="/Users/genesisbenedith/.vscode/extensions/oracle.oracle-java-23.0.1/nbcode/java/maven-nblib/netbeans-eventspy.jar"/>
+    <property name="localRepository" value="/Users/genesisbenedith/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/var/folders/vp/w0y3w28x4mbc_82x_ddd8rl00000gn/T/"/>
+    <property name="java.version" value="23.0.1"/>
+    <property name="user.dir" value="/Users/genesisbenedith/Documents/GitHub/csc335Workspace/final project/financial-management-app/csc335-final-project"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/genesisbenedith/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="23.0.1+11-39"/>
+>>>>>>> Stashed changes
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
+<<<<<<< Updated upstream
   <testcase name="testgetLimit" classname="csc335.app.AllTests" time="0.059">
+=======
+  <testcase name="testgetCategory" classname="csc335.app.AllTests" time="0.025">
+>>>>>>> Stashed changes
     <system-err><![CDATA[java.lang.instrument.IllegalClassFormatException: Error while instrumenting csc335/app/AllTests.
 	at org.jacoco.agent.rt.internal_035b120.CoverageTransformer.transform(CoverageTransformer.java:93)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:242)
@@ -95,6 +156,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrument(Instrumenter.java:74)
 	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrument(Instrumenter.java:106)
 	... 21 more
+<<<<<<< Updated upstream
 java.lang.instrument.IllegalClassFormatException: Error while instrumenting csc335/app/models/Expense.
 	at org.jacoco.agent.rt.internal_035b120.CoverageTransformer.transform(CoverageTransformer.java:93)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:242)
@@ -164,6 +226,8 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrument(Instrumenter.java:74)
 	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrument(Instrumenter.java:106)
 	... 55 more
+=======
+>>>>>>> Stashed changes
 java.lang.instrument.IllegalClassFormatException: Error while instrumenting csc335/app/models/Budget.
 	at org.jacoco.agent.rt.internal_035b120.CoverageTransformer.transform(CoverageTransformer.java:93)
 	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:242)
@@ -178,6 +242,7 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting csc3
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:528)
+<<<<<<< Updated upstream
 	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
 	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3650)
 	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2735)
@@ -248,6 +313,9 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting csc3
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:528)
 	at csc335.app.AllTests.testgetLimit(AllTests.java:31)
+=======
+	at csc335.app.AllTests.testgetCategory(AllTests.java:19)
+>>>>>>> Stashed changes
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:767)
@@ -317,7 +385,108 @@ java.lang.instrument.IllegalClassFormatException: Error while instrumenting csc3
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:562)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:548)
+<<<<<<< Updated upstream
 Caused by: java.io.IOException: Error while instrumenting csc335/app/models/Category.
+=======
+Caused by: java.io.IOException: Error while instrumenting csc335/app/models/Budget.
+	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrumentError(Instrumenter.java:158)
+	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrument(Instrumenter.java:108)
+	at org.jacoco.agent.rt.internal_035b120.CoverageTransformer.transform(CoverageTransformer.java:91)
+	... 82 more
+Caused by: java.lang.IllegalArgumentException: Unsupported class file major version 67
+	at org.jacoco.agent.rt.internal_035b120.asm.ClassReader.<init>(ClassReader.java:195)
+	at org.jacoco.agent.rt.internal_035b120.asm.ClassReader.<init>(ClassReader.java:176)
+	at org.jacoco.agent.rt.internal_035b120.asm.ClassReader.<init>(ClassReader.java:162)
+	at org.jacoco.agent.rt.internal_035b120.core.internal.instr.InstrSupport.classReaderFor(InstrSupport.java:279)
+	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrument(Instrumenter.java:74)
+	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrument(Instrumenter.java:106)
+	... 83 more
+java.lang.instrument.IllegalClassFormatException: Error while instrumenting csc335/app/Category.
+	at org.jacoco.agent.rt.internal_035b120.CoverageTransformer.transform(CoverageTransformer.java:93)
+	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:242)
+	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
+	at java.instrument/sun.instrument.InstrumentationImpl.transform(InstrumentationImpl.java:610)
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method)
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1026)
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:528)
+	at csc335.app.AllTests.testgetCategory(AllTests.java:19)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:767)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$8(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:188)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:154)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:428)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:562)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:548)
+Caused by: java.io.IOException: Error while instrumenting csc335/app/Category.
+>>>>>>> Stashed changes
 	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrumentError(Instrumenter.java:158)
 	at org.jacoco.agent.rt.internal_035b120.core.instr.Instrumenter.instrument(Instrumenter.java:108)
 	at org.jacoco.agent.rt.internal_035b120.CoverageTransformer.transform(CoverageTransformer.java:91)
@@ -332,6 +501,7 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
 	... 83 more
 ]]></system-err>
   </testcase>
+<<<<<<< Updated upstream
   <testcase name="testToStringDetailed" classname="csc335.app.AllTests" time="0.115">
     <system-err><![CDATA[java.lang.instrument.IllegalClassFormatException: Error while instrumenting sun/util/resources/cldr/provider/CLDRLocaleDataMetaInfo.
 	at org.jacoco.agent.rt.internal_035b120.CoverageTransformer.transform(CoverageTransformer.java:93)
@@ -456,4 +626,6 @@ Caused by: java.lang.IllegalArgumentException: Unsupported class file major vers
   <testcase name="testgetPercentageandisExceeded" classname="csc335.app.AllTests" time="0.001"/>
   <testcase name="testgetCategoryandAmount" classname="csc335.app.AllTests" time="0.002"/>
   <testcase name="testStrings" classname="csc335.app.AllTests" time="0.001"/>
+=======
+>>>>>>> Stashed changes
 </testsuite>
