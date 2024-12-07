@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.dlsc.gemsfx.CircleProgressIndicator?>
+<?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?>
+<?import io.github.palexdev.materialfx.controls.MFXProgressSpinner?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@../css/budget.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.BudgetController">
+   <children>
+      <fx:include source="Sidebar.fxml" />
+      <!-- <Label text="Sidebar Loaded " /> -->
+      <StackPane alignment="TOP_LEFT" layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0">
+         <children>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="880.0" style="-fx-background-color: #fff;" StackPane.alignment="TOP_LEFT">
+               <children>
+                  <Label alignment="TOP_LEFT" graphicTextGap="0.0" layoutY="5.0" stylesheets="@../css/budget.css" text="Budget">
+                     <font>
+                        <Font name="Apple LiSung Light" size="45.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" right="25.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <MFXNotificationCenter fx:id="notificationCenter">
+                     <HBox.margin>
+                        <Insets right="25.0" top="10.0" />
+                     </HBox.margin>
+                  </MFXNotificationCenter>
+               </children>
+            </HBox>
+            <Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="880.0" style="-fx-background-color: #ececec; -fx-background-radius: 25px 0px 0px 0px;" StackPane.alignment="BOTTOM_RIGHT">
+               <children>
+                  <Pane fx:id="transportation" layoutX="25.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Label layoutX="35.0" layoutY="175.0" text="Transportation">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="tAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../images/warning-sign_icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/transport_icon.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="tText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleTransport" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
+                        <MFXProgressSpinner fx:id="transportationProgress" layoutX="106.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="food" layoutX="25.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Label layoutX="100.0" layoutY="175.0" text="Food">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="fAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../images/warning-sign_icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/food_icon.png" />
+                           </image>
+                        </ImageView>
+                        <MFXProgressSpinner fx:id="foodProgress" layoutX="106.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
+                        <TextField fx:id="fText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleFood" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="utilities" layoutX="610.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Label layoutX="80.0" layoutY="175.0" text="Utilities">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="uAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../images/warning-sign_icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/utilities_icon.png" />
+                           </image>
+                        </ImageView>
+                        <MFXProgressSpinner fx:id="utilitiesProgress" layoutX="101.0" layoutY="119.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
+                        <TextField fx:id="uText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleUtilities" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="health" layoutX="315.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Label layoutX="85.0" layoutY="175.0" text="Health">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="hAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../images/warning-sign_icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/healtchcare_icon.png" />
+                           </image>
+                        </ImageView>
+                        <MFXProgressSpinner fx:id="healthProgress" layoutX="95.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
+                        <TextField fx:id="hText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleHealth" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="entertainment" layoutX="315.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Label layoutX="40.0" layoutY="175.0" text="Entertainment">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="eAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../images/warning-sign_icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/entertainm_icon.png" />
+                           </image>
+                        </ImageView>
+                        <MFXProgressSpinner fx:id="entertainmentProgress" layoutX="95.0" layoutY="120.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
+                        <TextField fx:id="eText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleEntertainment" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="other" layoutX="610.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                     <children>
+                        <Label layoutX="90.0" layoutY="177.0" text="Other">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="oAlert" fitHeight="50.0" fitWidth="50.0" layoutX="120.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../images/warning-sign_icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="13.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/others_icon.png" />
+                           </image>
+                        </ImageView>
+                        <MFXProgressSpinner fx:id="otherProgress" layoutX="101.0" layoutY="125.0" styleClass="prog-chart" stylesheets="@../css/budget.css" visible="true">
+                           <color4>
+                              <Color red="0.5173001885414124" green="0.3417397737503052" blue="0.8684210777282715" />
+                           </color4></MFXProgressSpinner>
+                        <TextField fx:id="oText" layoutX="88.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleOther" prefHeight="26.0" prefWidth="75.0" promptText="0.00" />
+                        <Label layoutX="70.0" layoutY="215.0" text="\$" />
+                     </children>
+                  </Pane>
+               </children></Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
