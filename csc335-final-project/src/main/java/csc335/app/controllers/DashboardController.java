@@ -16,12 +16,9 @@ import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
 import csc335.app.utils.CalendarConverter;
 import io.github.palexdev.materialfx.controls.MFXListView;
-import io.github.palexdev.materialfx.controls.cell.MFXListCell;
-import io.github.palexdev.materialfx.effects.DepthLevel;
-import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
@@ -31,6 +28,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * ${file_name}
@@ -54,9 +54,6 @@ public class DashboardController implements Initializable {
     private AvatarView userAvatar;
 
     @FXML
-    private SVGImageView importPaneIcon;
-
-    @FXML
     private Label username;
 
     @FXML
@@ -68,6 +65,15 @@ public class DashboardController implements Initializable {
     @FXML
     private Label importLabel;
 
+    @FXML
+    private VBox recentExpensesBox;
+
+    @FXML
+    private Pane expensePane; // Template for an expense pane
+
+    @FXML
+    private Pane advertisementPane; // Advertisement pane to add at the end
+
     private static User currentUser;
 
     @Override
@@ -78,49 +84,109 @@ public class DashboardController implements Initializable {
 
         seeAllLabel.setOnMouseClicked(event -> { View.EXPENSES.loadView(); });
 
-        // ObservableList<Expense> expenses = FXCollections.observableArrayList(ExpenseTracker.TRACKER.getExpenses());
-        // expenseListView.setItems(expenses);
-        // StringConverter<Expense> converter = FunctionalStringConverter
-        //         .to(expense -> (expense == null) ? "" : expense.getStringAmount() + ": " + expense.getDescription());
-        // expenseListView.setConverter(converter);
-        // expenseListView.setCellFactory(expense -> new ExpenseCellFactory(expenseListView, expense));
-
-        initializeUserInfo();
+        // initializeUserInfo();
         initializeBarChart();
         initializePieChart();
+
+        populateRecentExpenses(ExpenseTracker.TRACKER.sortExpenses());
     }
 
 
-    private static class ExpenseCellFactory extends MFXListCell<Expense> {
-        private final MFXFontIcon userIcon;
-
-        public ExpenseCellFactory(MFXListView<Expense> listView, Expense data) {
-            super(listView, data);
-
-            userIcon = new MFXFontIcon("fas-dollar-sign", 18);
-            userIcon.getStyleClass().add("expense-icon");
-            render(data);
+    private void populateRecentExpenses(List<Expense> expenses) {
+        // Preserve the title pane
+        Node titlePane = recentExpensesBox.getChildren().get(0);
+    
+        // Clear all children except the title pane
+        recentExpensesBox.getChildren().clear();
+        recentExpensesBox.getChildren().add(titlePane);
+    
+        // Add up to 7 expense panes
+        for (int i = 0; i < 7; i++) {
+            Pane expensePaneCopy;
+            if (i < expenses.size()) {
+                // Populate with expense data
+                Expense expense = expenses.get(i);
+                expensePaneCopy = createExpensePane(expense);
+            } else {
+                // Use an empty placeholder
+                expensePaneCopy = createEmptyExpensePane();
+            }
+            recentExpensesBox.getChildren().add(expensePaneCopy);
         }
+    
+        // Add advertisement pane at the end
+        recentExpensesBox.getChildren().add(advertisementPane);
+    }
+    
 
-        @Override
-        protected void render(Expense data) {
-            super.render(data);
-            if (userIcon != null) getChildren().add(0, userIcon);
-        }
+    private Pane createExpensePane(Expense expense) {
+        // Main Pane to hold the BorderPane
+        Pane pane = new Pane();
+        pane.setPrefWidth(300.0);
+        pane.setPrefHeight(46.0);
+    
+        // BorderPane inside the main Pane
+        BorderPane borderPane = new BorderPane();
+        borderPane.setPrefWidth(300.0);
+        borderPane.setPrefHeight(46.0);
+        borderPane.setPadding(new Insets(0, 15, 0, 15)); // Padding: 0 15 0 15
+    
+        // Left: SVG Icon Pane
+        Pane iconPane = new Pane();
+        iconPane.setPrefWidth(32.0);
+        iconPane.setPrefHeight(32.0);
+        iconPane.setStyle("-fx-background-color: transparent; -fx-background-radius: 5px;");
+        BorderPane.setMargin(iconPane, new Insets(0, 10, 0, 0)); // Margin: 0 10 0 0
+    
+        SVGImageView expenseIcon = new SVGImageView();
+        expenseIcon.setFitWidth(21.0);
+        expenseIcon.setFitHeight(21.0);
+        expenseIcon.setTranslateX(4.5); // Translation: 4.5 x-axis
+        expenseIcon.setTranslateY(4.5); // Translation: 4.5 y-axis
+        expenseIcon.getStyleClass().add(expense.getCategory().getSvgIcon());
+    
+        iconPane.getChildren().add(expenseIcon);
+        BorderPane.setAlignment(iconPane, javafx.geometry.Pos.CENTER);
+        borderPane.setLeft(iconPane);
+    
+        // Center: VBox with Description and Date
+        VBox centerBox = new VBox();
+        centerBox.setPrefWidth(120.0);
+        centerBox.setPrefHeight(10.0);
+    
+        Label descriptionLabel = new Label(expense.getDescription());
+        descriptionLabel.setStyle("-fx-font-family: 'Poppins Regular'; -fx-font-size: 10px;");
+        VBox.setMargin(descriptionLabel, new Insets(8, 0, 0, 0)); // Margin: 0 0 8 0
+    
+        Label dateLabel = new Label(expense.getStringDate());
+        dateLabel.setStyle("-fx-font-family: 'Poppins Regular'; -fx-font-size: 8px;");
+        VBox.setMargin(dateLabel, new Insets(0, 0, 8, 0)); // Margin: 0 0 8 0
+    
+        centerBox.getChildren().addAll(descriptionLabel, dateLabel);
+        BorderPane.setAlignment(centerBox, javafx.geometry.Pos.CENTER_LEFT);
+        borderPane.setCenter(centerBox);
+    
+        // Right: Expense Amount Label
+        Label expenseAmount = new Label(String.format("$%.2f", expense.getAmount()));
+        expenseAmount.setStyle("-fx-font-family: 'Poppins Regular'; -fx-font-size: 10px;");
+        BorderPane.setAlignment(expenseAmount, javafx.geometry.Pos.CENTER_RIGHT);
+        borderPane.setRight(expenseAmount);
+    
+        // Add the BorderPane to the main Pane
+        pane.getChildren().add(borderPane);
+    
+        return pane;
     }
 
-    // @FXML
-    // void changeColors(ActionEvent event) {
-    //     expenseListView.setTrackColor(ColorUtils.getRandomColor());
-    //     expenseListView.setThumbColor(ColorUtils.getRandomColor());
-    //     expenseListView.setThumbHoverColor(ColorUtils.getRandomColor());
-    // }
+private Pane createEmptyExpensePane() {
+    Pane emptyPane = new Pane();
+    emptyPane.setPrefHeight(46.0);
+    emptyPane.setPrefWidth(300.0);
+    emptyPane.setStyle("-fx-background-radius: 10px; -fx-background-color: #fff;");
+    return emptyPane;
+}
 
-    @FXML
-    void changeDepth(ActionEvent event) {
-        DepthLevel newLevel = (expenseListView.getDepthLevel() == DepthLevel.LEVEL0) ? DepthLevel.LEVEL2 : DepthLevel.LEVEL0;
-        expenseListView.setDepthLevel(newLevel);
-    }
+
 
     public void initializeUserInfo() {
         userAvatar = currentUser.getAvatar();

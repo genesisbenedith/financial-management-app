@@ -53,6 +53,10 @@ public enum Category {
         return this.HOVER_COLOR;
     }
 
+    public String getSvgIcon() {
+        return this.SVG_ICON;
+    }
+
     public String getSvgUrl() {
         String svgUrl = Objects.requireNonNull(getClass().getResource("/svg/" + this.SVG_ICON + ".svg")).toExternalForm();
         // String svgFile = new File(svgFilePath)
