@@ -146,7 +146,7 @@ public class BudgetController implements Initializable {
         field.setPromptText(limit + "");
         if (BudgetTracker.TRACKER.isBudgetExceeded(category)) {
             alert.setVisible(true);
-            System.out.print("here");
+            System.out.print(" here");
         }
 
         System.out.println(field.isEditable());
