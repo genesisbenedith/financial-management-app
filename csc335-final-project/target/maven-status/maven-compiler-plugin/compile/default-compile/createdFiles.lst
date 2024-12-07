@@ -8,7 +8,6 @@ csc335/app/models/Expense.class
 csc335/app/controllers/SignInController.class
 csc335/app/persistence/UserSessionManager.class
 csc335/app/controllers/DashboardController.class
-csc335/app/controllers/HeaderController.class
 csc335/app/controllers/ExpenseController.class
 csc335/app/models/Category.class
 csc335/app/controllers/SidebarController.class

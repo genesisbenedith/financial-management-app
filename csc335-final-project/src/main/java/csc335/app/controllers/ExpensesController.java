@@ -283,6 +283,7 @@ public class ExpensesController implements Initializable {
         // Create and add expense
         Expense expense = new Expense(calendar, category, amount, description);
         ExpenseTracker.TRACKER.addExpense(expense);
+        AccountManager.ACCOUNT.saveUserAccount();
     }
 
 
@@ -365,7 +366,11 @@ public class ExpensesController implements Initializable {
     private void addNewExpenseClick(){
         addNewExpense.setOnMouseClicked(click -> {
             if (click.getButton() == MouseButton.PRIMARY) {
-                View.EXPENSE.loadView();
+                try {
+                    View.EXPENSE.showPopUp();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         addNewExpense.setCursor(Cursor.HAND);
@@ -377,15 +382,6 @@ public class ExpensesController implements Initializable {
             addNewExpense.setStyle("-fx-background-color: #E6E6FA;");
         });
     }
-
-    // @FXML
-    // private void editExpenseClick(){
-    //     // use add expense popup but with different title and the information already filled in, just editable
-    //     ViewManager.getViewManager().loadView(View.EXPENSE);
-    //     ExpenseController editExpense = new ExpenseController();
-    //     editExpense.setContentText(expense);
-    // }
-
 
     public void initializeDatePickers() {
         // Initialize date pickers with default values if needed
@@ -571,10 +567,17 @@ public class ExpensesController implements Initializable {
             // Add edit functionality
             editClone.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
-                    View.EXPENSE.loadView();
-                    ExpenseController editExpense = new ExpenseController();
-                    editExpense.setContentText(expense);
+                    try {
+                        View.EXPENSE.showPopUp(); 
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    ExpenseController controller = new ExpenseController();
+                    controller.addCategories();
+                    controller.setContentText(expense);
                     // Add your edit logic here
+                    ExpenseTracker.TRACKER.removeExpense(expense);
+                    AccountManager.ACCOUNT.saveUserAccount();
                 }
             });
             
@@ -589,6 +592,7 @@ public class ExpensesController implements Initializable {
                     if(result.get() == ButtonType.OK) {
                         vBox.getChildren().remove(clonedPane);
                         ExpenseTracker.TRACKER.removeExpense(expense);
+                        AccountManager.ACCOUNT.saveUserAccount();
                     }
                 }
             });
@@ -742,7 +746,7 @@ public class ExpensesController implements Initializable {
         double categoryUsagePercentage = categoryExpensesAmount / categoryBudgetLimit;
 
         // Get the HBox where we want to display the percentage bar
-        HBox percentBar = this.percentBar; // Assuming you have this HBox defined
+        HBox percentBar = this.percentBar; 
 
         // Clear the current content of the HBox before adding the new pane
         percentBar.getChildren().clear();
@@ -753,16 +757,13 @@ public class ExpensesController implements Initializable {
         categoryBar.setStyle("-fx-background-color: " + category.getDefaultColor()); // Use the default color of the category
         addHoverEffect("-fx-background-color: ", categoryBar, category);
         
-        // Optionally, add a Tooltip or label to show the percentage used
-        //Tooltip.install(categoryBar, new Tooltip(String.format("%.2f", categoryUsagePercentage * 100) + "%"));
-
+       
         // Add the category bar to the HBox
         percentBar.getChildren().add(categoryBar);
 
-        // Optionally, if you want to update the UI with the exact percentage used
+        
         updateCategoryExpensePercentage(categoryUsagePercentage);
         
-        // You can also update the display to show this category's budget breakdown if needed
         System.out.println("Category: " + category + ", Budget: $" + BudgetTracker.TRACKER.getBudgetLimit(category) + ", Expenses: $" + ExpenseTracker.TRACKER.calculateTotalExpenses(category));
     }
     
