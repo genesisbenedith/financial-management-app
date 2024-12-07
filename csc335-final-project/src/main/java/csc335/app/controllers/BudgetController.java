@@ -151,14 +151,13 @@ public class BudgetController implements Initializable {
      * @param alert       The alert image displayed if the budget is exceeded.
      */
     private void setupPromptText(Category category, TextField field, MFXProgressSpinner progressBar, ImageView alert) {
-        progressBar.getRanges1().add(NumberRange.of(0.0, 0.1));
         double limit = BudgetTracker.TRACKER.getBudgetLimit(category);
         if (limit != 0) {
             progressBar.setProgress(BudgetTracker.TRACKER.getBudgetProgress(category));
         }
 
         field.setPromptText(limit + "");
-        if (BudgetTracker.TRACKER.isBudgetExceeded(category)) {
+        if (!BudgetTracker.TRACKER.isBudgetExceeded(category)) {
             alert.setVisible(true);
             System.out.print("here");
         }

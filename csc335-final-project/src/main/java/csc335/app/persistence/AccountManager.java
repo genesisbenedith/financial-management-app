@@ -135,4 +135,5 @@ public enum AccountManager {
         User currentUser = UserSessionManager.SESSION.getCurrentUser();
         return  Database.DATABASE.writeExpenseExport(currentUser.getUsername());
     }
+
 }
