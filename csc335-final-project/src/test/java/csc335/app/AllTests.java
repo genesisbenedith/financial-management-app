@@ -1,6 +1,12 @@
 /** 
- * Author(s): Chelina Obiang
- * Desctription: Tests the java files inside the models folder (Budget.java and Expense.java)
+ * Description: This class contains unit tests for the models in the `csc335.app.models` package, specifically 
+ * testing the functionality of the `Budget` and `Expense` classes. The tests include methods to check 
+ * the behavior of budget limits, expense tracking, and budget calculations such as total spending and percentage 
+ * exceeded, among other features. The tests ensure that the methods in these classes behave as expected and handle 
+ * edge cases such as invalid inputs and exceptions.
+ * 
+ * Unit testing is performed using JUnit 5 framework.
+ * @author Chelina Obiang
 */
 package csc335.app;
 

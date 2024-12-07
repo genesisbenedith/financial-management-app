@@ -1,8 +1,12 @@
 package csc335.app.controllers;
 
-// [ ] Finish file comment
-
 /**
+ * The SidebarController class is responsible for managing the behavior of the application's sidebar.
+ * It listens for user actions on the sidebar buttons and loads the corresponding views.
+ * It also handles user logout by resetting the user session and redirecting to the login page.
+ * File: SidebarController.java
+ * 
+ * Authors: 
  * @author Chelina Obiang
  * @author Genesis Benedith
  */
@@ -14,52 +18,39 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 
-// [ ] Needs class comment
 public class SidebarController implements Initializable{
 
     @FXML
-    private Pane dashboardPane;
+    private Pane dashboardPane; // Button for navigating to the dashboard view
 
     @FXML
-    private Pane expensePane;
+    private Pane expensePane; // Button for navigating to the expenses view
 
     @FXML
-    private Pane budgetPane;
+    private Pane budgetPane; // Button for navigating to the budget view
 
     @FXML
-    private Pane reportPane;
+    private Pane reportPane; // Button for navigating to the report view
 
     @FXML
-    private Pane logoutPane;
+    private Pane logoutPane; // Button for logging out of the application
 
-    // [ ] Complete method comment
     /**
-     * Initializes the sidebar panel & sets action listeners to handles
-     * mouse click events that loads different views to the stage
+     * Initializes the sidebar panel and sets action listeners for mouse click events.
+     * These listeners load different views or handle the logout process.
      * 
-     * @author Chelina Obiang
-     * @author Genesis Benedith
-     * 
-     * @param location
-     * @param resources
+     * @param location  The location used to resolve relative paths for the root object (unused).
+     * @param resources The resources used to localize the root object (unused).
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
-
-        // [ ]: Change the color of the button that is assigned to the current view
-        /** For example, if the client is currently on the dashboard view, and the color
-         * of the dashboard button is black, then the buttons on the sidebar for
-         * every other view should be purple, etc.
-         */
-
-        
+      
         // REVIEW Action listeners
-        dashboardPane.setOnMouseClicked(click -> { View.DASHBOARD.loadView(); });
-        expensePane.setOnMouseClicked(click -> { View.EXPENSES.loadView(); });
-        budgetPane.setOnMouseClicked(click -> { View.BUDGET.loadView(); });
-        reportPane.setOnMouseClicked(click -> { View.REPORT.loadView(); });
-        logoutPane.setOnMouseClicked(click -> {
+        dashboardPane.setOnMouseClicked(_ -> { View.DASHBOARD.loadView(); });
+        expensePane.setOnMouseClicked(_ -> { View.EXPENSES.loadView(); });
+        budgetPane.setOnMouseClicked(_ -> { View.BUDGET.loadView(); });
+        reportPane.setOnMouseClicked(_ -> { View.REPORT.loadView(); });
+        logoutPane.setOnMouseClicked(_ -> {
             UserSessionManager.SESSION.resetCurrentUser();
             View.LOGIN.loadView();
         });

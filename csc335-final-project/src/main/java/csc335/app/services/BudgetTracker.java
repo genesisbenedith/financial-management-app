@@ -1,10 +1,14 @@
 package csc335.app.services;
 
-// TODO: WRITE DESCRIPTION FOR THIS FILE COMMENT
+// import java.lang.reflect.Constructor;
+
 /**
- * Authors: Chelina Obiang and Genesis Benedith
+ * Description: Manages and tracks the user's budget data and updates.
  * File: BudgetTracker.java
- * Description: 
+ * 
+ * Authors: 
+ * @author Chelina Obiang
+ * @author Genesis Benedith
  */
 
 import java.util.List;
@@ -15,7 +19,7 @@ import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 
 /**
- * 
+ * Singleton class for tracking and managing budgets for a user.
  */
 public enum BudgetTracker  {
     
@@ -23,9 +27,9 @@ public enum BudgetTracker  {
 
     private User currentUser; // The current user logged in
 
-    // TODO: WRITE COMMENT FOR THIS CONSTRUCTOR METHOD
     /**
-     * 
+     * Constructor initializes the current user.
+     * Throws an exception if no user is found.
      * 
      * @author Genesis Benedith
      */
@@ -122,10 +126,21 @@ public enum BudgetTracker  {
         return findBudget(category).getLimit();
     }
 
+    /**
+     * Retrieves the total amount spent for a specific category.
+     * 
+     * @param category the category of the budget
+     * @return the total amount spent in the category
+     */
     public Double getBudgetSpent(Category category) {
         return findBudget(category).getTotalSpent();
     }
 
+    /**
+     * Calculates the total budget limits for all categories.
+     * 
+     * @return the total spending limit across all budgets
+     */
     public Double getTotalBudgetLimits() {
         Double totalLimits = 0.0;
         for (Budget bud : getBudgets()){

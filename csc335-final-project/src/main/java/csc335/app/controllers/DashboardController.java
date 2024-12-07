@@ -28,12 +28,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 
 /**
- * ${file_name}
+ * DashboardController is responsible for managing the user dashboard view.
+ * It connects the graphical interface with the logic to display user 
+ * information, expense data, and charts like bar and pie charts for 
+ * visualizing financial information.
  * 
+ * This class handles user-related details like the profile avatar, email, and 
+ * username while also preparing data visualizations for expenses categorized 
+ * by time periods or spending categories.
+ * File: DashboardController.java
  * @author Genesis Benedith
  */
 
-// [ ] Needs class comment
 public class DashboardController implements Initializable {
 
     @FXML
@@ -70,6 +76,9 @@ public class DashboardController implements Initializable {
         initializePieChart();
     }
 
+    /**
+     * Loads the user's profile information like avatar, username, and email.
+     */
     public void initializeUserInfo() {
         userAvatar = currentUser.getAvatar();
         username.setText(currentUser.getUsername());
@@ -77,6 +86,11 @@ public class DashboardController implements Initializable {
 
     }
 
+    /**
+     * Sets up the pie chart to show expenses divided into categories.
+     * Each slice represents a category, and hovering shows detailed 
+     * information about spending in that category.
+     */
     private void initializePieChart() {
         for (Category category : Category.values()) {
             PieChart.Data slice = new Data(category.toString(),
@@ -89,12 +103,12 @@ public class DashboardController implements Initializable {
             String nodeStyle = "-fx-pie-color: ";
             pieNode.setStyle(nodeStyle + Category.valueOf(pieSlice.getName().toUpperCase()).getDefaultColor());
             Tooltip.install(pieNode, new Tooltip(pieSlice.getName() + ":\n$" + pieSlice.getPieValue()));
-            pieNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            pieNode.hoverProperty().addListener((_, _, _) -> {
                 addHoverEffect(nodeStyle, pieNode, Category.valueOf(pieSlice.getName().toUpperCase()));
             });
 
             pieNode.setOnMouseClicked(
-                    event -> System.out.println("Clicked: " + pieSlice.getName() + " -> " + pieSlice.getPieValue()));
+                    _ -> System.out.println("Clicked: " + pieSlice.getName() + " -> " + pieSlice.getPieValue()));
 
         }
         pieChart.applyCss(); // Apply CSS styles to the chart
@@ -112,10 +126,11 @@ public class DashboardController implements Initializable {
 
     }
 
+
     private void profileView() {
         Button button = new Button("Choose an image: ");
         button.setOnMouseClicked(
-                event -> {
+                _ -> {
                     String imagePath = View.CHOOSER.showFileChooser();
                     if (imagePath != null && !imagePath.isEmpty()) {
                         try {
@@ -130,6 +145,11 @@ public class DashboardController implements Initializable {
                 });
     }
 
+    /**
+     * Sets up the bar chart to display category-wise spending summaries.
+     * The bar chart shows spending data for a specific time range, 
+     * such as the past month or quarter.
+     */
     private void initializeBarChart() {
 
         // Bar chart will show the category spending summary in the last month
@@ -188,7 +208,7 @@ public class DashboardController implements Initializable {
                 barNode.setTranslateX(40); // Manually adjust position
                 String nodeStyle = "-fx-bar-fill: ";
                 barNode.setStyle(nodeStyle + Category.valueOf(series.getName().toUpperCase()).getDefaultColor());
-                barNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                barNode.hoverProperty().addListener((_, _, _) -> {
                     addHoverEffect(nodeStyle, barNode, Category.valueOf(series.getName().toUpperCase()));
                 });
 
@@ -197,12 +217,20 @@ public class DashboardController implements Initializable {
         }
     }
 
+    /**
+     * Adds a hover effect to chart nodes, changing their color when the mouse 
+     * is over them and reverting the color when it leaves.
+     * 
+     * @param style  the CSS style to apply
+     * @param node   the chart node being styled
+     * @param category the category associated with the node
+     */
     private void addHoverEffect(String style, Node node, Category category) {
-        node.setOnMouseEntered(event -> {
+        node.setOnMouseEntered(_ -> {
             node.setStyle(style + category.getHoverColor() + ";");
         });
 
-        node.setOnMouseExited(event -> {
+        node.setOnMouseExited(_ -> {
             node.setStyle(style + category.getDefaultColor() + ";"); // Reverts to default color
         });
     }

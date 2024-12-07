@@ -15,6 +15,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
+/**
+ * This class manages the "Sign In" functionality of the application. It allows users to log in
+ * with their username and password, handles user authentication, and provides navigation to 
+ * the registration page if a user does not have an account. The class utilizes input fields 
+ * and buttons for user interaction and handles keyboard shortcuts such as pressing "Enter" 
+ * to trigger the sign-in process.
+ * File: SignInController.java
+ * 
+ * @author Genesis Benedith
+ */
 public class SignInController implements Initializable {
 
     @FXML
@@ -29,6 +39,17 @@ public class SignInController implements Initializable {
     @FXML
     private Label signUpLabel;
 
+    /**
+     * Sets up the event listeners for the Sign In view components.
+     * 
+     * Configures actions for:
+     * - Pressing "Enter" in the username or password fields to log in.
+     * - Clicking the "Sign In" button to trigger the login process.
+     * - Clicking the "Sign Up" label to navigate to the registration page.
+     * 
+     * @param location the location of the FXML file.
+     * @param resources the resources for localization.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignInController initialized.");
@@ -46,11 +67,11 @@ public class SignInController implements Initializable {
             }
         });
 
-        signInLabel.setOnMouseClicked(event3 -> { loginUser(); });
-        signUpLabel.setOnMouseClicked(event4 -> { View.REGISTER.loadView(); });
+        signInLabel.setOnMouseClicked(_ -> { loginUser(); });
+        signUpLabel.setOnMouseClicked(_ -> { View.REGISTER.loadView(); });
     }
 
-    // EDIT method comment and in-line comments
+    // [ ]EDIT method comment and in-line comments
     /**
      * Handles user authentication when "Sign In" is clicked.
      * 

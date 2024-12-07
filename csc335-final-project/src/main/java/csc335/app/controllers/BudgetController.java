@@ -1,9 +1,14 @@
 package csc335.app.controllers;
 
 /**
- * Author: Chelina Obiang
+ * This class serves as the controller for the Budget View in a JavaFX application. 
+ * It manages user interactions and updates budget information dynamically for 
+ * different categories such as Transportation, Food, Utilities, and more. 
+ * The controller handles validation, progress updates, and alert notifications 
+ * for budget limits and expenditures.
  * File: BudgetController.java
- * Description:
+ * @author: Chelina Obiang
+ * 
  */
 
 import java.net.URL;
@@ -92,8 +97,14 @@ public class BudgetController implements Initializable {
 
     private static User currentUser; // The current user logged in
 
-    /***
+    /**
+     * Initializes the BudgetController by setting up the view components 
+     * such as text fields, progress spinners, and alerts. It also loads 
+     * the current user's budget data and configures the initial state 
+     * of the Budget View.
      * 
+     * @param location   The location of the FXML file.
+     * @param resources  The resource bundle for the application.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -130,11 +141,14 @@ public class BudgetController implements Initializable {
     }
 
     /**
+     * Configures prompt text, progress indicators, and alert visibility for 
+     * a specific budget category. It ensures that the UI reflects the current 
+     * budget limits and progress.
      * 
-     * @param category
-     * @param field
-     * @param progressBar
-     * @param alert
+     * @param category    The budget category being set up (e.g., Food, Transportation).
+     * @param field       The text field for user input.
+     * @param progressBar The progress spinner representing budget usage.
+     * @param alert       The alert image displayed if the budget is exceeded.
      */
     private void setupPromptText(Category category, TextField field, MFXProgressSpinner progressBar, ImageView alert) {
         progressBar.getRanges1().add(NumberRange.of(0.0, 0.1));
@@ -154,12 +168,13 @@ public class BudgetController implements Initializable {
     }
 
     /**
+     * Handles the budget update process for a specific category. Validates user input, 
+     * updates the budget limit, sets the progress spinner, and shows alerts if necessary.
      * 
-     * 
-     * @param category
-     * @param field
-     * @param progress
-     * @param alert
+     * @param category    The budget category to update.
+     * @param field       The text field containing the new budget limit.
+     * @param progress    The progress spinner to update.
+     * @param alert       The alert image displayed if the budget is exceeded.
      */
     private void handleBudget(Category category, TextField field, MFXProgressSpinner progress, ImageView alert) {
         alert.setVisible(false);

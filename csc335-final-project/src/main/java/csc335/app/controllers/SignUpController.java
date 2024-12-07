@@ -12,7 +12,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
+/**
+ * Controller for handling user sign-up functionality.
+ * 
+ * This class manages the user sign-up form, including email, username, password, and confirm password fields.
+ * It handles user input validation and calls the necessary methods to register the user.
+ * 
+ * @author Genesis Benedith
+ */
 public class SignUpController implements Initializable {
 
     @FXML
@@ -34,25 +41,31 @@ public class SignUpController implements Initializable {
     private Label createAccountLabel;
 
 
-    // [ ] Needs method comment and in-line comments
     /**
+     * Sets up event listeners for the Sign-Up form.
      * 
+     * When the user clicks "Create Account," the registerUser method is called.
+     * When the user clicks "Sign In," the login view is shown.
+     * 
+     * @param location the location of the FXML file.
+     * @param resources the resources for localization.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("SignUpController initialized.");
 
-        createAccountLabel.setOnMouseClicked(event -> { registerUser(); });
-        signInLabel.setOnMouseClicked(event -> { View.LOGIN.loadView(); });
+        createAccountLabel.setOnMouseClicked(_ -> { registerUser(); });
+        signInLabel.setOnMouseClicked(_ -> { View.LOGIN.loadView(); });
         
     }
 
-    // [ ] Needs in-line comments
-    // EDIT method comment
     /**
-     * Handles input validation for Sign-Up form when "Create Account" is clicked.
+     * Handles the user registration process when "Create Account" is clicked.
      * 
-     * @throws IOException
+     * Validates the input fields and if valid, creates a new user.
+     * If any field is empty or invalid, an error message is displayed.
+     * 
+     * @throws IOException if there is an error during user registration.
      */
     private void registerUser() {
         /* Show error alert and void if any field is null */
@@ -76,12 +89,14 @@ public class SignUpController implements Initializable {
 
     }
 
-    // [ ] Needs method comment
-    // EDIT in-line comments
     /**
+     * Validates the fields in the Sign-Up form.
      * 
-     * @return
-     * @throws IOException
+     * Checks if all fields are filled in, if the password is valid, and if the passwords match.
+     * If any validation fails, an error message is shown.
+     * 
+     * @return true if all fields are valid, false otherwise.
+     * @throws IOException if there is an error during validation.
      */
     private boolean validateFields() throws IOException {
         /* Get text from input fields */

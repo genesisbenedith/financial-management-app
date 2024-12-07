@@ -2,7 +2,6 @@ package csc335.app.controllers;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -18,11 +17,18 @@ import javafx.stage.Window;
 
 // [ ] Finish file comment
 /**
+ * The View enum manages different scenes (views) in the application, including their 
+ * titles, paths, and navigation. It also supports pop-up windows, alerts, and file selection. 
+ * Each enum constant represents a specific view in the application.
+ * This class simplifies the process of transitioning between views and managing their states.
+ * File: View.java
+ * 
  * @author Genesis Benedith
  */
 
 // [ ] Needs class comment
 public enum View {
+    // Enum constants representing the various views in the application
     SPLASH("Splash", "Finantra: Personal Finance Assistant"),
     REGISTER("SignUp", "Finantra: Personal Finance Assistant"),
     LOGIN("SignIn", "Finantra: Personal Finance Assistant"),
@@ -34,10 +40,13 @@ public enum View {
     ALERT("N/A", "Alert"),
     CHOOSER("N/A", "Chooser");
 
-    // [ ] Needs field comments
+    // The title of the view, displayed in the window's title bar
     private final String VIEW_TITLE;
+    // The name of the view, corresponding to the FXML file name
     private final String VIEW_NAME;
+    // The directory where FXML files are stored
     private final String FXML_VIEW_DIRECTORY = "/views/";
+    // The complete file path to the FXML file
     private final String FXML_VIEW_PATH;
 
     private static Stage primaryStage;// Main application window (primary stage)
@@ -45,25 +54,43 @@ public enum View {
     private Stage popUpStage; // Stage for pop-up windows
     private final Deque<View> popUpSceneStack = new ArrayDeque<>(); // Stack to manage the history of pop-up scenes
 
-    // [ ] Needs method comment
+    /**
+     * Constructor for the View enum constants.
+     * It initializes the view name, title, and file path for the FXML file.
+     * 
+     * @param viewName The name of the view (used in the FXML file).
+     * @param viewTitle The title of the view (displayed in the title bar).
+     */
     private View(String viewName, String viewTitle) {
         this.VIEW_TITLE = viewTitle;
         this.VIEW_NAME = viewName;
         this.FXML_VIEW_PATH = FXML_VIEW_DIRECTORY + VIEW_NAME + "View.fxml";
     }
 
-    // [ ] Needs method comment
+    /**
+     * Gets the FXML file path for this view.
+     * 
+     * @return The file path as a String.
+     */
     public String getFXMLPath(String viewName){
         System.out.println(this.FXML_VIEW_PATH);
         return this.FXML_VIEW_PATH;
     }
 
-    // [ ] Needs method comment
+    /**
+     * Gets the title of the view.
+     * 
+     * @return The title as a String.
+     */
     public String getTitle() {
         return this.VIEW_TITLE;
     }
 
-    // [ ] Needs method comment
+    /**
+     * Gets the name of the view.
+     * 
+     * @return The name as a String.
+     */
     public String getName() {
         return this.VIEW_NAME;
     }
@@ -190,7 +217,11 @@ public enum View {
         return popUpSceneStack;
     }
 
-    // [ ] Needs method comment
+    /**
+    * Displays the specified view in the main stage.
+    * 
+    * @param parent The root node of the view's scene.
+    */
     private void showView(Parent parent) {
         if (primaryStage == null) {
             primaryStage = new Stage();
@@ -209,7 +240,9 @@ public enum View {
         primaryStage.show();
     };
 
-    // [ ] Needs method comment
+    /**
+     * Loads and displays the view in the main stage.
+     */
     public void loadView() {
         System.out.println("Loading the " + this.name() + "...");
         String fxmlPath = this.getFXMLPath(this.name());
@@ -224,12 +257,12 @@ public enum View {
         }
     }
 
-    // [ ] Needs method comment
     /**
+     * Displays an alert dialog with the specified type, title, and message.
      * 
-     * @param alertType
-     * @param title
-     * @param message
+     * @param alertType The type of alert (e.g., INFORMATION, WARNING).
+     * @param title The title of the alert dialog.
+     * @param message The message displayed in the alert dialog.
      */
     public void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -238,6 +271,11 @@ public enum View {
         alert.showAndWait();
     }
 
+    /**
+     * Opens a file chooser dialog to select a file and returns its path.
+     * 
+     * @return The absolute path of the selected file, or null if no file is selected.
+     */
     public String showFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");

@@ -1,9 +1,12 @@
 package csc335.app.services;
 
 /**
- * Authors: Lauren Schroeder and Genesis Benedith
  * File: ExpenseTracker.java
- * Description: 
+ * Description: Manages user's expenses, allows filtering and 
+ * calculating total expenses by category, date, etc.
+ * Authors:
+ * @author Lauren Schroeder
+ * @author Genesis Benedith
  */
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,12 +51,16 @@ public enum ExpenseTracker {
     }
 
     /**
-     * 
+     * Adds an expense to the appropriate budget category
+     * @param Expense
      */
     public void addExpense(Expense expense) {
         BudgetTracker.TRACKER.findBudget(expense.getCategory()).addExpense(expense);
     }
-
+    /**
+     * Removes an expense from the appropriate budget category
+     * @param Expense
+     */
     public void removeExpense(Expense expense) {
         BudgetTracker.TRACKER.findBudget(expense.getCategory()).removeExpense(expense);
     }
@@ -75,7 +82,7 @@ public enum ExpenseTracker {
         return total;
     }
     /**
-     * 
+     * Calculates the total amount spent in a specific month and year
      * 
      * @author Genesis Benedith
      * @param expenses list of transactions
