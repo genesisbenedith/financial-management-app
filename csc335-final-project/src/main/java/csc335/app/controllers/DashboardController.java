@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.dlsc.gemsfx.AvatarView;
+import com.dlsc.gemsfx.SVGImageView;
 
 import csc335.app.models.Category;
 import csc335.app.models.Expense;
@@ -15,6 +16,10 @@ import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
 import csc335.app.utils.CalendarConverter;
 import io.github.palexdev.materialfx.controls.MFXListView;
+import io.github.palexdev.materialfx.controls.cell.MFXListCell;
+import io.github.palexdev.materialfx.effects.DepthLevel;
+import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -49,10 +54,19 @@ public class DashboardController implements Initializable {
     private AvatarView userAvatar;
 
     @FXML
+    private SVGImageView importPaneIcon;
+
+    @FXML
     private Label username;
 
     @FXML
     private Label email;
+
+    @FXML 
+    private Label seeAllLabel;
+
+    @FXML
+    private Label importLabel;
 
     private static User currentUser;
 
@@ -62,12 +76,50 @@ public class DashboardController implements Initializable {
         currentUser = UserSessionManager.SESSION.getCurrentUser();
         System.out.println("Current user: " + currentUser.getUsername());
 
-        // expenseListView = new MFXListView<>((ObservableList<Expense>) ExpenseTracker.TRACKER.getExpenses());
+        seeAllLabel.setOnMouseClicked(event -> { View.EXPENSES.loadView(); });
 
-        expenseListView = new MFXListView<>();
+        // ObservableList<Expense> expenses = FXCollections.observableArrayList(ExpenseTracker.TRACKER.getExpenses());
+        // expenseListView.setItems(expenses);
+        // StringConverter<Expense> converter = FunctionalStringConverter
+        //         .to(expense -> (expense == null) ? "" : expense.getStringAmount() + ": " + expense.getDescription());
+        // expenseListView.setConverter(converter);
+        // expenseListView.setCellFactory(expense -> new ExpenseCellFactory(expenseListView, expense));
+
         initializeUserInfo();
         initializeBarChart();
         initializePieChart();
+    }
+
+
+    private static class ExpenseCellFactory extends MFXListCell<Expense> {
+        private final MFXFontIcon userIcon;
+
+        public ExpenseCellFactory(MFXListView<Expense> listView, Expense data) {
+            super(listView, data);
+
+            userIcon = new MFXFontIcon("fas-dollar-sign", 18);
+            userIcon.getStyleClass().add("expense-icon");
+            render(data);
+        }
+
+        @Override
+        protected void render(Expense data) {
+            super.render(data);
+            if (userIcon != null) getChildren().add(0, userIcon);
+        }
+    }
+
+    // @FXML
+    // void changeColors(ActionEvent event) {
+    //     expenseListView.setTrackColor(ColorUtils.getRandomColor());
+    //     expenseListView.setThumbColor(ColorUtils.getRandomColor());
+    //     expenseListView.setThumbHoverColor(ColorUtils.getRandomColor());
+    // }
+
+    @FXML
+    void changeDepth(ActionEvent event) {
+        DepthLevel newLevel = (expenseListView.getDepthLevel() == DepthLevel.LEVEL0) ? DepthLevel.LEVEL2 : DepthLevel.LEVEL0;
+        expenseListView.setDepthLevel(newLevel);
     }
 
     public void initializeUserInfo() {

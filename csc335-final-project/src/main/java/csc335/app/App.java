@@ -17,7 +17,6 @@ public final class App extends Application {
     public void start(Stage stage) {
         System.out.println("Starting application...");
         View.SPLASH.loadView();
-
     }
 
     // [ ] Compete method comment

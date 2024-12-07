@@ -1,5 +1,7 @@
 package csc335.app.models;
 
+import java.util.Objects;
+
 // [ ] Complete file comment
 /**
  * Builds an enum to represent the categories 
@@ -12,25 +14,27 @@ package csc335.app.models;
 
  // [ ] Complete class comment
 public enum Category {
-    FOOD("#AFF8D8", "#DBFFD6"),
-    ENTERTAINMENT("#A79AFF", "#DCD3FF"),
-    TRANSPORTATION("#FF9CEE", "FFCCF9"),
-    UTILITIES("#85E3FF", "#C4FAF8"),
-    HEALTHCARE("#E7FFAC", "F3FFE3"),
-    OTHER("#FFABAB", "#FFCBC1");
+    FOOD("#AFF8D8", "#DBFFD6", "burger-solid"),
+    ENTERTAINMENT("#A79AFF", "#DCD3FF", "tv-solid"),
+    TRANSPORTATION("#FF9CEE", "FFCCF9", "car-solid"),
+    UTILITIES("#85E3FF", "#C4FAF8", "lightbulb-solid"),
+    HEALTHCARE("#E7FFAC", "F3FFE3", "suticase-medical-solid"),
+    OTHER("#FFABAB", "#FFCBC1", "star-solid");
 
     /* Category colors for GUI purposes */
     private final String DEFAULT_COLOR;
     private final String HOVER_COLOR;
+    private final String SVG_ICON;
 
     /**
      * Sets a color as a hex code to each category value
      * 
      * @param color the color code 
      */
-    private Category(String defaultColor, String hoverColor) {
+    private Category(String defaultColor, String hoverColor, String svgIcon) {
         this.DEFAULT_COLOR = defaultColor; 
         this.HOVER_COLOR = hoverColor;
+        this.SVG_ICON = svgIcon;
     }
 
     /**
@@ -47,6 +51,13 @@ public enum Category {
      */
     public String getHoverColor() {
         return this.HOVER_COLOR;
+    }
+
+    public String getSvgUrl() {
+        String svgUrl = Objects.requireNonNull(getClass().getResource("/svg/" + this.SVG_ICON + ".svg")).toExternalForm();
+        // String svgFile = new File(svgFilePath)
+        // URL svgUrl = svgFile.toURI().toURL();
+        return svgUrl;
     }
 
     // [ ] Complete method comment

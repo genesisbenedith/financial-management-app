@@ -1,107 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.dlsc.gemsfx.AvatarView?>
+<?import com.dlsc.gemsfx.SVGImageView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="sidebar" prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: #fff;" stylesheets="@../css/sidebar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.SidebarController">
+<VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: #fff;" stylesheets="@../css/sidebar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc335.app.controllers.SidebarController">
          <children>
-            <BorderPane prefHeight="75.0" prefWidth="200.0">
-         <top>
-                  <Pane prefHeight="75.0" prefWidth="200.0" styleClass="sidebar-background" BorderPane.alignment="CENTER">
-                     <children>
-                        <ImageView fitHeight="80.0" fitWidth="180.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/logo-1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-         </top>
-         <bottom>
-            <Pane fx:id="anchor" prefHeight="670.0" prefWidth="200.0" style="-fx-background-color: f0f0f0;" styleClass="sidebar-background" stylesheets="@../css/sidebar.css" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets bottom="25.0" top="20.0" />
-               </padding>
+            <Pane prefHeight="75.0" prefWidth="200.0" styleClass="sidebar-background">
                <children>
-                  <Pane id="dashboardPane" fx:id="dashboardPane" layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="180.0" style="-fx-background-color: #fff;" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label alignment="CENTER" layoutX="53.0" layoutY="20.0" prefHeight="23.0" prefWidth="90.0" text="Dashboard">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="38.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/home_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane id="expensePane" fx:id="expensePane" layoutX="10.0" layoutY="90.0" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label layoutX="55.0" layoutY="20.0" text="Expenses">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="38.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/expenses_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane id="budgetPane" fx:id="budgetPane" layoutX="10.0" layoutY="170.0" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label layoutX="55.0" layoutY="20.0" text="Budget">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="34.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/budget_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane id="reportPane" fx:id="reportPane" layoutX="10.0" layoutY="250.0" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label layoutX="55.0" layoutY="20.0" text="Reports">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="34.0" fitWidth="40.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/reports_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="logoutPane" layoutX="10.0" layoutY="579.0" prefHeight="60.0" prefWidth="180.0" styleClass="sidebar-buttons" stylesheets="@../css/sidebar.css">
-                     <children>
-                        <Label layoutX="55.0" layoutY="20.0" text="Log Out">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="40.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0">
-                           <image>
-                              <Image url="@../images/logout_icon.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
+                  <ImageView fitHeight="80.0" fitWidth="180.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo-1.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
-         </bottom>
-            </BorderPane>
+      <Pane fx:id="dashboardPane" prefHeight="75.0" prefWidth="200.0">
+         <children>
+            <HBox fx:id="dashboardBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+               <children>
+                  <SVGImageView fx:id="dashboardIcon" fitHeight="25.0" fitWidth="25.0" styleClass="dashboardIcon">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </SVGImageView>
+                  <Label alignment="CENTER" prefHeight="23.0" prefWidth="90.0" text="Dashboard">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane fx:id="expensePane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0">
+         <children>
+            <HBox fx:id="expenseBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0" style="-fx-background-color: #fff;">
+               <children>
+                  <SVGImageView fx:id="expenseIcon" fitHeight="25.0" fitWidth="25.0" styleClass="expenseIcon">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </SVGImageView>
+                  <Label text="Expenses">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane fx:id="budgetPane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0">
+         <children>
+            <HBox fx:id="budgetBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+               <children>
+                  <SVGImageView fx:id="budgetIcon" fitHeight="25.0" fitWidth="25.0" styleClass="budgetIcon">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </SVGImageView>
+                  <Label text="Budget">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane fx:id="reportPane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0">
+         <children>
+            <HBox fx:id="reportBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+               <children>
+                  <SVGImageView fx:id="reportIcon" fitHeight="25.0" fitWidth="25.0" styleClass="reportIcon">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </SVGImageView>
+                  <Label text="Reports">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane prefHeight="230.0" prefWidth="200.0" />
+      <VBox alignment="CENTER" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="95.0">
+         <children>
+            <AvatarView fx:id="userAvatar" avatarShape="ROUND" size="55.0" />
+            <Label fx:id="username" text="Username">
+               <font>
+                  <Font name="Poppins Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="email" alignment="BOTTOM_CENTER" text="user@email.com">
+               <font>
+                  <Font name="Poppins Regular" size="10.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/drop-down-icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <Pane fx:id="logoutPane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0">
+         <children>
+            <HBox fx:id="logoutBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+               <children>
+                  <SVGImageView fx:id="logoutIcon" fitHeight="25.0" fitWidth="25.0" styleClass="logoutIcon">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </SVGImageView>
+                  <Label text="Log Out">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
          </children>
       </VBox>

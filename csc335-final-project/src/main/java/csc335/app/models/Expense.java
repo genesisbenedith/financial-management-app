@@ -117,6 +117,9 @@ public class Expense {
 
     // ------------------------------ Helper Methods ------------------------------
 
+    public String getStringAmount() {
+        return String.format("%.2f", this.amount);
+    }
     /**
      * Converts the transaction date to "YYYY-MM-DD" format
      * 
