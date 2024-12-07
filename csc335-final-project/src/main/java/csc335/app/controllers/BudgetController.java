@@ -159,6 +159,7 @@ public class BudgetController implements Initializable {
         field.setPromptText(limit + "");
         if (!BudgetTracker.TRACKER.isBudgetExceeded(category)) {
             alert.setVisible(true);
+            View.ALERT.showAlert(AlertType.ERROR, "Alert", "You're not as far from the limit");
             System.out.print("here");
         }
 
@@ -207,6 +208,7 @@ public class BudgetController implements Initializable {
         System.out.println(totalSpent / value >= 0.8);
         if (totalSpent / value >= 0.8) {
             alert.setVisible(true);
+            View.ALERT.showAlert(AlertType.ERROR, "Alert", "You're not as far from the limit");
         } else{
             alert.setVisible(false);
         }
