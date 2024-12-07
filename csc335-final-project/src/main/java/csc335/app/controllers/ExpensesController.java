@@ -206,7 +206,7 @@ public class ExpensesController implements Initializable {
         importFile.setOnMouseClicked(e -> importFileClick());
     }
 
-    private File importFileClick() {
+    private void importFileClick() {
         FileChooser chooseFile = new FileChooser();
         chooseFile.setTitle("Import File");
         
@@ -253,7 +253,6 @@ public class ExpensesController implements Initializable {
                 );
             }
         }
-        return selectedFile;
     }
 
     private void processExpenseLine(String line) {
@@ -285,7 +284,6 @@ public class ExpensesController implements Initializable {
         Expense expense = new Expense(calendar, category, amount, description);
         ExpenseTracker.TRACKER.addExpense(expense);
         AccountManager.ACCOUNT.saveUserAccount();
-
     }
 
 
@@ -384,7 +382,6 @@ public class ExpensesController implements Initializable {
             addNewExpense.setStyle("-fx-background-color: #E6E6FA;");
         });
     }
-
 
     public void initializeDatePickers() {
         // Initialize date pickers with default values if needed
@@ -584,8 +581,6 @@ public class ExpensesController implements Initializable {
                 }
             });
             
-            
-            
             // Add delete functionality
             deleteClone.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
@@ -652,12 +647,11 @@ public class ExpensesController implements Initializable {
     @FXML
     private void clearButtonClick(){
         // just put the total budget and total expenses labels and dollar amount back to total
-        clearButton.setOnMouseClicked(click -> { View.EXPENSES.loadView(); });
-        // budgetHeader.setText(categoryClicked.toString() + " Budget");
-        // expensesHeader.setText(categoryClicked.toString() + " Expenses");
-        // totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
-        // totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses());
-        // loadExpenses(ExpenseTracker.TRACKER.getExpenses());
+        budgetHeader.setText(categoryClicked.toString() + " Budget");
+        expensesHeader.setText(categoryClicked.toString() + " Expenses");
+        totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
+        totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses());
+        loadExpenses(ExpenseTracker.TRACKER.getExpenses());
     }
 
     /**
@@ -752,7 +746,7 @@ public class ExpensesController implements Initializable {
         double categoryUsagePercentage = categoryExpensesAmount / categoryBudgetLimit;
 
         // Get the HBox where we want to display the percentage bar
-        HBox percentBar = this.percentBar; // Assuming you have this HBox defined
+        HBox percentBar = this.percentBar; 
 
         // Clear the current content of the HBox before adding the new pane
         percentBar.getChildren().clear();
@@ -763,16 +757,13 @@ public class ExpensesController implements Initializable {
         categoryBar.setStyle("-fx-background-color: " + category.getDefaultColor()); // Use the default color of the category
         addHoverEffect("-fx-background-color: ", categoryBar, category);
         
-        // Optionally, add a Tooltip or label to show the percentage used
-        //Tooltip.install(categoryBar, new Tooltip(String.format("%.2f", categoryUsagePercentage * 100) + "%"));
-
+       
         // Add the category bar to the HBox
         percentBar.getChildren().add(categoryBar);
 
-        // Optionally, if you want to update the UI with the exact percentage used
+        
         updateCategoryExpensePercentage(categoryUsagePercentage);
         
-        // You can also update the display to show this category's budget breakdown if needed
         System.out.println("Category: " + category + ", Budget: $" + BudgetTracker.TRACKER.getBudgetLimit(category) + ", Expenses: $" + ExpenseTracker.TRACKER.calculateTotalExpenses(category));
     }
     

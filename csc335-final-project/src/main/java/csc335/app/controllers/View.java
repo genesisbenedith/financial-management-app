@@ -35,7 +35,6 @@ public enum View {
     ALERT("N/A", "Alert"),
     CHOOSER("N/A", "Chooser");
 
-    private Controller controller;
 
     // [ ] Needs field comments
     private final String VIEW_TITLE;
@@ -249,10 +248,6 @@ public enum View {
             return file.getAbsolutePath();
         } 
         return null;
-    }
-
-    public Controller getController() {
-        return this.controller;
     }
         
 
