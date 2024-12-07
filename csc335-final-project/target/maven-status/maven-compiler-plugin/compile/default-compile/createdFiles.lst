@@ -1,5 +1,4 @@
 csc335/app/controllers/ExpensesController.class
-csc335/app/controllers/ExpensesController$2.class
 csc335/app/controllers/View.class
 csc335/app/persistence/Database.class
 csc335/app/models/User.class
@@ -8,18 +7,14 @@ csc335/app/models/Expense.class
 csc335/app/controllers/SignInController.class
 csc335/app/persistence/UserSessionManager.class
 csc335/app/controllers/DashboardController.class
-csc335/app/controllers/ExpenseController.class
 csc335/app/models/Category.class
 csc335/app/controllers/SidebarController.class
 csc335/app/controllers/BudgetController.class
 csc335/app/persistence/Hasher.class
 csc335/app/App.class
-csc335/app/controllers/ExpensesController$1.class
-csc335/app/controllers/ExpensesController$3.class
 csc335/app/models/Budget.class
 csc335/app/utils/CalendarConverter.class
 csc335/app/services/BudgetTracker.class
 csc335/app/services/ExpenseTracker.class
 csc335/app/persistence/AccountManager.class
 csc335/app/controllers/SplashController.class
-csc335/app/persistence/Validator.class

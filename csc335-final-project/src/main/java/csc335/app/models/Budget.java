@@ -1,7 +1,6 @@
 package csc335.app.models;
 
 
-
 /**
  * @author Genesis Benedith
  * Course: CSC 335 (Fall 2024)
@@ -156,7 +155,7 @@ public class Budget {
      * @return true if max reached, false if otherwise
      */
     public boolean isExceeded() {
-        return this.getTotalSpent() > this.limit;
+        return this.getTotalSpent() > limit;
     }
     
     /**
