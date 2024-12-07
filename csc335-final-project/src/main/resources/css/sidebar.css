@@ -8,6 +8,31 @@
 }
 
 .sidebar-background{
-    -fx-background-color: #f0f0f0;
+    -fx-background-color: #fff;
     background-color: #f0f0f0;
+}
+
+
+.dashboardIcon {
+    -fx-svg-url: url("../svg/house-solid.svg");
+}
+
+.expenseIcon {
+    -fx-svg-url: url("../svg/dollar-sign-solid.svg");
+}
+
+.budgetIcon {
+    -fx-svg-url: url("../svg/piggy-bank-solid.svg");
+}
+
+.reportIcon {
+    -fx-svg-url: url("../svg/file-invoice-dollar-solid.svg");
+}
+
+.logoutIcon {
+    -fx-svg-url: url("../svg/arrow-right-from-bracket-solid.svg");
+}
+
+.gearIcon {
+    -fx-svg-url: url("../svg/gears-solid.svg");
 }

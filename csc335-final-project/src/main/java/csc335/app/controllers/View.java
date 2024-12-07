@@ -30,7 +30,6 @@ public enum View {
     BUDGET("Budget", "Budget Tracker"),
     EXPENSE("Expense", "Add an Expense"),
     EXPENSES("Expenses", "Expense Tracker"),
-    REPORT("Report", "Monthly Report"),
     ALERT("N/A", "Alert"),
     CHOOSER("N/A", "Chooser");
 
