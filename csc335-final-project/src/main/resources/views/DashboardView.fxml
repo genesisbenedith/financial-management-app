@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.dlsc.gemsfx.SVGImageView?>
-<?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -39,13 +38,6 @@
                      <padding>
                         <Insets left="30.0" right="30.0" />
                      </padding>
-                     <right>
-                        <MFXNotificationCenter fx:id="notificationCenter" markAsReadOnDismiss="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" styleClass="mfx-notification-center" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </MFXNotificationCenter>
-                     </right>
                   </BorderPane>
                </children>
             </Pane>

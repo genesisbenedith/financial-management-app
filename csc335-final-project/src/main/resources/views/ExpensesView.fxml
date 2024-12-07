@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -19,7 +20,25 @@
       <fx:include source="Sidebar.fxml" />
       <StackPane layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="880.0" styleClass="bckgrnd" stylesheets="@../css/expense.css">
          <children>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="880.0" styleClass="hbox" stylesheets="@../css/expense.css" StackPane.alignment="TOP_RIGHT" />
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="880.0" StackPane.alignment="TOP_LEFT">
+               <children>
+                  <BorderPane prefHeight="75.0" prefWidth="880.0">
+                     <left>
+                        <Label text="Expenses" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Poppins SemiBold" size="18.0" />
+                           </font>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
+                        </Label>
+                     </left>
+                     <padding>
+                        <Insets left="30.0" right="30.0" />
+                     </padding>
+                  </BorderPane>
+               </children>
+            </Pane>
             <StackPane layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="880.0" styleClass="stackpane" stylesheets="@../css/expense.css" StackPane.alignment="BOTTOM_RIGHT">
                <children>
                   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="880.0" styleClass="background" stylesheets="@../css/expense.css" StackPane.alignment="TOP_LEFT">
@@ -81,7 +100,7 @@
                                     </Pane>
                                  </children></Pane>
                               <MFXButton fx:id="clearButton" layoutX="710.0" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clearButtonClick" prefHeight="30.0" prefWidth="85.0" text="Clear" textAlignment="JUSTIFY" textOverrun="CLIP" />
-                              <MFXDatePicker fx:id="dateFrom" styleClass="mfx-date-picker" layoutX="60.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" />
+                              <MFXDatePicker fx:id="dateFrom" layoutX="60.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" styleClass="mfx-date-picker" />
                               <Pane fx:id="importFile" layoutX="450.0" layoutY="181.5" prefHeight="75.0" prefWidth="75.0" styleClass="totalspent" stylesheets="@../css/expense.css">
                                  <children>
                                     <Label layoutX="10.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="55.0" text="Upload File" textAlignment="CENTER" wrapText="true">
@@ -108,7 +127,7 @@
                                        </image>
                                     </ImageView>
                                  </children></Pane>
-                              <MFXDatePicker fx:id="dateTo" styleClass="mfx-date-picker" layoutX="260.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" />
+                              <MFXDatePicker fx:id="dateTo" layoutX="260.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="140.0" styleClass="mfx-date-picker" />
                               <Pane layoutX="215.0" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="30.0" styleClass="totalspent" stylesheets="@../css/expense.css">
                                  <children>
                                     <Label layoutX="7.0" layoutY="7.0" text="TO" />

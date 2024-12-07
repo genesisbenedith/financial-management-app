@@ -88,8 +88,9 @@ public enum BudgetTracker  {
      */
    
      public void updateBudget(Budget budget) {
-        findBudget(budget.getCategory()).setLimit(budget.getLimit());
-        findBudget(budget.getCategory()).addExpenses(budget.getExpenses());
+        Budget oldBudget = findBudget(budget.getCategory());
+        oldBudget.setLimit(budget.getLimit());
+        oldBudget.addExpenses(budget.getExpenses());
     }
 
     /**

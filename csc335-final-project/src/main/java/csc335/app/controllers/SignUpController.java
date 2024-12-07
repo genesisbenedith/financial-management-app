@@ -73,11 +73,30 @@ public class SignUpController implements Initializable {
                 String email = emailField.getText().trim();
                 String username = usernameField.getText().trim();
                 String password = passwordField.getText().trim();
-                AccountManager.ACCOUNT.setNewUser(username, email, password);
+
+                int status = AccountManager.ACCOUNT.setNewUser(username, email, password);
+                switch (status) {
+                    case 0:
+                        View.ALERT.showAlert(AlertType.INFORMATION, "Success", "User account successfully created!");
+                        View.LOGIN.loadView();
+                        break;
+                    case 1:
+                        View.ALERT.showAlert(AlertType.ERROR, "Error", "Email is already taken!");
+                        break;
+                    case 2:
+                        View.ALERT.showAlert(AlertType.ERROR, "Error", "Username is already taken!");
+                        break;
+                    case -1:
+                        break;
+                    default:
+                        break;
+                }
+                
             }
         } catch (IOException e) {
             System.err.println("Unable to create this account.");
         }
+        
 
     }
 

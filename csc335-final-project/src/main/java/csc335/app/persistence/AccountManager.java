@@ -13,7 +13,8 @@ import javafx.scene.control.Alert.AlertType;
  */
 
 // [ ] Complete class coment
-/**a
+/**
+ * a
  * 
  */
 public enum AccountManager {
@@ -33,15 +34,15 @@ public enum AccountManager {
      * @param email
      * @param password
      */
-    public void setNewUser(String username, String email, String password) {
+    public int setNewUser(String username, String email, String password) {
 
         /* Show error alert and void if username or email is taken */
         if (isEmailTaken(email)) {
-            View.ALERT.showAlert(AlertType.ERROR, "Error", "Email is already taken!");
-            return;
+
+            return 1;
         } else if (isUsernameTaken(username)) {
-            View.ALERT.showAlert(AlertType.ERROR, "Error", "Username is already taken!");
-            return;
+
+            return 2;
         }
 
         /* Encrypt password */
@@ -57,12 +58,12 @@ public enum AccountManager {
             Database.DATABASE.createNewUserAccount(username, email, hashedPassword, salt);
             /* Show success alert and load login view */
             System.out.println("\nUser account successfully created!\n");
-            View.ALERT.showAlert(AlertType.INFORMATION, "Success", "User account successfully created!");
-            View.LOGIN.loadView();
+            return 0;
 
         } catch (IOException e) {
             // Cancel registration if there's an error adding account to database
             System.err.println("\nAn error occured. Registration aborted.\nPlease try again.");
+            return -1;
         }
 
     }
@@ -92,9 +93,9 @@ public enum AccountManager {
 
         /* Set active user session and load dashboard view */
         UserSessionManager.SESSION.setCurrentUser(user);
-            System.out.println("User authenticated. Session active. Loading dashboard now.");
-            View.DASHBOARD.loadView();
-       
+        System.out.println("User authenticated. Session active. Loading dashboard now.");
+        View.DASHBOARD.loadView();
+
     }
 
     /**
@@ -119,11 +120,9 @@ public enum AccountManager {
         return Database.DATABASE.findUserAccount(email, "Email") != null;
     }
 
-    
-
-    public File exportFile() throws IOException{
+    public File exportFile() throws IOException {
         User currentUser = UserSessionManager.SESSION.getCurrentUser();
-        return  Database.DATABASE.writeExpenseExport(currentUser.getUsername());
+        return Database.DATABASE.writeExpenseExport(currentUser.getUsername());
     }
 
 }
