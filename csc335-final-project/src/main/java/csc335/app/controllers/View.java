@@ -2,6 +2,7 @@ package csc335.app.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ModuleLayer.Controller;
 import java.nio.file.Path;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -33,6 +34,8 @@ public enum View {
     REPORT("Report", "Monthly Report"),
     ALERT("N/A", "Alert"),
     CHOOSER("N/A", "Chooser");
+
+    private Controller controller;
 
     // [ ] Needs field comments
     private final String VIEW_TITLE;
@@ -247,4 +250,10 @@ public enum View {
         } 
         return null;
     }
+
+    public Controller getController() {
+        return this.controller;
+    }
+        
+
 }

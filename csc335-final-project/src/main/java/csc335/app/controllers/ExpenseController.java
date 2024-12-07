@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import csc335.app.models.Category;
 import csc335.app.models.Expense;
 import csc335.app.models.User;
+import csc335.app.persistence.AccountManager;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -63,6 +64,7 @@ public class ExpenseController implements Initializable{
         currentUser = UserSessionManager.SESSION.getCurrentUser();
         onCancelClick();
         handleAddExpenseClick();
+        addCategories();
         //List<Expense> expenses = ExpenseTracker.TRACKER.getExpenses();
     }
 
@@ -91,13 +93,30 @@ public class ExpenseController implements Initializable{
     public void addCategories(){
         ObservableList<String> list = FXCollections.observableArrayList("Food", "Entertainment", "Transportation", "Utilities", "Healthcare", "Other");
         expenseCategory.setItems(list);
-        selectedCategory = (String) expenseCategory.getValue();
+        expenseCategory.setPromptText("Select Category"); // Shows default text when nothing is selected
+    
+        // Add selection listener
+        expenseCategory.setOnAction(event -> {
+            selectedCategory = expenseCategory.getValue();
+        });
         
+    }
+
+    public void setExController(ExpensesController controller) {
+        this.exController = controller;
+    }
+
+    public String getSelectedCategory() {
+        return expenseCategory.getValue();
+    }
+
+    public void setSelectedCategory(String category) {
+        expenseCategory.setValue(category);
     }
 
     public void addNumericValidationWithCommas(TextField textField) {
         // Define a number formatter for formatting numbers with commas
-        NumberFormat format = NumberFormat.getNumberInstance(Locale.US); // US format for commas
+        NumberFormat format = NumberFormat.getNumberInstance(Locale.US);
 
         // Create a TextFormatter to handle both input validation and formatting
         TextFormatter<String> textFormatter = new TextFormatter<>(change -> {
@@ -132,43 +151,41 @@ public class ExpenseController implements Initializable{
 
     // use this for the save click
     public void handleAddExpenseClick(){
-        if (amountField == null) {
-            showAlert(AlertType.ERROR, "Error", "All fields are required.");
-            return;
-        }
-        try {
-            double amount = Double.parseDouble(amountField.getText());
-            addNumericValidationWithCommas(amountField);
-            if (amount <= 0) {
-                showAlert(AlertType.ERROR, "Error", "Amount must be greater than 0.");
+        save.setOnMouseClicked(e -> {
+            if (e.getButton() == MouseButton.PRIMARY) {
+                if (amountField == null) {
+                showAlert(AlertType.ERROR, "Error", "All fields are required.");
                 return;
             }
-            //showAlert(AlertType.INFORMATION, "Success", "Expense added successfully.");
-            Category category = Category.valueOf(selectedCategory.trim().toUpperCase());
+            try {
+                double amount = Double.valueOf(amountField.getText().substring(1));
+                addNumericValidationWithCommas(amountField);
+                if (amount <= 0) {
+                    showAlert(AlertType.ERROR, "Error", "Amount must be greater than 0.");
+                    return;
+                }
+                //showAlert(AlertType.INFORMATION, "Success", "Expense added successfully.");
+                Category category = Category.valueOf(selectedCategory.trim().toUpperCase());
 
-            // Save expense to user
-            
-            ExpenseTracker.TRACKER.addExpense(new Expense(localDateToCalenderDate(currentDate.getValue()), category, amount, expenseSummary.getText()));
-
-            exController.loadExpenses(ExpenseTracker.TRACKER.getExpenses());
-            onSaveClick();
-
-            // [ ] close popup
-        } catch (NumberFormatException e) {
-            showAlert(AlertType.ERROR, "Error", "Invalid amount format.");
-        }
+                // Save expense to user
+                
+                ExpenseTracker.TRACKER.addExpense(new Expense(localDateToCalenderDate(currentDate.getValue()), category, amount, expenseSummary.getText()));
+                AccountManager.ACCOUNT.saveUserAccount();
+                View.EXPENSE.closePopUpWindow();
+                exController.loadExpenses(ExpenseTracker.TRACKER.getExpenses());
+                
+                // [ ] close popup
+            } catch (NumberFormatException t) {
+                showAlert(AlertType.ERROR, "Error", "Invalid amount format.");
+            }
+                    
+            }
+        });
+       
     }
 
     public void onCancelClick(){
         cancel.setOnMouseClicked(e -> {
-            if (e.getButton() == MouseButton.PRIMARY) {
-                View.EXPENSES.loadView();
-            }
-        });
-    }
-
-    public void onSaveClick(){
-        save.setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 View.EXPENSES.loadView();
             }

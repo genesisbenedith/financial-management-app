@@ -206,7 +206,7 @@ public class ExpensesController implements Initializable {
         importFile.setOnMouseClicked(e -> importFileClick());
     }
 
-    private void importFileClick() {
+    private File importFileClick() {
         FileChooser chooseFile = new FileChooser();
         chooseFile.setTitle("Import File");
         
@@ -253,6 +253,7 @@ public class ExpensesController implements Initializable {
                 );
             }
         }
+        return selectedFile;
     }
 
     private void processExpenseLine(String line) {
@@ -283,6 +284,8 @@ public class ExpensesController implements Initializable {
         // Create and add expense
         Expense expense = new Expense(calendar, category, amount, description);
         ExpenseTracker.TRACKER.addExpense(expense);
+        AccountManager.ACCOUNT.saveUserAccount();
+
     }
 
 
@@ -365,7 +368,11 @@ public class ExpensesController implements Initializable {
     private void addNewExpenseClick(){
         addNewExpense.setOnMouseClicked(click -> {
             if (click.getButton() == MouseButton.PRIMARY) {
-                View.EXPENSE.loadView();
+                try {
+                    View.EXPENSE.showPopUp();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         addNewExpense.setCursor(Cursor.HAND);
@@ -377,14 +384,6 @@ public class ExpensesController implements Initializable {
             addNewExpense.setStyle("-fx-background-color: #E6E6FA;");
         });
     }
-
-    // @FXML
-    // private void editExpenseClick(){
-    //     // use add expense popup but with different title and the information already filled in, just editable
-    //     ViewManager.getViewManager().loadView(View.EXPENSE);
-    //     ExpenseController editExpense = new ExpenseController();
-    //     editExpense.setContentText(expense);
-    // }
 
 
     public void initializeDatePickers() {
@@ -571,12 +570,21 @@ public class ExpensesController implements Initializable {
             // Add edit functionality
             editClone.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
-                    View.EXPENSE.loadView();
-                    ExpenseController editExpense = new ExpenseController();
-                    editExpense.setContentText(expense);
+                    try {
+                        View.EXPENSE.showPopUp(); 
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    ExpenseController controller = new ExpenseController();
+                    controller.addCategories();
+                    controller.setContentText(expense);
                     // Add your edit logic here
+                    ExpenseTracker.TRACKER.removeExpense(expense);
+                    AccountManager.ACCOUNT.saveUserAccount();
                 }
             });
+            
+            
             
             // Add delete functionality
             deleteClone.setOnMouseClicked(e -> {
@@ -589,6 +597,7 @@ public class ExpensesController implements Initializable {
                     if(result.get() == ButtonType.OK) {
                         vBox.getChildren().remove(clonedPane);
                         ExpenseTracker.TRACKER.removeExpense(expense);
+                        AccountManager.ACCOUNT.saveUserAccount();
                     }
                 }
             });
@@ -643,11 +652,12 @@ public class ExpensesController implements Initializable {
     @FXML
     private void clearButtonClick(){
         // just put the total budget and total expenses labels and dollar amount back to total
-        budgetHeader.setText(categoryClicked.toString() + " Budget");
-        expensesHeader.setText(categoryClicked.toString() + " Expenses");
-        totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
-        totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses());
-        loadExpenses(ExpenseTracker.TRACKER.getExpenses());
+        clearButton.setOnMouseClicked(click -> { View.EXPENSES.loadView(); });
+        // budgetHeader.setText(categoryClicked.toString() + " Budget");
+        // expensesHeader.setText(categoryClicked.toString() + " Expenses");
+        // totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
+        // totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses());
+        // loadExpenses(ExpenseTracker.TRACKER.getExpenses());
     }
 
     /**
