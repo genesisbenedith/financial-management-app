@@ -1,5 +1,13 @@
 package csc335.app.controllers;
 
+/**
+ * @author Lauren Schroeder
+ * Course: CSC 335 (Fall 2024)
+ * File: ExpenseController.java
+ * Description: Controller class that controls the popup window when the user chooses to add 
+ * or edit an expense
+ */
+
 import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -22,7 +30,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+//import javafx.stage.Stage;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseButton;
 

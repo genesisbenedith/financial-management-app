@@ -1,0 +1,75 @@
+2024-11-20,Healthcare,125.0,Specialist appointment
+2024-10-10,Healthcare,45.0,Medication refill
+2024-8-1,Healthcare,300.0,Root canal
+2024-5-15,Healthcare,75.0,Chiropractor visit
+2024-3-10,Healthcare,200.0,Dental procedure
+2023-12-20,Healthcare,50.0,Flu shot
+2024-12-12,Healthcare,120.0,Specialist Appointment
+2024-11-7,Utilities,85.0,Internet bill
+2024-10-15,Utilities,90.0,Electricity bill
+2024-9-30,Utilities,78.5,Water bill
+2024-8-12,Utilities,100.0,AC service fees
+2024-7-22,Utilities,45.0,Trash pickup
+2024-6-20,Utilities,110.0,Electricity bill
+2024-5-18,Utilities,50.0,Gas bill
+2024-4-11,Utilities,60.0,Water bill
+2024-3-1,Utilities,30.0,Sewer fees
+2023-12-10,Utilities,80.0,Internet installation
+2023-11-25,Utilities,45.0,Trash removal
+2024-11-8,Other,300.0,Holiday gift shopping
+2024-10-25,Other,90.0,Halloween costume
+2024-8-15,Other,120.0,Charity donation
+2024-5-20,Other,400.0,New phone
+2024-2-28,Other,50.0,Clothing shopping
+2023-11-10,Other,150.0,Event tickets for family reunion
+2024-12-1,Food,60.3,Weekly grocery trip to Whole Foods
+2024-11-20,Food,54.6,Grocery shopping for the week
+2024-10-10,Food,45.0,Dinner at Olive Garden
+2024-9-12,Food,25.0,Fast food lunch at McDonald's
+2024-8-18,Food,35.0,Dinner at Chili's
+2024-7-25,Food,68.75,Groceries for the week
+2024-6-15,Food,21.5,Ice cream at Baskin Robbins
+2024-5-10,Food,120.0,Monthly Costco groceries
+2024-4-4,Food,55.0,Specialty groceries for a dinner party
+2024-3-20,Food,15.75,Lunch at Subway
+2024-2-25,Food,42.0,Groceries at Walmart
+2024-1-5,Food,10.5,Snacks at a gas station
+2023-12-15,Food,65.2,Holiday grocery shopping
+2023-11-5,Food,22.0,Breakfast at IHOP
+2023-10-30,Food,75.0,Bulk groceries at Sam's Club
+2023-9-22,Food,14.0,Coffee and pastries at Starbucks
+2023-8-12,Food,50.0,Dinner at an Italian restaurant
+2023-7-25,Food,68.0,Weekly groceries at Trader Joe's
+2023-6-10,Food,28.0,Burgers at Five Guys
+2023-5-1,Food,85.0,Groceries at Kroger
+2024-10-5,Entertainment,90.0,Concert tickets
+2024-9-15,Entertainment,12.0,Netflix subscription
+2024-8-20,Entertainment,30.0,Karaoke night
+2024-7-8,Entertainment,45.0,Amusement park tickets
+2024-6-22,Entertainment,25.0,Arcade games
+2024-5-11,Entertainment,70.0,Live theater show
+2024-4-7,Entertainment,100.0,Music festival tickets
+2024-3-1,Entertainment,20.0,Escape room
+2024-2-15,Entertainment,10.0,Online gaming subscription
+2023-12-25,Entertainment,60.0,Christmas light show
+2023-11-18,Entertainment,40.0,Comedy club tickets
+2023-10-1,Entertainment,30.0,Drive-in movie
+2023-9-12,Entertainment,80.0,Stand-up comedy show
+2023-8-1,Entertainment,25.0,Board game night with friends
+2023-7-20,Entertainment,45.0,Painting and wine event
+2023-6-5,Entertainment,20.0,Digital game purchase
+2024-12-3,Entertainment,10.0,movies
+2024-12-3,Entertainment,80.0,Concert
+2024-12-12,Entertainment,8.0,netflix
+2024-11-30,Transportation,40.0,Gas station refill
+2024-10-18,Transportation,25.0,Uber to a friend's house
+2024-9-30,Transportation,10.0,Parking fees
+2024-8-10,Transportation,70.0,Car maintenance
+2024-7-1,Transportation,50.0,Airport shuttle
+2024-6-15,Transportation,30.0,Bike repair
+2024-5-5,Transportation,20.0,Train ticket
+2024-4-22,Transportation,60.0,Tire replacement
+2024-3-1,Transportation,45.0,Gas for road trip
+2024-2-10,Transportation,20.0,Parking at downtown event
+2023-12-20,Transportation,35.0,Rideshare to holiday event
+2023-11-15,Transportation,15.0,Bus pass

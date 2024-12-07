@@ -1,3 +1,4 @@
+
 package csc335.app.persistence;
 
 import java.io.File;
@@ -135,4 +136,11 @@ public enum AccountManager {
         User currentUser = UserSessionManager.SESSION.getCurrentUser();
         return  Database.DATABASE.writeExpenseExport(currentUser.getUsername());
     }
+
+    public void importFile(String fileName) throws IOException{
+        User currentUser = UserSessionManager.SESSION.getCurrentUser();
+        Database.DATABASE.readExpenseImport(fileName);
+
+    }
+
 }

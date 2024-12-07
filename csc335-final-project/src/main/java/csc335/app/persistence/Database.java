@@ -24,6 +24,8 @@ import csc335.app.models.Expense;
 import csc335.app.models.User;
 import csc335.app.services.ExpenseTracker;
 import csc335.app.utils.CalendarConverter;
+// import csc335.app.services.ExpenseTracker;
+// import csc335.app.utils.CalendarConverter;
 import javafx.scene.image.Image;
 
 public enum Database {
@@ -33,6 +35,7 @@ public enum Database {
     private final String DATABASE_DIRECTORY = "database";
     private final String ACCOUNTS_DIRECTORY = "accounts";
     private final String AVATAR_DIRECTORY = "avatars";
+    private final String IMPORTS_DIRECTORY = "imports";
     private final String ACCOUNT_DATA = "_all_accounts.txt";
     private final Map<String, User> USER_ACCOUNTS = new HashMap<>();
 
@@ -305,6 +308,56 @@ public enum Database {
         return null;
     }
 
+    protected void readExpenseImport(String username) {
+        /* The path to the file that contains the transaction history for the user */
+        Path filePath = Path.of(DATABASE_DIRECTORY, IMPORTS_DIRECTORY, username + "_import.txt");
+        File file = filePath.toFile();
+
+        List<Expense> expensesFoundInFile = new ArrayList<>();
+
+        /* Searching through user's transcations in the file */
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+
+            /* Read each line until end of file */
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length != 4)
+                    continue;
+                
+                /* Extracting the transaction details from the line */
+                String[] parts = data[1].split(",");
+                String[] date = parts[0].trim().split("-");
+                int year = Integer.parseInt(date[0]);
+                int month = Integer.parseInt(date[1]);
+                int day = Integer.parseInt(date[2]);
+
+                /* Setting the calendar for transaction date */
+                Calendar calendar = CalendarConverter.INSTANCE.getCalendar(year, month, day);
+                Category category = Category.valueOf(parts[1].trim().toUpperCase());
+                double amount = Double.parseDouble(parts[2].trim());
+                String description = parts[3].trim();
+
+                /* Add expense to the list of expenses found in the file */
+                Expense expense = new Expense(calendar, category, amount, description);
+                expensesFoundInFile.add(expense);
+
+            }
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException("An error occured loading account from database: " + e.getMessage());
+        }
+
+        User user = findUserAccount(username, "Username");
+
+        for (Expense expense : expensesFoundInFile) {
+            ExpenseTracker.TRACKER.addExpense(expense);
+        }
+        
+    }
+    
     /**
      * Creates a new file and writes a user's expenses found in their
      * account transaction history for file exporting 

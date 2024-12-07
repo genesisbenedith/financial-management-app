@@ -30,6 +30,7 @@ import csc335.app.models.Category;
 import csc335.app.models.Expense;
 import csc335.app.models.User;
 import csc335.app.persistence.AccountManager;
+import csc335.app.persistence.Database;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.BudgetTracker;
 import csc335.app.services.ExpenseTracker;
@@ -165,7 +166,8 @@ public class ExpensesController implements Initializable {
     private Category categoryClicked;
 
     /**
-     * 
+     * initializes the expenses page as a scene and all the methods/controls that need to be working
+     * on the screen while it is open
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -187,9 +189,10 @@ public class ExpensesController implements Initializable {
     }
 
     /**
-     * 
+     * Sets up the file import functionality, enabling the user to import expenses from a file.
+     * The import pane is made clickable and adds hover effects for better UX.
+     * Sets up the click handler to trigger the import file selection dialog.
      */
-
     private void setupimportFile() {
         // Make sure the pane is clickable
         importFile.setCursor(Cursor.HAND);
@@ -206,6 +209,12 @@ public class ExpensesController implements Initializable {
         importFile.setOnMouseClicked(e -> importFileClick());
     }
 
+    /**
+     * Handles the click event for importing a file opening a FileChooser dialog
+     * allowing the user to select a file. After selection, the file's content is read in line by line,
+     * and each line is processed to extract expense data, and updates the expense tracker.
+     * Displays a success or error message based on the result.
+     */
     private void importFileClick() {
         FileChooser chooseFile = new FileChooser();
         chooseFile.setTitle("Import File");
@@ -237,7 +246,9 @@ public class ExpensesController implements Initializable {
                 }
                 // Refresh the expense list
                 loadExpenses(ExpenseTracker.TRACKER.getExpenses());
-                
+                // AccountManager.ACCOUNT.readExpenseImport(selectedFile.getName());
+                // Database.DATABASE.readExpenseImport(selectedFile.getName());
+            
                 // Show success message
                 View.ALERT.showAlert(
                     AlertType.INFORMATION, 
@@ -255,6 +266,13 @@ public class ExpensesController implements Initializable {
         }
     }
 
+    /**
+     * Processes a single line of expense data from the imported file.
+     * Parses the line, extracts expense details, and creates a new Expense object.
+     * Adds the expense to the expense tracker and saves the user account.
+     *
+     * @param line The line of expense data to be processed.
+     */
     private void processExpenseLine(String line) {
         String[] expenseInfo = line.split(",");
         if (expenseInfo.length < 4) {
@@ -286,10 +304,7 @@ public class ExpensesController implements Initializable {
         AccountManager.ACCOUNT.saveUserAccount();
     }
 
-
-    /**
-     * 
-     */
+    
     private void setupdownloadFile() {
         // Make sure the pane is clickable
         downloadFile.setCursor(Cursor.HAND);
@@ -576,6 +591,7 @@ public class ExpensesController implements Initializable {
                     controller.addCategories();
                     controller.setContentText(expense);
                     // Add your edit logic here
+                    vBox.getChildren().remove(clonedPane);
                     ExpenseTracker.TRACKER.removeExpense(expense);
                     AccountManager.ACCOUNT.saveUserAccount();
                 }

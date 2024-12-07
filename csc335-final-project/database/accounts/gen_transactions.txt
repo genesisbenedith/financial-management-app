@@ -1,7 +1,3 @@
-User Information:
-Username: gen
-Email: gen@aol.com
-
 -------------------- Expenses --------------------
 ENTERTAINMENT CATEGORY
 	Budget: (Category,Limit)
