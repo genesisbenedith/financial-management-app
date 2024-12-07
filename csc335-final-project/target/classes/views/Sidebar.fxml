@@ -22,7 +22,7 @@
                   </ImageView>
                </children>
             </Pane>
-      <Pane fx:id="dashboardPane" prefHeight="75.0" prefWidth="200.0">
+      <Pane fx:id="dashboardPane" prefHeight="75.0" prefWidth="200.0" styleClass="sidebar-buttons">
          <children>
             <HBox fx:id="dashboardBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
                <children>
@@ -40,7 +40,7 @@
             </HBox>
          </children>
       </Pane>
-      <Pane fx:id="expensePane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0">
+      <Pane fx:id="expensePane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0" styleClass="sidebar-buttons">
          <children>
             <HBox fx:id="expenseBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0" style="-fx-background-color: #fff;">
                <children>
@@ -58,7 +58,7 @@
             </HBox>
          </children>
       </Pane>
-      <Pane fx:id="budgetPane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0">
+      <Pane fx:id="budgetPane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0" styleClass="sidebar-buttons">
          <children>
             <HBox fx:id="budgetBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
                <children>
@@ -79,28 +79,10 @@
             </HBox>
          </children>
       </Pane>
-      <Pane fx:id="reportPane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0">
-         <children>
-            <HBox fx:id="reportBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
-               <children>
-                  <SVGImageView fx:id="reportIcon" fitHeight="25.0" fitWidth="25.0" styleClass="reportIcon">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </SVGImageView>
-                  <Label text="Reports">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </Pane>
       <Pane prefHeight="230.0" prefWidth="200.0" />
       <VBox alignment="CENTER" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="95.0">
          <children>
-            <AvatarView fx:id="userAvatar" avatarShape="ROUND" size="55.0" />
+            <AvatarView fx:id="userAvatar" avatarShape="ROUND" initials="" size="55.0" />
             <Label fx:id="username" text="Username">
                <font>
                   <Font name="Poppins Bold" size="14.0" />
@@ -118,7 +100,7 @@
             </ImageView>
          </children>
       </VBox>
-      <Pane fx:id="logoutPane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0">
+      <Pane fx:id="logoutPane" layoutX="10.0" layoutY="755.0" prefHeight="75.0" prefWidth="200.0" styleClass="sidebar-buttons">
          <children>
             <HBox fx:id="logoutBox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
                <children>

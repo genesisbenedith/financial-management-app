@@ -3,10 +3,12 @@
 <?import com.dlsc.gemsfx.SVGImageView?>
 <?import io.github.palexdev.materialfx.controls.MFXNotificationCenter?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -53,7 +55,7 @@
                      <children>
                         <Pane prefHeight="46.0" prefWidth="490.0">
                            <children>
-                              <Label text="Monthly Report">
+                              <Label fx:id="monthLabel" text="Monthly Report">
                                  <font>
                                     <Font name="Poppins Regular" size="21.0" />
                                  </font>
@@ -62,12 +64,7 @@
                                  </padding>
                               </Label>
                               <PieChart fx:id="pieChart" layoutY="56.0" legendSide="RIGHT" prefHeight="194.0" prefWidth="488.0" />
-                              <MenuButton fx:id="menuButton" layoutX="384.0" layoutY="11.0" mnemonicParsing="false" text="MenuButton">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                                  <MenuItem mnemonicParsing="false" text="Action 2" />
-                                </items>
-                              </MenuButton>
+                              <MenuButton fx:id="menuButton" layoutX="384.0" layoutY="11.0" mnemonicParsing="false" text="Choose Month" />
                            </children>
                         </Pane>
                      </children></Pane>
@@ -512,16 +509,23 @@
                         
                         
                         <Pane fx:id="advertisementPane" prefHeight="217.0" prefWidth="300.0">
-                           <children>
-                              <BorderPane prefHeight="217.0" prefWidth="300.0">
-                                 <padding>
-                                    <Insets left="15.0" right="15.0" />
-                                 </padding>
-                              </BorderPane>
-                           </children>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <children>
+                              <BarChart fx:id="barChart" barGap="0.0" categoryGap="0.0" horizontalGridLinesVisible="false" legendVisible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="300.0" stylesheets="@../css/dashboard.css" verticalGridLinesVisible="false">
+                                 <xAxis>
+                                    <CategoryAxis endMargin="0.0" gapStartAndEnd="false" label="Budgets" nodeOrientation="LEFT_TO_RIGHT" side="BOTTOM" startMargin="0.0" stylesheets="@../css/dashboard.css" tickLabelGap="0.0" tickLength="0.0" translateX="-5.0">
+                                       <tickLabelFont>
+                                          <Font size="1.0" />
+                                       </tickLabelFont>
+                                    </CategoryAxis>
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis label="Total Spent" minorTickVisible="false" side="LEFT" stylesheets="@../css/dashboard.css" tickMarkVisible="false" />
+                                 </yAxis>
+                              </BarChart>
+                           </children>
                         
                         </Pane>
                      </children>

@@ -8,6 +8,9 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -50,21 +53,9 @@
                <children>
                   <Pane layoutX="30.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="250.0" prefWidth="490.0" style="-fx-background-radius: 15px; -fx-background-color: #fff;">
                      <children>
-                        <BarChart fx:id="barChart" barGap="0.0" categoryGap="0.0" horizontalGridLinesVisible="false" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="488.0" stylesheets="@../css/dashboard.css" verticalGridLinesVisible="false">
-                          <xAxis>
-                            <CategoryAxis endMargin="0.0" gapStartAndEnd="false" nodeOrientation="LEFT_TO_RIGHT" side="BOTTOM" startMargin="0.0" stylesheets="@../css/dashboard.css" tickLabelGap="0.0" tickLength="0.0" visible="false">
-                                 <tickLabelFont>
-                                    <Font size="1.0" />
-                                 </tickLabelFont>
-                              </CategoryAxis>
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis minorTickVisible="false" side="LEFT" stylesheets="@../css/dashboard.css" tickLabelsVisible="false" tickMarkVisible="false" />
-                          </yAxis>
-                        </BarChart>
                         <Pane prefHeight="46.0" prefWidth="490.0">
                            <children>
-                              <Label text="Dashboard">
+                              <Label fx:id="monthLabel" text="Monthly Report">
                                  <font>
                                     <Font name="Poppins Regular" size="21.0" />
                                  </font>
@@ -72,12 +63,21 @@
                                     <Insets left="20.0" top="15.0" />
                                  </padding>
                               </Label>
+                              <PieChart fx:id="pieChart" layoutY="56.0" legendSide="RIGHT" legendVisible="false" prefHeight="194.0" prefWidth="488.0" />
+                              <MenuButton fx:id="menuButton" layoutX="384.0" layoutY="11.0" mnemonicParsing="false" text="Choose Month" />
                            </children>
                         </Pane>
                      </children></Pane>
                   <Pane layoutX="30.0" layoutY="310.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="305.0" prefWidth="490.0" style="-fx-background-radius: 15px; -fx-background-color: #fff;">
                      <children>
-                        <PieChart fx:id="pieChart" legendSide="RIGHT" prefHeight="300.0" prefWidth="488.0" />
+                        <TableView fx:id="tableView" layoutX="6.0" layoutY="1.0" prefHeight="304.0" prefWidth="473.0" style="-fx-background-color: transparent; -fx-background-radius: 15px;">
+                          <columns>
+                            <TableColumn fx:id="dateColumn" editable="false" prefWidth="81.29507446289062" text="Date" />
+                            <TableColumn fx:id="expenseColumn" editable="false" prefWidth="227.70492553710938" text="Expense" />
+                              <TableColumn fx:id="categoryColumn" editable="false" prefWidth="88.05032348632812" text="Category" />
+                              <TableColumn fx:id="amountColumn" editable="false" prefWidth="75.9603271484375" text="Amount" />
+                          </columns>
+                        </TableView>
                      </children></Pane>
                   <VBox fx:id="recentExpensesBox" layoutX="550.0" layoutY="30.0" prefHeight="585.0" prefWidth="300.0" style="-fx-background-color: #fff; -fx-background-radius: 15px;">
                      <children>
@@ -509,45 +509,23 @@
                         
                         
                         <Pane fx:id="advertisementPane" prefHeight="217.0" prefWidth="300.0">
-                           <children>
-                              <BorderPane prefHeight="217.0" prefWidth="300.0">
-                                 <padding>
-                                    <Insets left="15.0" right="15.0" />
-                                 </padding>
-                                 <center>
-                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="187.0" prefWidth="270.0" style="-fx-background-radius: 15px;" styleClass="content-background" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Label text="Have More Expenses?">
-                                             <font>
-                                                <Font name="Poppins Bold" size="15.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets left="15.0" top="15.0" />
-                                             </padding>
-                                          </Label>
-                                          <Label fx:id="importLabel" layoutY="42.0" prefHeight="17.0" prefWidth="200.0" text="Import Transactions">
-                                             <font>
-                                                <Font name="Poppins Regular" size="12.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets left="20.0" />
-                                             </padding>
-                                          </Label>
-                                          <SVGImageView fx:id="importPaneIcon" fitHeight="50.0" fitWidth="50.0" layoutX="23.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="57.0" styleClass="svg-image-view" svgUrl="" />
-                                       </children>
-                                       <BorderPane.margin>
-                                          <Insets />
-                                       </BorderPane.margin>
-                                       <padding>
-                                          <Insets left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </Pane>
-                                 </center>
-                              </BorderPane>
-                           </children>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <children>
+                              <BarChart fx:id="barChart" barGap="0.0" categoryGap="0.0" horizontalGridLinesVisible="false" legendVisible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="300.0" stylesheets="@../css/dashboard.css" verticalGridLinesVisible="false">
+                                 <xAxis>
+                                    <CategoryAxis endMargin="0.0" gapStartAndEnd="false" label="Budgets" nodeOrientation="LEFT_TO_RIGHT" side="BOTTOM" startMargin="0.0" stylesheets="@../css/dashboard.css" tickLabelGap="0.0" tickLength="0.0" translateX="-5.0">
+                                       <tickLabelFont>
+                                          <Font size="1.0" />
+                                       </tickLabelFont>
+                                    </CategoryAxis>
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis label="Total Spent" minorTickVisible="false" side="LEFT" stylesheets="@../css/dashboard.css" tickMarkVisible="false" />
+                                 </yAxis>
+                              </BarChart>
+                           </children>
                         
                         </Pane>
                      </children>

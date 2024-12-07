@@ -76,15 +76,6 @@ public class User {
         return Collections.unmodifiableList(budgets);
     }
 
-    /**
-     * Get the user's avatar view
-     * 
-     * @return an avatar view for the user
-     */
-    public AvatarView getAvatar() {
-        return avatar;
-    }
-
     /*
      * ------------------------------ Setter Methods ------------------------------
      */

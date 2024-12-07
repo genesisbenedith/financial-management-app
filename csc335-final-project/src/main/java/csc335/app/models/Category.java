@@ -1,8 +1,4 @@
 package csc335.app.models;
-
-import java.util.Objects;
-
-// [ ] Complete file comment
 /**
  * Builds an enum to represent the categories 
  * of the expenses & budgets tracked by the personal
@@ -15,10 +11,10 @@ import java.util.Objects;
  // [ ] Complete class comment
 public enum Category {
     FOOD("#AFF8D8", "#DBFFD6", "burger-solid"),
-    ENTERTAINMENT("#A79AFF", "#DCD3FF", "tv-solid"),
+    ENTERTAINMENT("#A79AFF", "#DCD3FF", "gamepad-solid"),
     TRANSPORTATION("#FF9CEE", "FFCCF9", "car-solid"),
     UTILITIES("#85E3FF", "#C4FAF8", "lightbulb-solid"),
-    HEALTHCARE("#E7FFAC", "F3FFE3", "suticase-medical-solid"),
+    HEALTHCARE("#E7FFAC", "F3FFE3", "suitcase-medical-solid"),
     OTHER("#FFABAB", "#FFCBC1", "star-solid");
 
     /* Category colors for GUI purposes */
@@ -58,10 +54,9 @@ public enum Category {
     }
 
     public String getSvgUrl() {
-        String svgUrl = Objects.requireNonNull(getClass().getResource("/svg/" + this.SVG_ICON + ".svg")).toExternalForm();
         // String svgFile = new File(svgFilePath)
         // URL svgUrl = svgFile.toURI().toURL();
-        return "../svg/" + this.SVG_ICON + ".svg";
+        return "/svg/" + this.SVG_ICON + ".svg";
     }
 
     // [ ] Complete method comment

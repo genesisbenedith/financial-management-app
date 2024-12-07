@@ -9,9 +9,13 @@ package csc335.app.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.dlsc.gemsfx.AvatarView;
+
+import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 // [ ] Needs class comment
@@ -27,10 +31,18 @@ public class SidebarController implements Initializable{
     private Pane budgetPane;
 
     @FXML
-    private Pane reportPane;
+    private Pane logoutPane;
 
     @FXML
-    private Pane logoutPane;
+    private AvatarView userAvatar;
+
+    @FXML
+    private Label username;
+
+    @FXML
+    private Label email;
+
+    private static User currentUser;
 
     // [ ] Complete method comment
     /**
@@ -45,26 +57,27 @@ public class SidebarController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
 
-        // [ ]: Change the color of the button that is assigned to the current view
-        /** For example, if the client is currently on the dashboard view, and the color
-         * of the dashboard button is black, then the buttons on the sidebar for
-         * every other view should be purple, etc.
-         */
-
-        
-        // REVIEW Action listeners
+        currentUser = UserSessionManager.SESSION.getCurrentUser();
         dashboardPane.setOnMouseClicked(click -> { View.DASHBOARD.loadView(); });
         expensePane.setOnMouseClicked(click -> { View.EXPENSES.loadView(); });
         budgetPane.setOnMouseClicked(click -> { View.BUDGET.loadView(); });
-        reportPane.setOnMouseClicked(click -> { View.REPORT.loadView(); });
         logoutPane.setOnMouseClicked(click -> {
             UserSessionManager.SESSION.resetCurrentUser();
             View.LOGIN.loadView();
         });
         System.out.println("Sidebar panel has been activated.");
+        initializeUserInfo();
 
     }
+
+    public void initializeUserInfo() {
+        userAvatar.setInitials(currentUser.getUsername().substring(0,1).toUpperCase());
+        username.setText(currentUser.getUsername());
+        email.setText(currentUser.getEmail());
+
+    }
+
+
 }
 
