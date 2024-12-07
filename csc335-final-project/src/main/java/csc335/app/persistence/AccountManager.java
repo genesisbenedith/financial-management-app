@@ -1,5 +1,6 @@
 package csc335.app.persistence;
 
+import java.io.File;
 import java.io.IOException;
 
 import csc335.app.controllers.View;
@@ -130,5 +131,8 @@ public enum AccountManager {
         }
     }
 
-
+    public File exportFile() throws IOException{
+        User currentUser = UserSessionManager.SESSION.getCurrentUser();
+        return  Database.DATABASE.writeExpenseExport(currentUser.getUsername());
+    }
 }
