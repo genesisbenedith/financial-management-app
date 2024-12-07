@@ -18,3 +18,9 @@ This project is a **Personal Financial Assistant** application designed to help 
 - Chelina Obiang
 - Genesis Benedith
 - Lauren Schroeder
+
+
+
+git clone https://github.com/username/personal-financial-assistant.git
+cd personal-financial-assistant
+mvn javafx:run
