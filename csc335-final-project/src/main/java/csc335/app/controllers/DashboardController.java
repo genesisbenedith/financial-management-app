@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.dlsc.gemsfx.AvatarView;
+import com.dlsc.gemsfx.SVGImageView;
 
 import csc335.app.models.Category;
 import csc335.app.models.Expense;
@@ -17,6 +18,7 @@ import csc335.app.utils.CalendarConverter;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
@@ -26,20 +28,17 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
- * DashboardController is responsible for managing the user dashboard view.
- * It connects the graphical interface with the logic to display user 
- * information, expense data, and charts like bar and pie charts for 
- * visualizing financial information.
+ * ${file_name}
  * 
- * This class handles user-related details like the profile avatar, email, and 
- * username while also preparing data visualizations for expenses categorized 
- * by time periods or spending categories.
- * File: DashboardController.java
  * @author Genesis Benedith
  */
 
+// [ ] Needs class comment
 public class DashboardController implements Initializable {
 
     @FXML
@@ -60,6 +59,21 @@ public class DashboardController implements Initializable {
     @FXML
     private Label email;
 
+    @FXML 
+    private Label seeAllLabel;
+
+    @FXML
+    private Label importLabel;
+
+    @FXML
+    private VBox recentExpensesBox;
+
+    @FXML
+    private Pane expensePane; // Template for an expense pane
+
+    @FXML
+    private Pane advertisementPane; // Advertisement pane to add at the end
+
     private static User currentUser;
 
     @Override
@@ -68,17 +82,118 @@ public class DashboardController implements Initializable {
         currentUser = UserSessionManager.SESSION.getCurrentUser();
         System.out.println("Current user: " + currentUser.getUsername());
 
-        // expenseListView = new MFXListView<>((ObservableList<Expense>) ExpenseTracker.TRACKER.getExpenses());
+        seeAllLabel.setOnMouseClicked(event -> { View.EXPENSES.loadView(); });
 
-        expenseListView = new MFXListView<>();
-        initializeUserInfo();
+        // initializeUserInfo();
         initializeBarChart();
         initializePieChart();
+
+        populateRecentExpenses(ExpenseTracker.TRACKER.sortExpenses());
     }
 
-    /**
-     * Loads the user's profile information like avatar, username, and email.
-     */
+
+    private void populateRecentExpenses(List<Expense> expenses) {
+        // Preserve the title pane
+        Node titlePane = recentExpensesBox.getChildren().get(0);
+    
+        // Clear all children except the title pane
+        recentExpensesBox.getChildren().clear();
+        recentExpensesBox.getChildren().add(titlePane);
+    
+        // Add up to 7 expense panes
+        for (int i = 0; i < 7; i++) {
+            Pane expensePaneCopy;
+            if (i < expenses.size()) {
+                // Populate with expense data
+                Expense expense = expenses.get(i);
+                expensePaneCopy = createExpensePane(expense);
+            } else {
+                // Use an empty placeholder
+                expensePaneCopy = createEmptyExpensePane();
+            }
+            recentExpensesBox.getChildren().add(expensePaneCopy);
+        }
+    
+        // Add advertisement pane at the end
+        recentExpensesBox.getChildren().add(advertisementPane);
+    }
+    
+
+    private Pane createExpensePane(Expense expense) {
+    // Main Pane for the expense
+    Pane pane = new Pane();
+    pane.setPrefWidth(300.0);
+    pane.setPrefHeight(46.0);
+    pane.getStyleClass().add("expense-pane"); // Apply general expense-pane style
+    VBox.setVgrow(pane, javafx.scene.layout.Priority.ALWAYS); // Ensure vgrow is inherit for the Pane
+
+    // BorderPane inside the Pane
+    BorderPane borderPane = new BorderPane();
+    borderPane.setPrefWidth(300.0);
+    borderPane.setPrefHeight(46.0);
+    borderPane.setPadding(new Insets(0, 15, 0, 15)); // Padding: 0 15 0 15
+
+    // Left Pane for SVG Icon
+    Pane iconPane = new Pane();
+    iconPane.setPrefWidth(32.0);
+    iconPane.setPrefHeight(32.0);
+    iconPane.getStyleClass().add("content-background"); // Apply background style
+    BorderPane.setMargin(iconPane, new Insets(0, 10, 0, 0)); // Padding: 0 10 0 0
+    BorderPane.setAlignment(iconPane, javafx.geometry.Pos.CENTER); // Center alignment
+
+    SVGImageView expenseIcon = new SVGImageView();
+    expenseIcon.setFitWidth(21.0);
+    expenseIcon.setFitHeight(21.0);
+    expenseIcon.setTranslateX(4.5); // Center within Pane
+    expenseIcon.setTranslateY(4.5);
+
+    // Dynamically set the SVG using `-fx-svg-url`
+    // String svgUrl = expense.getCategory().getSvgIconUrl(); // Assume `getSvgIconUrl()` returns the correct URL for the category
+    // expenseIcon.setStyle("-fx-svg-url: url('" + svgUrl + "');");
+
+    iconPane.getChildren().add(expenseIcon);
+    borderPane.setLeft(iconPane);
+
+    // Center VBox for Description and Date
+    VBox centerBox = new VBox();
+    centerBox.setPrefWidth(120.0);
+    centerBox.setPrefHeight(10.0);
+    centerBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT); // Auto alignment
+
+    Label descriptionLabel = new Label(expense.getDescription());
+    descriptionLabel.getStyleClass().add("expense-description"); // Apply description style
+    VBox.setMargin(descriptionLabel, new Insets(8, 0, 0, 0)); // Margin: 8 0 0 0
+    VBox.setVgrow(descriptionLabel, javafx.scene.layout.Priority.ALWAYS); // Inherit vgrow
+
+    Label dateLabel = new Label(expense.getStringDate());
+    dateLabel.getStyleClass().add("expense-date"); // Apply date style
+    VBox.setMargin(dateLabel, new Insets(0, 0, 8, 0)); // Margin: 0 0 8 0
+
+    centerBox.getChildren().addAll(descriptionLabel, dateLabel);
+    borderPane.setCenter(centerBox);
+
+    // Right Label for Expense Amount
+    Label expenseAmount = new Label(String.format("$%.2f", expense.getAmount()));
+    expenseAmount.getStyleClass().add("expense-amount"); // Apply amount style
+    BorderPane.setAlignment(expenseAmount, javafx.geometry.Pos.CENTER_RIGHT);
+    borderPane.setRight(expenseAmount);
+
+    // Add the BorderPane to the main Pane
+    pane.getChildren().add(borderPane);
+
+    return pane;
+}
+
+private Pane createEmptyExpensePane() {
+    Pane emptyPane = new Pane();
+    emptyPane.setPrefHeight(46.0);
+    emptyPane.setPrefWidth(300.0);
+    emptyPane.setStyle("-fx-background-radius: 10px; -fx-background-color: #fff;");
+    return emptyPane;
+}
+
+
+
     public void initializeUserInfo() {
         userAvatar = currentUser.getAvatar();
         username.setText(currentUser.getUsername());
@@ -86,11 +201,6 @@ public class DashboardController implements Initializable {
 
     }
 
-    /**
-     * Sets up the pie chart to show expenses divided into categories.
-     * Each slice represents a category, and hovering shows detailed 
-     * information about spending in that category.
-     */
     private void initializePieChart() {
         for (Category category : Category.values()) {
             PieChart.Data slice = new Data(category.toString(),
@@ -103,12 +213,12 @@ public class DashboardController implements Initializable {
             String nodeStyle = "-fx-pie-color: ";
             pieNode.setStyle(nodeStyle + Category.valueOf(pieSlice.getName().toUpperCase()).getDefaultColor());
             Tooltip.install(pieNode, new Tooltip(pieSlice.getName() + ":\n$" + pieSlice.getPieValue()));
-            pieNode.hoverProperty().addListener((_, _, _) -> {
+            pieNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
                 addHoverEffect(nodeStyle, pieNode, Category.valueOf(pieSlice.getName().toUpperCase()));
             });
 
             pieNode.setOnMouseClicked(
-                    _ -> System.out.println("Clicked: " + pieSlice.getName() + " -> " + pieSlice.getPieValue()));
+                    event -> System.out.println("Clicked: " + pieSlice.getName() + " -> " + pieSlice.getPieValue()));
 
         }
         pieChart.applyCss(); // Apply CSS styles to the chart
@@ -126,11 +236,10 @@ public class DashboardController implements Initializable {
 
     }
 
-
     private void profileView() {
         Button button = new Button("Choose an image: ");
         button.setOnMouseClicked(
-                _ -> {
+                event -> {
                     String imagePath = View.CHOOSER.showFileChooser();
                     if (imagePath != null && !imagePath.isEmpty()) {
                         try {
@@ -145,11 +254,6 @@ public class DashboardController implements Initializable {
                 });
     }
 
-    /**
-     * Sets up the bar chart to display category-wise spending summaries.
-     * The bar chart shows spending data for a specific time range, 
-     * such as the past month or quarter.
-     */
     private void initializeBarChart() {
 
         // Bar chart will show the category spending summary in the last month
@@ -208,7 +312,7 @@ public class DashboardController implements Initializable {
                 barNode.setTranslateX(40); // Manually adjust position
                 String nodeStyle = "-fx-bar-fill: ";
                 barNode.setStyle(nodeStyle + Category.valueOf(series.getName().toUpperCase()).getDefaultColor());
-                barNode.hoverProperty().addListener((_, _, _) -> {
+                barNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
                     addHoverEffect(nodeStyle, barNode, Category.valueOf(series.getName().toUpperCase()));
                 });
 
@@ -217,20 +321,12 @@ public class DashboardController implements Initializable {
         }
     }
 
-    /**
-     * Adds a hover effect to chart nodes, changing their color when the mouse 
-     * is over them and reverting the color when it leaves.
-     * 
-     * @param style  the CSS style to apply
-     * @param node   the chart node being styled
-     * @param category the category associated with the node
-     */
     private void addHoverEffect(String style, Node node, Category category) {
-        node.setOnMouseEntered(_ -> {
+        node.setOnMouseEntered(event -> {
             node.setStyle(style + category.getHoverColor() + ";");
         });
 
-        node.setOnMouseExited(_ -> {
+        node.setOnMouseExited(event -> {
             node.setStyle(style + category.getDefaultColor() + ";"); // Reverts to default color
         });
     }

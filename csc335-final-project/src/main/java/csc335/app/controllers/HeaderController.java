@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.paint.Color;
 
 import csc335.app.models.Budget;
 import csc335.app.models.Category;
