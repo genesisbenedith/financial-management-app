@@ -61,7 +61,7 @@ public enum Category {
         String svgUrl = Objects.requireNonNull(getClass().getResource("/svg/" + this.SVG_ICON + ".svg")).toExternalForm();
         // String svgFile = new File(svgFilePath)
         // URL svgUrl = svgFile.toURI().toURL();
-        return svgUrl;
+        return "../svg/" + this.SVG_ICON + ".svg";
     }
 
     // [ ] Complete method comment

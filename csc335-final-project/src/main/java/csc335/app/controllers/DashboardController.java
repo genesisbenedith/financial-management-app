@@ -120,63 +120,69 @@ public class DashboardController implements Initializable {
     
 
     private Pane createExpensePane(Expense expense) {
-        // Main Pane to hold the BorderPane
-        Pane pane = new Pane();
-        pane.setPrefWidth(300.0);
-        pane.setPrefHeight(46.0);
-    
-        // BorderPane inside the main Pane
-        BorderPane borderPane = new BorderPane();
-        borderPane.setPrefWidth(300.0);
-        borderPane.setPrefHeight(46.0);
-        borderPane.setPadding(new Insets(0, 15, 0, 15)); // Padding: 0 15 0 15
-    
-        // Left: SVG Icon Pane
-        Pane iconPane = new Pane();
-        iconPane.setPrefWidth(32.0);
-        iconPane.setPrefHeight(32.0);
-        iconPane.setStyle("-fx-background-color: transparent; -fx-background-radius: 5px;");
-        BorderPane.setMargin(iconPane, new Insets(0, 10, 0, 0)); // Margin: 0 10 0 0
-    
-        SVGImageView expenseIcon = new SVGImageView();
-        expenseIcon.setFitWidth(21.0);
-        expenseIcon.setFitHeight(21.0);
-        expenseIcon.setTranslateX(4.5); // Translation: 4.5 x-axis
-        expenseIcon.setTranslateY(4.5); // Translation: 4.5 y-axis
-        expenseIcon.getStyleClass().add(expense.getCategory().getSvgIcon());
-    
-        iconPane.getChildren().add(expenseIcon);
-        BorderPane.setAlignment(iconPane, javafx.geometry.Pos.CENTER);
-        borderPane.setLeft(iconPane);
-    
-        // Center: VBox with Description and Date
-        VBox centerBox = new VBox();
-        centerBox.setPrefWidth(120.0);
-        centerBox.setPrefHeight(10.0);
-    
-        Label descriptionLabel = new Label(expense.getDescription());
-        descriptionLabel.setStyle("-fx-font-family: 'Poppins Regular'; -fx-font-size: 10px;");
-        VBox.setMargin(descriptionLabel, new Insets(8, 0, 0, 0)); // Margin: 0 0 8 0
-    
-        Label dateLabel = new Label(expense.getStringDate());
-        dateLabel.setStyle("-fx-font-family: 'Poppins Regular'; -fx-font-size: 8px;");
-        VBox.setMargin(dateLabel, new Insets(0, 0, 8, 0)); // Margin: 0 0 8 0
-    
-        centerBox.getChildren().addAll(descriptionLabel, dateLabel);
-        BorderPane.setAlignment(centerBox, javafx.geometry.Pos.CENTER_LEFT);
-        borderPane.setCenter(centerBox);
-    
-        // Right: Expense Amount Label
-        Label expenseAmount = new Label(String.format("$%.2f", expense.getAmount()));
-        expenseAmount.setStyle("-fx-font-family: 'Poppins Regular'; -fx-font-size: 10px;");
-        BorderPane.setAlignment(expenseAmount, javafx.geometry.Pos.CENTER_RIGHT);
-        borderPane.setRight(expenseAmount);
-    
-        // Add the BorderPane to the main Pane
-        pane.getChildren().add(borderPane);
-    
-        return pane;
-    }
+    // Main Pane for the expense
+    Pane pane = new Pane();
+    pane.setPrefWidth(300.0);
+    pane.setPrefHeight(46.0);
+    pane.getStyleClass().add("expense-pane"); // Apply general expense-pane style
+    VBox.setVgrow(pane, javafx.scene.layout.Priority.ALWAYS); // Ensure vgrow is inherit for the Pane
+
+    // BorderPane inside the Pane
+    BorderPane borderPane = new BorderPane();
+    borderPane.setPrefWidth(300.0);
+    borderPane.setPrefHeight(46.0);
+    borderPane.setPadding(new Insets(0, 15, 0, 15)); // Padding: 0 15 0 15
+
+    // Left Pane for SVG Icon
+    Pane iconPane = new Pane();
+    iconPane.setPrefWidth(32.0);
+    iconPane.setPrefHeight(32.0);
+    iconPane.getStyleClass().add("content-background"); // Apply background style
+    BorderPane.setMargin(iconPane, new Insets(0, 10, 0, 0)); // Padding: 0 10 0 0
+    BorderPane.setAlignment(iconPane, javafx.geometry.Pos.CENTER); // Center alignment
+
+    SVGImageView expenseIcon = new SVGImageView();
+    expenseIcon.setFitWidth(21.0);
+    expenseIcon.setFitHeight(21.0);
+    expenseIcon.setTranslateX(4.5); // Center within Pane
+    expenseIcon.setTranslateY(4.5);
+
+    // Dynamically set the SVG using `-fx-svg-url`
+    // String svgUrl = expense.getCategory().getSvgIconUrl(); // Assume `getSvgIconUrl()` returns the correct URL for the category
+    // expenseIcon.setStyle("-fx-svg-url: url('" + svgUrl + "');");
+
+    iconPane.getChildren().add(expenseIcon);
+    borderPane.setLeft(iconPane);
+
+    // Center VBox for Description and Date
+    VBox centerBox = new VBox();
+    centerBox.setPrefWidth(120.0);
+    centerBox.setPrefHeight(10.0);
+    centerBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT); // Auto alignment
+
+    Label descriptionLabel = new Label(expense.getDescription());
+    descriptionLabel.getStyleClass().add("expense-description"); // Apply description style
+    VBox.setMargin(descriptionLabel, new Insets(8, 0, 0, 0)); // Margin: 8 0 0 0
+    VBox.setVgrow(descriptionLabel, javafx.scene.layout.Priority.ALWAYS); // Inherit vgrow
+
+    Label dateLabel = new Label(expense.getStringDate());
+    dateLabel.getStyleClass().add("expense-date"); // Apply date style
+    VBox.setMargin(dateLabel, new Insets(0, 0, 8, 0)); // Margin: 0 0 8 0
+
+    centerBox.getChildren().addAll(descriptionLabel, dateLabel);
+    borderPane.setCenter(centerBox);
+
+    // Right Label for Expense Amount
+    Label expenseAmount = new Label(String.format("$%.2f", expense.getAmount()));
+    expenseAmount.getStyleClass().add("expense-amount"); // Apply amount style
+    BorderPane.setAlignment(expenseAmount, javafx.geometry.Pos.CENTER_RIGHT);
+    borderPane.setRight(expenseAmount);
+
+    // Add the BorderPane to the main Pane
+    pane.getChildren().add(borderPane);
+
+    return pane;
+}
 
 private Pane createEmptyExpensePane() {
     Pane emptyPane = new Pane();

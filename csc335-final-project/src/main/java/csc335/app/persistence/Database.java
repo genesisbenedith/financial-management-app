@@ -306,7 +306,7 @@ public enum Database {
         return null;
     }
 
-    protected void readExpenseReport(String username) {
+    protected void readExpenseImport(String username) {
         /* The path to the file that contains the transaction history for the user */
         Path filePath = Path.of(DATABASE_DIRECTORY, IMPORTS_DIRECTORY, username + "_import.txt");
         File file = filePath.toFile();
