@@ -1,6 +1,5 @@
 package csc335.app.persistence;
 
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,17 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
-import com.dlsc.gemsfx.AvatarView;
-
 import csc335.app.models.Budget;
 import csc335.app.models.Category;
 import csc335.app.models.Expense;
 import csc335.app.models.User;
 import csc335.app.services.ExpenseTracker;
 import csc335.app.utils.CalendarConverter;
-import javafx.scene.image.Image;
 
 public enum Database {
 
@@ -141,9 +135,7 @@ public enum Database {
                 }
 
                 User user = new User(username, email, hashedPassword, salt, budgets);
-                loadAvatarView(user);
                 loadUserExpenses(user);
-                USER_ACCOUNTS.put(username, user);
 
                 System.out.println("\nUser found -> " + username);
             }
@@ -217,7 +209,6 @@ public enum Database {
                 if (!(line.contains("-> Budget:") || line.contains("Expense:"))) {
                     continue;
                 }
-                System.out.println("READING A LINE -> " + line);
 
                 String[] data = line.split(":");
                 if (data.length != 2)
@@ -257,20 +248,26 @@ public enum Database {
                 }
             }
 
+            List<Budget> expensesbyBudget = new ArrayList<>(); 
             /*
              * Loops through all the expenses found in file,
              * and adds the expense to the assigned budget
              */
-            for (Expense expense : expensesFoundInFile) {
-                Budget assignedBudget = budgetsfoundInFile.get(expense.getCategory());
-                assignedBudget.addExpense(expense);
+            for (Budget budgetFound : budgetsfoundInFile.values()) {
+                for (Expense expense : expensesFoundInFile) {
+                    if (expense.getCategory() == budgetFound.getCategory()) {
+                        budgetFound.addExpense(expense);
+                    }
+                }
+                expensesbyBudget.add(budgetFound);
             }
 
             /*
              * Indiviually sets each budget for the User class
              * with the expenses already loaded
              */
-                user.setBudgets(new ArrayList<>(budgetsfoundInFile.values()));
+                user.setBudgets(expensesbyBudget);
+                USER_ACCOUNTS.put(user.getUsername(), user);
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -289,9 +286,6 @@ public enum Database {
      */
     protected User findUserAccount(String query, String filter) {
         refreshAccounts();
-        System.out.println("Query: " + query);
-        System.out.println("Filter: " + filter);
-        System.out.println("USER_ACCOUNTS: " + USER_ACCOUNTS.keySet());
         if ("Email".equals(filter)) {
             for (User account : USER_ACCOUNTS.values()) {
                 if (account.getEmail().equalsIgnoreCase(query)) {
@@ -306,7 +300,7 @@ public enum Database {
         return null;
     }
 
-    protected void readExpenseReport(String username) {
+    protected void readExpenseImport(String username) {
         /* The path to the file that contains the transaction history for the user */
         Path filePath = Path.of(DATABASE_DIRECTORY, IMPORTS_DIRECTORY, username + "_import.txt");
         File file = filePath.toFile();
@@ -379,63 +373,6 @@ public enum Database {
             return exportFile;
         } catch (IOException e) {
             throw new IOException("Unable to write to file -> " + e.getMessage());
-        }
-    }
-
-    /**
-     * Searches through the database and finds an image stored for a user's
-     * avatar view
-     * 
-     * @param username the user the image belongs to
-     * @return a jpeg image of the user's avatar or null if the image doesn't exist
-     */
-    protected Image findUserAvatarImage(String username) {
-        /* The expected path to the file that contains the user's avatar image */
-        Path filePath = Path.of(DATABASE_DIRECTORY, ACCOUNTS_DIRECTORY, AVATAR_DIRECTORY, username + ".jpeg");
-        File file = filePath.toFile();
-
-        /* Return the image if the file exists */
-        if (file.exists() && file.isFile()) {
-            Image image = new Image(filePath.toString());
-            return image;
-        }
-
-        System.out.println("Could not find an image for the user: " + username);
-        return null;
-    }
-
-    /**
-     * Loads the avatar view for a specific user. The avatar view can either
-     * display an avatar image or the user's initials if no if there is no image 
-     * on file for the user
-     * 
-     * @param user the user the avatar view belongs to 
-     */
-    private void loadAvatarView(User user) {
-        String username = user.getUsername();
-        Image avatarImage = findUserAvatarImage(username);
-        AvatarView avatarView = new AvatarView(username.substring(0,1), avatarImage);
-        user.setAvatar(avatarView);
-    }
-
-    /**
-     * Renders an image for a user's avatar and saves it to the database
-     * as a jpeg file
-     * 
-     * @param imagePath the path of uploaded image 
-     * @param username the user the image belongs to
-     * @throws Exception if there is an error rendering or saving the image from the given path
-     */
-    protected void saveUserAvatarImage(String imagePath, String username) throws Exception {
-        if (imagePath != null && !imagePath.isEmpty() && !username.isEmpty()){
-            try {
-                BufferedImage image = ImageIO.read(new File(imagePath));
-                Path outputPath = Path.of(DATABASE_DIRECTORY, ACCOUNTS_DIRECTORY, AVATAR_DIRECTORY, username + ".jpeg");
-                File outputFile = new File(outputPath.toString());
-                ImageIO.write(image, "jpg", outputFile);
-            } catch (IOException e) {
-                throw new Exception("Unable to save image file.");
-            }
         }
     }
 

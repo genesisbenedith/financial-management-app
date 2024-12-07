@@ -11,6 +11,9 @@ package csc335.app.models;
 import java.util.Collections;
 import java.util.List;
 
+import csc335.app.services.ExpenseTracker;
+import csc335.app.utils.CalendarConverter;
+
 public class Budget {
 
     /*  */
@@ -155,7 +158,9 @@ public class Budget {
      * @return true if max reached, false if otherwise
      */
     public boolean isExceeded() {
-        return this.getTotalSpent() > limit;
+        List<Expense> expensesInCurrentMonth = ExpenseTracker.TRACKER.filterExpenses(CalendarConverter.INSTANCE.getCalendar());
+        Double totalSpentInCurrentMonth = ExpenseTracker.TRACKER.calculateTotalExpenses(expensesInCurrentMonth);
+        return totalSpentInCurrentMonth > this.limit;
     }
     
     /**
@@ -168,10 +173,6 @@ public class Budget {
         return String.join(",", this.getCategory().toString(), Double.toString(this.getLimit()));
     }
 
-    /**
-     * 
-     * @return
-     */
     public String toStringDetailed() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.category.name());

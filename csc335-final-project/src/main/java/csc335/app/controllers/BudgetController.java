@@ -12,15 +12,12 @@ package csc335.app.controllers;
  */
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import csc335.app.models.Budget;
 import csc335.app.models.Category;
 import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.BudgetTracker;
-import io.github.palexdev.materialfx.beans.NumberRange;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import javafx.fxml.FXML;
@@ -121,13 +118,6 @@ public class BudgetController implements Initializable {
             oAlert.setVisible(false);
             uAlert.setVisible(false);
 
-            /* TODO: REMOVE LATER! THIS BLOCK IS FOR TESTING PURPOSES */
-            List<Budget> budgets = currentUser.getBudgets();
-            System.out.println("USER'S INFO  ONCE THE BUDGET PAGE IS LOADED:\n" + currentUser.toString());
-            for (Budget b : budgets) {
-                System.out.println(b.toString());
-            }
-
             /* Set prompt texts for each category pane */
             setupPromptText(Category.FOOD, fText, foodProgress, fAlert);
             setupPromptText(Category.ENTERTAINMENT, eText, entertainmentProgress, eAlert);
@@ -157,13 +147,11 @@ public class BudgetController implements Initializable {
         }
 
         field.setPromptText(limit + "");
-        if (!BudgetTracker.TRACKER.isBudgetExceeded(category)) {
+        if (BudgetTracker.TRACKER.isBudgetExceeded(category)) {
             alert.setVisible(true);
-            View.ALERT.showAlert(AlertType.ERROR, "Alert", "You're not as far from the limit");
-            System.out.print("here");
+            View.ALERT.showAlert(AlertType.ERROR, "Alert", "You've reached your spending limit for " + category.name() + "!");
         }
 
-        System.out.println(field.isEditable());
         field.setEditable(true); // Set spinner to editable
     }
 
@@ -208,7 +196,7 @@ public class BudgetController implements Initializable {
         System.out.println(totalSpent / value >= 0.8);
         if (totalSpent / value >= 0.8) {
             alert.setVisible(true);
-            View.ALERT.showAlert(AlertType.ERROR, "Alert", "You're not as far from the limit");
+            View.ALERT.showAlert(AlertType.ERROR, "Alert", "You've almost reached your spending limit for " + category.name() + "!");
         } else{
             alert.setVisible(false);
         }

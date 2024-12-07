@@ -27,9 +27,9 @@ public enum BudgetTracker  {
 
     private User currentUser; // The current user logged in
 
+    // TODO: WRITE COMMENT FOR THIS CONSTRUCTOR METHOD
     /**
-     * Constructor initializes the current user.
-     * Throws an exception if no user is found.
+     * 
      * 
      * @author Genesis Benedith
      */
@@ -75,7 +75,7 @@ public enum BudgetTracker  {
      */
     public void updateLimit(Category category, Double value) {
         findBudget(category).setLimit(value);
-        System.out.println("The new value is now: " + Double.toString(value));
+        System.out.println("You changed the limit for " + category.name() + "! The new value is now: " + Double.toString(value) + ".");
     }
 
     /**
@@ -126,12 +126,6 @@ public enum BudgetTracker  {
         return findBudget(category).getLimit();
     }
 
-    /**
-     * Retrieves the total amount spent for a specific category.
-     * 
-     * @param category the category of the budget
-     * @return the total amount spent in the category
-     */
     public Double getBudgetSpent(Category category) {
         return findBudget(category).getTotalSpent();
     }

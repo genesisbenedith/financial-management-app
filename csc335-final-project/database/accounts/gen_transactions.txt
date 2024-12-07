@@ -1,4 +1,3 @@
-
 -------------------- Expenses --------------------
 FOOD CATEGORY
 	Budget: (Category,Limit)

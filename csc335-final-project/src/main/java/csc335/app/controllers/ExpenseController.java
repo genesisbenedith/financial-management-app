@@ -3,13 +3,15 @@ package csc335.app.controllers;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import csc335.app.models.Category;
 import csc335.app.models.Expense;
-import csc335.app.models.User;
 import csc335.app.persistence.AccountManager;
-import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -22,14 +24,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseButton;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Locale;
 
 public class ExpenseController implements Initializable{
     @FXML
@@ -53,7 +49,6 @@ public class ExpenseController implements Initializable{
     @FXML
     private Label title;
 
-    private User currentUser;
     private String selectedCategory;
     private ExpensesController exController;
     
@@ -61,7 +56,6 @@ public class ExpenseController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Expense Controller initialized");
-        currentUser = UserSessionManager.SESSION.getCurrentUser();
         onCancelClick();
         handleAddExpenseClick();
         addCategories();
@@ -96,7 +90,7 @@ public class ExpenseController implements Initializable{
         expenseCategory.setPromptText("Select Category"); // Shows default text when nothing is selected
     
         // Add selection listener
-        expenseCategory.setOnAction(event -> {
+        expenseCategory.setOnAction(_ -> {
             selectedCategory = expenseCategory.getValue();
         });
         
@@ -140,7 +134,6 @@ public class ExpenseController implements Initializable{
                     return change; // Accept the change with formatted text
                 }
             } catch (ParseException e) {
-                e.printStackTrace();
             }
             return null; // Reject any invalid input
         });
@@ -158,7 +151,7 @@ public class ExpenseController implements Initializable{
                 return;
             }
             try {
-                double amount = Double.valueOf(amountField.getText().substring(1));
+                double amount = Double.parseDouble(amountField.getText().substring(1));
                 addNumericValidationWithCommas(amountField);
                 if (amount <= 0) {
                     showAlert(AlertType.ERROR, "Error", "Amount must be greater than 0.");

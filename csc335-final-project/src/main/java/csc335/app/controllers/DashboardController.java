@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import com.dlsc.gemsfx.AvatarView;
 import com.dlsc.gemsfx.SVGImageView;
 
 import csc335.app.models.Category;
@@ -18,7 +17,6 @@ import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.ExpenseTracker;
 import csc335.app.utils.CalendarConverter;
-import io.github.palexdev.materialfx.controls.MFXListView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -73,22 +71,7 @@ public class DashboardController implements Initializable {
     private PieChart pieChart;
 
     @FXML
-    private MFXListView<Expense> expenseListView;
-
-    @FXML
-    private AvatarView userAvatar;
-
-    @FXML
-    private Label username;
-
-    @FXML
-    private Label email;
-
-    @FXML
     private Label seeAllLabel;
-
-    @FXML
-    private Label importLabel;
 
     @FXML
     private VBox recentExpensesBox;
@@ -98,9 +81,6 @@ public class DashboardController implements Initializable {
 
     @FXML
     private MenuButton menuButton;
-
-    @FXML
-    private Pane expensePane; // Template for an expense pane
 
     @FXML
     private Pane advertisementPane; // Advertisement pane to add at the end
@@ -113,7 +93,7 @@ public class DashboardController implements Initializable {
         currentUser = UserSessionManager.SESSION.getCurrentUser();
         System.out.println("Current user: " + currentUser.getUsername());
 
-        seeAllLabel.setOnMouseClicked(event -> {
+        seeAllLabel.setOnMouseClicked(_ -> {
             View.EXPENSES.loadView();
         });
 
@@ -129,7 +109,6 @@ public class DashboardController implements Initializable {
             populateRecentExpenses(ExpenseTracker.TRACKER.sortExpenses());
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            e.printStackTrace();
         }
 
     }
@@ -258,7 +237,7 @@ public class DashboardController implements Initializable {
         // Add a MenuItem for each month
         for (String month : months) {
             MenuItem monthItem = new MenuItem(month);
-            monthItem.setOnAction(event -> refreshPageForMonth(month));
+            monthItem.setOnAction(_ -> refreshPageForMonth(month));
             menuButton.getItems().add(monthItem);
         }
 
@@ -354,7 +333,7 @@ public class DashboardController implements Initializable {
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
         // Format the amount column to display two decimal places
-        amountColumn.setCellFactory(tc -> new TableCell<Expense, Double>() {
+        amountColumn.setCellFactory(_ -> new TableCell<Expense, Double>() {
             @Override
             protected void updateItem(Double amount, boolean empty) {
                 super.updateItem(amount, empty);
@@ -428,12 +407,12 @@ public class DashboardController implements Initializable {
             String nodeStyle = "-fx-pie-color: ";
             pieNode.setStyle(nodeStyle + Category.valueOf(pieSlice.getName().toUpperCase()).getDefaultColor());
             Tooltip.install(pieNode, new Tooltip(pieSlice.getName() + ":\n$" + pieSlice.getPieValue()));
-            pieNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            pieNode.hoverProperty().addListener((_, _, _) -> {
                 addHoverEffect(nodeStyle, pieNode, Category.valueOf(pieSlice.getName().toUpperCase()));
             });
 
             pieNode.setOnMouseClicked(
-                    event -> System.out.println("Clicked: " + pieSlice.getName() + " -> " + pieSlice.getPieValue()));
+                    _ -> System.out.println("Clicked: " + pieSlice.getName() + " -> " + pieSlice.getPieValue()));
 
         }
         pieChart.applyCss(); // Apply CSS styles to the chart
@@ -441,7 +420,6 @@ public class DashboardController implements Initializable {
 
         pieChart.lookupAll(".chart-legend-item-symbol").forEach(node -> {
             String label = ((PieChart.Data) node.getUserData()).getName();
-            System.out.println(label);
             if (Category.valueOf(label.toUpperCase()) != null) {
                 node.setStyle("-fx-background-color: " + Category.valueOf(label.toUpperCase()).getDefaultColor() + ";");
             }
@@ -450,19 +428,12 @@ public class DashboardController implements Initializable {
     }
 
     private void initializeBarChart() {
-
-
         // Get current cal date
         Calendar endCal = CalendarConverter.INSTANCE.getCalendar();
         Calendar startCal = CalendarConverter.INSTANCE.getCalendar(1);
-
-
         // The expenses within the last month
         List<Expense> expensesInRange = ExpenseTracker.TRACKER.filterExpensesInRange(startCal, endCal);
-        System.out.println("All of the transactions for the last 3 calendar months: ");
-        for (Object elem : expensesInRange) {
-            System.out.println(elem);
-        }
+  
 
         // Creating the legend for the bar chart that explains the colors
         for (Category category : Category.values()) {
@@ -483,12 +454,11 @@ public class DashboardController implements Initializable {
 
         // Add click listeners for debugging (optional)
         for (XYChart.Series<String, Number> series : barChart.getData()) {
-            System.out.println(series.getData().size() + "in " + series.getName());
             for (XYChart.Data<String, Number> data : series.getData()) {
                 Node barNode = data.getNode();
                 String nodeStyle = "-fx-bar-fill: ";
                 barNode.setStyle(nodeStyle + Category.valueOf(series.getName().toUpperCase()).getDefaultColor());
-                barNode.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                barNode.hoverProperty().addListener((_, _, _) -> {
                     addHoverEffect(nodeStyle, barNode, Category.valueOf(series.getName().toUpperCase()));
                 });
 
@@ -498,11 +468,11 @@ public class DashboardController implements Initializable {
     }
 
     private void addHoverEffect(String style, Node node, Category category) {
-        node.setOnMouseEntered(event -> {
+        node.setOnMouseEntered(_ -> {
             node.setStyle(style + category.getHoverColor() + ";");
         });
 
-        node.setOnMouseExited(event -> {
+        node.setOnMouseExited(_ -> {
             node.setStyle(style + category.getDefaultColor() + ";"); // Reverts to default color
         });
     }

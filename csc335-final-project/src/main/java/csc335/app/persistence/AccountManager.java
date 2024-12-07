@@ -77,6 +77,7 @@ public enum AccountManager {
      */
     public void authenticateUser(String username, String password) {
         /* Find user and get their login credentials */
+        // Database.DATABASE.refreshAccounts();
         User user = Database.DATABASE.findUserAccount(username, "Username");
 
         /* Show error alert and void if username does not exist to any account */
@@ -119,17 +120,6 @@ public enum AccountManager {
     }
 
     
-
-    public void changeAvatarView(String imagePath) throws Exception {
-        String username = UserSessionManager.SESSION.getCurrentUser().getUsername();
-        if (imagePath != null && !imagePath.isEmpty()){
-            try {
-                Database.DATABASE.saveUserAvatarImage(imagePath, username);
-            } catch (Exception e) {
-                throw new Exception("An error occurred while saving image.");
-            }
-        }
-    }
 
     public File exportFile() throws IOException{
         User currentUser = UserSessionManager.SESSION.getCurrentUser();

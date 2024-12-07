@@ -67,7 +67,7 @@
                   <TextField fx:id="usernameField" layoutX="75.0" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username" styleClass="username-field" />
                   <EnhancedPasswordField fx:id="passwordField" layoutX="75.0" layoutY="290.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Password" styleClass="password-field" />
                   <EnhancedPasswordField fx:id="confirmPasswordField" layoutX="75.0" layoutY="340.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Confirm Password" styleClass="password-field" />
-                  <Button fx:id="createAccountLabel" layoutX="75.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleCreateAccountClick" prefHeight="50.0" prefWidth="250.0" styleClass="create-account-button" text="Create Account" />
+                  <Button fx:id="createAccountButton" layoutX="75.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleCreateAccountClick" prefHeight="50.0" prefWidth="250.0" styleClass="create-account-button" text="Create Account" />
                   <HBox layoutX="95.5" layoutY="465.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="209.0">
                      <children>
                         <Label style="-fx-text-fill: #808080;" text="Already Have an Account?" textFill="#d6d6d7">
@@ -75,7 +75,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="signInLabel" onMouseClicked="#handleSignInClick" styleClass="sign-in-label" text="Sign In" textFill="#d6d6d7">
+                        <Label fx:id="signInLabel" styleClass="sign-in-label" text="Sign In" textFill="#d6d6d7">
                            <font>
                               <Font size="14.0" />
                            </font>

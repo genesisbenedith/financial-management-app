@@ -1,104 +1,97 @@
-User Information:
-Username: hello
-Email: hi@aol.com
-
 -------------------- Expenses --------------------
-OTHER CATEGORY
-	Budget: (Category,Limit)
-	-> Budget: Other,720.0
-		2024-11-8,Other,300.0,Holiday gift shopping
-		2024-10-25,Other,90.0,Halloween costume
-		2024-8-15,Other,120.0,Charity donation
-		2024-5-20,Other,400.0,New phone
-		2024-2-28,Other,50.0,Clothing shopping
-		2023-11-10,Other,150.0,Event tickets for family reunion
-		Total Expenses: $1110.00
-TRANSPORTATION CATEGORY
-	Budget: (Category,Limit)
-	-> Budget: Transportation,72.36
-		2024-11-30,Transportation,40.0,Gas station refill
-		2024-10-18,Transportation,25.0,Uber to a friend's house
-		2024-9-30,Transportation,10.0,Parking fees
-		2024-8-10,Transportation,70.0,Car maintenance
-		2024-7-1,Transportation,50.0,Airport shuttle
-		2024-6-15,Transportation,30.0,Bike repair
-		2024-5-5,Transportation,20.0,Train ticket
-		2024-4-22,Transportation,60.0,Tire replacement
-		2024-3-1,Transportation,45.0,Gas for road trip
-		2024-2-10,Transportation,20.0,Parking at downtown event
-		2023-12-20,Transportation,35.0,Rideshare to holiday event
-		2023-11-15,Transportation,15.0,Bus pass
-		2024-12-6,Transportation,5.0,hh
-		Total Expenses: $425.00
 FOOD CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Food,500.0
-		2024-12-1,Food,60.3,Weekly grocery trip to Whole Foods
-		2024-11-20,Food,54.6,Grocery shopping for the week
-		2024-10-10,Food,45.0,Dinner at Olive Garden
-		2024-9-12,Food,25.0,Fast food lunch at McDonald's
-		2024-8-18,Food,35.0,Dinner at Chili's
-		2024-7-25,Food,68.75,Groceries for the week
-		2024-6-15,Food,21.5,Ice cream at Baskin Robbins
-		2024-5-10,Food,120.0,Monthly Costco groceries
-		2024-4-4,Food,55.0,Specialty groceries for a dinner party
-		2024-3-20,Food,15.75,Lunch at Subway
-		2024-2-25,Food,42.0,Groceries at Walmart
-		2024-1-5,Food,10.5,Snacks at a gas station
-		2023-12-15,Food,65.2,Holiday grocery shopping
-		2023-11-5,Food,22.0,Breakfast at IHOP
-		2023-10-30,Food,75.0,Bulk groceries at Sam's Club
-		2023-9-22,Food,14.0,Coffee and pastries at Starbucks
-		2023-8-12,Food,50.0,Dinner at an Italian restaurant
-		2023-7-25,Food,68.0,Weekly groceries at Trader Joe's
-		2023-6-10,Food,28.0,Burgers at Five Guys
-		2023-5-1,Food,85.0,Groceries at Kroger
-		Total Expenses: $960.60
+		Expense: 2024-12-01,Food,60.30,Weekly grocery trip to Whole Foods
+		Expense: 2024-11-20,Food,54.60,Grocery shopping for the week
+		Expense: 2024-10-10,Food,45.00,Dinner at Olive Garden
+		Expense: 2024-09-12,Food,25.00,Fast food lunch at McDonald's
+		Expense: 2024-08-18,Food,35.00,Dinner at Chili's
+		Expense: 2024-07-25,Food,68.75,Groceries for the week
+		Expense: 2024-06-15,Food,21.50,Ice cream at Baskin Robbins
+		Expense: 2024-05-10,Food,120.00,Monthly Costco groceries
+		Expense: 2024-04-04,Food,55.00,Specialty groceries for a dinner party
+		Expense: 2024-03-20,Food,15.75,Lunch at Subway
+		Expense: 2024-02-25,Food,42.00,Groceries at Walmart
+		Expense: 2024-01-05,Food,10.50,Snacks at a gas station
+		Expense: 2023-12-15,Food,65.20,Holiday grocery shopping
+		Expense: 2023-11-05,Food,22.00,Breakfast at IHOP
+		Expense: 2023-10-30,Food,75.00,Bulk groceries at Sam's Club
+		Expense: 2023-09-22,Food,14.00,Coffee and pastries at Starbucks
+		Expense: 2023-08-12,Food,50.00,Dinner at an Italian restaurant
+		Expense: 2023-07-25,Food,68.00,Weekly groceries at Trader Joe's
+		Expense: 2023-06-10,Food,28.00,Burgers at Five Guys
+		Expense: 2023-05-01,Food,85.00,Groceries at Kroger
+
 ENTERTAINMENT CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Entertainment,250.0
-		2024-12-2,Entertainment,15.0,Online movie rental
-		2024-11-28,Entertainment,50.0,Bowling with friends
-		2024-10-5,Entertainment,90.0,Concert tickets
-		2024-9-15,Entertainment,12.0,Netflix subscription
-		2024-8-20,Entertainment,30.0,Karaoke night
-		2024-7-8,Entertainment,45.0,Amusement park tickets
-		2024-6-22,Entertainment,25.0,Arcade games
-		2024-5-11,Entertainment,70.0,Live theater show
-		2024-4-7,Entertainment,100.0,Music festival tickets
-		2024-3-1,Entertainment,20.0,Escape room
-		2024-2-15,Entertainment,10.0,Online gaming subscription
-		2023-12-25,Entertainment,60.0,Christmas light show
-		2023-11-18,Entertainment,40.0,Comedy club tickets
-		2023-10-1,Entertainment,30.0,Drive-in movie
-		2023-9-12,Entertainment,80.0,Stand-up comedy show
-		2023-8-1,Entertainment,25.0,Board game night with friends
-		2023-7-20,Entertainment,45.0,Painting and wine event
-		2023-6-5,Entertainment,20.0,Digital game purchase
-		Total Expenses: $767.00
+		Expense: 2024-12-02,Entertainment,15.00,Online movie rental
+		Expense: 2024-11-28,Entertainment,50.00,Bowling with friends
+		Expense: 2024-10-05,Entertainment,90.00,Concert tickets
+		Expense: 2024-09-15,Entertainment,12.00,Netflix subscription
+		Expense: 2024-08-20,Entertainment,30.00,Karaoke night
+		Expense: 2024-07-08,Entertainment,45.00,Amusement park tickets
+		Expense: 2024-06-22,Entertainment,25.00,Arcade games
+		Expense: 2024-05-11,Entertainment,70.00,Live theater show
+		Expense: 2024-04-07,Entertainment,100.00,Music festival tickets
+		Expense: 2024-03-01,Entertainment,20.00,Escape room
+		Expense: 2024-02-15,Entertainment,10.00,Online gaming subscription
+		Expense: 2023-12-25,Entertainment,60.00,Christmas light show
+		Expense: 2023-11-18,Entertainment,40.00,Comedy club tickets
+		Expense: 2023-10-01,Entertainment,30.00,Drive-in movie
+		Expense: 2023-09-12,Entertainment,80.00,Stand-up comedy show
+		Expense: 2023-08-01,Entertainment,25.00,Board game night with friends
+		Expense: 2023-07-20,Entertainment,45.00,Painting and wine event
+		Expense: 2023-06-05,Entertainment,20.00,Digital game purchase
+
+TRANSPORTATION CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Transportation,72.36
+		Expense: 2024-11-30,Transportation,40.00,Gas station refill
+		Expense: 2024-10-18,Transportation,25.00,Uber to a friend's house
+		Expense: 2024-09-30,Transportation,10.00,Parking fees
+		Expense: 2024-08-10,Transportation,70.00,Car maintenance
+		Expense: 2024-07-01,Transportation,50.00,Airport shuttle
+		Expense: 2024-06-15,Transportation,30.00,Bike repair
+		Expense: 2024-05-05,Transportation,20.00,Train ticket
+		Expense: 2024-04-22,Transportation,60.00,Tire replacement
+		Expense: 2024-03-01,Transportation,45.00,Gas for road trip
+		Expense: 2024-02-10,Transportation,20.00,Parking at downtown event
+		Expense: 2023-12-20,Transportation,35.00,Rideshare to holiday event
+		Expense: 2023-11-15,Transportation,15.00,Bus pass
+
 UTILITIES CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Utilities,367.45
-		2024-11-7,Utilities,85.0,Internet bill
-		2024-10-15,Utilities,90.0,Electricity bill
-		2024-9-30,Utilities,78.5,Water bill
-		2024-8-12,Utilities,100.0,AC service fees
-		2024-7-22,Utilities,45.0,Trash pickup
-		2024-6-20,Utilities,110.0,Electricity bill
-		2024-5-18,Utilities,50.0,Gas bill
-		2024-4-11,Utilities,60.0,Water bill
-		2024-3-1,Utilities,30.0,Sewer fees
-		2023-12-10,Utilities,80.0,Internet installation
-		2023-11-25,Utilities,45.0,Trash removal
-		Total Expenses: $773.50
+		Expense: 2024-11-07,Utilities,85.00,Internet bill
+		Expense: 2024-10-15,Utilities,90.00,Electricity bill
+		Expense: 2024-09-30,Utilities,78.50,Water bill
+		Expense: 2024-08-12,Utilities,100.00,AC service fees
+		Expense: 2024-07-22,Utilities,45.00,Trash pickup
+		Expense: 2024-06-20,Utilities,110.00,Electricity bill
+		Expense: 2024-05-18,Utilities,50.00,Gas bill
+		Expense: 2024-04-11,Utilities,60.00,Water bill
+		Expense: 2024-03-01,Utilities,30.00,Sewer fees
+		Expense: 2023-12-10,Utilities,80.00,Internet installation
+		Expense: 2023-11-25,Utilities,45.00,Trash removal
+
 HEALTHCARE CATEGORY
 	Budget: (Category,Limit)
-	-> Budget: Healthcare,230.0
-		2024-11-20,Healthcare,125.0,Specialist appointment
-		2024-10-10,Healthcare,45.0,Medication refill
-		2024-8-1,Healthcare,300.0,Root canal
-		2024-5-15,Healthcare,75.0,Chiropractor visit
-		2024-3-10,Healthcare,200.0,Dental procedure
-		2023-12-20,Healthcare,50.0,Flu shot
-		Total Expenses: $795.00
+	-> Budget: Healthcare,230.00
+		Expense: 2024-11-20,Healthcare,125.00,Specialist appointment
+		Expense: 2024-10-10,Healthcare,45.00,Medication refill
+		Expense: 2024-08-01,Healthcare,300.00,Root canal
+		Expense: 2024-05-15,Healthcare,75.00,Chiropractor visit
+		Expense: 2024-03-10,Healthcare,200.00,Dental procedure
+		Expense: 2023-12-20,Healthcare,50.00,Flu shot
 
+OTHER CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Other,720.0
+		Expense: 2024-11-08,Other,300.00,Holiday gift shopping
+		Expense: 2024-10-25,Other,90.00,Halloween costume
+		Expense: 2024-08-15,Other,120.00,Charity donation
+		Expense: 2024-05-20,Other,400.00,New phone
+		Expense: 2024-02-28,Other,50.00,Clothing shopping
+		Expense: 2023-11-10,Other,150.00,Event tickets for family reunion

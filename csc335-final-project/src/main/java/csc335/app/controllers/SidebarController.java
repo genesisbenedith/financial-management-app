@@ -59,10 +59,10 @@ public class SidebarController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
 
         currentUser = UserSessionManager.SESSION.getCurrentUser();
-        dashboardPane.setOnMouseClicked(click -> { View.DASHBOARD.loadView(); });
-        expensePane.setOnMouseClicked(click -> { View.EXPENSES.loadView(); });
-        budgetPane.setOnMouseClicked(click -> { View.BUDGET.loadView(); });
-        logoutPane.setOnMouseClicked(click -> {
+        dashboardPane.setOnMouseClicked(_ -> { View.DASHBOARD.loadView(); });
+        expensePane.setOnMouseClicked(_ -> { View.EXPENSES.loadView(); });
+        budgetPane.setOnMouseClicked(_ -> { View.BUDGET.loadView(); });
+        logoutPane.setOnMouseClicked(_ -> {
             UserSessionManager.SESSION.resetCurrentUser();
             View.LOGIN.loadView();
         });

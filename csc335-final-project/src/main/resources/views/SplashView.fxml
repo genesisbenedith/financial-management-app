@@ -33,7 +33,7 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="arrow" fitHeight="25.0" fitWidth="200.0" onMouseClicked="#handleArrowClick" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 6, 0, 0, 0);">
+                  <ImageView fx:id="arrow" fitHeight="25.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 6, 0, 0, 0);">
                      <image>
                         <Image url="@../images/white%20right%20arrow%20png.png" />
                      </image>

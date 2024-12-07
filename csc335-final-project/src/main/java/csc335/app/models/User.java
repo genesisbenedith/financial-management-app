@@ -10,8 +10,6 @@ package csc335.app.models;
 import java.util.Collections;
 import java.util.List;
 
-import com.dlsc.gemsfx.AvatarView;
-
 import csc335.app.persistence.Hasher;
 
 // [ ] Complete class coment
@@ -24,7 +22,6 @@ public class User {
     private String hashedPassword;
     private final String salt;
     private List<Budget> budgets;
-    private AvatarView avatar = null;
 
     /* ------------------------------ Constructor ------------------------------ */
 
@@ -42,7 +39,6 @@ public class User {
         this.hashedPassword = hashedPassword;
         this.salt = salt;
         this.budgets = budgets;
-        this.avatar = null;
     }
 
     /*
@@ -74,15 +70,6 @@ public class User {
      */
     public List<Budget> getBudgets() {
         return Collections.unmodifiableList(budgets);
-    }
-
-    /**
-     * Get the user's avatar view
-     * 
-     * @return an avatar view for the user
-     */
-    public AvatarView getAvatar() {
-        return avatar;
     }
 
     /*
@@ -120,14 +107,6 @@ public class User {
         this.budgets = budgets;
     }
 
-    /**
-     * 
-     * @param avatar
-     */
-    public void setAvatar(AvatarView avatar) {
-        this.avatar = avatar;
-    }
-
     /*
      * ------------------------------ Helper Methods ------------------------------
      */
@@ -152,10 +131,6 @@ public class User {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("User Information:\n");
-        sb.append("Username: ").append(username).append("\n");
-        sb.append("Email: ").append(email).append("\n");
-
         sb.append("\n-------------------- Expenses --------------------\n");
         for (Budget budget : budgets) {
             sb.append(budget.toStringDetailed());
