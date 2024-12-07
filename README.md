@@ -2,16 +2,12 @@
 
 ## Overview
 The Personal Finance Assistant is a Java-based application designed to help users track their expenses and manage budgets.
--- 
-
-
 
 ## Authors
 - Chelina Obiang
 - Genesis Benedith
 - Lauren Schroeder
 
---
 ## **How to Run the Application**
 
 ### **1. Clone the Repository**
@@ -30,7 +26,6 @@ Use Maven to compile and launch the app:
 ```bash
 mvn javafx:run
 ```
---
 
 ## Features
 - User Authentication: Secure login and account management.
@@ -40,16 +35,12 @@ mvn javafx:run
 - Interactive Interface: Built using JavaFX for a seamless user experience.
 
 
---
-
 ## Project Documentation
 - [Design Document](./documentation/)
---
 
 ## Video Demo
-- [Download Video](./media/demo-part1.mp4)
-- [Download Video](./media/demo-part2-detailed.mp4)
--- 
+- [Demo Video Part 1](./media/demo-part1.mp4)
+- [Demo Video Part 2 (Detailed)](./media/demo-part2-detailed.mp4)
 
 ## File Structure
 
