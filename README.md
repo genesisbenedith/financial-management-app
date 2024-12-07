@@ -1,26 +1,57 @@
 # Personal Finance Assistant Project
 
-This project is a **Personal Financial Assistant** application designed to help users manage their budgets and track expenses effectively. Built using Java and JavaFX, the app provides an intuitive user interface, robust data handling capabilities, and a clean, scalable architecture.
+## Overview
+The Personal Finance Assistant is a Java-based application designed to help users track their expenses and manage budgets.
+-- 
 
----
 
-## **Features**
-- **User Authentication**: Secure login and registration functionality.
-- **Budget Management**: Add, update, delete, and track budgets for specific categories.
-- **Expense Tracking**: Log, edit, and analyze expenses.
-- **Category-Based Analysis**: Track budgets and expenses by customizable categories.
-- **Profile Management**: Manage user information, including profile pictures.
-- **Interactive UI**: A user-friendly interface using JavaFX.
-
---
 
 ## Authors
 - Chelina Obiang
 - Genesis Benedith
 - Lauren Schroeder
 
+--
+## **How to Run the Application**
 
+### **1. Clone the Repository**
+```bash
+git clone https://github.com/genesisbenedith/financial-management-app.git
+cd personal-finance-assistant
+```
 
-git clone https://github.com/username/personal-financial-assistant.git
-cd personal-financial-assistant
+### **2. Ensure Dependencies Are Installed**
+Install Java 17 or later.
+Install Maven.
+Set up the JavaFX SDK as per your system requirements.
+
+### **3. Run the Application**
+Use Maven to compile and launch the app:
+```bash
 mvn javafx:run
+```
+--
+
+## Features
+- User Authentication: Secure login and account management.
+- Budget Management: Add, edit, and track budgets for various categories.
+- Expense Tracking: Log, view, and analyze expenses with ease.
+- Categorization: Organize expenses and budgets by categories like Food, Transportation, and Entertainment.
+- Interactive Interface: Built using JavaFX for a seamless user experience.
+
+
+--
+
+## Project Documentation
+- [Design Document](./documentation/)
+--
+
+## Video Demo
+- [Download Video](./media/demo-part1.mp4)
+- [Download Video](./media/demo-part2-detailed.mp4)
+-- 
+
+## File Structure
+
+--
+
