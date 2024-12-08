@@ -3,6 +3,26 @@
 FOOD CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Food,0.0
+		Expense: 2024-10-10,Food,75.0,Groceries at Costco
+		Expense: 2024-10-15,Food,18.9,Lunch at a local diner
+		Expense: 2024-10-20,Food,55.0,Weekend grocery shopping
+		Expense: 2024-10-25,Food,12.75,Fast food for dinner
+		Expense: 2024-10-30,Food,20.0,Pizza night with friends
+		Expense: 2024-11-5,Food,45.0,Dinner at Chili's
+		Expense: 2024-11-7,Food,12.5,Coffee at Starbucks
+		Expense: 2024-11-8,Food,68.75,Weekly groceries at Safeway
+		Expense: 2024-11-10,Food,15.0,Lunch at Chipotle
+		Expense: 2024-11-15,Food,70.2,Specialty grocery store purchase
+		Expense: 2024-11-18,Food,9.25,Bagel and coffee at local café
+		Expense: 2024-11-20,Food,54.6,Grocery shopping for the week
+		Expense: 2024-11-25,Food,21.9,Dinner with friends at a Thai restaurant
+		Expense: 2024-12-1,Food,60.3,Weekly grocery trip to Whole Foods
+		Expense: 2024-12-5,Food,30.0,Lunch at a sushi restaurant
+		Expense: 2024-12-10,Food,75.0,Grocery shopping for the week
+		Expense: 2024-12-15,Food,50.0,Holiday baking supplies
+		Expense: 2024-12-20,Food,35.0,Fast food after work
+		Expense: 2024-12-25,Food,90.0,Christmas dinner
+		Expense: 2024-12-6,Food,500.0,fry's grocerry shopping
 		Expense: 2024-10-1,Food,30.0,Dinner at Olive Garden
 		Expense: 2024-10-5,Food,15.5,Coffee and pastries at a café
 		Expense: 2024-10-10,Food,75.0,Groceries at Costco
@@ -25,82 +45,7 @@ FOOD CATEGORY
 		Expense: 2024-12-20,Food,35.0,Fast food after work
 		Expense: 2024-12-25,Food,90.0,Christmas dinner
 		Expense: 2024-12-6,Food,500.0,fry's grocerry shopping
-		Total Expenses: $1364.65
-ENTERTAINMENT CATEGORY
-	Budget: (Category,Limit)
-	-> Budget: Entertainment,0.0
-		Expense: 2024-10-2,Entertainment,15.0,Movie night at the theater
-		Expense: 2024-10-7,Entertainment,50.0,Local music festival ticket
-		Expense: 2024-10-12,Entertainment,20.0,Bowling night with friends
-		Expense: 2024-10-20,Entertainment,30.0,Netflix subscription renewal
-		Expense: 2024-10-25,Entertainment,40.0,Arcade gaming session
-		Expense: 2024-11-6,Entertainment,20.0,Movie rental on Amazon Prime
-		Expense: 2024-11-9,Entertainment,75.0,Comedy club tickets
-		Expense: 2024-11-13,Entertainment,50.0,Arcade gaming night with friends
-		Expense: 2024-11-19,Entertainment,30.0,Netflix and Disney+ subscriptions
-		Expense: 2024-11-24,Entertainment,45.0,Music concert ticket
-		Expense: 2024-11-28,Entertainment,25.0,Bowling night
-		Expense: 2024-12-3,Entertainment,10.0,Online game purchase
-		Expense: 2024-12-8,Entertainment,35.0,Holiday play tickets
-		Expense: 2024-12-15,Entertainment,50.0,Karaoke night
-		Expense: 2024-12-20,Entertainment,25.0,New Year’s Eve party supplies
-		Expense: 2024-12-25,Entertainment,40.0,Streaming movie marathon
-		Total Expenses: $560.00
-TRANSPORTATION CATEGORY
-	Budget: (Category,Limit)
-	-> Budget: Transportation,0.0
-		Expense: 2024-10-1,Transportation,20.0,Gas station fill-up
-		Expense: 2024-10-7,Transportation,15.0,Taxi to a meeting
-		Expense: 2024-10-15,Transportation,25.0,Monthly bus pass
-		Expense: 2024-10-22,Transportation,30.0,Car maintenance
-		Expense: 2024-10-28,Transportation,18.0,Parking fees
-		Expense: 2024-11-4,Transportation,20.0,Gas station fill-up
-		Expense: 2024-11-12,Transportation,22.36,Uber ride to a meeting
-		Expense: 2024-11-17,Transportation,12.5,Parking fees at city event
-		Expense: 2024-11-23,Transportation,17.5,Taxi to airport
-		Expense: 2024-11-30,Transportation,20.0,Gas for weekend road trip
-		Expense: 2024-12-3,Transportation,15.0,Public train ticket
-		Expense: 2024-12-7,Transportation,25.0,Car repair
-		Expense: 2024-12-14,Transportation,20.0,Gas station fill-up
-		Expense: 2024-12-20,Transportation,12.5,Taxi to holiday event
-		Expense: 2024-12-29,Transportation,10.0,Bike repair
-		Total Expenses: $282.86
-UTILITIES CATEGORY
-	Budget: (Category,Limit)
-	-> Budget: Utilities,0.0
-		Expense: 2024-10-5,Utilities,50.0,Electricity bill
-		Expense: 2024-10-10,Utilities,60.0,Internet bill
-		Expense: 2024-10-15,Utilities,30.0,Water bill
-		Expense: 2024-10-20,Utilities,20.0,Trash collection fees
-		Expense: 2024-10-28,Utilities,70.0,Gas bill
-		Expense: 2024-11-7,Utilities,120.0,Electricity bill
-		Expense: 2024-11-11,Utilities,85.0,Internet bill
-		Expense: 2024-11-21,Utilities,78.5,Water bill
-		Expense: 2024-11-30,Utilities,50.0,Trash and recycling fees
-		Expense: 2024-12-1,Utilities,100.0,Electricity bill
-		Expense: 2024-12-10,Utilities,60.0,Water bill
-		Expense: 2024-12-15,Utilities,90.0,Heating bill
-		Expense: 2024-12-22,Utilities,75.0,Internet renewal
-		Expense: 2024-12-30,Utilities,50.0,Trash and recycling fees
-		Total Expenses: $938.50
-HEALTHCARE CATEGORY
-	Budget: (Category,Limit)
-	-> Budget: Healthcare,0.0
-		Expense: 2024-10-4,Healthcare,100.0,Physician consultation
-		Expense: 2024-10-12,Healthcare,30.0,Pharmacy medication
-		Expense: 2024-10-18,Healthcare,200.0,Dental cleaning
-		Expense: 2024-10-24,Healthcare,150.0,Specialist visit
-		Expense: 2024-10-30,Healthcare,50.0,Vaccination
-		Expense: 2024-11-6,Healthcare,45.0,Pharmacy medication refill
-		Expense: 2024-11-12,Healthcare,200.0,Visit to a specialist
-		Expense: 2024-11-20,Healthcare,30.0,Co-pay for routine check-up
-		Expense: 2024-11-29,Healthcare,150.0,Physical therapy session
-		Expense: 2024-12-1,Healthcare,75.0,Follow-up consultation
-		Expense: 2024-12-8,Healthcare,50.0,Vaccination
-		Expense: 2024-12-15,Healthcare,120.0,New prescription glasses
-		Expense: 2024-12-20,Healthcare,200.0,Specialist visit
-		Expense: 2024-12-28,Healthcare,60.0,Dental cleaning
-		Total Expenses: $1460.00
+		Total Expenses: $2683.80
 OTHER CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Other,0.0
@@ -119,5 +64,155 @@ OTHER CATEGORY
 		Expense: 2024-12-18,Other,100.0,Gifts for coworkers
 		Expense: 2024-12-24,Other,200.0,Donation to animal shelter
 		Expense: 2024-12-30,Other,50.0,Party supplies for New Year's
-		Total Expenses: $1770.00
+		Expense: 2024-10-3,Other,80.0,Charity donation
+		Expense: 2024-10-10,Other,120.0,New backpack
+		Expense: 2024-10-15,Other,90.0,Gifts for family
+		Expense: 2024-10-22,Other,50.0,Home decor
+		Expense: 2024-10-30,Other,100.0,Online course subscription
+		Expense: 2024-11-8,Other,300.0,Holiday gift shopping
+		Expense: 2024-11-15,Other,150.0,New headphones purchase
+		Expense: 2024-11-22,Other,120.0,Donation to local charity
+		Expense: 2024-11-26,Other,80.0,Clothing shopping at the mall
+		Expense: 2024-11-30,Other,200.0,Furniture purchase for apartment
+		Expense: 2024-12-2,Other,50.0,Holiday cards
+		Expense: 2024-12-12,Other,80.0,New desk chair
+		Expense: 2024-12-18,Other,100.0,Gifts for coworkers
+		Expense: 2024-12-24,Other,200.0,Donation to animal shelter
+		Expense: 2024-12-30,Other,50.0,Party supplies for New Year's
+		Expense: 2024-12-17,Other,250.0,test exam fee mcat
+		Total Expenses: $3790.00
+TRANSPORTATION CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Transportation,500.0
+		Expense: 2024-10-1,Transportation,20.0,Gas station fill-up
+		Expense: 2024-10-7,Transportation,15.0,Taxi to a meeting
+		Expense: 2024-10-15,Transportation,25.0,Monthly bus pass
+		Expense: 2024-10-22,Transportation,30.0,Car maintenance
+		Expense: 2024-10-28,Transportation,18.0,Parking fees
+		Expense: 2024-11-4,Transportation,20.0,Gas station fill-up
+		Expense: 2024-11-12,Transportation,22.36,Uber ride to a meeting
+		Expense: 2024-11-17,Transportation,12.5,Parking fees at city event
+		Expense: 2024-11-23,Transportation,17.5,Taxi to airport
+		Expense: 2024-11-30,Transportation,20.0,Gas for weekend road trip
+		Expense: 2024-12-3,Transportation,15.0,Public train ticket
+		Expense: 2024-12-7,Transportation,25.0,Car repair
+		Expense: 2024-12-14,Transportation,20.0,Gas station fill-up
+		Expense: 2024-12-20,Transportation,12.5,Taxi to holiday event
+		Expense: 2024-12-29,Transportation,10.0,Bike repair
+		Expense: 2024-10-1,Transportation,20.0,Gas station fill-up
+		Expense: 2024-10-7,Transportation,15.0,Taxi to a meeting
+		Expense: 2024-10-15,Transportation,25.0,Monthly bus pass
+		Expense: 2024-10-22,Transportation,30.0,Car maintenance
+		Expense: 2024-10-28,Transportation,18.0,Parking fees
+		Expense: 2024-11-4,Transportation,20.0,Gas station fill-up
+		Expense: 2024-11-12,Transportation,22.36,Uber ride to a meeting
+		Expense: 2024-11-17,Transportation,12.5,Parking fees at city event
+		Expense: 2024-11-23,Transportation,17.5,Taxi to airport
+		Expense: 2024-11-30,Transportation,20.0,Gas for weekend road trip
+		Expense: 2024-12-3,Transportation,15.0,Public train ticket
+		Expense: 2024-12-7,Transportation,25.0,Car repair
+		Expense: 2024-12-14,Transportation,20.0,Gas station fill-up
+		Expense: 2024-12-20,Transportation,12.5,Taxi to holiday event
+		Expense: 2024-12-29,Transportation,10.0,Bike repair
+		Total Expenses: $565.72
+HEALTHCARE CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Healthcare,2500.0
+		Expense: 2024-10-4,Healthcare,100.0,Physician consultation
+		Expense: 2024-10-12,Healthcare,30.0,Pharmacy medication
+		Expense: 2024-10-18,Healthcare,200.0,Dental cleaning
+		Expense: 2024-10-24,Healthcare,150.0,Specialist visit
+		Expense: 2024-10-30,Healthcare,50.0,Vaccination
+		Expense: 2024-11-6,Healthcare,45.0,Pharmacy medication refill
+		Expense: 2024-11-12,Healthcare,200.0,Visit to a specialist
+		Expense: 2024-11-20,Healthcare,30.0,Co-pay for routine check-up
+		Expense: 2024-11-29,Healthcare,150.0,Physical therapy session
+		Expense: 2024-12-1,Healthcare,75.0,Follow-up consultation
+		Expense: 2024-12-8,Healthcare,50.0,Vaccination
+		Expense: 2024-12-15,Healthcare,120.0,New prescription glasses
+		Expense: 2024-12-20,Healthcare,200.0,Specialist visit
+		Expense: 2024-12-28,Healthcare,60.0,Dental cleaning
+		Expense: 2024-10-4,Healthcare,100.0,Physician consultation
+		Expense: 2024-10-12,Healthcare,30.0,Pharmacy medication
+		Expense: 2024-10-18,Healthcare,200.0,Dental cleaning
+		Expense: 2024-10-24,Healthcare,150.0,Specialist visit
+		Expense: 2024-10-30,Healthcare,50.0,Vaccination
+		Expense: 2024-11-6,Healthcare,45.0,Pharmacy medication refill
+		Expense: 2024-11-12,Healthcare,200.0,Visit to a specialist
+		Expense: 2024-11-20,Healthcare,30.0,Co-pay for routine check-up
+		Expense: 2024-11-29,Healthcare,150.0,Physical therapy session
+		Expense: 2024-12-1,Healthcare,75.0,Follow-up consultation
+		Expense: 2024-12-8,Healthcare,50.0,Vaccination
+		Expense: 2024-12-15,Healthcare,120.0,New prescription glasses
+		Expense: 2024-12-20,Healthcare,200.0,Specialist visit
+		Expense: 2024-12-28,Healthcare,60.0,Dental cleaning
+		Total Expenses: $2920.00
+ENTERTAINMENT CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Entertainment,400.0
+		Expense: 2024-10-2,Entertainment,15.0,Movie night at the theater
+		Expense: 2024-10-7,Entertainment,50.0,Local music festival ticket
+		Expense: 2024-10-12,Entertainment,20.0,Bowling night with friends
+		Expense: 2024-10-20,Entertainment,30.0,Netflix subscription renewal
+		Expense: 2024-10-25,Entertainment,40.0,Arcade gaming session
+		Expense: 2024-11-6,Entertainment,20.0,Movie rental on Amazon Prime
+		Expense: 2024-11-9,Entertainment,75.0,Comedy club tickets
+		Expense: 2024-11-13,Entertainment,50.0,Arcade gaming night with friends
+		Expense: 2024-11-19,Entertainment,30.0,Netflix and Disney+ subscriptions
+		Expense: 2024-11-24,Entertainment,45.0,Music concert ticket
+		Expense: 2024-11-28,Entertainment,25.0,Bowling night
+		Expense: 2024-12-3,Entertainment,10.0,Online game purchase
+		Expense: 2024-12-8,Entertainment,35.0,Holiday play tickets
+		Expense: 2024-12-15,Entertainment,50.0,Karaoke night
+		Expense: 2024-12-20,Entertainment,25.0,New Year’s Eve party supplies
+		Expense: 2024-12-25,Entertainment,40.0,Streaming movie marathon
+		Expense: 2024-10-2,Entertainment,15.0,Movie night at the theater
+		Expense: 2024-10-7,Entertainment,50.0,Local music festival ticket
+		Expense: 2024-10-12,Entertainment,20.0,Bowling night with friends
+		Expense: 2024-10-20,Entertainment,30.0,Netflix subscription renewal
+		Expense: 2024-10-25,Entertainment,40.0,Arcade gaming session
+		Expense: 2024-11-6,Entertainment,20.0,Movie rental on Amazon Prime
+		Expense: 2024-11-9,Entertainment,75.0,Comedy club tickets
+		Expense: 2024-11-13,Entertainment,50.0,Arcade gaming night with friends
+		Expense: 2024-11-19,Entertainment,30.0,Netflix and Disney+ subscriptions
+		Expense: 2024-11-24,Entertainment,45.0,Music concert ticket
+		Expense: 2024-11-28,Entertainment,25.0,Bowling night
+		Expense: 2024-12-3,Entertainment,10.0,Online game purchase
+		Expense: 2024-12-8,Entertainment,35.0,Holiday play tickets
+		Expense: 2024-12-15,Entertainment,50.0,Karaoke night
+		Expense: 2024-12-20,Entertainment,25.0,New Year’s Eve party supplies
+		Expense: 2024-12-25,Entertainment,40.0,Streaming movie marathon
+		Total Expenses: $1120.00
+UTILITIES CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Utilities,0.0
+		Expense: 2024-10-5,Utilities,50.0,Electricity bill
+		Expense: 2024-10-10,Utilities,60.0,Internet bill
+		Expense: 2024-10-15,Utilities,30.0,Water bill
+		Expense: 2024-10-20,Utilities,20.0,Trash collection fees
+		Expense: 2024-10-28,Utilities,70.0,Gas bill
+		Expense: 2024-11-7,Utilities,120.0,Electricity bill
+		Expense: 2024-11-11,Utilities,85.0,Internet bill
+		Expense: 2024-11-21,Utilities,78.5,Water bill
+		Expense: 2024-11-30,Utilities,50.0,Trash and recycling fees
+		Expense: 2024-12-1,Utilities,100.0,Electricity bill
+		Expense: 2024-12-10,Utilities,60.0,Water bill
+		Expense: 2024-12-15,Utilities,90.0,Heating bill
+		Expense: 2024-12-22,Utilities,75.0,Internet renewal
+		Expense: 2024-12-30,Utilities,50.0,Trash and recycling fees
+		Expense: 2024-10-5,Utilities,50.0,Electricity bill
+		Expense: 2024-10-10,Utilities,60.0,Internet bill
+		Expense: 2024-10-15,Utilities,30.0,Water bill
+		Expense: 2024-10-20,Utilities,20.0,Trash collection fees
+		Expense: 2024-10-28,Utilities,70.0,Gas bill
+		Expense: 2024-11-7,Utilities,120.0,Electricity bill
+		Expense: 2024-11-11,Utilities,85.0,Internet bill
+		Expense: 2024-11-21,Utilities,78.5,Water bill
+		Expense: 2024-11-30,Utilities,50.0,Trash and recycling fees
+		Expense: 2024-12-1,Utilities,100.0,Electricity bill
+		Expense: 2024-12-10,Utilities,60.0,Water bill
+		Expense: 2024-12-15,Utilities,90.0,Heating bill
+		Expense: 2024-12-22,Utilities,75.0,Internet renewal
+		Expense: 2024-12-30,Utilities,50.0,Trash and recycling fees
+		Total Expenses: $1877.00
 

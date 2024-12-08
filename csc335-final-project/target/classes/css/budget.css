@@ -6,6 +6,32 @@
     -fx-background-color:  #E6E6FA;
 }
 
+#entertain {
+    -fx-background-radius: 50px;
+    -fx-background-color: #DCD3FF;
+}
+
+#transport{
+    -fx-background-radius: 50px;
+    -fx-background-color: #FFCCF9;
+}
+#health{
+    -fx-background-radius: 50px;
+    -fx-background-color: #E7FFAC;
+}
+#food{
+    -fx-background-radius: 50px;
+    -fx-background-color: #DBFFD6;
+}
+#other{
+    -fx-background-radius: 50px;
+    -fx-background-color: #FFCBC1;
+}
+#utilities{
+    -fx-background-radius: 50px;
+    -fx-background-color: #C4FAF8;
+}
+
 /* .prog-chart {
       /* Light background for the progress bar */
       /* -mfx-accent-color: #3526c3;          Set the height of the progress bar */
@@ -17,4 +43,11 @@
     -fx-min-height: 200px;
     -fx-max-width: 200px;
     -fx-max-height: 200px;
+}
+.notif{
+    -fx-background-color: #E6E6FA;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 2, 2);
 }
