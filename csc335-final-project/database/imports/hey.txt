@@ -1,0 +1,10 @@
+2024-11-10,Food,15.00,Lunch at Chipotle
+2024-11-09,Transportation,2.50,Bus fare
+2024-11-08,Entertainment,25.00,Movie ticket
+2024-11-07,Grocery,45.90,Weekly groceries
+2024-11-06,Utilities,120.00,Electricity bill
+2024-11-05,Rent,950.00,Monthly rent
+2024-11-04,Healthcare,75.00,Pharmacy prescription
+2024-11-03,Education,20.00,Notebook and pens
+2024-11-02,Clothing,60.00,New shoes
+2024-11-01,Food,12.00,Dinner at McDonald's

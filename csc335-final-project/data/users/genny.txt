@@ -1,3 +1,0 @@
-Username: genny
-Email: genny@arizona.edu
-Password: cat333

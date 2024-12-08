@@ -11,11 +11,13 @@
     -jfx-unfocus-color:  #4294ff;
 }
 
-.forgot-password-button {
+.forgot-password-label, .sign-up-label:hover, .sign-in-label:hover {
     -fx-text-fill: #808080;
+    -fx-cursor: HAND;
+    
 }
 
-.forgot-password-button:hover {
+.forgot-password-label:hover, .sign-in-label, .sign-up-label {
     -fx-text-fill: #4294ff;
     -fx-cursor: HAND;
 }
@@ -44,5 +46,5 @@
 }
 
 .sign-up-button:hover {
-
+    -fx-text-fill: white;
 }

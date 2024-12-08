@@ -1,0 +1,31 @@
+
+-------------------- Expenses --------------------
+FOOD CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Food,0.0
+		Total Expenses: $0.00
+ENTERTAINMENT CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Entertainment,0.0
+		Total Expenses: $0.00
+TRANSPORTATION CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Transportation,0.0
+		Total Expenses: $0.00
+UTILITIES CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Utilities,0.0
+		Total Expenses: $0.00
+HEALTHCARE CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Healthcare,100.0
+		2022-9-14,Healthcare,768.64,Covid Vaccine and Check up
+		2022-11-1,Healthcare,61.11,Covid Vaccine and Check up
+		2025-1-1,Healthcare,69.99,Covid Vaccine and Check up
+		2025-1-10,Healthcare,61.11,Covid Vaccine and Check up
+		Total Expenses: $960.85
+OTHER CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Other,0.0
+		Total Expenses: $0.00
+

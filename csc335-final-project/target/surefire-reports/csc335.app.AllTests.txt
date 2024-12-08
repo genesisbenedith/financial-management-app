@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: csc335.app.AllTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.191 s <<< FAILURE! - in csc335.app.AllTests
+csc335.app.AllTests.testgetPercentageandisExceeded  Time elapsed: 0.175 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at csc335.app.AllTests.testgetPercentageandisExceeded(AllTests.java:119)
+
