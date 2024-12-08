@@ -17,7 +17,10 @@ import csc335.app.models.User;
  * - Save user data and export files related to user accounts.
  * - Check for the uniqueness of usernames and email addresses.
  * 
- * @author Genesis Benedith and Lauren Schroeder
+ * File: AccountManager.java
+ * Course: CSC 335 (Fall 2024)
+ * @author Genesis Benedith
+ * @author Lauren Schroeder
  */
 public enum AccountManager {
 

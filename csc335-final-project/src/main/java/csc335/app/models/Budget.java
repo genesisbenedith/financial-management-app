@@ -6,22 +6,47 @@ import java.util.Collections;
 import java.util.List;
 
 import csc335.app.services.ExpenseTracker;
+import csc335.app.utils.CalendarConverter;
 
+// ----------------------------------------------------------------------------
+// File: Budget.java
+// Author: Genesis Benedith
+// Description: This file defines the Budget class, representing a financial 
+//              budget assigned to a specific category. Each budget includes 
+//              a spending limit, a list of expenses, and methods for tracking 
+//              and managing financial data related to that category.
+// ----------------------------------------------------------------------------
+
+/**
+ * Represents a financial budget assigned to a specific category.
+ * Each budget has a spending limit, tracks associated expenses, and provides 
+ * methods for calculating totals, percentages, and determining if the limit 
+ * has been exceeded.
+ * 
+ * The class also includes functionality for managing the list of expenses 
+ * within the budget.
+ * 
+ * @author Genesis Benedith
+ */
 public class Budget {
 
-    /*  */
+     // ------------------------------ Instance Variables ------------------------------
+    
+    /** The category this budget is assigned to */
     private final Category category; 
+    /** The spending limit for this budget */
     private double limit; 
+    /** The list of expenses allocated to this budget */
     private final List<Expense> expenses;
 
-    /* ------------------------------ Constructor ------------------------------ */
+    // ------------------------------ Constructor ------------------------------
 
     /**
+     * Constructs a Budget object with the specified category, spending limit, and list of expenses.
      * 
-     * 
-     * @param category
-     * @param limit
-     * @param expenses
+     * @param category the category for this budget
+     * @param limit    the spending limit for the budget
+     * @param expenses the list of expenses assigned to this budget
      */
     public Budget(Category category, double limit, List<Expense> expenses) {
         this.category = category;
@@ -29,40 +54,43 @@ public class Budget {
         this.expenses = expenses;
     }
 
-    
-    /** 
-     * Gets the budget's category 
-     * 
-     * @return the category assigned for all the expenses in this group
-     */
-    /* ------------------------------ Getters ------------------------------ */
+    // ------------------------------ Getters ------------------------------
 
+    /**
+     * Gets the category for this budget.
+     * 
+     * @return the category assigned to the budget
+     */
     public Category getCategory() {
         return category;
     }
 
-    
-    /** 
-     * Gets the spending limit for this category group
+    /**
+     * Gets the spending limit for this budget.
      * 
-     * @return the max amount the user should spend 
-     * for this category
+     * @return the maximum allowable spending for the budget
      */
     public double getLimit() {
         return limit;
     }
 
-    /**
-     * Gets a list of the expenses allocated towards this category group
+   /**
+     * Gets the list of expenses assigned to this budget.
      * 
-     * @return a list of transactions
+     * @return an unmodifiable list of transactions for the budget
      */
     public List<Expense> getExpenses() {
         return Collections.unmodifiableList(this.expenses);
     }
 
-    /* ------------------------------ Setters ------------------------------ */
+    // ------------------------------ Setters ------------------------------
 
+    /**
+     * Updates the spending limit for this budget.
+     * 
+     * @param limit the new spending limit
+     * @throws IllegalArgumentException if the limit is less than 0
+     */
     public void setLimit(double limit) {
         if (limit < 0) {
             throw new IllegalArgumentException("Budget amount cannot be negative.");
@@ -72,19 +100,23 @@ public class Budget {
 
     /* ------------------------------ Helper Methods ------------------------------ */
 
-    /**
-     * Calculates the total amount spent in the category group
+   /**
+     * Calculates the total amount spent within the budget
+     * for the current month.
      * 
-     * @return the total spent towards this budget
+     * @return the total spending
      */
     public double getTotalSpent() {
-        double totalSpent = 0.0;
-        for (Expense expense : this.expenses) {
-            totalSpent += expense.getAmount();
-        }
-        return totalSpent;
+        return getTotalSpent(CalendarConverter.INSTANCE.getCalendar());
     }
 
+    /**
+     * Calculates the total amount spent within the budget
+     * for a specific month.
+     * 
+     * @param the calendr month for the spending limit
+     * @return the total spending
+     */
     public double getTotalSpent(Calendar calendar) {
         double totalSpent = 0.0;
         for (Expense expense : this.expenses) {
@@ -94,26 +126,30 @@ public class Budget {
     }
 
     /**
-     * Calculates the percentage of the amount spent towards the
-     * category group 
+     * Calculates the percentage of the budget used based on the spending limit.
      * 
-     * @return
+     * @return the percentage of the budget spent
      */
     public double getPercentage(){
         double percentage = (this.getTotalSpent() / this.getLimit()) * 100;
         return Math.round(percentage * 10.0) / 100.0;
     }
 
+    /**
+     * Calculates the percentage of the budget used for a specific month, based on the provided calendar date.
+     * 
+     * @param calendar the calendar date to filter expenses by month
+     * @return the percentage of the budget spent for the specified month
+     */
     public double getPercentage(Calendar calendar){
         double percentage = (this.getTotalSpent() / this.getLimit()) * 100;
         return Math.round(percentage * 10.0) / 100.0;
     }
 
     /**
-     * Adds a new expense to this budget if it is within
-     * this category group
+     * Adds a new expense to the budget if it matches the budget's category.
      * 
-     * @param newExpense
+     * @param newExpense the expense to add
      */
     public void addExpense(Expense newExpense) {
         if (newExpense.getCategory().equals(this.category)) {
@@ -122,26 +158,28 @@ public class Budget {
     }
 
     /**
-     * Clears all expenses from the list and sets the list
-     * to another list of expenses. Onlys adds the 
-     * expenses in the new list that have the same category
-     * as the budget
-     *   
-     * @param expenses
+     * Adds a list of expenses to the budget.
+     * Each expense is checked to ensure it matches the category of the budget before being added.
+     * 
+     * @param expenses the list of expenses to add
+     */
+    public void addExpenses(List<Expense> expenses) {
+        for (Expense expense : expenses) {
+            this.addExpense(expense);
+        }
+    }
+
+    /**
+     * Sets the list of expenses for this budget.
+     * Replaces the current list with a new list, including only those matching the budget's category.
+     * 
+     * @param expenses the new list of expenses
      */
     public void setExpenses(List<Expense> expenses) {
         this.expenses.clear();
         for (Expense expense : expenses) {
             this.addExpense(expense);
-        }
-        
-    }
-
-    public void addExpenses(List<Expense> expenses) {
-        for (Expense expense : expenses) {
-            this.addExpense(expense);
-        }
-        
+        } 
     }
 
     /**
@@ -158,12 +196,11 @@ public class Budget {
     }
     
     /**
-     * Checks whether or not the user reached their spending 
-     * limit
+     * Checks if the spending for the current month has exceeded the budget limit.
      * 
-     * @return true if max reached, false if otherwise
+     * @param calendar the current date to filter expenses by month
+     * @return true if the limit is exceeded, false otherwise
      */
-
     public boolean isExceeded(Calendar calendar) {
         List<Expense> expensesInCurrentMonth = ExpenseTracker.TRACKER.filterExpenses(calendar);
         Double totalSpentInCurrentMonth = ExpenseTracker.TRACKER.calculateTotalExpenses(expensesInCurrentMonth);
@@ -171,15 +208,20 @@ public class Budget {
     }
     
     /**
-     * Formats the budget as Category,Limit
+     * Formats the budget details as "Category,Limit".
      * 
-     * @return the budget details as comma-separated values
+     * @return the budget as a comma-separated string
      */
     @Override
     public String toString() {
         return String.join(",", this.getCategory().toString(), Double.toString(this.getLimit()));
     }
 
+    /**
+     * Formats the budget with detailed information, including category, limit, and expenses.
+     * 
+     * @return the detailed budget as a formatted string
+     */
     public String toStringDetailed() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.category.name());

@@ -12,18 +12,25 @@ import csc335.app.utils.CalendarConverter;
 
 /**
  * Singleton class for tracking and managing budgets for a user.
+ * This class provides functionality to retrieve budgets, update spending limits, 
+ * calculate budget progress, and verify if spending limits are exceeded.
+ * 
+ * File: BudgetTracker.java
+ * Course: CSC 335 (Fall 2024)
+ * @author Genesis Benedith
  */
 public enum BudgetTracker  {
     
-    TRACKER; // A singleton instance of a user's Expense Tracker
+    /** A singleton instance of a user's Expense Tracker */
+    TRACKER;
 
-    private User currentUser; // The current user logged in
+    /** The current user logged in */
+    private User currentUser;
 
-    // TODO: WRITE COMMENT FOR THIS CONSTRUCTOR METHOD
     /**
+     * Initializes the BudgetTracker by loading the current user from the session.
      * 
-     * 
-     * @author Genesis Benedith
+     * @throws IllegalStateException if the current user cannot be accessed
      */
     private BudgetTracker() {
         try {
@@ -34,21 +41,19 @@ public enum BudgetTracker  {
     }  
 
     /**
-     * Retrieve all budgets for the current user
+     * Retrieves all budgets for the current user.
      * 
-     * @author Genesis Benedith
-     * @return a list the user's budgets
+     * @return a list of the user's budgets
      */
     protected List<Budget> getBudgets() {
         return currentUser.getBudgets();
     }
 
     /**
-     * Finds the budget for a specific category
+     * Finds the budget for a specific category.
      * 
-     * @author Genesis Benedith
-     * @param category
-     * @return
+     * @param category the category to find the budget for
+     * @return the budget for the specified category, or null if not found
      */
     public Budget findBudget(Category category) {
         for (Budget budget : getBudgets()) {
@@ -59,11 +64,10 @@ public enum BudgetTracker  {
     }
 
     /**
-     * Updates the limit of a budget for a specific category
+     * Updates the spending limit for a specific category's budget.
      * 
-     * @author Chelina Obiang
-     * @param category the category of the budget that is being updated
-     * @param value the new limit for the budget
+     * @param category the category of the budget to update
+     * @param value the new spending limit
      */
     public void updateLimit(Category category, Double value) {
         findBudget(category).setLimit(value);
@@ -72,15 +76,11 @@ public enum BudgetTracker  {
     }
 
     /**
-     * Resets the budget for a given category
-     * with pre-filled data
+     * Updates the budget for a specific category with a new limit and expenses.
      * 
-     * @author Genesis Benedith
-     * @param category the category group of the budget
-     * @param limit the new spending limit for the category
+     * @param budget the updated budget to apply
      */
-   
-     public void updateBudget(Budget budget) {
+    public void updateBudget(Budget budget) {
         Budget oldBudget = findBudget(budget.getCategory());
         oldBudget.setLimit(budget.getLimit());
         oldBudget.addExpenses(budget.getExpenses());
@@ -88,49 +88,58 @@ public enum BudgetTracker  {
     }
 
     /**
-     * Checks if the spending limit (budget) for a specific category 
-     * has been exceeded
+     * Checks if the spending limit for a specific category has been exceeded.
      * 
-     * @author Chelina Obiang
-     * @param category
-     * @return true if limit exceeded, false if otherwise
+     * @param category the category to check
+     * @return true if the budget limit is exceeded, false otherwise
      */
     public boolean isBudgetExceeded(Category category) {
         return isBudgetExceeded(category, CalendarConverter.INSTANCE.getCalendar());
     }
 
+    /**
+     * Checks if the spending limit for a specific category has been exceeded for a specific date.
+     * 
+     * @param category the category to check
+     * @param calendar the calendar date to filter expenses
+     * @return true if the budget limit is exceeded, false otherwise
+     */
     public boolean isBudgetExceeded(Category category, Calendar calendar) {
         return findBudget(category).isExceeded(calendar);
     }
 
     /**
-     * Calculate the spending progress for a given category
+     * Calculates the progress of spending for a specific category.
      * 
-     * @author Chelina Obiang
-     * @param category the category of the spending budget
-     * @return the progress out of 100
+     * @param category the category to calculate progress for
+     * @return the percentage of the budget spent (out of 100)
      */
     public Double getBudgetProgress(Category category) {
         return findBudget(category).getPercentage() / 100;
     }
 
     /**
-     * Gets the budget's spending limit for a specific category 
+     * Retrieves the spending limit for a specific category's budget.
      * 
-     * @author Chelina Obiang
-     * @param category
-     * @return
+     * @param category the category to retrieve the limit for
+     * @return the spending limit for the specified category
      */
     public Double getBudgetLimit(Category category) {
         return findBudget(category).getLimit();
     }
 
+    /**
+     * Calculates the total amount spent for a specific category.
+     * 
+     * @param category the category to calculate spending for
+     * @return the total amount spent in the category
+     */
     public Double getBudgetSpent(Category category) {
         return findBudget(category).getTotalSpent();
     }
 
     /**
-     * Calculates the total budget limits for all categories.
+     * Calculates the total spending limits for all budgets across all categories.
      * 
      * @return the total spending limit across all budgets
      */
@@ -141,8 +150,4 @@ public enum BudgetTracker  {
         }
         return totalLimits;
     }
-
-    
-
-
 }

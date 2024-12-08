@@ -30,6 +30,8 @@ import csc335.app.utils.CalendarConverter;
  * - Refresh in-memory accounts from the database.
  * - Export and import user transaction data.
  * 
+ * File: Database.java
+ * Course: CSC 335 (Fall 2024)
  * @author Genesis Benedith
  */
 public enum Database {

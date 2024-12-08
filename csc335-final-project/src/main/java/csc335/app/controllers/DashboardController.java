@@ -41,52 +41,71 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
- * ${file_name}
+ * Controller class for the dashboard view.
+ * Manages the display of charts, tables, and recent expenses on the user interface.
+ * Includes methods to interact with expenses and dynamically update the dashboard.
  * 
  * @author Genesis Benedith
  */
-
-// [ ] Needs class comment
 public class DashboardController implements Initializable {
 
+    /** Table to display the user's expenses. */
     @FXML
     private TableView<Expense> tableView;
 
+    /** Column to display the date of each expense. */
     @FXML
     private TableColumn<Expense, String> dateColumn;
 
+    /** Column to display the description of each expense. */
     @FXML
     private TableColumn<Expense, String> expenseColumn;
 
+    /** Column to display the category of each expense. */
     @FXML
     private TableColumn<Expense, String> categoryColumn;
 
+    /** Column to display the amount of each expense. */
     @FXML
     private TableColumn<Expense, Double> amountColumn;
 
+    /** Bar chart to show total expenses grouped by category. */
     @FXML
     private BarChart<String, Number> barChart;
 
+    /** Pie chart to display the breakdown of expenses by category. */
     @FXML
     private PieChart pieChart;
 
+    /** Label to navigate to the "All Expenses" page. */
     @FXML
     private Label seeAllLabel;
 
+    /** VBox container to display the recent expenses section. */
     @FXML
     private VBox recentExpensesBox;
 
+    /** Label to display the currently selected month. */
     @FXML
     private Label monthLabel;
 
+    /** Menu button to allow the user to select a month for filtering expenses. */
     @FXML
     private MenuButton menuButton;
 
+    /** Pane for displaying advertisements or additional information. */
     @FXML
-    private Pane advertisementPane; // Advertisement pane to add at the end
+    private Pane advertisementPane;
 
+    /** Holds the current user session. */
     private static User currentUser;
 
+    /**
+     * Initializes the dashboard view and configures its components.
+     * 
+     * @param location  the location used to resolve relative paths for the root object
+     * @param resources the resources used to localize the root object
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Welcome to the dashboard!");
@@ -98,7 +117,6 @@ public class DashboardController implements Initializable {
         });
 
         setMonthLabelToCurrentMonth();
-
         initializeMonthMenu();
         initializePieChart();
         initializeBarChart();
@@ -110,9 +128,14 @@ public class DashboardController implements Initializable {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
     }
 
+    /**
+     * Populates the recent expenses section with up to 7 expenses.
+     * Displays placeholders if fewer expenses are available.
+     * 
+     * @param expenses the list of expenses to display
+     */
     private void populateRecentExpenses(List<Expense> expenses) {
         // Preserve the title pane
         Node titlePane = recentExpensesBox.getChildren().get(0);
@@ -139,6 +162,12 @@ public class DashboardController implements Initializable {
         recentExpensesBox.getChildren().add(advertisementPane);
     }
 
+    /**
+     * Creates a styled pane representing an expense.
+     * 
+     * @param expense the expense to display
+     * @return a Pane populated with expense details
+     */
     private Pane createExpensePane(Expense expense) {
         // Main Pane for the expense
         Pane pane = new Pane();
@@ -199,6 +228,11 @@ public class DashboardController implements Initializable {
         return pane;
     }
 
+    /**
+     * Creates an empty placeholder pane for the recent expenses section.
+     * 
+     * @return a Pane styled as a placeholder
+     */
     private Pane createEmptyExpensePane() {
         Pane emptyPane = new Pane();
         emptyPane.setPrefHeight(46.0);
@@ -207,6 +241,9 @@ public class DashboardController implements Initializable {
         return emptyPane;
     }
 
+    /**
+     * Sets the month label to the current month and year.
+     */
     private void setMonthLabelToCurrentMonth() {
         // Get the current month and year
         Calendar calendar = Calendar.getInstance();
@@ -217,6 +254,9 @@ public class DashboardController implements Initializable {
         monthLabel.setText(month + " " + year);
     }
 
+    /**
+     * Initializes the MenuButton with unique months based on the user's expenses.
+     */
     private void initializeMonthMenu() {
         // Get all expenses
         List<Expense> expenses = ExpenseTracker.TRACKER.getExpenses();
@@ -245,6 +285,11 @@ public class DashboardController implements Initializable {
         menuButton.setText("Select Month");
     }
 
+    /**
+     * Updates the month label to display the selected month and year.
+     * 
+     * @param selectedMonth the selected month in "YYYY-MM" format
+     */
     private void refreshMonthLabel(String selectedMonth) {
         // Parse the selected month (YYYY-MM)
         String[] parts = selectedMonth.split("-");
@@ -258,6 +303,12 @@ public class DashboardController implements Initializable {
         monthLabel.setText(String.format("%s %d", monthName, year));
     }
 
+    /**
+     * Refreshes the page with data for the selected month.
+     * Updates the TableView, PieChart, and BarChart based on the filtered expenses.
+     * 
+     * @param month the selected month in "YYYY-MM" format
+     */
     private void refreshPageForMonth(String month) {
         // Update the MenuButton text to show the selected month
         menuButton.setText(month);
@@ -285,6 +336,11 @@ public class DashboardController implements Initializable {
     }
     
 
+    /**
+     * Updates the PieChart to display the expense distribution for the given list of expenses.
+     * 
+     * @param expenses the list of expenses to display
+     */
     private void refreshPieChart(List<Expense> expenses) {
         pieChart.getData().clear();
     
@@ -320,9 +376,10 @@ public class DashboardController implements Initializable {
         }
     }
     
-    
-
-
+    /**
+     * Configures the columns of the TableView to bind them to the appropriate properties of the Expense object.
+     * Also formats the amount column to display two decimal places.
+     */
     private void configureTableColumns() {
         // Set the value factory for the date column to use getStringDate
         dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStringDate()));
@@ -346,7 +403,11 @@ public class DashboardController implements Initializable {
         });
     }
 
-
+    /**
+     * Populates the TableView with the provided list of expenses.
+     * 
+     * @param expenses the list of expenses to display
+     */
     private void populateTableView(List<Expense> expenses) {
         // Convert the list of expenses into an ObservableList
         ObservableList<Expense> observableExpenses = FXCollections.observableArrayList(expenses);
@@ -355,11 +416,14 @@ public class DashboardController implements Initializable {
         tableView.setItems(observableExpenses);
     }
 
+    /**
+     * Updates the BarChart to display expense totals for each category.
+     * 
+     * @param expenses the list of expenses to display
+     */
     private void refreshBarChart(List<Expense> expenses) {
         // Clear existing data from the BarChart
         barChart.getData().clear();
-    
-      
     
         // Create a series for each category and add it to the BarChart
         for (Category category : Category.values()) {
@@ -391,6 +455,9 @@ public class DashboardController implements Initializable {
     }
     
 
+    /**
+     * Initializes the PieChart with the current month's expense data.
+     */
     private void initializePieChart() {
 
         Calendar cal = CalendarConverter.INSTANCE.getCalendar();
@@ -427,6 +494,9 @@ public class DashboardController implements Initializable {
 
     }
 
+    /**
+     * Initializes the BarChart with expense data for the past month.
+     */
     private void initializeBarChart() {
         // Get current cal date
         Calendar endCal = CalendarConverter.INSTANCE.getCalendar();
@@ -467,6 +537,13 @@ public class DashboardController implements Initializable {
         }
     }
 
+    /**
+     * Applies a hover effect to a node by changing its color.
+     * 
+     * @param style   the base CSS style for the node
+     * @param node    the node to apply the hover effect to
+     * @param category the category of the expense associated with the node
+     */
     private void addHoverEffect(String style, Node node, Category category) {
         node.setOnMouseEntered(_ -> {
             node.setStyle(style + category.getHoverColor() + ";");

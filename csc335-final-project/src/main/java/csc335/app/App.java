@@ -9,6 +9,10 @@ import javafx.stage.Stage;
  * The main entry point for the JavaFX application.
  * This class extends the JavaFX Application class and is responsible
  * for launching the application and displaying the initial view.
+
+ * File: App.java
+ * Course: CSC 335 (Fall 2024)
+ * @author Genesis Benedith
  */
 public final class App extends Application {
 

@@ -3,7 +3,11 @@ package csc335.app.services;
 /**
  * Authors: Lauren Schroeder and Genesis Benedith
  * File: ExpenseTracker.java
- * Description: 
+ * Course: CSC 335 (Fall 2024)
+ * Description: This file defines the ExpenseTracker singleton class, which 
+ *              provides methods to manage and analyze user expenses. It 
+ *              includes functionality for retrieving, filtering, sorting, 
+ *              and calculating expenses across various criteria.
  */
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,14 +25,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
+/**
+ * Singleton class to track and manage user expenses.
+ * Provides methods for filtering, sorting, and calculating expenses based on
+ * various criteria such as date, category, and range.
+ */
+
 public enum ExpenseTracker {
 
     TRACKER; // A singleton instance of a user's Expense Tracker
 
-    private User currentUser;
+    private User currentUser; // Current user logged into the tracker
 
     /* ------------------------------ CONSTRUCTOR ------------------------------ */
 
+    /**
+     * Initializes the ExpenseTracker by loading the current user from the session.
+     * 
+     * @throws IllegalStateException if the current user cannot be accessed
+     */
     private ExpenseTracker() {
         try {
             this.currentUser = UserSessionManager.SESSION.getCurrentUser();
@@ -42,9 +57,9 @@ public enum ExpenseTracker {
      */
 
     /**
-     * Gets all of the user's expenses (no filter)
+     * Retrieves all expenses for the current user.
      * 
-     * @return list of expenses
+     * @return an unmodifiable list of all expenses
      */
     public List<Expense> getExpenses() {
         List<Expense> expenses = new ArrayList<>();
@@ -55,7 +70,9 @@ public enum ExpenseTracker {
     }
 
     /**
+     * Adds a single expense to the appropriate budget.
      * 
+     * @param expense the expense to add
      */
     public void addExpense(Expense expense) {
         BudgetTracker.TRACKER.findBudget(expense.getCategory()).addExpense(expense);
@@ -63,7 +80,9 @@ public enum ExpenseTracker {
     }
 
     /**
+     * Adds a list of expenses to their respective budgets.
      * 
+     * @param expenses the list of expenses to add
      */
     public void addExpenses(List<Expense> expenses) {
         for (Expense expense : expenses) {
@@ -71,15 +90,18 @@ public enum ExpenseTracker {
         }
     }
 
+    /**
+     * Removes an expense from the appropriate budget.
+     * 
+     * @param expense the expense to remove
+     */
     public void removeExpense(Expense expense) {
         BudgetTracker.TRACKER.findBudget(expense.getCategory()).removeExpense(expense);
         AccountManager.ACCOUNT.saveUserAccount();
     }
 
     /*
-     * ------------------------------ HELPER METHODS (CALCULATOR)
-     * ------------------------------
-     */
+     * ------------------------------ HELPER METHODS (CALCULATOR)  ------------------------------ */
 
     /**
      * Get's the total amount spent within a specific month and year
@@ -147,11 +169,7 @@ public enum ExpenseTracker {
         return sortedExpenses;
     }
 
-    /*
-     * ------------------------------ HELPER METHODS (FILTER)
-     * ------------------------------
-     */
-
+/* ------------------------------ HELPER METHODS (FILTER) ------------------------------ */
     /**
      * Filters the user's expenses within a specific category
      * 
@@ -231,6 +249,13 @@ public enum ExpenseTracker {
         return dayExpenses;
     }
 
+    /**
+     * Filters a list of expenses within a specific calendar month/year
+     * 
+     * @author Lauren Schroeder and Genesis Benedith
+     * @param category the calendar month
+     * @return a list of expenses
+     */
     public List<Expense> filterExpenses(Calendar monthCal) {
         List<Expense> monthExpenses = new ArrayList<>();
         for (Expense expense : getExpenses()) {
@@ -246,9 +271,8 @@ public enum ExpenseTracker {
      * Filters a list of expenses within a specific category
      * 
      * @author Lauren Schroeder and Genesis Benedith
-     * @param start    the calendar start date of the transaction
-     * @param end      the calendar end date of the transaction
-     * @param category the category of the transaction
+     * @param expenses    the list of expenses to filter through
+     * @param category the category of the expenses we are looking for
      * @return a list of expenses
      */
     public List<Expense> filterExpenses(List<Expense> expenses, Category category) {
@@ -262,7 +286,7 @@ public enum ExpenseTracker {
     }
 
     /**
-     * Get's the users expenses within a specific range
+     * Get's the users expenses within a specific range and category
      * 
      * @author Lauren Schroeder and Genesis Benedith
      * @param start    the calendar start date of the transaction

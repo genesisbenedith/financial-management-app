@@ -9,10 +9,28 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+
+/**
+ * Utility class for handling date and calendar conversions.
+ * Provides methods to generate and manipulate Calendar instances, format dates as strings,
+ * and retrieve a list of recent months.
+ * 
+ * File: CalendarConverter.java
+ * Course: CSC 335 (Fall 2024)
+ * @author Genesis Benedith
+ */
 public enum CalendarConverter {
 
-    INSTANCE; // Singleton instance 
+    INSTANCE; //Singleton instance of the CalendarConverter utility 
 
+    /**
+     * Creates a Calendar instance for the specified year, month, and day.
+     * 
+     * @param year  the year of the date
+     * @param month the month of the date (1-based index, e.g., January = 1)
+     * @param day   the day of the date
+     * @return a Calendar instance representing the specified date
+     */
     public Calendar getCalendar(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -21,6 +39,11 @@ public enum CalendarConverter {
         return calendar;
     }
 
+    /**
+     * Gets the current date as a Calendar instance.
+     * 
+     * @return a Calendar instance representing the current date
+     */
     public Calendar getCalendar() {
         // Use LocalDate for easier date manipulation
         Date currentDate = getLocalDate(0);
@@ -29,6 +52,12 @@ public enum CalendarConverter {
         return currentCalendar;
     }
 
+    /**
+     * Gets a Calendar instance adjusted by a specified number of months from the current date.
+     * 
+     * @param minusMonths the number of months to subtract from the current date
+     * @return a Calendar instance representing the adjusted date
+     */
     public Calendar getCalendar(int minusMonths) {
         Date newDate = getLocalDate(minusMonths);
         Calendar newCalendar = Calendar.getInstance();
@@ -36,6 +65,12 @@ public enum CalendarConverter {
         return newCalendar;
     }
 
+    /**
+     * Gets a Date instance adjusted by a specified number of months from the current date.
+     * 
+     * @param minusMonths the number of months to subtract from the current date
+     * @return a Date instance representing the adjusted date
+     */
     private static Date getLocalDate(int minusMonths){
         LocalDate localDate = LocalDate.now();
         ZoneId zoneId = ZoneId.systemDefault();
@@ -44,6 +79,12 @@ public enum CalendarConverter {
         return date;
     }
 
+    /**
+     * Formats a Calendar instance as a string in the format "YYYY-MM-DD".
+     * 
+     * @param calendar the Calendar instance to format
+     * @return a string representation of the date
+     */
     public String getStringDate(Calendar calendar) {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1; // Calendar months are 0-indexed
@@ -51,7 +92,13 @@ public enum CalendarConverter {
         return year + "-" + month + "-" + day;
     }
 
-    public static List<String> getLastMonths(int numMonths) {
+    /**
+     * Retrieves a list of the short names of the last N months, starting from the current month.
+     * 
+     * @param numMonths the number of months to retrieve
+     * @return a list of short month names
+     */
+    public List<String> getLastMonths(int numMonths) {
         List<String> months = new ArrayList<>();
         Calendar calendar = Calendar.getInstance(); // Current date
 
