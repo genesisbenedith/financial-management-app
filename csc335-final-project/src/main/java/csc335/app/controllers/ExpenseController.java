@@ -169,6 +169,7 @@ public class ExpenseController implements Initializable{
      * Adds numeric validation with comma formatting to a TextField and 
      * only allows valid numbers and formats them with commas as the user types.
      * @param textField the TextField to add validation and formatting to
+     * @throws ParseException if there is an error parsing the input text
      */
     public void addNumericValidationWithCommas(TextField textField) {
         // Define a number formatter for formatting numbers with commas
@@ -207,6 +208,7 @@ public class ExpenseController implements Initializable{
     /**
      * Handles the click event for adding an expense by validating the input fields,
      * creating a new Expense instance, and adding it to the ExpenseTracker.
+     * @throws NumberFormatException if the amount field contains an invalid number
      */
     public void handleAddExpenseClick(){
         save.setOnMouseClicked(e -> {

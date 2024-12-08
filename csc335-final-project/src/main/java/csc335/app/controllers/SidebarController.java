@@ -1,11 +1,12 @@
 package csc335.app.controllers;
 
-// [ ] Finish file comment
-
 /**
  * @author Chelina Obiang
  * @author Genesis Benedith
+ * File: SidebarController.java
+ * Description: Controller class that controls the window and functions of the sidebar on each page
  */
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,7 +19,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-// [ ] Needs class comment
+/**
+ * Manages the sidebar navigation in the application that allows users to switch
+ * between different sections such as the dashboard, 
+ * expenses, budget, and logout by clicking on the respective panes. 
+ * The class also displays the current user's information, such as username, 
+ * email, and an avatar, in the sidebar.
+ * 
+ * Key functions include:
+ * - handling mouse click events to switch views (e.g., Dashboard, Expenses, Budget)
+ * - logging out the current user and redirecting to the login view
+ * - displaying the user's avatar, username, and email address in the sidebar
+ * 
+ * Implements the Initializable interface to ensure that the sidebar 
+ * is properly set up when the view is initialized.
+ */
 public class SidebarController implements Initializable{
 
     @FXML
@@ -44,16 +59,18 @@ public class SidebarController implements Initializable{
 
     private static User currentUser;
 
-    // [ ] Complete method comment
     /**
      * Initializes the sidebar panel & sets action listeners to handles
      * mouse click events that loads different views to the stage
      * 
+     * also sets up the user information display in the sidebar, 
+     * including the avatar, username, and email, based on the current logged-in user
+     * 
      * @author Chelina Obiang
      * @author Genesis Benedith
      * 
-     * @param location
-     * @param resources
+     * @param location  The location of the FXML file (not used in this method).
+     * @param resources The resource bundle for the application (not used in this method).
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -71,6 +88,15 @@ public class SidebarController implements Initializable{
 
     }
 
+    /**
+     * Initializes and displays the user's information in the sidebar by:
+     * - setting the avatar to display the first letter of the username
+     * - displaying the username in the sidebar
+     * - displaying the user's email address
+     * 
+     * Retrieves the current user information from the user session and 
+     * updates the sidebar labels and avatar accordingly.
+     */
     public void initializeUserInfo() {
         userAvatar.setInitials(currentUser.getUsername().substring(0,1).toUpperCase());
         username.setText(currentUser.getUsername());

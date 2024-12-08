@@ -224,6 +224,8 @@ public class ExpensesController implements Initializable {
      * allowing the user to select a file. After selection, the file's content is read in line by line,
      * and each line is processed to extract expense data, and the expense tracker is updated.
      * Displays a success or error message based on the result.
+     * 
+     * @throws IOException
      */
     private void importFileClick() {
         FileChooser chooseFile = new FileChooser();
@@ -401,6 +403,8 @@ public class ExpensesController implements Initializable {
      * Handles the click event for adding a new expense. When the add button is clicked
      * a new popup window for entering the expense details is opened. It also sets
      * mouse hover effects for better user interaction.
+     * 
+     * @throws IOException
      */
     private void addNewExpenseClick() {
         addNewExpense.setOnMouseClicked(click -> {
@@ -526,6 +530,8 @@ public class ExpensesController implements Initializable {
     /**
      * Loads the expenses into the UI.
      * @param expenses The list of expenses to be displayed.
+     * 
+     * @throws IOException
      */
     public void loadExpenses(List<Expense> expenses) {
         if (vBox.getChildren().size() > 1) {
