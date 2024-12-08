@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: csc335.app.AdditionalTests
+-------------------------------------------------------------------------------
+Tests run: 47, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.174 s <<< FAILURE! - in csc335.app.AdditionalTests
+csc335.app.AdditionalTests.testCalculateTotalExpenses  Time elapsed: 0.028 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1360.8499999999997> but was: <1360.85>
+	at csc335.app.AdditionalTests.testCalculateTotalExpenses(AdditionalTests.java:461)
+
+csc335.app.AdditionalTests.testAddExpense  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <Lunch> but was: <Bus fare>
+	at csc335.app.AdditionalTests.testAddExpense(AdditionalTests.java:429)
+
