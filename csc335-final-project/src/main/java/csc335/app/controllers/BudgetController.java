@@ -158,7 +158,7 @@ public class BudgetController implements Initializable {
         field.setPromptText(limit + "");
         if (BudgetTracker.TRACKER.isBudgetExceeded(category)) {
             alert.setVisible(true);
-            View.ALERT.showAlert(AlertType.ERROR, "Alert", "You've reached your spending limit for " + category.name() + "!");
+            alerts.add("Alert: You're expenses for " + category.name() + " are in the red!");
         }
 
         field.setEditable(true); // Set spinner to editable
