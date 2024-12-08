@@ -531,22 +531,21 @@ public class ExpensesController implements Initializable {
         if (vBox.getChildren().size() > 1) {
             vBox.getChildren().retainAll(vBox.getChildren().get(0));
         }
-        refreshPage();
-        // ----------------------duplicate code------------------------------
-        // List<Expense> filteredExpenses = ExpenseTracker.TRACKER.getExpenses();
-        // if (categoryClicked != null) {
-        //     budgetHeader.setText(categoryClicked.toString() + " Budget");
-        //     expensesHeader.setText(categoryClicked.toString() + " Expenses");
-        //     totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
-        //     double totalAmount = filteredExpenses.stream().mapToDouble(Expense::getAmount).sum();
-        //     totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
-        // totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
-        // } else {
-        //     budgetHeader.setText("Total Budget");
-        //     expensesHeader.setText("Total Expenses");
-        //     totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getTotalBudgetLimits());
-        //     totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses(categoryClicked));
-        // }
+        
+        List<Expense> filteredExpenses = ExpenseTracker.TRACKER.getExpenses();
+        if (categoryClicked != null) {
+            budgetHeader.setText(categoryClicked.toString() + " Budget");
+            expensesHeader.setText(categoryClicked.toString() + " Expenses");
+            totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
+            double totalAmount = filteredExpenses.stream().mapToDouble(Expense::getAmount).sum();
+            totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
+        totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
+        } else {
+            budgetHeader.setText("Total Budget");
+            expensesHeader.setText("Total Expenses");
+            totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getTotalBudgetLimits());
+            totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses(categoryClicked));
+        }
 
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10));
@@ -863,12 +862,6 @@ public class ExpensesController implements Initializable {
         loadExpenses(ExpenseTracker.TRACKER.getExpenses());
         percentBar.getChildren().clear();
         initializeProgressBars();
-        List<Expense> filteredExpenses = ExpenseTracker.TRACKER.getExpenses();
-        totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getTotalBudgetLimits());
-        double totalAmount = filteredExpenses.stream().mapToDouble(Expense::getAmount).sum();
-        totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
-        budgetHeader.setText(categoryClicked.toString() + " Budget");
-        expensesHeader.setText(categoryClicked.toString() + " Expenses");
         if (categoryClicked != null) {
             double categoryExpensesAmount = ExpenseTracker.TRACKER.calculateTotalExpenses(categoryClicked);
             double categoryBudgetLimit = BudgetTracker.TRACKER.getBudgetLimit(categoryClicked);
