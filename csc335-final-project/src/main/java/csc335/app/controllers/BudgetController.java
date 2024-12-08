@@ -12,6 +12,8 @@ package csc335.app.controllers;
  */
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import csc335.app.models.Category;
@@ -22,7 +24,9 @@ import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -33,7 +37,7 @@ import javafx.scene.input.KeyCode;
 public class BudgetController implements Initializable {
 
     @FXML
-    private MFXNotificationCenter notificationCenter;
+    private Button notificationCenter;
 
     /* TextFields for each category */
     @FXML
@@ -93,6 +97,7 @@ public class BudgetController implements Initializable {
     private ImageView oAlert;
 
     private static User currentUser; // The current user logged in
+    private List<String> alerts;
 
     /**
      * Initializes the BudgetController by setting up the view components 
@@ -105,8 +110,13 @@ public class BudgetController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        alerts = new ArrayList<>();
         System.out.println("Welcome to the Budget Panel!");
         currentUser = UserSessionManager.SESSION.getCurrentUser();
+        notificationCenter.setOnMouseClicked(event -> {
+            handlebuttonClick();
+            System.out.println("Button clicked!");
+        });
         
         /* Setting up alerts & prompt texts */
         try {
@@ -196,7 +206,13 @@ public class BudgetController implements Initializable {
         System.out.println(totalSpent / value >= 0.8);
         if (totalSpent / value >= 0.8) {
             alert.setVisible(true);
+            if (totalSpent / value != 1){
             View.ALERT.showAlert(AlertType.ERROR, "Alert", "You've almost reached your spending limit for " + category.name() + "!");
+            alerts.add("Alert: You've almost reached your spending limit for " + category.name());
+            } else {
+                View.ALERT.showAlert(AlertType.ERROR, "Alert", "You've reached/exceeded limit for " + category.name() + "!");
+                alerts.add("Alert: You've reached/exceeded limit for " + category.name());
+            }
         } else{
             alert.setVisible(false);
         }
@@ -278,5 +294,25 @@ public class BudgetController implements Initializable {
             }
         });
     }
+/**
+ * This is a handler for when the notifications button is clicked, it will show all of the notifications for that session when you
+ * log in and only shows the alerts for when you're close to and past the expeced budget.
+ */
+private void handlebuttonClick() {
+    // Combine the alerts into a single string
+    StringBuilder text = new StringBuilder();
+    for (String str : alerts) {
+        text.append(str).append("\n");
+    }
+
+    // Create and configure the alert dialog
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Alerts");
+    alert.setHeaderText("Here are the alerts:");
+    alert.setContentText(text.toString());
+
+    // Show the alert and wait for user to close it
+    alert.showAndWait();
+}
 
 }

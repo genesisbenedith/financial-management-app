@@ -6,6 +6,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -25,22 +26,22 @@
                <children>
                   <Label alignment="TOP_LEFT" graphicTextGap="0.0" layoutY="5.0" stylesheets="@../css/budget.css" text="Budget">
                      <font>
-                        <Font name="Apple LiSung Light" size="45.0" />
+                        <Font name="Poppins SemiBold" size="30.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="20.0" right="25.0" top="20.0" />
                      </HBox.margin>
                   </Label>
-                  <MFXNotificationCenter fx:id="notificationCenter">
+                  <Button fx:id="notificationCenter" text="Notifications" styleClass="notif" stylesheets="@../css/budget.css">
                      <HBox.margin>
-                        <Insets right="25.0" top="10.0" />
+                        <Insets right="25.0" top="20.0" />
                      </HBox.margin>
-                  </MFXNotificationCenter>
+                  </Button>
                </children>
             </HBox>
             <Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="880.0" style="-fx-background-color: #ececec; -fx-background-radius: 25px 0px 0px 0px;" StackPane.alignment="BOTTOM_RIGHT">
                <children>
-                  <Pane fx:id="transportation" layoutX="25.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                  <Pane fx:id="transportation" layoutX="25.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" id="transport" stylesheets="@../css/budget.css">
                      <children>
                         <Label layoutX="35.0" layoutY="175.0" text="Transportation">
                            <font>
@@ -65,7 +66,7 @@
                            </color4></MFXProgressSpinner>
                      </children>
                   </Pane>
-                  <Pane fx:id="food" layoutX="25.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                  <Pane fx:id="food" layoutX="25.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" id="food" stylesheets="@../css/budget.css">
                      <children>
                         <Label layoutX="100.0" layoutY="175.0" text="Food">
                            <font>
@@ -90,7 +91,7 @@
                         <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
-                  <Pane fx:id="utilities" layoutX="610.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                  <Pane fx:id="utilities" layoutX="610.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" id="utilities" stylesheets="@../css/budget.css">
                      <children>
                         <Label layoutX="80.0" layoutY="175.0" text="Utilities">
                            <font>
@@ -115,7 +116,7 @@
                         <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
-                  <Pane fx:id="health" layoutX="315.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                  <Pane fx:id="health" layoutX="315.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" id="health" stylesheets="@../css/budget.css">
                      <children>
                         <Label layoutX="85.0" layoutY="175.0" text="Health">
                            <font>
@@ -140,7 +141,7 @@
                         <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
-                  <Pane fx:id="entertainment" layoutX="315.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                  <Pane fx:id="entertainment" layoutX="315.0" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" id="entertain" stylesheets="@../css/budget.css">
                      <children>
                         <Label layoutX="40.0" layoutY="175.0" text="Entertainment">
                            <font>
@@ -165,7 +166,7 @@
                         <Label layoutX="70.0" layoutY="215.0" text="\$" />
                      </children>
                   </Pane>
-                  <Pane fx:id="other" layoutX="610.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" styleClass="category" stylesheets="@../css/budget.css">
+                  <Pane fx:id="other" layoutX="610.0" layoutY="350.0" prefHeight="250.0" prefWidth="250.0" id="other" stylesheets="@../css/budget.css">
                      <children>
                         <Label layoutX="90.0" layoutY="177.0" text="Other">
                            <font>
