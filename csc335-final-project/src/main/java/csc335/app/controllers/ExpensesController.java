@@ -538,7 +538,6 @@ public class ExpensesController implements Initializable {
             vBox.getChildren().retainAll(vBox.getChildren().get(0));
         }
         
-        List<Expense> filteredExpenses = ExpenseTracker.TRACKER.getExpenses();
         if (categoryClicked != null) {
             budgetHeader.setText(categoryClicked.toString() + " Budget");
             expensesHeader.setText(categoryClicked.toString() + " Expenses");
