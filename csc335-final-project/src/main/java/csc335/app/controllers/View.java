@@ -16,12 +16,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-// [ ] Finish file comment
 /**
+ * This file defines the `View` enum, which manages the different views (scenes)
+ * and pop-up windows for the Finantra application. Each enum constant
+ * corresponds
+ * to a specific view and contains information about its title and FXML path.
+ * The `View` enum handles the creation, navigation, and management of both
+ * primary
+ * scenes and modal pop-ups.
+ * 
  * @author Genesis Benedith
  */
-
-// [ ] Needs class comment
 public enum View {
     SPLASH("Splash", "Finantra: Personal Finance Assistant"),
     REGISTER("SignUp", "Finantra: Personal Finance Assistant"),
@@ -33,181 +38,143 @@ public enum View {
     ALERT("N/A", "Alert"),
     CHOOSER("N/A", "Chooser");
 
-    // [ ] Needs field comments
+    /** The title of the view displayed in the stage. */
     private final String VIEW_TITLE;
+
+    /** The name of the view, used to generate its FXML file path. */
     private final String VIEW_NAME;
+
+    /** The base directory where FXML files are located. */
     private final String FXML_VIEW_DIRECTORY = Path.of(File.separator + "views").toString();
+
+    /** The full path to the FXML file for this view. */
     private final String FXML_VIEW_PATH;
 
-    private static Stage primaryStage;// Main application window (primary stage)
-    private final Deque<View> sceneStack = new ArrayDeque<>(); // Stack to manage the history of scenes shown in the main stage
-    private Stage popUpStage; // Stage for pop-up windows
-    private final Deque<View> popUpSceneStack = new ArrayDeque<>(); // Stack to manage the history of pop-up scenes
+    /** The main application stage (primary window). */
+    private static Stage primaryStage;
 
-    // [ ] Needs method comment
+    /** A stack to manage the history of scenes in the main stage. */
+    private final Deque<View> sceneStack = new ArrayDeque<>();
+
+    /** The stage for modal pop-up windows. */
+    private Stage popUpStage;
+
+    /** A stack to manage the history of pop-up scenes. */
+    private final Deque<View> popUpSceneStack = new ArrayDeque<>();
+
+    /**
+     * Constructor for the `View` enum.
+     * 
+     * @param viewName  The name of the view.
+     * @param viewTitle The title displayed in the window for the view.
+     */
     private View(String viewName, String viewTitle) {
         this.VIEW_TITLE = viewTitle;
         this.VIEW_NAME = viewName;
         this.FXML_VIEW_PATH = Path.of(FXML_VIEW_DIRECTORY, VIEW_NAME + "View.fxml").toString();
     }
 
-    // [ ] Needs method comment
-    public String getFXMLPath(String viewName){
+    /**
+     * Gets the FXML file path for the view.
+     * 
+     * @param viewName The name of the view.
+     * @return The FXML file path.
+     */
+    public String getFXMLPath(String viewName) {
         return this.FXML_VIEW_PATH;
     }
 
-    // [ ] Needs method comment
+    /**
+     * Gets the title of the view.
+     * 
+     * @return The title of the view.
+     */
     public String getTitle() {
         return this.VIEW_TITLE;
     }
 
-    // [ ] Needs method comment
+    /**
+     * Gets the name of the view.
+     * 
+     * @return The name of the view.
+     */
     public String getName() {
         return this.VIEW_NAME;
     }
 
     /**
-     * Gets the current scene from the scene stack.
-     * @return The current scene.
-     */
-    public View getCurrentScene() {
-        return sceneStack.peek();
-    }
-
-    /**
-     * Displays a pop-up window with the given scene.
-     * @param fxml The enum representing the pop-up scene to be displayed.
-     * @throws IOException If the FXML file can't be loaded.
+     * Displays the pop-up window for the current view.
+     * 
+     * @throws IOException If the FXML file cannot be loaded.
      */
     public void showPopUp() throws IOException {
-        showPopUp(primaryStage);  // Show the pop-up with the primary stage as the parent
+        showPopUp(primaryStage);
     }
 
     /**
-     * Displays a pop-up window with the given scene and a specified parent window.
-     * @param fxml The enum representing the pop-up scene to be displayed.
+     * Displays the pop-up window for the current view with a specified parent
+     * window.
+     * 
      * @param parentWindow The parent window for the pop-up.
-     * @throws IOException If the FXML file can't be loaded.
+     * @throws IOException If the FXML file cannot be loaded.
      */
     public void showPopUp(Window parentWindow) throws IOException {
         if (popUpStage == null) {
-            popUpStage = new Stage();  // Create pop-up stage if it doesn't exist
-            popUpStage.initModality(Modality.APPLICATION_MODAL);  // Make it modal (blocking input to parent)
-            popUpStage.initOwner(parentWindow);  // Set the parent window
+            popUpStage = new Stage();
+            popUpStage.initModality(Modality.APPLICATION_MODAL);
+            popUpStage.initOwner(parentWindow);
         }
 
-        setPopUpScene();  // Set the scene for the pop-up
-        popUpStage.centerOnScreen();  // Center the pop-up on the screen
-        popUpStage.showAndWait();  // Show the pop-up and wait until it's closed
+        setPopUpScene();
+        popUpStage.centerOnScreen();
+        popUpStage.showAndWait();
     }
 
     /**
-     * Closes the pop-up window and clears the pop-up stack.
+     * Closes the pop-up window and clears the pop-up scene stack.
      */
     public void closePopUpWindow() {
         if (popUpStage != null) {
-            popUpStage.close();  // Close the pop-up stage
+            popUpStage.close();
             popUpStage = null;
         }
-        popUpSceneStack.clear();  // Clear the pop-up stack
+        popUpSceneStack.clear();
     }
 
     /**
-     * Sets the pop-up scene and handles its display.
-     * @param fxml The enum representing the pop-up scene.
+     * Sets the scene for the pop-up window.
      */
     public void setPopUpScene() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(this.FXML_VIEW_PATH));
             Parent root = fxmlLoader.load();
 
-            Scene scene = new Scene(root);  // Create a new Scene for the pop-up
-            popUpStage.setTitle(this.VIEW_TITLE);  // Set the title of the pop-up
-            popUpStage.setScene(scene);  // Set the scene
+            Scene scene = new Scene(root);
+            popUpStage.setTitle(this.VIEW_TITLE);
+            popUpStage.setScene(scene);
 
-            // root.setOnKeyPressed(keyEvent -> {
-            //     KeyHandler.getInstance().keyPressed(keyEvent);  // Handle key presses
-            // });
-
-            // Handle closing the pop-up
             popUpStage.setOnCloseRequest(e -> {
-                goBackPopUp();  // Go back to the previous pop-up scene
-                e.consume();  // Prevent default close behavior
+                goBackPopUp();
+                e.consume();
             });
 
-            popUpSceneStack.push(this);  // Add the pop-up scene to the stack
+            popUpSceneStack.push(this);
         } catch (IOException e) {
-            throw new RuntimeException(e);  // Handle loading errors
+            throw new RuntimeException(e);
         }
     }
 
     /**
-     * Goes back to the previous pop-up scene or closes the pop-up if there's no previous scene.
+     * Navigates back to the previous pop-up scene or closes the pop-up if no
+     * previous scene exists.
      */
     public void goBackPopUp() {
-        closePopUpWindow();  
+        closePopUpWindow();
     }
 
     /**
-     * Gets the title of the current scene in the main stack.
-     * @return The title of the current scene.
+     * Displays the main view in the primary stage.
      */
-    public String getCurrentSceneTitle() {
-        return sceneStack.peek().getTitle();
-    }
-
-    /**
-     * Gets the current pop-up scene.
-     * @return The current pop-up scene.
-     */
-    public View getCurrentPopUpScene() {
-        return popUpSceneStack.peek();
-    }
-
-    /**
-     * Returns the number of pop-up scenes in the stack.
-     * @return The size of the pop-up scene stack.
-     */
-    public int getPopUpSceneStackSize() {
-        return popUpSceneStack.size();
-    }
-
-    /**
-     * Returns the main scene stack.
-     * @return The main scene stack.
-     */
-    public Deque<View> getSceneStack() {
-        return sceneStack;
-    }
-
-    /**
-     * Returns the pop-up scene stack.
-     * @return The pop-up scene stack.
-     */
-    public Deque<View> getPopUpSceneStack() {
-        return popUpSceneStack;
-    }
-
-    // [ ] Needs method comment
-    private void showView(Parent parent) {
-        if (primaryStage == null) {
-            primaryStage = new Stage();
-        }
-
-        System.out.println("Setting the " + this.name() + "...");
-        Scene scene = new Scene(parent); 
-        primaryStage.setTitle(this.getTitle());
-
-        // // Handle key press events for the scene
-        // scene.setOnKeyPressed(keyEvent -> {
-        //     KeyHandler.getInstance().keyPressed(keyEvent);
-        // });
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    };
-
-    // [ ] Needs method comment
     public void loadView() {
         System.out.println("Loading the " + this.name() + "...");
         String fxmlPath = this.getFXMLPath(this.name());
@@ -221,12 +188,12 @@ public enum View {
         }
     }
 
-    // [ ] Needs method comment
     /**
+     * Displays an alert dialog with the specified type, title, and message.
      * 
-     * @param alertType
-     * @param title
-     * @param message
+     * @param alertType The type of the alert (e.g., INFORMATION, ERROR).
+     * @param title     The title of the alert.
+     * @param message   The message displayed in the alert.
      */
     public void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -235,13 +202,44 @@ public enum View {
         alert.showAndWait();
     }
 
+    /**
+     * Opens a file chooser dialog and returns the selected file path.
+     * 
+     * @return The absolute path of the selected file, or null if no file is
+     *         selected.
+     */
     public String showFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
         File file = fileChooser.showOpenDialog(primaryStage);
-        if (file != null) {
-            return file.getAbsolutePath();
-        } 
-        return null;
+        return file != null ? file.getAbsolutePath() : null;
     }
+
+    /**
+     * Sets the main application stage with the specified parent node and displays
+     * the view.
+     * If the primary stage is null, it initializes a new stage. Updates the stage
+     * title,
+     * sets the scene, and shows the view.
+     * 
+     * @param parent The root node of the scene to be displayed.
+     */
+    private void showView(Parent parent) {
+        if (primaryStage == null) {
+            primaryStage = new Stage(); // Initialize primary stage if it doesn't exist
+        }
+
+        System.out.println("Setting the " + this.name() + "...");
+
+        // Create a new scene with the provided root node
+        Scene scene = new Scene(parent);
+
+        // Set the title of the stage to the title of the view
+        primaryStage.setTitle(this.getTitle());
+
+        // Set the scene to the primary stage and display it
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
 }
