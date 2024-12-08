@@ -1,22 +1,14 @@
 package csc335.app.services;
 
-// import java.lang.reflect.Constructor;
-
-/**
- * Description: Manages and tracks the user's budget data and updates.
- * File: BudgetTracker.java
- * 
- * Authors: 
- * @author Chelina Obiang
- * @author Genesis Benedith
- */
-
+import java.util.Calendar;
 import java.util.List;
 
 import csc335.app.models.Budget;
 import csc335.app.models.Category;
 import csc335.app.models.User;
+import csc335.app.persistence.AccountManager;
 import csc335.app.persistence.UserSessionManager;
+import csc335.app.utils.CalendarConverter;
 
 /**
  * Singleton class for tracking and managing budgets for a user.
@@ -76,6 +68,7 @@ public enum BudgetTracker  {
     public void updateLimit(Category category, Double value) {
         findBudget(category).setLimit(value);
         System.out.println("You changed the limit for " + category.name() + "! The new value is now: " + Double.toString(value) + ".");
+        AccountManager.ACCOUNT.saveUserAccount();
     }
 
     /**
@@ -91,6 +84,7 @@ public enum BudgetTracker  {
         Budget oldBudget = findBudget(budget.getCategory());
         oldBudget.setLimit(budget.getLimit());
         oldBudget.addExpenses(budget.getExpenses());
+        AccountManager.ACCOUNT.saveUserAccount();
     }
 
     /**
@@ -102,7 +96,11 @@ public enum BudgetTracker  {
      * @return true if limit exceeded, false if otherwise
      */
     public boolean isBudgetExceeded(Category category) {
-        return findBudget(category).isExceeded();
+        return isBudgetExceeded(category, CalendarConverter.INSTANCE.getCalendar());
+    }
+
+    public boolean isBudgetExceeded(Category category, Calendar calendar) {
+        return findBudget(category).isExceeded(calendar);
     }
 
     /**

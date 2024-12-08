@@ -15,6 +15,7 @@ import csc335.app.models.Budget;
 import csc335.app.models.Category;
 import csc335.app.models.Expense;
 import csc335.app.models.User;
+import csc335.app.persistence.AccountManager;
 import csc335.app.persistence.UserSessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,10 +59,21 @@ public enum ExpenseTracker {
      */
     public void addExpense(Expense expense) {
         BudgetTracker.TRACKER.findBudget(expense.getCategory()).addExpense(expense);
+        AccountManager.ACCOUNT.saveUserAccount();
+    }
+
+    /**
+     * 
+     */
+    public void addExpenses(List<Expense> expenses) {
+        for (Expense expense : expenses) {
+            addExpense(expense);
+        }
     }
 
     public void removeExpense(Expense expense) {
         BudgetTracker.TRACKER.findBudget(expense.getCategory()).removeExpense(expense);
+        AccountManager.ACCOUNT.saveUserAccount();
     }
 
     /*
@@ -132,7 +144,6 @@ public enum ExpenseTracker {
         ObservableList<Expense> expenses = FXCollections.observableArrayList(ExpenseTracker.TRACKER.getExpenses());
         SortedList<Expense> sortedExpenses = new SortedList<>(expenses);
         sortedExpenses.setComparator(Comparator.comparing(Expense::getCalendarDate).reversed());
-
         return sortedExpenses;
     }
 

@@ -1,18 +1,11 @@
 package csc335.app.models;
 
 
-/**
- * @author Genesis Benedith
- * Course: CSC 335 (Fall 2024)
- * File: Budget.java
- * Description: Model class that represents a budget for a user's expense category
- */
-
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 import csc335.app.services.ExpenseTracker;
-import csc335.app.utils.CalendarConverter;
 
 public class Budget {
 
@@ -157,8 +150,9 @@ public class Budget {
      * 
      * @return true if max reached, false if otherwise
      */
-    public boolean isExceeded() {
-        List<Expense> expensesInCurrentMonth = ExpenseTracker.TRACKER.filterExpenses(CalendarConverter.INSTANCE.getCalendar());
+
+    public boolean isExceeded(Calendar calendar) {
+        List<Expense> expensesInCurrentMonth = ExpenseTracker.TRACKER.filterExpenses(calendar);
         Double totalSpentInCurrentMonth = ExpenseTracker.TRACKER.calculateTotalExpenses(expensesInCurrentMonth);
         return totalSpentInCurrentMonth > this.limit;
     }

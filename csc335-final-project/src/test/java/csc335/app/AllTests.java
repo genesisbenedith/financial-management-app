@@ -28,6 +28,7 @@ import csc335.app.models.Expense;
 import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.BudgetTracker;
+import csc335.app.services.ExpenseTracker;
 
 
 public class AllTests{
@@ -51,11 +52,9 @@ public class AllTests{
         for (Category category : Category.values()) {
             budgets.add(new Budget(category, 0, new ArrayList<>()));
         }
-        
         User user = new User("sally", "sally@aol.com", "1234", "1234", budgets);
         UserSessionManager.SESSION.setCurrentUser(user);
-        User currentUser = UserSessionManager.SESSION.getCurrentUser();
-        System.out.print(currentUser.getUsername());
+
         Budget myBudget = new Budget(Category.FOOD, 500.25, new ArrayList<>());
         BudgetTracker.TRACKER.updateBudget(myBudget);
         
@@ -99,16 +98,34 @@ public class AllTests{
 
     @Test
     public void testgetPercentageandisExceeded(){
+        List<Budget> budgets = new ArrayList<>();
+        for (Category category : Category.values()) {
+            budgets.add(new Budget(category, 0, new ArrayList<>()));
+        }
+        User user = new User("sally", "sally@aol.com", "1234", "1234", budgets);
+        UserSessionManager.SESSION.setCurrentUser(user);
+
         Budget myBudget = new Budget(Category.HEALTHCARE, 100, new ArrayList<>());
+        BudgetTracker.TRACKER.updateBudget(myBudget);
+
         List<Expense> expenses = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2022, 8, 14);
-        Expense expense = new Expense(calendar, Category.HEALTHCARE, 768.64, "Covid Vaccine and Check up");
-        calendar.set(2022, 10, 1);
-        Expense expense2 = new Expense(calendar, Category.HEALTHCARE, 61.11, "Covid Vaccine and Check up");
-        expenses.add(expense2); expenses.add(expense);
-        myBudget.addExpenses(expenses);
-        assertTrue(myBudget.isExceeded());
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(2022, 8, 14);
+        Expense expense1 = new Expense(calendar1, Category.HEALTHCARE, 768.64, "Covid Vaccine and Check up");
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(2022, 10, 1);
+        Expense expense2 = new Expense(calendar2, Category.HEALTHCARE, 61.11, "Covid Vaccine and Check up");
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.set(2024, 12, 1);
+        Expense expense3 = new Expense(calendar3, Category.HEALTHCARE, 69.99, "Covid Vaccine and Check up");
+        Calendar calendar4 = Calendar.getInstance();
+        calendar4.set(2024, 12, 10);
+        Expense expense4 = new Expense(calendar4, Category.HEALTHCARE, 61.11, "Covid Vaccine and Check up");
+        expenses.add(expense1); expenses.add(expense2); expenses.add(expense3); expenses.add(expense4);
+        System.out.println(expenses);
+        ExpenseTracker.TRACKER.addExpenses(expenses);
+        assertTrue(BudgetTracker.TRACKER.isBudgetExceeded(myBudget.getCategory(), expense4.getCalendarDate()));
+        assertFalse(BudgetTracker.TRACKER.isBudgetExceeded(myBudget.getCategory()));
         assertEquals(82.98, myBudget.getPercentage());
     }
 
