@@ -20,7 +20,6 @@ import csc335.app.models.Category;
 import csc335.app.models.User;
 import csc335.app.persistence.UserSessionManager;
 import csc335.app.services.BudgetTracker;
-import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -113,7 +112,7 @@ public class BudgetController implements Initializable {
         alerts = new ArrayList<>();
         System.out.println("Welcome to the Budget Panel!");
         currentUser = UserSessionManager.SESSION.getCurrentUser();
-        notificationCenter.setOnMouseClicked(event -> {
+        notificationCenter.setOnMouseClicked(_ -> {
             handlebuttonClick();
             System.out.println("Button clicked!");
         });
@@ -153,7 +152,7 @@ public class BudgetController implements Initializable {
     private void setupPromptText(Category category, TextField field, MFXProgressSpinner progressBar, ImageView alert) {
         double limit = BudgetTracker.TRACKER.getBudgetLimit(category);
         if (limit != 0) {
-            progressBar.setProgress(BudgetTracker.TRACKER.getBudgetProgress(category));
+            progressBar.setProgress(BudgetTracker.TRACKER.getBudgetProgress(category)*10);
         }
 
         field.setPromptText(limit + "");
@@ -219,7 +218,7 @@ public class BudgetController implements Initializable {
 
         /* Set progress indicator for this budget category */
         Double fraction = BudgetTracker.TRACKER.getBudgetProgress(category);
-        progress.setProgress(fraction); // Normalize for example (e.g., value out of 100)
+        progress.setProgress(totalSpent / value); // Normalize for example (e.g., value out of 100)
 
     }
 

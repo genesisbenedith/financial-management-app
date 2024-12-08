@@ -1,26 +1,27 @@
 
 -------------------- Expenses --------------------
-ENTERTAINMENT CATEGORY
-	Budget: (Category,Limit)
-	-> Budget: Entertainment,250.0
-		Total Expenses: $0.00
-OTHER CATEGORY
-	Budget: (Category,Limit)
-	-> Budget: Other,720.0
-		Total Expenses: $0.00
-TRANSPORTATION CATEGORY
-	Budget: (Category,Limit)
-	-> Budget: Transportation,50.0
-		Total Expenses: $0.00
 FOOD CATEGORY
 	Budget: (Category,Limit)
-	-> Budget: Food,500.0
+	-> Budget: Food,255.0
 		Total Expenses: $0.00
 HEALTHCARE CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Healthcare,300.0
-		2024-12-2,Healthcare,200.0,yes
-		Total Expenses: $200.00
+		Total Expenses: $0.00
+ENTERTAINMENT CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Entertainment,250.0
+		Total Expenses: $0.00
+TRANSPORTATION CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Transportation,50.0
+		2024-12-4,Transportation,20.0,kk
+		2024-12-5,Transportation,5.0,fd
+		Total Expenses: $25.00
+OTHER CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Other,720.0
+		Total Expenses: $0.00
 UTILITIES CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Utilities,367.45
