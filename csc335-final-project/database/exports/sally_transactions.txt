@@ -1,0 +1,4 @@
+2022-9-14,Healthcare,768.64,Covid Vaccine and Check up
+2022-11-1,Healthcare,61.11,Covid Vaccine and Check up
+2025-1-1,Healthcare,69.99,Covid Vaccine and Check up
+2025-1-10,Healthcare,61.11,Covid Vaccine and Check up

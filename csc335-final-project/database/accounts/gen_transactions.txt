@@ -14,10 +14,9 @@ ENTERTAINMENT CATEGORY
 		Total Expenses: $0.00
 TRANSPORTATION CATEGORY
 	Budget: (Category,Limit)
-	-> Budget: Transportation,50.0
-		2024-12-4,Transportation,20.0,kk
-		2024-12-5,Transportation,5.0,fd
-		Total Expenses: $25.00
+	-> Budget: Transportation,20.0
+		2024-12-18,Transportation,20.0,hh
+		Total Expenses: $20.00
 OTHER CATEGORY
 	Budget: (Category,Limit)
 	-> Budget: Other,720.0
