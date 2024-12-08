@@ -61,6 +61,21 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
+/**
+ * Handles the user interface (UI) logic for managing and displaying expenses within the application.
+ * Responsible for initializing the UI elements, handling user interactions, filtering and displaying expenses, 
+ * importing expense data from external files, and updating the UI accordingly. The class interacts with other components such as 
+ * the ExpenseTracker, UserSessionManager, and various UI elements (e.g., MFXDatePicker, MFXButton, MFXScrollPane) to provide an 
+ * effiecient and responsive experience for managing a user's expenses.
+ * 
+ * Supports the following features:
+ * - displaying and filtering expenses by date range and category
+ * - importing expense data from external text files
+ * - managing and displaying various progress bars representing different budget categories
+ * - providing interactive UI elements such as buttons for adding new expenses and downloading files
+ * 
+ * The class implements the Initializable interface, initializing UI components and data when the view is loaded.
+ */
 public class ExpensesController implements Initializable {
 
     // -------------fields from the view----------------------
@@ -164,6 +179,8 @@ public class ExpensesController implements Initializable {
 
     /**
      * loads the window and the information/visuals needed with their implementations
+     * @param location   The location of the FXML file.
+     * @param resources  The resource bundle for the application.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

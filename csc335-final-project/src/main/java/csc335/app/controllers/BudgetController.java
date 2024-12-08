@@ -28,7 +28,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 /**
+ * Manages the user interface for the budget management section of the application by
+ * allowing users to view, update, and monitor their budget limits and spending across different categories, 
+ * such as food, transportation, entertainment, utilities, healthcare, and other expenses. 
+ * The controller interacts with the budget model to retrieve and update budget data, 
+ * providing visual feedback through text fields, progress spinners, and alert images.
  * 
+ * Key responsibilities of this class:
+ * - displaying the current budget limits and progress for each category
+ * - allowing users to modify budget limits for each category via input fields
+ * - providing real-time feedback through progress indicators and alerts when budget limits are exceeded
+ * - validating user input to ensure only valid numbers are entered, and alerting the user if input is invalid or negative
+ * - handling budget update events for each category, including visibility of alerts and progress bars based on spending
+ * - initializing the view components and setting up the budget data when the budget panel is loaded
+ * 
+ * Implements the Initializable interface to perform necessary setup when the view is initialized, 
+ * and utilizes various UI elements (text fields, progress spinners, and alert images) to reflect the user's current budget status.
  */
 public class BudgetController implements Initializable {
 

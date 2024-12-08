@@ -35,6 +35,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseButton;
 
+/**
+ * Handles the UI logic for adding and editing expenses within the application by
+ * managing the interaction between the user and the system when creating or modifying an expense, including setting 
+ * values for the amount, category, description, and date of an expense. The controller interacts with other components 
+ * like the ExpensesController and ExpenseTracker to ensure that changes are properly reflected in the system and the 
+ * user interface.
+ * 
+ * Supports the following features:
+ * - adding a new expense with validation for amount, category, and description
+ * - editing an existing expense, including pre-filling the form with the expense's current values
+ * - handling user interactions for saving or canceling the addition/editing of an expense
+ * - validating and formatting numeric input with commas as the user types in the amount field
+ * - providing the user with error or success alerts for certain actions (e.g., invalid input, successful expense addition)
+ * 
+ * Implements the Initializable interface, initializing UI components and setting up event listeners when the view is loaded.
+ */
 public class ExpenseController implements Initializable{
     // -----------fields from the view---------------------
     @FXML
@@ -73,6 +89,8 @@ public class ExpenseController implements Initializable{
 
     /**
      * loads the window and the information/visuals needed with their implementations
+     * @param location   The location of the FXML file.
+     * @param resources  The resource bundle for the application.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
