@@ -115,7 +115,11 @@ public enum BudgetTracker  {
      * @return the percentage of the budget spent (out of 100)
      */
     public Double getBudgetProgress(Category category) {
-        return findBudget(category).getPercentage() / 100;
+        return getBudgetProgress(CalendarConverter.INSTANCE.getCalendar(), category);
+    }
+
+    public Double getBudgetProgress(Calendar calendar, Category category) {
+        return findBudget(category).getPercentage(calendar) / 100;
     }
 
     /**

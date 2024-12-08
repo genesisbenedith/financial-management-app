@@ -2,7 +2,6 @@ package csc335.app.persistence;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
@@ -41,14 +40,14 @@ public final class Hasher {
      * @return the Base64-encoded hashed password
      * @throws RuntimeException if the hashing algorithm is not found
      */
-    protected static final String hashPassword(String password, String salt) {
+    public static final String hashPassword(String password, String salt) throws RuntimeException {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(HASH_ALGO);
             String saltedPassword = password + salt;
             byte[] hash = messageDigest.digest(saltedPassword.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(hash);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Algorithm not found -> " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
      }
 

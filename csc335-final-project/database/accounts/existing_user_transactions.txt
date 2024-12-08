@@ -1,0 +1,30 @@
+
+-------------------- User Budgets --------------------
+FOOD CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Food,0.0
+		Total Expenses: $0.00
+ENTERTAINMENT CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Entertainment,0.0
+		Total Expenses: $0.00
+TRANSPORTATION CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Transportation,0.0
+		Total Expenses: $0.00
+UTILITIES CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Utilities,0.0
+		Total Expenses: $0.00
+HEALTHCARE CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Healthcare,0.0
+		Total Expenses: $0.00
+OTHER CATEGORY
+	Budget: (Category,Limit)
+	-> Budget: Other,0.0
+		Total Expenses: $0.00
+
+Budget : Expense : Budget : Expense : 
+
+Expense : Budget : Expense

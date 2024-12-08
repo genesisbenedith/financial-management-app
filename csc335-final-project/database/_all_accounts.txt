@@ -1,3 +1,13 @@
 hello,hi@aol.com,YzBvLYA21EHvSu7ZRhYfUZBvHPu+FI6RQAOQrhq1cXw=,6356sL+5mmjBfeTAcw3yLcjJMaQ0Kmwig3LFFnyrg9yGB7rl0jWL5asjB4NbH2Sm+FFWJLmQfuIRvJu+zSxkFA==
 gen,gen@aol.com,cTbWkvw298akKiXxOvR0NYY42bTjGHY+rW1JOFyGC7s=,KCL/kmCY8NhjieN1VV2Ai/FT4XgAVLKJr3EIEF75hAYW60tJ5P2ThoUem6ZjsG0MTFOrUkUqm37OEvBSkBiztw==
 great,great@great.com,PrvyCUpIRZwWQEYblRfYKpcpq97lOMAWNoQhJC7ue3M=,zoEumvdA8sLGCy/q8V9l2JstTbaH2065HsB/hKptywPsoweSPoJ9BjxMBGXctEdVdDfZ9h7DamKSQWZUfacVgQ==
+new_user,new_user@example.com,28MMTFmWwK/PlnnsRa5ay7ZyCX7yyrd2kqeCLgoCBIE=,YBQzLVcn5No/oZOUd36co/8oEtoXk/2t7/IauICf36JMMlR/mfNHgf3ASpT8fLPcE9LmoZTzcCiq0w+pTVJfFA==
+unique_user,existing_email@example.com,2fLOY2X5yEDv5qSZLLwnr/l1qIavYHEpW4gGrSJOHiw=,VmAU8ICc6yVXbgYCOsDDtGi00ulczN2EwhziKr4Rjo/EM6lAK10twqdtbi+9hGwL1xYielD+1Im3FCHm9crWuw==
+existing_user,unique_email@example.com,JxtVgQKJXWMyJlS9d+mP4P8YxcnZgvaH5D0yWYETIJA=,XEDYgKGAe5GsRvd+IhrKyzeatsEsh36606Rf/sp4Ks6O+rETCUy6XdYw399Jzoj2l5l/pFe1MxX9kJ/jO0Gt+w==
+missing,credentials
+cake,kPop@us.com,sugSttD7l5nxPWqxfNFt9k1FqVeMqGv4cEHDBwMdEds=,RGsFYj+QQ916INPoKhkpvMMAz4ruA3kqhajkj6qKfoL/WeJf0Wki2rSdsCQx//a6SrAIzs8pDuT0/pHmKtFrKQ==cake,kPop@us.com,iyr/ttbOoN21oiwrT7dHkWjAkj7Wu4JuxIxBuzGuIhw=,JD4619SqAqVmZzjPMRO/xWSPa68vwQhkwfGVY5+ogZpa2UBmgrEEDET62jx+vCvw3rB2EfEmnr0JDRTEsihiIw==
+cake,kPop@us.com,2piERakUIHjee9QZIXOZypxSwEBZoBgiDX5GOplbX1M=,lm6D4XwryOlYJS4rAQltPNtXrht3oPlAPtlgLx1T9hFBvTZjfc6+aulE0FCuh+igVcgGS4jJkjDrKFGpkmw2HA==
+                             
+
+
+                                        \t

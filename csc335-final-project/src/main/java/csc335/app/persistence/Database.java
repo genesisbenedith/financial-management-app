@@ -88,7 +88,7 @@ public enum Database {
      * 
      * @throws RuntimeException if an error occurs while reading the file
      */
-    private void loadUserAccounts() throws RuntimeException {
+    public void loadUserAccounts() throws RuntimeException {
         Path filePath = Path.of(DATABASE_DIRECTORY, ACCOUNT_DATA);
         File file = filePath.toFile();
 
@@ -246,48 +246,6 @@ public enum Database {
             return USER_ACCOUNTS.get(query);
         }
         return null;
-    }
-
-    /**
-     * Reads and imports expense data for a specific user.
-     * 
-     * @param username the username of the user
-     */
-    protected void readExpenseImport(String username) {
-        Path filePath = Path.of(DATABASE_DIRECTORY, IMPORTS_DIRECTORY, username + "_import.txt");
-        File file = filePath.toFile();
-
-        List<Expense> expensesFoundInFile = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length != 4) continue;
-
-                String[] date = data[0].trim().split("-");
-                int year = Integer.parseInt(date[0]);
-                int month = Integer.parseInt(date[1]);
-                int day = Integer.parseInt(date[2]);
-
-                Calendar calendar = CalendarConverter.INSTANCE.getCalendar(year, month, day);
-                Category category = Category.valueOf(data[1].trim().toUpperCase());
-                double amount = Double.parseDouble(data[2].trim());
-                String description = data[3].trim();
-
-                Expense expense = new Expense(calendar, category, amount, description);
-                expensesFoundInFile.add(expense);
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException("An error occurred while loading the import file: " + e.getMessage());
-        }
-
-        User user = findUserAccount(username, "Username");
-
-        for (Expense expense : expensesFoundInFile) {
-            ExpenseTracker.TRACKER.addExpense(expense);
-        }
     }
 
     /**

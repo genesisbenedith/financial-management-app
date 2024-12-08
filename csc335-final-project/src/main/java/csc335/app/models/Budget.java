@@ -131,8 +131,7 @@ public class Budget {
      * @return the percentage of the budget spent
      */
     public double getPercentage(){
-        double percentage = (this.getTotalSpent() / this.getLimit()) * 100;
-        return Math.round(percentage * 10.0) / 100.0;
+        return getPercentage(CalendarConverter.INSTANCE.getCalendar());
     }
 
     /**
@@ -142,7 +141,7 @@ public class Budget {
      * @return the percentage of the budget spent for the specified month
      */
     public double getPercentage(Calendar calendar){
-        double percentage = (this.getTotalSpent() / this.getLimit()) * 100;
+        double percentage = (this.getTotalSpent(calendar) / this.getLimit()) * 100;
         return Math.round(percentage * 10.0) / 100.0;
     }
 

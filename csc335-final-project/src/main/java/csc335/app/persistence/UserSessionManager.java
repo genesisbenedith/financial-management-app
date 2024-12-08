@@ -44,7 +44,7 @@ public enum UserSessionManager {
      * 
      * @return true if a user is active, false otherwise
      */
-    protected boolean hasActiveUser() {
+    public boolean hasActiveUser() {
         return !(currentUser == null);
     }
 
