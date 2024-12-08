@@ -36,7 +36,9 @@ mvn javafx:run
 
 
 ## Project Documentation
-- [Design Document](./documentation/)
+- [Design Document](./documentation/uml-diagram.png)
+- [Commit History] (./documentation/all-branch-commits.csv)
+- [File Structure] (./documentation/file-structure.txt)
 
 ## Video Demo
 - [Demo Video Part 1](./media/demo-part1.mp4)
