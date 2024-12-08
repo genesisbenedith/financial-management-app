@@ -543,14 +543,12 @@ public class ExpensesController implements Initializable {
             budgetHeader.setText(categoryClicked.toString() + " Budget");
             expensesHeader.setText(categoryClicked.toString() + " Expenses");
             totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
-            double totalAmount = filteredExpenses.stream().mapToDouble(Expense::getAmount).sum();
-            totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
-        totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
+            totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses(categoryClicked));
         } else {
             budgetHeader.setText("Total Budget");
             expensesHeader.setText("Total Expenses");
             totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getTotalBudgetLimits());
-            totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses(categoryClicked));
+            totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses(expenses));
         }
 
         vBox.setSpacing(10);
