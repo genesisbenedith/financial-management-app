@@ -7,6 +7,7 @@ package csc335.app.controllers;
  * Description: Controller class that controls the window and functions of the Expenses page
  */
 
+//-----------------------imports----------------------------
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -62,7 +63,7 @@ import javafx.stage.Window;
 
 public class ExpensesController implements Initializable {
 
-    // fields from the view
+    // -------------fields from the view----------------------
     @FXML
     private AnchorPane contentArea;
 
@@ -152,11 +153,17 @@ public class ExpensesController implements Initializable {
     @FXML
     private Pane addNewExpense;
 
+    //--------------------instance variables----------------------
+
+    /**
+     * currentUser: the currently logged-in user. This holds the user's data and account information
+     * categoryClicked: the category that was clicked on. This is used to filter expenses by category
+     */
     private User currentUser;
     private Category categoryClicked;
 
     /**
-     * 
+     * loads the window and the information/visuals needed with their implementations
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -178,9 +185,10 @@ public class ExpensesController implements Initializable {
     }
 
     /**
-     * 
-     */
-
+    * Sets up the file import functionality and enablesthe user to import expenses from a file.
+    * This method makes the import pane clickable and adds hover effects for better UX.
+    * Sets up the click handler to trigger the import file selection dialog.
+    */
     private void setupimportFile() {
         // Make sure the pane is clickable
         importFile.setCursor(Cursor.HAND);
@@ -194,6 +202,12 @@ public class ExpensesController implements Initializable {
         importFile.setOnMouseClicked(e -> importFileClick());
     }
 
+    /**
+     * Handles the click event for importing a file by openeing method a FileChooser dialog and
+     * allowing the user to select a file. After selection, the file's content is read in line by line,
+     * and each line is processed to extract expense data, and the expense tracker is updated.
+     * Displays a success or error message based on the result.
+     */
     private void importFileClick() {
         FileChooser chooseFile = new FileChooser();
         chooseFile.setTitle("Import File");
@@ -240,6 +254,11 @@ public class ExpensesController implements Initializable {
         }
     }
 
+    /**
+     * Processes a single line of expense data from the imported file.
+     * Parses the line, creates an Expense object, and adds it to the expense tracker.
+     * @param line The line of expense data to be processed.
+     */
     private void processExpenseLine(String line) {
         String[] expenseInfo = line.split(",");
         if (expenseInfo.length < 4) {
@@ -272,7 +291,9 @@ public class ExpensesController implements Initializable {
     }
 
     /**
-     * 
+     * Sets up the file download functionality, enabling the user to export expenses to a file and
+     * makes the download pane clickable and adds hover effects for better UX.
+     * Sets up the click handler to trigger the file export dialog.
      */
     private void setupdownloadFile() {
         // Make sure the pane is clickable
@@ -281,8 +302,6 @@ public class ExpensesController implements Initializable {
         // Add hover effect
         downloadFile.setOnMouseEntered(e -> {
             downloadFile.setStyle("-fx-background-color: derive(-fx-background, -10%);");
-            // Optional: Add scale effect
-
         });
 
         downloadFile.setOnMouseExited(e -> {
@@ -294,6 +313,12 @@ public class ExpensesController implements Initializable {
         downloadFile.setOnMouseClicked(e -> downloadFileClick());
     }
 
+    /**
+     * Handles the click event for exporting expenses to a file by
+     * opening a file chooser dialog for the user to select a target file location.
+     * If a file is selected, the expenses are exported to that file.
+     * Displays a success or error message based on the result.
+     */
     private void downloadFileClick() {
         FileChooser chooseFile = new FileChooser();
         chooseFile.setTitle("Export Expenses");
@@ -352,11 +377,13 @@ public class ExpensesController implements Initializable {
         } else {
             System.out.println("File save operation canceled by the user.");
         }
-
+        refreshPage();
     }
 
     /**
-     * 
+     * Handles the click event for adding a new expense. When the add button is clicked
+     * a new popup window for entering the expense details is opened. It also sets
+     * mouse hover effects for better user interaction.
      */
     private void addNewExpenseClick() {
         addNewExpense.setOnMouseClicked(click -> {
@@ -371,13 +398,18 @@ public class ExpensesController implements Initializable {
         addNewExpense.setCursor(Cursor.HAND);
         addNewExpense.setOnMouseEntered(e -> {
             addNewExpense.setStyle("-fx-background-color: derive(-fx-background, -10%);");
-            // Optional: Add scale effect
         });
         addNewExpense.setOnMouseExited(e -> {
             addNewExpense.setStyle("-fx-background-color: #E6E6FA;");
         });
+        refreshPage();
     }
 
+    /**
+     * Initializes the date pickers for filtering expenses by date range.
+     * Sets up the date pickers with default values, minimum and maximum dates,
+     * and adds listeners to handle date changes.
+     */
     public void initializeDatePickers() {
         // Initialize date pickers with default values if needed
         dateFrom.setValue(null);
@@ -423,6 +455,10 @@ public class ExpensesController implements Initializable {
         });
     }
 
+    /**
+     * Filters expenses based on the selected date range and category.
+     * Updates the UI with the filtered expenses.
+     */
     private void filterExpensesByDateRange() {
         LocalDate startDate = dateFrom.getValue();
         LocalDate endDate = dateTo.getValue();
@@ -456,6 +492,11 @@ public class ExpensesController implements Initializable {
         loadExpenses(filteredExpenses);
     }
 
+    /**
+     * Converts a LocalDate object to a Calendar object.
+     * @param localDate The LocalDate to be converted.
+     * @return A Calendar object representing the same date and time.
+     */
     private Calendar convertLocalDateToCalendar(LocalDate localDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
@@ -466,25 +507,29 @@ public class ExpensesController implements Initializable {
     }
 
     /**
-     * 
-     * @param expenses
+     * Loads the expenses into the UI.
+     * @param expenses The list of expenses to be displayed.
      */
     public void loadExpenses(List<Expense> expenses) {
         if (vBox.getChildren().size() > 1) {
             vBox.getChildren().retainAll(vBox.getChildren().get(0));
         }
-
-        if (categoryClicked != null) {
-            budgetHeader.setText(categoryClicked.toString() + " Budget");
-            expensesHeader.setText(categoryClicked.toString() + " Expenses");
-            totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
-            totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses());
-        } else {
-            budgetHeader.setText("Total Budget");
-            expensesHeader.setText("Total Expenses");
-            totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getTotalBudgetLimits());
-            totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses(categoryClicked));
-        }
+        refreshPage();
+        // ----------------------duplicate code------------------------------
+        // List<Expense> filteredExpenses = ExpenseTracker.TRACKER.getExpenses();
+        // if (categoryClicked != null) {
+        //     budgetHeader.setText(categoryClicked.toString() + " Budget");
+        //     expensesHeader.setText(categoryClicked.toString() + " Expenses");
+        //     totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
+        //     double totalAmount = filteredExpenses.stream().mapToDouble(Expense::getAmount).sum();
+        //     totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
+        // totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
+        // } else {
+        //     budgetHeader.setText("Total Budget");
+        //     expensesHeader.setText("Total Expenses");
+        //     totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getTotalBudgetLimits());
+        //     totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses(categoryClicked));
+        // }
 
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10));
@@ -566,6 +611,7 @@ public class ExpensesController implements Initializable {
                     // Add your edit logic here
                     ExpenseTracker.TRACKER.removeExpense(expense);
                     AccountManager.ACCOUNT.saveUserAccount();
+                    refreshPage();
                 }
             });
 
@@ -581,6 +627,7 @@ public class ExpensesController implements Initializable {
                         vBox.getChildren().remove(clonedPane);
                         ExpenseTracker.TRACKER.removeExpense(expense);
                         AccountManager.ACCOUNT.saveUserAccount();
+                        refreshPage();
                     }
                 }
             });
@@ -628,22 +675,23 @@ public class ExpensesController implements Initializable {
     }
 
     /**
-     * 
-     * @return
+     * Clears the expenses and resets the UI.
      */
     @FXML
     private void clearButtonClick() {
         // just put the total budget and total expenses labels and dollar amount back to
         // total
-        budgetHeader.setText(categoryClicked.toString() + " Budget");
-        expensesHeader.setText(categoryClicked.toString() + " Expenses");
-        totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
-        totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses());
-        loadExpenses(ExpenseTracker.TRACKER.getExpenses());
+        refreshPage();
+    // -------------duplicate code----------------------------------
+    //     budgetHeader.setText(" Total Budget");
+    //     expensesHeader.setText("Total Expenses");
+    //     totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getBudgetLimit(categoryClicked));
+    //     totalExpensesAmt.setText("$" + ExpenseTracker.TRACKER.calculateTotalExpenses());
+    //     loadExpenses(ExpenseTracker.TRACKER.getExpenses());
     }
 
     /**
-     * 
+     * Initializes the progress bars for each category.
      */
     private void initializeProgressBars() {
         HBox progressBarContainer = percentBar;
@@ -710,6 +758,12 @@ public class ExpensesController implements Initializable {
         }
     }
 
+    /**
+     * Handles the click event on a progress bar.
+     *
+     * @param category The category associated with the progress bar.
+     * @param categoryExpensePercentage The percentage of the budget used for the category.
+     */
     private void progressBarClicked(Category category, double categoryExpensePercentage) {
         vBox.getChildren().clear();
         HBox progressBarContainer = percentBar;
@@ -753,6 +807,13 @@ public class ExpensesController implements Initializable {
                 + ", Expenses: $" + ExpenseTracker.TRACKER.calculateTotalExpenses(category));
     }
 
+    /**
+     * Adds hover effect to a node.
+     *
+     * @param style The style to apply on hover.
+     * @param node The node to apply the hover effect.
+     * @param category The category associated with the node.
+     */
     private void addHoverEffect(String style, Node node, Category category) {
         node.setOnMouseEntered(event -> {
             node.setStyle(style + category.getHoverColor() + ";");
@@ -764,8 +825,9 @@ public class ExpensesController implements Initializable {
     }
 
     /**
-     * 
-     * @param categoryExpensePercentage
+     * Updates the category expense percentage label.
+     *
+     * @param categoryExpensePercentage The percentage of the budget used for the category.
      */
     private void updateCategoryExpensePercentage(double categoryExpensePercentage) {
         // Update the UI with the percentage, this can be displayed in a label or
@@ -774,6 +836,39 @@ public class ExpensesController implements Initializable {
 
         expensePercentageLabel
                 .setText("Category spent: " + String.format("%.2f", categoryExpensePercentage * 100) + "%");
+    }
+
+    /**
+     * Refreshes the page by reloading expenses and updating UI components
+     */
+    private void refreshPage(){
+        vBox.getChildren().clear();
+        loadExpenses(ExpenseTracker.TRACKER.getExpenses());
+        percentBar.getChildren().clear();
+        initializeProgressBars();
+        List<Expense> filteredExpenses = ExpenseTracker.TRACKER.getExpenses();
+        totalBudgetAmt.setText("$" + BudgetTracker.TRACKER.getTotalBudgetLimits());
+        double totalAmount = filteredExpenses.stream().mapToDouble(Expense::getAmount).sum();
+        totalExpensesAmt.setText(String.format("$%.2f", totalAmount));
+        budgetHeader.setText(categoryClicked.toString() + " Budget");
+        expensesHeader.setText(categoryClicked.toString() + " Expenses");
+        if (categoryClicked != null) {
+            double categoryExpensesAmount = ExpenseTracker.TRACKER.calculateTotalExpenses(categoryClicked);
+            double categoryBudgetLimit = BudgetTracker.TRACKER.getBudgetLimit(categoryClicked);
+            double categoryUsagePercentage = categoryBudgetLimit;
+            if (categoryUsagePercentage > 0){
+                categoryUsagePercentage = categoryExpensesAmount / categoryBudgetLimit;
+            } 
+            else{
+                categoryUsagePercentage = 0;
+            }
+            
+            updateCategoryExpensePercentage(categoryUsagePercentage);
+        }
+        
+        // Force layout update
+        expenseList.layout();
+        expenseList.setVvalue(expenseList.getVvalue());
     }
 
 }
