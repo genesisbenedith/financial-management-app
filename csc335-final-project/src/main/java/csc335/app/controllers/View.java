@@ -19,11 +19,9 @@ import javafx.stage.Window;
 /**
  * This file defines the `View` enum, which manages the different views (scenes)
  * and pop-up windows for the Finantra application. Each enum constant
- * corresponds
- * to a specific view and contains information about its title and FXML path.
- * The `View` enum handles the creation, navigation, and management of both
- * primary
- * scenes and modal pop-ups.
+ * corresponds to a specific view and contains information about its title 
+ * and FXML path. The `View` enum handles the creation, navigation, and management 
+ * of both primary scenes and modal pop-ups.
  * 
  * @author Genesis Benedith
  */
@@ -38,28 +36,25 @@ public enum View {
     ALERT("N/A", "Alert"),
     CHOOSER("N/A", "Chooser");
 
-    /** The title of the view displayed in the stage. */
+    // The title of the view displayed in the stage.
     private final String VIEW_TITLE;
 
-    /** The name of the view, used to generate its FXML file path. */
+    // The name of the view, used to generate its FXML file path.
     private final String VIEW_NAME;
 
-    /** The base directory where FXML files are located. */
+    // The base directory where FXML files are located.
     private final String FXML_VIEW_DIRECTORY = Path.of(File.separator + "views").toString();
 
-    /** The full path to the FXML file for this view. */
+    // The full path to the FXML file for this view.
     private final String FXML_VIEW_PATH;
 
-    /** The main application stage (primary window). */
+    // The main application stage (primary window).
     private static Stage primaryStage;
 
-    /** A stack to manage the history of scenes in the main stage. */
-    private final Deque<View> sceneStack = new ArrayDeque<>();
-
-    /** The stage for modal pop-up windows. */
+    // The stage for modal pop-up windows. */
     private Stage popUpStage;
 
-    /** A stack to manage the history of pop-up scenes. */
+    // A stack to manage the history of pop-up scenes. */
     private final Deque<View> popUpSceneStack = new ArrayDeque<>();
 
     /**
@@ -218,9 +213,9 @@ public enum View {
     /**
      * Sets the main application stage with the specified parent node and displays
      * the view.
+     * 
      * If the primary stage is null, it initializes a new stage. Updates the stage
-     * title,
-     * sets the scene, and shows the view.
+     * title, sets the scene, and shows the view.
      * 
      * @param parent The root node of the scene to be displayed.
      */

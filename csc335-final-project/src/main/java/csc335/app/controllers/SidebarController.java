@@ -7,7 +7,8 @@ package csc335.app.controllers;
  * The controller handles user interaction, such as mouse click events, and initializes 
  * user-related information displayed in the sidebar.
  * 
- * 
+ * File: SidebarController.java
+ * Course: CSC 335 (Fall 2024)
  * @author Chelina Obiang
  * @author Genesis Benedith
  */
@@ -64,6 +65,7 @@ public class SidebarController implements Initializable {
      * views into the application stage. Additionally, user information is 
      * initialized and displayed on the sidebar.
      * 
+     * @author Chelina Obiang
      * @param location the location of the FXML resource
      * @param resources the resources used to localize the FXML resource
      */
@@ -84,6 +86,8 @@ public class SidebarController implements Initializable {
     /**
      * Initializes the user-specific information displayed on the sidebar. 
      * This includes setting the user's avatar initials, username, and email.
+     * 
+     * @author Genesis Benedith
      */
     public void initializeUserInfo() {
         userAvatar.setInitials(currentUser.getUsername().substring(0,1).toUpperCase());

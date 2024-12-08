@@ -21,6 +21,8 @@ import javafx.scene.control.TextField;
  * 
  * This class implements the Initializable interface to perform setup when the controller is loaded.
  * 
+ * File: SignUpController.java
+ * Course: CSC 335 (Fall 2024)
  * @author Genesis Benedith
  */
 public class SignUpController implements Initializable {
@@ -92,20 +94,16 @@ public class SignUpController implements Initializable {
 
                 // Handle different status outcomes
                 switch (status) {
-                    case 0:
+                    case 0 -> {
                         View.ALERT.showAlert(AlertType.INFORMATION, "Success", "User account successfully created!");
                         View.LOGIN.loadView();
-                        break;
-                    case 1:
-                        View.ALERT.showAlert(AlertType.ERROR, "Error", "Email is already taken!");
-                        break;
-                    case 2:
-                        View.ALERT.showAlert(AlertType.ERROR, "Error", "Username is already taken!");
-                        break;
-                    case -1:
-                        break;
-                    default:
-                        break;
+                    }
+                    case 1 -> View.ALERT.showAlert(AlertType.ERROR, "Error", "Email is already taken!");
+                    case 2 -> View.ALERT.showAlert(AlertType.ERROR, "Error", "Username is already taken!");
+                    case -1 -> {
+                    }
+                    default -> {
+                    }
                 }
             }
         } catch (IOException e) {

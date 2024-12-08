@@ -12,8 +12,9 @@ import javafx.scene.image.ImageView;
  * It displays a welcome message and handles navigation to the login page 
  * when the user clicks the arrow button. This class implements the Initializable interface to set up the splash screen 
  * when the application launches.
- * File: SplashController.java
  * 
+ * File: SplashController.java
+ * Course: CSC 335 (Fall 2024)
  * @author Genesis Benedith
  */
 public class SplashController implements Initializable {
