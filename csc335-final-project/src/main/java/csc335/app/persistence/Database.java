@@ -26,7 +26,6 @@ public enum Database {
 
     private final String DATABASE_DIRECTORY = "database";
     private final String ACCOUNTS_DIRECTORY = "accounts";
-    private final String AVATAR_DIRECTORY = "avatars";
     private final String IMPORTS_DIRECTORY = "imports";
     private final String ACCOUNT_DATA = "_all_accounts.txt";
     private final Map<String, User> USER_ACCOUNTS = new HashMap<>();

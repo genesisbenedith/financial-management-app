@@ -125,7 +125,7 @@ public class Expense {
     public String getStringDate() {
         Calendar calendar = this.getCalendarDate();
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1; // Calendar months are 0-indexed
+        int month = calendar.get(Calendar.MONTH); // Calendar months are 0-indexed
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         return year + "-" + month + "-" + day;
     }

@@ -1,5 +1,13 @@
 package csc335.app.controllers;
 
+/**
+ * @author Lauren Schroeder
+ * Course: CSC 335 (Fall 2024)
+ * File: ExpenseController.java
+ * Description: Controller class that controls the popup window that allows for
+ *              adding and editing expenses from the user
+ */
+// ---------------imports--------------------
 import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -28,6 +36,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseButton;
 
 public class ExpenseController implements Initializable{
+    // -----------fields from the view---------------------
     @FXML
     private TextField amountField;
 
@@ -49,10 +58,22 @@ public class ExpenseController implements Initializable{
     @FXML
     private Label title;
 
+    //-----------------instance variables--------------------------------
+    /**
+     * selectedCategory: The category selected by the user from the expense category list.
+     * This represents the type of expense (e.g., "Food", "Entertainment").
+     * 
+     * exController: The controller responsible for managing expense-related operations.
+     * This controller interacts with the model to handle expenses and update the view.
+     */
     private String selectedCategory;
     private ExpensesController exController;
     
+    //----------------------------methods------------------------------------
 
+    /**
+     * loads the window and the information/visuals needed with their implementations
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Expense Controller initialized");
@@ -62,14 +83,11 @@ public class ExpenseController implements Initializable{
         //List<Expense> expenses = ExpenseTracker.TRACKER.getExpenses();
     }
 
-
-
-    // [ ] Needs method comment
     /**
-     * 
-     * @param alertType
-     * @param title
-     * @param message
+     * Displays an alert with the given type, title, and message
+     * @param alertType the type of the alert (e.g., ERROR, INFORMATION)
+     * @param title the title of the alert window
+     * @param message the content message to display in the alert
      */
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -78,12 +96,21 @@ public class ExpenseController implements Initializable{
         alert.showAndWait();
     }
 
+    /**
+     * Converts a LocalDate to a Calendar instance
+     * @param date the LocalDate to convert
+     * @return the corresponding Calendar instance
+     */
     public Calendar localDateToCalenderDate(LocalDate date) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
         return calendar;
     }
 
+    /**
+     * Adds predefined expense categories to the expenseCategory ComboBox and sets a listener
+     * to handle category selection.
+     */
     public void addCategories(){
         ObservableList<String> list = FXCollections.observableArrayList("Food", "Entertainment", "Transportation", "Utilities", "Healthcare", "Other");
         expenseCategory.setItems(list);
@@ -96,18 +123,35 @@ public class ExpenseController implements Initializable{
         
     }
 
+    /**
+     * Sets the ExpensesController instance for this ExpenseController
+     * @param controller the ExpensesController instance
+     */
     public void setExController(ExpensesController controller) {
         this.exController = controller;
     }
 
+    /**
+     * retrieves the selected category from the expenseCategory ComboBox
+     * @return the selected category as a String
+     */
     public String getSelectedCategory() {
         return expenseCategory.getValue();
     }
 
+    /**
+     * sets the selected category in the expenseCategory ComboBox
+     * @param category the category to be selected
+     */
     public void setSelectedCategory(String category) {
         expenseCategory.setValue(category);
     }
 
+    /**
+     * Adds numeric validation with comma formatting to a TextField and 
+     * only allows valid numbers and formats them with commas as the user types.
+     * @param textField the TextField to add validation and formatting to
+     */
     public void addNumericValidationWithCommas(TextField textField) {
         // Define a number formatter for formatting numbers with commas
         NumberFormat format = NumberFormat.getNumberInstance(Locale.US);
@@ -142,7 +186,10 @@ public class ExpenseController implements Initializable{
         textField.setTextFormatter(textFormatter);
     }
 
-    // use this for the save click
+    /**
+     * Handles the click event for adding an expense by validating the input fields,
+     * creating a new Expense instance, and adding it to the ExpenseTracker.
+     */
     public void handleAddExpenseClick(){
         save.setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
@@ -177,6 +224,9 @@ public class ExpenseController implements Initializable{
        
     }
 
+    /**
+     * Handles the click event for canceling the expense addition closing the popup window when clicked
+     */
     public void onCancelClick(){
         cancel.setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
@@ -185,6 +235,10 @@ public class ExpenseController implements Initializable{
         });
     }
 
+    /**
+     * sets the content of the expense form for editing an existing expense
+     * @param expense the Expense instance to be edited
+     */
     public void setContentText(Expense expense){
         title.setText("Edit Expense");
         amountField.setText(String.valueOf(expense.getAmount()));

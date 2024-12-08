@@ -85,6 +85,14 @@ public class Budget {
         return totalSpent;
     }
 
+    public double getTotalSpent(Calendar calendar) {
+        double totalSpent = 0.0;
+        for (Expense expense : this.expenses) {
+            totalSpent += expense.getAmount();
+        }
+        return totalSpent;
+    }
+
     /**
      * Calculates the percentage of the amount spent towards the
      * category group 
@@ -92,6 +100,11 @@ public class Budget {
      * @return
      */
     public double getPercentage(){
+        double percentage = (this.getTotalSpent() / this.getLimit()) * 100;
+        return Math.round(percentage * 10.0) / 100.0;
+    }
+
+    public double getPercentage(Calendar calendar){
         double percentage = (this.getTotalSpent() / this.getLimit()) * 100;
         return Math.round(percentage * 10.0) / 100.0;
     }
@@ -175,7 +188,7 @@ public class Budget {
         builder.append("\t-> Budget: ");
         builder.append(this.toString());
         for (Expense expense : expenses) {
-            builder.append("\n\t\t");
+            builder.append("\n\t\tExpense: ");
             builder.append(expense.toString());
         }
         return builder.toString();
